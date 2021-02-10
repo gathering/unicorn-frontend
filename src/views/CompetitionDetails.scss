@@ -1,0 +1,24 @@
+.competition-details {
+    display: grid;
+    grid-template-columns: auto 400px;
+    grid-auto-rows: auto;
+
+    grid-template-areas:
+        'header header'
+        'phases sidebar'
+        'rules sidebar';
+
+    gap: 2rem;
+
+    &__header-image {
+        grid-area: header;
+    }
+
+    &__rules {
+        grid-area: rules;
+    }
+
+    .competition-phases {
+        grid-area: phases;
+    }
+}

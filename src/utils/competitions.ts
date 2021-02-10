@@ -1,0 +1,90 @@
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
+import groupBy from 'lodash/groupBy';
+import draftJs from 'draft-js';
+import type { ICompetition, State } from '../features/competitions/competition.types';
+
+export const CLOSED = 1;
+export const REGISTRATION_OPEN = 2;
+export const REGISTRATION_CLOSED = 4;
+export const RUNNING_OPEN = 8;
+export const RUNNING_CLOSED = 16;
+export const VOTING_OPEN = 32;
+export const VOTING_CLOSED = 64;
+export const SHOWTIME = 128;
+export const FINISHED = 256;
+
+export const isExternal = (competition: ICompetition) =>
+    !!competition.external_url_info || !!competition.external_url_login;
+export const hasPreRegistration = (competition: ICompetition) =>
+    !!competition.register_time_start || !!competition.register_time_end;
+export const hasVote = (competition: ICompetition) => !!competition.vote_time_start || !!competition.vote_time_end;
+export const hasTeams = (competition: ICompetition) => !!competition.team_min || !!competition.team_max;
+export const hasFileupload = (competition: ICompetition) => !!competition.fileupload || !!competition.fileupload.length;
+export const hasToornament = (competition: ICompetition) => !!competition.toornament;
+
+export const getFinishedCompetitions = (competitions: ICompetition[]) =>
+    competitions.filter((c) => c.state.value === FINISHED);
+export const getUnfinishedCompetitions = (competitions: ICompetition[]) =>
+    competitions.filter((c) => c.state.value !== FINISHED);
+export const filterCompetitionsByState = (competitions: ICompetition[], state: State) =>
+    competitions.filter((c) => c.state.value === state);
+
+export const groupCompetitionsByKey = (competitions: ICompetition[], key = 'run_time_start') => {
+    dayjs.extend(relativeTime);
+
+    const today = dayjs();
+
+    return groupBy(competitions, (competition: ICompetition) => {
+        const startTime = dayjs(competition[key]);
+
+        // Is the competition within the next 24hr?
+        if (startTime.isBefore(today.add(24, 'hour')) && startTime.isAfter(today)) {
+            // Is the competition within the next 6hr?
+            // Format it a bit special
+            if (startTime.isBefore(today.add(6, 'hour'))) {
+                return `In ${today.to(startTime, true)}`;
+            } else {
+                return 'Later today';
+            }
+        }
+
+        return startTime.format('dddd, MMMM D');
+    });
+};
+
+export const sortByRunTimeStart = (a: ICompetition, b: ICompetition) =>
+    dayjs(a.run_time_start).unix() - dayjs(b.run_time_start).unix();
+
+/**
+ * Convert draft-js raw output or HTML to ContentState
+ * @param {string} rawData Rules in a stringified rawState or HTML format
+ */
+export const convertRawToContentState = (rawData: string) => {
+    let raw = draftJs.ContentState.createFromText('');
+
+    if (typeof rawData === 'string') {
+        try {
+            raw = draftJs.convertFromRaw(JSON.parse(rawData));
+        } catch (_) {
+            try {
+                const blocksFromHTML = draftJs.convertFromHTML(rawData);
+                raw = draftJs.ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
+            } catch (_) {
+                raw = draftJs.ContentState.createFromText('');
+            }
+        }
+    }
+
+    return raw;
+};
+
+export const competitionPhases = (competition: ICompetition): [string, string, string][] => {
+    const phases = ['registration_time', 'run_time', 'vote_time', 'show_time'];
+
+    return phases.map((phase) => [
+        phase,
+        competition ? competition[phase + '_start'] : undefined,
+        competition ? competition[phase + '_end'] : undefined,
+    ]);
+};
