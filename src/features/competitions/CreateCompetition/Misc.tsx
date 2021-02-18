@@ -1,9 +1,13 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
+import { useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Genre } from '../competition.types';
+import { Genre, ICompetition } from '../competition.types';
 import { Input } from '../../../components/Input';
+import { httpPost } from '../../../utils/fetcher';
+import { parseError } from '../../../utils/error';
 
 interface IProps {
     onForward: () => void;
@@ -13,8 +17,32 @@ interface IProps {
 
 export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
     const { register, errors, control, handleSubmit } = useFormContext();
+    const history = useHistory();
 
-    const onSubmit = () => {};
+    const onSubmit = (formData: any) => {
+        httpPost<ICompetition>(
+            'competitions/competitions',
+            JSON.stringify({
+                ...Object.entries(formData).reduce((competitionObject, [key, value]) => {
+                    if (value !== '') {
+                        competitionObject[key] = value;
+                    }
+
+                    return competitionObject;
+                }, {} as { [key: string]: any }),
+                rules: formData.rules ? JSON.stringify(formData.rules) : null,
+                description: formData.rules ? JSON.stringify(formData.description) : null,
+            })
+        )
+            .then((d) => {
+                history.push(`/admin/competitions/${d.id}`);
+                toast.success(`Created competition ${d.name}`);
+            })
+            .catch((err) => {
+                toast.error('Error creating competition');
+                parseError(err).forEach((e: any) => toast.error(e));
+            });
+    };
 
     return (
         <>

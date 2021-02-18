@@ -10,18 +10,18 @@
     "@babel/highlight" "^7.12.13"
 
 "@babel/core@^7.0.0":
-  version "7.12.16"
-  resolved "https://registry.npmjs.org/@babel/core/-/core-7.12.16.tgz#8c6ba456b23b680a6493ddcfcd9d3c3ad51cab7c"
-  integrity sha512-t/hHIB504wWceOeaOoONOhu+gX+hpjfeN6YRBT209X/4sibZQfSF1I0HFRRlBe97UZZosGx5XwUg1ZgNbelmNw==
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/core/-/core-7.12.17.tgz#993c5e893333107a2815d8e0d73a2c3755e280b2"
+  integrity sha512-V3CuX1aBywbJvV2yzJScRxeiiw0v2KZZYYE3giywxzFJL13RiyPjaaDwhDnxmgFTTS7FgvM2ijr4QmKNIu0AtQ==
   dependencies:
     "@babel/code-frame" "^7.12.13"
-    "@babel/generator" "^7.12.15"
-    "@babel/helper-module-transforms" "^7.12.13"
-    "@babel/helpers" "^7.12.13"
-    "@babel/parser" "^7.12.16"
+    "@babel/generator" "^7.12.17"
+    "@babel/helper-module-transforms" "^7.12.17"
+    "@babel/helpers" "^7.12.17"
+    "@babel/parser" "^7.12.17"
     "@babel/template" "^7.12.13"
-    "@babel/traverse" "^7.12.13"
-    "@babel/types" "^7.12.13"
+    "@babel/traverse" "^7.12.17"
+    "@babel/types" "^7.12.17"
     convert-source-map "^1.7.0"
     debug "^4.1.0"
     gensync "^1.0.0-beta.1"
@@ -30,12 +30,12 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@^7.12.13", "@babel/generator@^7.12.15":
-  version "7.12.15"
-  resolved "https://registry.npmjs.org/@babel/generator/-/generator-7.12.15.tgz#4617b5d0b25cc572474cc1aafee1edeaf9b5368f"
-  integrity sha512-6F2xHxBiFXWNSGb7vyCUTBF8RCLY66rS0zEPcP8t/nQyXjha5EuK4z7H5o7fWG8B4M7y6mqVWq1J+1PuwRhecQ==
+"@babel/generator@^7.12.17":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/generator/-/generator-7.12.17.tgz#9ef1dd792d778b32284411df63f4f668a9957287"
+  integrity sha512-DSA7ruZrY4WI8VxuS1jWSRezFnghEoYEFrZcw9BizQRmOZiUsiHl59+qEARGPqPikwA/GPTyRCi7isuCK/oyqg==
   dependencies:
-    "@babel/types" "^7.12.13"
+    "@babel/types" "^7.12.17"
     jsesc "^2.5.1"
     source-map "^0.5.0"
 
@@ -63,11 +63,11 @@
     "@babel/types" "^7.12.13"
 
 "@babel/helper-member-expression-to-functions@^7.12.13":
-  version "7.12.16"
-  resolved "https://registry.npmjs.org/@babel/helper-member-expression-to-functions/-/helper-member-expression-to-functions-7.12.16.tgz#41e0916b99f8d5f43da4f05d85f4930fa3d62b22"
-  integrity sha512-zYoZC1uvebBFmj1wFAlXwt35JLEgecefATtKp20xalwEK8vHAixLBXTGxNrVGEmTT+gzOThUgr8UEdgtalc1BQ==
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/helper-member-expression-to-functions/-/helper-member-expression-to-functions-7.12.17.tgz#f82838eb06e1235307b6d71457b6670ff71ee5ac"
+  integrity sha512-Bzv4p3ODgS/qpBE0DiJ9qf5WxSmrQ8gVTe8ClMfwwsY2x/rhykxxy3bXzG7AGTnPB2ij37zGJ/Q/6FruxHxsxg==
   dependencies:
-    "@babel/types" "^7.12.13"
+    "@babel/types" "^7.12.17"
 
 "@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.12.13":
   version "7.12.13"
@@ -76,10 +76,10 @@
   dependencies:
     "@babel/types" "^7.12.13"
 
-"@babel/helper-module-transforms@^7.12.13":
-  version "7.12.13"
-  resolved "https://registry.npmjs.org/@babel/helper-module-transforms/-/helper-module-transforms-7.12.13.tgz#01afb052dcad2044289b7b20beb3fa8bd0265bea"
-  integrity sha512-acKF7EjqOR67ASIlDTupwkKM1eUisNAjaSduo5Cz+793ikfnpe7p4Q7B7EWU2PCoSTPWsQkR7hRUWEIZPiVLGA==
+"@babel/helper-module-transforms@^7.12.17":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/helper-module-transforms/-/helper-module-transforms-7.12.17.tgz#7c75b987d6dfd5b48e575648f81eaac891539509"
+  integrity sha512-sFL+p6zOCQMm9vilo06M4VHuTxUAwa6IxgL56Tq1DVtA0ziAGTH1ThmJq7xwPqdQlgAbKX3fb0oZNbtRIyA5KQ==
   dependencies:
     "@babel/helper-module-imports" "^7.12.13"
     "@babel/helper-replace-supers" "^7.12.13"
@@ -87,8 +87,8 @@
     "@babel/helper-split-export-declaration" "^7.12.13"
     "@babel/helper-validator-identifier" "^7.12.11"
     "@babel/template" "^7.12.13"
-    "@babel/traverse" "^7.12.13"
-    "@babel/types" "^7.12.13"
+    "@babel/traverse" "^7.12.17"
+    "@babel/types" "^7.12.17"
     lodash "^4.17.19"
 
 "@babel/helper-optimise-call-expression@^7.12.13":
@@ -132,14 +132,14 @@
   resolved "https://registry.npmjs.org/@babel/helper-validator-identifier/-/helper-validator-identifier-7.12.11.tgz#c9a1f021917dcb5ccf0d4e453e399022981fc9ed"
   integrity sha512-np/lG3uARFybkoHokJUmf1QfEvRVCPbmQeUQpKow5cQ3xWrV9i3rUHodKDJPQfTVX61qKi+UdYk8kik84n7XOw==
 
-"@babel/helpers@^7.12.13":
-  version "7.12.13"
-  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.12.13.tgz#3c75e993632e4dadc0274eae219c73eb7645ba47"
-  integrity sha512-oohVzLRZ3GQEk4Cjhfs9YkJA4TdIDTObdBEZGrd6F/T0GPSnuV6l22eMcxlvcvzVIPH3VTtxbseudM1zIE+rPQ==
+"@babel/helpers@^7.12.17":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.12.17.tgz#71e03d2981a6b5ee16899964f4101dc8471d60bc"
+  integrity sha512-tEpjqSBGt/SFEsFikKds1sLNChKKGGR17flIgQKXH4fG6m9gTgl3gnOC1giHNyaBCSKuTfxaSzHi7UnvqiVKxg==
   dependencies:
     "@babel/template" "^7.12.13"
-    "@babel/traverse" "^7.12.13"
-    "@babel/types" "^7.12.13"
+    "@babel/traverse" "^7.12.17"
+    "@babel/types" "^7.12.17"
 
 "@babel/highlight@^7.12.13":
   version "7.12.13"
@@ -150,10 +150,10 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.12.13", "@babel/parser@^7.12.16":
-  version "7.12.16"
-  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.12.16.tgz#cc31257419d2c3189d394081635703f549fc1ed4"
-  integrity sha512-c/+u9cqV6F0+4Hpq01jnJO+GLp2DdT63ppz9Xa+6cHaajM9VFzK/iDXiKK65YtpeVwu+ctfS6iqlMqRgQRzeCw==
+"@babel/parser@^7.12.13", "@babel/parser@^7.12.17":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/parser/-/parser-7.12.17.tgz#bc85d2d47db38094e5bb268fc761716e7d693848"
+  integrity sha512-r1yKkiUTYMQ8LiEI0UcQx5ETw5dpTLn9wijn9hk6KkTtOK95FndDN10M+8/s6k/Ymlbivw0Av9q4SlgF80PtHg==
 
 "@babel/plugin-syntax-class-properties@^7.10.0":
   version "7.12.13"
@@ -163,9 +163,9 @@
     "@babel/helper-plugin-utils" "^7.12.13"
 
 "@babel/runtime@^7.1.2", "@babel/runtime@^7.12.1":
-  version "7.12.13"
-  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
-  integrity sha512-8+3UMPBrjFa/6TtKi/7sehPKqfAm4g6K+YQjyyFOLUTxzOngcRZTlAVY8sc2CORJYqdHQY8gRPHmn+qo15rCBw==
+  version "7.12.18"
+  resolved "https://registry.npmjs.org/@babel/runtime/-/runtime-7.12.18.tgz#af137bd7e7d9705a412b3caaf991fe6aaa97831b"
+  integrity sha512-BogPQ7ciE6SYAUPtlm9tWbgI9+2AgqSam6QivMgXgAT+fKbgppaj4ZX15MHeLC1PVF5sNk70huBu20XxWOs8Cg==
   dependencies:
     regenerator-runtime "^0.13.4"
 
@@ -178,25 +178,25 @@
     "@babel/parser" "^7.12.13"
     "@babel/types" "^7.12.13"
 
-"@babel/traverse@^7.12.13", "@babel/traverse@^7.4.5":
-  version "7.12.13"
-  resolved "https://registry.npmjs.org/@babel/traverse/-/traverse-7.12.13.tgz#689f0e4b4c08587ad26622832632735fb8c4e0c0"
-  integrity sha512-3Zb4w7eE/OslI0fTp8c7b286/cQps3+vdLW3UcwC8VSJC6GbKn55aeVVu2QJNuCDoeKyptLOFrPq8WqZZBodyA==
+"@babel/traverse@^7.12.13", "@babel/traverse@^7.12.17", "@babel/traverse@^7.4.5":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/traverse/-/traverse-7.12.17.tgz#40ec8c7ffb502c4e54c7f95492dc11b88d718619"
+  integrity sha512-LGkTqDqdiwC6Q7fWSwQoas/oyiEYw6Hqjve5KOSykXkmFJFqzvGMb9niaUEag3Rlve492Mkye3gLw9FTv94fdQ==
   dependencies:
     "@babel/code-frame" "^7.12.13"
-    "@babel/generator" "^7.12.13"
+    "@babel/generator" "^7.12.17"
     "@babel/helper-function-name" "^7.12.13"
     "@babel/helper-split-export-declaration" "^7.12.13"
-    "@babel/parser" "^7.12.13"
-    "@babel/types" "^7.12.13"
+    "@babel/parser" "^7.12.17"
+    "@babel/types" "^7.12.17"
     debug "^4.1.0"
     globals "^11.1.0"
     lodash "^4.17.19"
 
-"@babel/types@^7.12.13":
-  version "7.12.13"
-  resolved "https://registry.npmjs.org/@babel/types/-/types-7.12.13.tgz#8be1aa8f2c876da11a9cf650c0ecf656913ad611"
-  integrity sha512-oKrdZTld2im1z8bDwTOQvUbxKwE+854zc16qWZQlcTqMN00pWxHQ4ZeOq0yDMnisOpRykH2/5Qqcrk/OlbAjiQ==
+"@babel/types@^7.12.13", "@babel/types@^7.12.17":
+  version "7.12.17"
+  resolved "https://registry.npmjs.org/@babel/types/-/types-7.12.17.tgz#9d711eb807e0934c90b8b1ca0eb1f7230d150963"
+  integrity sha512-tNMDjcv/4DIcHxErTgwB9q2ZcYyN0sUfgGKUK/mm1FJK7Wz+KstoEekxrl/tBiNDgLK1HGi+sppj1An/1DR4fQ==
   dependencies:
     "@babel/helper-validator-identifier" "^7.12.11"
     lodash "^4.17.19"
@@ -415,10 +415,10 @@
   resolved "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.168.tgz#fe24632e79b7ade3f132891afff86caa5e5ce008"
   integrity sha512-oVfRvqHV/V6D1yifJbVRU3TMp8OT6o6BG+U9MkwuJ3U8/CsDHvalRpsxBqivn71ztOFZBTfJMvETbqHiaNSj7Q==
 
-"@types/node@^14.14.25":
-  version "14.14.28"
-  resolved "https://registry.npmjs.org/@types/node/-/node-14.14.28.tgz#cade4b64f8438f588951a6b35843ce536853f25b"
-  integrity sha512-lg55ArB+ZiHHbBBttLpzD07akz0QPrZgUODNakeC09i62dnrywr9mFErHuaPlB6I7z+sEbK+IYmplahvplCj2g==
+"@types/node@^14.14.29":
+  version "14.14.29"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.29.tgz#2bbaefda2b715f9a0cd31c55b55b9092c5920e59"
+  integrity sha512-z1PF7SVwqolmqu21eoWM82FPx699C2sCmrxTcCRotRn+2gt9Ve4dwmZsDntxgGyEHFHXYaqMcMMCdPKUeTKXsA==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -800,9 +800,9 @@ convert-source-map@^1.7.0:
     safe-buffer "~5.1.1"
 
 core-js@^3.6.4:
-  version "3.8.3"
-  resolved "https://registry.npmjs.org/core-js/-/core-js-3.8.3.tgz#c21906e1f14f3689f93abcc6e26883550dd92dd0"
-  integrity sha512-KPYXeVZYemC2TkNEkX/01I+7yd+nX3KddKwZ1Ww7SKWdI2wQprSgLmrTddT8nw92AjEklTsPBoSdQBhbI1bQ6Q==
+  version "3.9.0"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.9.0.tgz#790b1bb11553a2272b36e2625c7179db345492f8"
+  integrity sha512-PyFBJaLq93FlyYdsndE5VaueA9K5cNB7CGzeCj191YYLhkQM0gdZR2SKihM70oF0wdqKSKClv/tEBOpoRmdOVQ==
 
 cosmiconfig@^7.0.0:
   version "7.0.0"
@@ -825,7 +825,7 @@ create-react-context@^0.3.0:
 
 cross-fetch@^3.0.4:
   version "3.0.6"
-  resolved "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
+  resolved "https://registry.yarnpkg.com/cross-fetch/-/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
   integrity sha512-KBPUbqgFjzWlVcURG+Svp9TlhA5uliYtiNx/0r8nv0pdypeQCRJ9IaSIc3q/x3q8t3F75cHuwxVql1HFGHCNJQ==
   dependencies:
     node-fetch "2.6.1"
@@ -933,7 +933,7 @@ dotenv@^8.2.0:
 
 draft-js@^0.11.7:
   version "0.11.7"
-  resolved "https://registry.npmjs.org/draft-js/-/draft-js-0.11.7.tgz#be293aaa255c46d8a6647f3860aa4c178484a206"
+  resolved "https://registry.yarnpkg.com/draft-js/-/draft-js-0.11.7.tgz#be293aaa255c46d8a6647f3860aa4c178484a206"
   integrity sha512-ne7yFfN4sEL82QPQEn80xnADR8/Q6ALVworbC5UOSzOvjffmYfFsr3xSZtxbIirti14R7Y33EZC5rivpLgIbsg==
   dependencies:
     fbjs "^2.0.0"
@@ -951,9 +951,9 @@ draftjs-utils@^0.10.2:
   integrity sha512-EstHqr3R3JVcilJrBaO/A+01GvwwKmC7e4TCjC7S94ZeMh4IVmf60OuQXtHHpwItK8C2JCi3iljgN5KHkJboUg==
 
 electron-to-chromium@^1.3.649:
-  version "1.3.667"
-  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.667.tgz#18ca4f243ec163c3e354e506ba22ef46d31d925e"
-  integrity sha512-Ot1pPtAVb5nd7jeVF651zmfLFilRVFomlDzwXmdlWe5jyzOGa6mVsQ06XnAurT7wWfg5VEIY+LopbAdD/bpo5w==
+  version "1.3.668"
+  resolved "https://registry.npmjs.org/electron-to-chromium/-/electron-to-chromium-1.3.668.tgz#87bab4d2863d865a6996b592db79f94e1cc5f768"
+  integrity sha512-TJzc4pxcplsWWS2hP01qQtwMIS+/3VLm4tkhsXbFwx3IIroXyidalrwcaJH+cNcrAdzSJ5xv0oeyGMS7d0i3kg==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -968,9 +968,9 @@ error-ex@^1.3.1:
     is-arrayish "^0.2.1"
 
 esbuild@^0.8.7:
-  version "0.8.46"
-  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.46.tgz#8fc7230ce3019b12e2553399f0c03875a729c26b"
-  integrity sha512-xck9sXNCNmjDHCCfxTCyhKTiFuEBweh+IDAhMLOJI990v1Fzii6MyIkT1LbkvjgoVgPX2SK1kpi5eZVGNrl8yg==
+  version "0.8.48"
+  resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.8.48.tgz#a57e4dde84ec56da1c6ecaefee97e9da6c5b00b5"
+  integrity sha512-lrH8lA8wWQ6Lpe1z6C7ZZaFSmRsUlcQAqe16nf7ITySQ7MV4+vI7qAqQlT/u+c3+9AL3VXmT4MXTxV2e63pO4A==
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -1027,12 +1027,12 @@ fastq@^1.6.0:
 
 fbjs-css-vars@^1.0.0:
   version "1.0.2"
-  resolved "https://registry.npmjs.org/fbjs-css-vars/-/fbjs-css-vars-1.0.2.tgz#216551136ae02fe255932c3ec8775f18e2c078b8"
+  resolved "https://registry.yarnpkg.com/fbjs-css-vars/-/fbjs-css-vars-1.0.2.tgz#216551136ae02fe255932c3ec8775f18e2c078b8"
   integrity sha512-b2XGFAFdWZWg0phtAWLHCk836A1Xann+I+Dgd3Gk64MHKZO44FfoD1KxyvbSh0qZsIoXQGGlVztIY+oitJPpRQ==
 
 fbjs@^2.0.0:
   version "2.0.0"
-  resolved "https://registry.npmjs.org/fbjs/-/fbjs-2.0.0.tgz#01fb812138d7e31831ed3e374afe27b9169ef442"
+  resolved "https://registry.yarnpkg.com/fbjs/-/fbjs-2.0.0.tgz#01fb812138d7e31831ed3e374afe27b9169ef442"
   integrity sha512-8XA8ny9ifxrAWlyhAbexXcs3rRMtxWcs3M0lctLfB49jRDHiaxj+Mo0XxbwE7nKZYzgCFoq64FS+WFd4IycPPQ==
   dependencies:
     core-js "^3.6.4"
@@ -1064,9 +1064,9 @@ fraction.js@^4.0.13:
   integrity sha512-E1fz2Xs9ltlUp+qbiyx9wmt2n9dRzPsS11Jtdb8D2o+cC7wr9xkkKsVKJuBX0ST+LVS+LhLO+SbLJNtfWcJvXA==
 
 framer-motion@^3.3.0:
-  version "3.3.0"
-  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-3.3.0.tgz#e355824369f03c8cd07a87ef59b7a8348c33fafd"
-  integrity sha512-bjUrwXfMJZ6D+HSMDiXbMGKmlWGnUux8HotWgORTZkdPTgKAndlRXjeC2ikCgNVo2ifmRvEla5ckP9JaZc7JKA==
+  version "3.5.2"
+  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-3.5.2.tgz#a44298b57c84c08345b24bf11fd7002a5bff31ad"
+  integrity sha512-G4Tts16mt/Q2kxA0t/7Dob7Mi8ZJ1/QSiV1HNJ1IZptPzIzk8/lRQxxh/7YNWMaY47eeZzLRbtOHvKHnKs296A==
   dependencies:
     framesync "^5.0.0"
     hey-listen "^1.0.8"
@@ -1534,7 +1534,7 @@ node-emoji@^1.8.1:
 
 node-fetch@2.6.1:
   version "2.6.1"
-  resolved "https://registry.npmjs.org/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
 node-releases@^1.1.70:
@@ -1864,9 +1864,9 @@ react-onclickoutside@^6.9.0:
   integrity sha512-7i2L3ef+0ILXpL6P+Hg304eCQswh4jl3ynwR71BSlMU49PE2uk31k8B2GkP6yE9s2D4jTGKnzuSpzWxu4YxfQQ==
 
 react-popper@^1.3.4:
-  version "1.3.8"
-  resolved "https://registry.npmjs.org/react-popper/-/react-popper-1.3.8.tgz#d4de26cb51bbbdd9aacd8436ddb8d5784b2d389d"
-  integrity sha512-v4urgRZHjruyxWiwebAQtfLrzzjebCgimPrNUJ/bM2a1udgn+5/4t207nWPpjl8CDFYM2T0vcCSy5DAEd7dUGQ==
+  version "1.3.9"
+  resolved "https://registry.npmjs.org/react-popper/-/react-popper-1.3.9.tgz#2e7bf037b7857279a18bb4474c0852358689296f"
+  integrity sha512-xKQMQmUMOHAtURz2hj1a0f+M2hyMVWC20hJ09l8UNO2aSCK48kWfdwAuwdCauER0Vo8gV4Qr9G0GobP6KG9AIQ==
   dependencies:
     "@babel/runtime" "^7.1.2"
     create-react-context "^0.3.0"

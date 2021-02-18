@@ -58,7 +58,7 @@ export const httpPost = <T>(
     }
 ) => {
     const _url = url.startsWith('http') ? url : API_URL + url + '/';
-    return fetcher(new Request(_url, args));
+    return fetcher<T>(new Request(_url, args));
 };
 
 export const httpPut = <T>(

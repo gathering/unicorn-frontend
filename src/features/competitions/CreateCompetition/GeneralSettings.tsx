@@ -7,6 +7,7 @@ import { addHours, addWeeks } from 'date-fns';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Input } from '../../../components/Input';
+import { Wysiwyg } from '../../../components/Wysiwyg/Wysiwyg';
 import type { Genre } from '../competition.types';
 
 interface IProps {
@@ -125,35 +126,12 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     }}
                     defaultValue={draftJs.EditorState.createEmpty()}
                     render={({ onChange, value }) => (
-                        <>
-                            <label>Competition description</label>
-                            {errors.description && (
-                                <label role="alert" className="text-red-600" id="description-error-label">
-                                    {errors.description.message}
-                                </label>
-                            )}
-                            <reactDraft.Editor
-                                ariaLabel="Competition description"
-                                ariaDescribedBy={errors.description ? 'description-error-label' : undefined}
-                                onEditorStateChange={onChange}
-                                editorState={value}
-                                wrapperClassName="block mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500"
-                                toolbarClassName="rounded-t"
-                                editorClassName="p-4"
-                                toolbar={{
-                                    options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'history'],
-                                    blockType: {
-                                        inDropdown: true,
-                                        options: ['Normal', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
-                                    },
-                                    list: { inDropdown: true },
-                                    textAlign: { inDropdown: true },
-                                    image: {
-                                        uploadEnabled: false,
-                                    },
-                                }}
-                            />
-                        </>
+                        <Wysiwyg
+                            label="Competition description"
+                            onChange={onChange}
+                            defaultState={value}
+                            errorLabel={errors.description?.message}
+                        />
                     )}
                 />
 
@@ -165,35 +143,12 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     }}
                     defaultValue={draftJs.EditorState.createEmpty()}
                     render={({ onChange, value }) => (
-                        <>
-                            <label>Competition rules</label>
-                            {errors.rules && (
-                                <label role="alert" className="text-red-600" id="description-error-label">
-                                    {errors.rules.message}
-                                </label>
-                            )}
-                            <reactDraft.Editor
-                                ariaLabel="Competition description"
-                                ariaDescribedBy={errors.rules ? 'description-error-label' : undefined}
-                                onEditorStateChange={onChange}
-                                editorState={value}
-                                wrapperClassName="block mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500"
-                                toolbarClassName="rounded-t"
-                                editorClassName="p-4"
-                                toolbar={{
-                                    options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'history'],
-                                    blockType: {
-                                        inDropdown: true,
-                                        options: ['Normal', 'H2', 'H3', 'H4', 'H5', 'H6', 'Blockquote', 'Code'],
-                                    },
-                                    list: { inDropdown: true },
-                                    textAlign: { inDropdown: true },
-                                    image: {
-                                        uploadEnabled: false,
-                                    },
-                                }}
-                            />
-                        </>
+                        <Wysiwyg
+                            label="Competition rules"
+                            errorLabel={errors.rules?.message}
+                            onChange={onChange}
+                            defaultState={value}
+                        />
                     )}
                 />
 
