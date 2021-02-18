@@ -3,9 +3,12 @@ import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import CompetitionDetails from '../../views/CompetitionDetails';
 import CompetitionsOverview from '../../views/CompetitionOverview';
 import CompetitionRegisterEntry from '../../views/CompetitionRegisterEntry';
+import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
+import CompetitionAdminCreateCompetition from '../../views/CompetitionAdminCreateCompetition';
 import { getOscarUrl } from '../../utils/fetcher';
 import Auth from '../../views/Auth';
 import { AuthContext } from '../../context/auth';
+import { ProtectedRoute } from '../ProtectedRoute';
 
 const App = () => {
     const { isLoggedin, user } = useContext(AuthContext);
@@ -32,7 +35,17 @@ const App = () => {
                 </nav>
                 <Switch>
                     <Route path="/" exact component={CompetitionsOverview} />
-                    <Route path="/competitions/:id/register" component={CompetitionRegisterEntry} />
+                    <ProtectedRoute
+                        path="/admin/competitions/new"
+                        requiredRole="crew"
+                        component={CompetitionAdminCreateCompetition}
+                    />
+                    <ProtectedRoute
+                        path="/admin/competitions"
+                        component={CompetitionAdminOverview}
+                        requiredRole="crew"
+                    />
+                    <ProtectedRoute path="/competitions/:id/register" component={CompetitionRegisterEntry} />
                     <Route path="/competitions/:id" component={CompetitionDetails} />
                     <Route path="/login" component={Auth} />
                 </Switch>

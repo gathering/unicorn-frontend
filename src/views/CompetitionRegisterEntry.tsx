@@ -1,12 +1,13 @@
-import React, { useMemo } from 'react';
+import { stringify } from 'querystring';
+import React, { useEffect, useMemo } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { useLocation, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import { Input } from '../components/Input';
-import { ICompetition, IEntry } from '../features/competitions/competition.types';
-import { hasFileupload, hasTeams } from '../utils/competitions';
-import { httpGet } from '../utils/fetcher';
+import type { ICompetition, IEntry } from '../features/competitions/competition.types';
+import { amIParticipant, hasFileupload, hasTeams } from '../utils/competitions';
+import { httpGet, httpPost, httpPut } from '../utils/fetcher';
 
 enum FormType {
     UPLOAD_TEAM,
@@ -14,21 +15,31 @@ enum FormType {
     UPLOAD_ONLY,
 }
 
-interface IFormData {}
+interface IFormData {
+    title: string;
+    crew_msg?: string;
+}
 
 // TODO Resign
 
 const CompetitionRegisterEntry = () => {
     const { pathname } = useLocation();
     const { id, entryId } = useParams<{ id: string; entryId?: string }>();
-    const { register, handleSubmit, control } = useForm<IFormData>();
-    const { data } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
+    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
+    const { data, mutate: refetchCompetition } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
 
-    const hasEntry = useMemo(() => (data?.entries?.length && data.entries.find((e) => e.is_contributor)) || false, [
-        data,
-    ]);
+    const hasEntry = useMemo(() => (data ? amIParticipant(data) : false), [data]);
 
-    const { data: entry } = useSWR<IEntry>(hasEntry ? hasEntry.url : null, httpGet);
+    const { data: entry, mutate: refetchEntry } = useSWR<IEntry>(hasEntry ? hasEntry.url : null, httpGet);
+
+    useEffect(() => {
+        if (hasEntry && entry) {
+            reset({
+                title: entry?.title,
+                crew_msg: entry?.crew_msg,
+            });
+        }
+    }, [hasEntry, entry]);
 
     const registrationType = useMemo(() => {
         if (!data) {
@@ -77,23 +88,25 @@ const CompetitionRegisterEntry = () => {
         );
     }
 
-    const onSubmit = (formData?: IFormData) => {
-        /*  dispatch(
-            entryDuck.saveEntry(
-                entryId,
-                formData,
-                data.id,
-                // @ts-ignore
-                (id: string) => {
-                    id && dispatch(replace(pathname + '/' + id));
-                    if (entryId) {
-                        toast.success('Saved changes!');
-                    } else {
-                        toast.success('Successfully registered!');
-                    }
-                },
-                (error) => {
-                    const errors = Object.entries(error.body).map(([key, val]) => {
+    const onSubmit = (formData: IFormData) => {
+        if (!formData && !data.rsvp) {
+            return;
+        }
+
+        if (entry?.id) {
+            httpPut(
+                `competitions/entries/${entry.id}`,
+                JSON.stringify({
+                    competition: data.id,
+                    ...formData,
+                })
+            )
+                .then((d) => {
+                    toast.success('Saved changes!');
+                    refetchEntry();
+                })
+                .catch((error) => {
+                    const errorList = Object.entries(error.body).map(([key, val]) => {
                         if (Array.isArray(val)) {
                             return `${key}: ${val[0]}`;
                         }
@@ -101,12 +114,36 @@ const CompetitionRegisterEntry = () => {
                         return `${key}: ${val}`;
                     });
 
-                    for (const e of errors) {
+                    for (const e of errorList) {
                         toast.error(e);
                     }
-                }
+                });
+        } else {
+            httpPost(
+                'competitions/entries',
+                JSON.stringify({
+                    competition: data.id,
+                    ...formData,
+                })
             )
-        ); */
+                .then((d) => {
+                    toast.success('Successfully registered!');
+                    refetchCompetition();
+                })
+                .catch((error) => {
+                    const errorList = Object.entries(error.body).map(([key, val]) => {
+                        if (Array.isArray(val)) {
+                            return `${key}: ${val[0]}`;
+                        }
+
+                        return `${key}: ${val}`;
+                    });
+
+                    for (const e of errorList) {
+                        toast.error(e);
+                    }
+                });
+        }
     };
 
     const header = entry ? entry.title : `Sign up for ${data.name}`;
@@ -130,7 +167,7 @@ const CompetitionRegisterEntry = () => {
                 </svg>
                 <div className="flex justify-center">
                     <button
-                        onClick={() => onSubmit()}
+                        onClick={() => onSubmit((null as unknown) as IFormData)}
                         className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded mobile:w-full hover:bg-green-700 hover:text-black hover:shadow"
                     >
                         RSVP
@@ -147,17 +184,28 @@ const CompetitionRegisterEntry = () => {
                     <h3 style={{ width: '360px' }}>Registration</h3>
                     <fieldset className="flex-grow">
                         {registrationType === FormType.TEAM_ONLY ? (
-                            <Input fullWidth name="title" label="Team name" ref={register()} />
+                            <Input
+                                fullWidth
+                                name="title"
+                                label="Team name"
+                                ref={register({ required: 'You have to give your team a name' })}
+                                errorLabel={errors.title?.message}
+                            />
                         ) : registrationType === FormType.UPLOAD_TEAM ? (
                             <Controller
                                 control={control}
-                                // @ts-ignore wat tho
                                 name="title"
                                 defaultValue=" by "
                                 render={(props) => <UploadTeam {...props} />}
                             />
                         ) : (
-                            <Input fullWidth name="title" label="Entry title" ref={register()} />
+                            <Input
+                                fullWidth
+                                name="title"
+                                label="Entry title"
+                                ref={register({ required: 'You have to give your entry a title' })}
+                                errorLabel={errors.title?.message}
+                            />
                         )}
                     </fieldset>
                 </div>
@@ -178,7 +226,7 @@ const CompetitionRegisterEntry = () => {
                 <hr className="my-6 border-t border-gray-300" />
 
                 <button className="flex items-center float-right h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
-                    Register
+                    {hasEntry ? 'Save' : 'Register'}
                 </button>
             </form>
         </RegisterContainer>

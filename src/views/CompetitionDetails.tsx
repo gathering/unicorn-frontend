@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import useSWR from 'swr';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
-import { hasPreRegistration, hasVote } from '../utils/competitions';
+import { amIParticipant, hasPreRegistration, hasVote } from '../utils/competitions';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { formatNumber } from '../utils/numbers';
 import { useAuth } from '../context/auth';
@@ -37,6 +37,8 @@ const CompetitionDetails = () => {
 
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
     const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
+
+    const hasEntry = useMemo(() => (data ? amIParticipant(data) : false), [data]);
 
     if (!data) {
         // TODO Return loading component
@@ -78,7 +80,7 @@ const CompetitionDetails = () => {
                                 to={`/competitions/${id}/register`}
                                 className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
                             >
-                                Register now!
+                                {hasEntry ? 'Check registration' : 'Register now!'}
                             </Link>
                         </>
                     )}

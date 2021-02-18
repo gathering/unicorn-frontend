@@ -52,6 +52,7 @@ export interface IEntry {
     obj_type: 'full' | 'nested';
     title: string;
     url: string;
+    crew_msg?: string;
 }
 
 export enum State {

@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import type { ICompetitionListResponse, IGenreResponse } from '../features/competitions/competition.types';
@@ -7,11 +7,14 @@ import { httpGet } from '../utils/fetcher';
 import { Select } from '../components/Select';
 import { Input } from '../components/Input';
 import { View } from '../components/View';
+import { AuthContext } from '../context/auth';
 import '@reach/listbox/styles.css';
 
 const CompetitionsOverview: React.FC = () => {
     const [search, setSearch] = useState('');
     const [genre, setGenre] = useState('');
+
+    const { user } = useContext(AuthContext);
 
     const { data: competitionResult } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
     const { data: genreResult } = useSWR<IGenreResponse>('competitions/genres', httpGet);
@@ -61,8 +64,24 @@ const CompetitionsOverview: React.FC = () => {
                         value={genre}
                         onChange={setGenre}
                     />
+                    {user?.role.value === 'crew' && (
+                        <>
+                            <Link
+                                to="/admin/competitions"
+                                className="flex items-center h-12 px-4 mt-10 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                            >
+                                Admin
+                            </Link>
+                            <Link
+                                to="/admin/competitions/new"
+                                className="flex items-center h-12 px-4 mt-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                            >
+                                New competition
+                            </Link>
+                        </>
+                    )}
                 </aside>
-                <div className="flex flex-col items-center justify-center w-full mt-12 mb-10 mr-10 mobile:mt-4">
+                <div className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4">
                     {!!filteredCompetitions.length ? (
                         filteredCompetitions.map((competition) => (
                             <div

@@ -28,6 +28,29 @@ interface TokenResponse {
 
 type ObjType = 'full' | 'partial';
 
+interface ROLE_CREW {
+    value: 'crew';
+    label: 'Crew';
+}
+interface ROLE_PARTICIPANT {
+    value: 'participant';
+    label: 'Participant';
+}
+interface ROLE_JURY {
+    value: 'jury';
+    label: 'Jury';
+}
+interface ROLE_ANON {
+    value: 'anon';
+    label: 'Anonymous';
+}
+interface ROLE_OTHER {
+    value: 'mortal';
+    label: 'Other';
+}
+
+export type Role = ROLE_CREW | ROLE_PARTICIPANT | ROLE_JURY | ROLE_ANON | ROLE_OTHER;
+
 interface User {
     obj_type: ObjType;
     uuid: string;
@@ -40,7 +63,7 @@ interface User {
     crew: null | string;
     display_name: string;
     email: string;
-    role: { value: string; label: string };
+    role: Role;
 }
 
 type FetchStatus = 'idle' | 'pending' | 'resolved' | 'rejected';

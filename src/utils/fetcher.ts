@@ -46,17 +46,47 @@ export const httpGet = <T>(url: string, args: RequestInit = { method: Method.GET
     return fetcher<T>(new Request(_url, args));
 };
 
-export const httpPost = <T>(url: string, body?: string, args: RequestInit = { method: Method.POST, body }) => {
+export const httpPost = <T>(
+    url: string,
+    body?: string,
+    args: RequestInit = {
+        method: Method.POST,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body,
+    }
+) => {
     const _url = url.startsWith('http') ? url : API_URL + url + '/';
     return fetcher(new Request(_url, args));
 };
 
-export const httpPut = <T>(url: string, body?: string, args: RequestInit = { method: Method.PUT, body }) => {
+export const httpPut = <T>(
+    url: string,
+    body?: string,
+    args: RequestInit = {
+        method: Method.PUT,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body,
+    }
+) => {
     const _url = url.startsWith('http') ? url : API_URL + url + '/';
     return fetcher(new Request(_url, args));
 };
 
-export const httpDelete = <T>(url: string, body?: string, args: RequestInit = { method: Method.DELETE, body }) => {
+export const httpDelete = <T>(
+    url: string,
+    body?: string,
+    args: RequestInit = {
+        method: Method.DELETE,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body,
+    }
+) => {
     const _url = url.startsWith('http') ? url : API_URL + url + '/';
     return fetcher(new Request(_url, args));
 };

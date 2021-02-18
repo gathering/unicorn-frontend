@@ -30,6 +30,9 @@ export const getUnfinishedCompetitions = (competitions: ICompetition[]) =>
 export const filterCompetitionsByState = (competitions: ICompetition[], state: State) =>
     competitions.filter((c) => c.state.value === state);
 
+export const amIParticipant = (c: ICompetition) =>
+    (c.entries?.length && c.entries.find((e) => e.is_contributor)) || false;
+
 export const groupCompetitionsByKey = (competitions: ICompetition[], key = 'run_time_start') => {
     dayjs.extend(relativeTime);
 
