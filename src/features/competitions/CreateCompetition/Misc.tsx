@@ -8,6 +8,7 @@ import { Genre, ICompetition } from '../competition.types';
 import { Input } from '../../../components/Input';
 import { httpPost } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
+import { PrizeEdit } from '../PrizeEdit';
 
 interface IProps {
     onForward: () => void;
@@ -48,8 +49,14 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
         <>
             <h1>Misc</h1>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <label>Prizes (optional)</label>
-                <h2>TODO Prizes</h2>
+                <Controller
+                    control={control}
+                    name="prizes"
+                    defaultValue={[]}
+                    render={({ onChange, value }) => (
+                        <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} />
+                    )}
+                />
 
                 {[Genre.OTHER, Genre.CREATIVE].includes(Number(activeCategory)) ? (
                     <>

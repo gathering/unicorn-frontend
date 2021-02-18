@@ -85,7 +85,7 @@ const CompetitionsOverview: React.FC = () => {
                     {!!filteredCompetitions.length ? (
                         filteredCompetitions.map((competition) => (
                             <div
-                                className="w-full duration-200 border-b hover:shadow-xl last:border-b-0"
+                                className="w-full mb-6 duration-200 border-b hover:shadow-xl last:border-b-0"
                                 key={competition.id}
                             >
                                 <Link to={'/competitions/' + competition.id} className="flex h-32 mobile:flex-col">

@@ -13,7 +13,7 @@ interface IProps {
 
 export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
     const { data: genres } = useSWR<IGenreResponse>('competitions/genres', httpGet);
-    const { errors, handleSubmit, control, watch } = useFormContext();
+    const { errors, handleSubmit, control, register } = useFormContext();
 
     const onSubmit = () => {
         onForward();
@@ -26,6 +26,7 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
                 Some features may be hidden based on what genre you choose. All features will be available after initial
                 creation.
             </p>
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                     control={control}

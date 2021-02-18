@@ -45,6 +45,8 @@ const CompetitionDetails = () => {
         return null;
     }
 
+    console.log(data.state);
+
     return (
         <div className="container mx-auto my-12 ">
             <div className="relative">
