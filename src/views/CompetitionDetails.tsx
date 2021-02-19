@@ -28,7 +28,7 @@ const convertDraftToHtml = (data: any) => {
     return html;
 };
 
-const format = (date: string) => dayjs(date).format('HH:mm Do MMM');
+const format = (date: string) => dayjs(date).format('Do MMM HH:mm');
 
 const CompetitionDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -45,8 +45,6 @@ const CompetitionDetails = () => {
         return null;
     }
 
-    console.log(data.state);
-
     return (
         <div className="container mx-auto my-12 ">
             <div className="relative">
@@ -60,7 +58,9 @@ const CompetitionDetails = () => {
                     <CompetitionPhases competition={data} />
                     <Tabs className="bg-white rounded">
                         <TabList className="flex">
-                            {competitionDescription && <Tab className="flex-grow py-3 border-b">Information</Tab>}
+                            {competitionDescription && (
+                                <Tab className="flex-grow py-3 border-b border-tg-brand-orange">Information</Tab>
+                            )}
                             <Tab className="flex-grow py-3 border-b">Rules</Tab>
                         </TabList>
                         <TabPanels className="p-4">
@@ -88,7 +88,7 @@ const CompetitionDetails = () => {
                     )}
 
                     <section className="p-4 mb-4 bg-white rounded">
-                        <h2 className="pb-2 text-lg">Schedule</h2>
+                        <h2 className="pb-2 text-lg font-bold">Schedule</h2>
                         {
                             <ul className="w-2/3 mt-2 leading-8">
                                 {hasPreRegistration(data) && (
@@ -117,7 +117,7 @@ const CompetitionDetails = () => {
 
                     {!!data.prizes.length && (
                         <section className="p-4 bg-white rounded">
-                            <h2 className="pb-2 text-lg">Prizes</h2>
+                            <h2 className="pb-2 text-lg font-bold">Prizes</h2>
                             <ul className="w-2/3 mt-2 leading-8">
                                 {data.prizes.map((prize: String, i: number) => (
                                     <li key={prize + i.toString()} className="pr-3">

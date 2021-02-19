@@ -11,3 +11,11 @@ html {
 
 @tailwind components;
 @tailwind utilities;
+
+[data-reach-tab] {
+    @apply py-2 bg-white text-xl font-light !important;
+}
+
+[data-reach-tab][data-selected] {
+    @apply border-tg-brand-orange border-b-2 !important;
+}

@@ -1,11 +1,15 @@
 import React, { useMemo } from 'react';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import isYesterday from 'dayjs/plugin/isYesterday';
+import isToday from 'dayjs/plugin/isToday';
+import isTomorrow from 'dayjs/plugin/isTomorrow';
 import type { ICompetition } from '../competition.types';
 import { competitionPhases } from '../../../utils/competitions';
 import './competition-phases.scss';
 
-dayjs.extend(relativeTime);
+dayjs.extend(isYesterday);
+dayjs.extend(isToday);
+dayjs.extend(isTomorrow);
 
 interface IProps {
     competition: ICompetition;
@@ -88,7 +92,18 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                 className={`border-0 bg-gray-400 -mb-3 min-w-full bg-${color} ${havePassed ? '' : 'border-dashed'}`}
             />
             <div className={`rounded-full bg-${color} w-6 h-6 border`} />
-            <div className="font-light">{dayjs(time).fromNow()}</div>
+            <div className="flex flex-col items-center font-light">
+                <span title={dayjs(time).format('DD-MM-YYYY HH:mm')}>
+                    {dayjs(time).isYesterday()
+                        ? 'Yesterday'
+                        : dayjs(time).isToday()
+                        ? 'Today'
+                        : dayjs(time).isTomorrow()
+                        ? 'Tomorrow'
+                        : dayjs(time).format('dddd Do')}
+                </span>
+                <span>{dayjs(time).format('HH:mm')}</span>
+            </div>
         </div>
     );
 };
