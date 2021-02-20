@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { useId } from '@reach/auto-id';
 import { Editor } from 'react-draft-wysiwyg';
-import { convertToRaw, EditorState, RawDraftContentState } from 'draft-js';
+import { convertFromRaw, convertToRaw, EditorState, RawDraftContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 interface IProps {
     label: string;
     errorLabel?: string;
-    defaultState?: EditorState;
+    defaultState?: RawDraftContentState;
     onChange?: (editorState: RawDraftContentState) => void;
 }
 
 export const Wysiwyg = ({ label, errorLabel, defaultState, onChange }: IProps) => {
     let errorLabelId = `unicorn-wysiwyg-errorlabel--${useId()}`;
-    const [editorState, setEditorState] = useState(defaultState || EditorState.createEmpty());
+    const [editorState, setEditorState] = useState(
+        defaultState ? EditorState.createWithContent(convertFromRaw(defaultState)) : EditorState.createEmpty()
+    );
 
     const onEditorStateChange = (editorStateChange: EditorState) => {
         setEditorState(editorStateChange);

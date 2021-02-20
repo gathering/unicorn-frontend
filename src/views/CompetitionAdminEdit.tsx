@@ -1,23 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
-import { addHours, addWeeks } from 'date-fns';
 import DatePicker from 'react-datepicker';
-import { ContentState, convertFromRaw, EditorState, RawDraftContentState } from 'draft-js';
+import { ContentState, convertToRaw, RawDraftContentState } from 'draft-js';
 import useSWR from 'swr';
-import { httpGet } from '../utils/fetcher';
+import { toast } from 'react-toastify';
+import { httpGet, httpPut } from '../utils/fetcher';
 import { View } from '../components/View';
 import { Input } from '../components/Input';
-import { Wysiwyg } from '../components/Wysiwyg/Wysiwyg';
+import { Wysiwyg } from '../components/Wysiwyg';
 import type { ICompetition } from '../features/competitions/competition.types';
+import { PrizeEdit } from '../features/competitions/PrizeEdit';
+import { parseError } from '../utils/error';
 import 'react-datepicker/dist/react-datepicker.css';
-
-const initialDate = addHours(new Date(), 1);
-initialDate.setMinutes(0, 0, 0);
 
 const CompetitionAdminEdit = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: competition } = useSWR<ICompetition>(`competitions/competitions/${id}`, httpGet, {
+    const { data: competition, revalidate } = useSWR<ICompetition>(`competitions/competitions/${id}`, httpGet, {
         revalidateOnFocus: false,
     });
     const { register, handleSubmit, errors, control, reset } = useForm();
@@ -26,29 +25,30 @@ const CompetitionAdminEdit = () => {
 
     useEffect(() => {
         if (competition) {
-            let rulesObj: string | ContentState = competition.rules;
-            let descObj: string | ContentState = competition.description ?? '';
+            let rulesObj: string | RawDraftContentState = competition.rules;
+            let descObj: string | RawDraftContentState =
+                competition.description ?? convertToRaw(ContentState.createFromText(''));
 
             try {
-                rulesObj = convertFromRaw(JSON.parse(rulesObj as string) as RawDraftContentState);
+                rulesObj = JSON.parse(rulesObj as string) as RawDraftContentState;
             } catch (e) {
-                rulesObj = ContentState.createFromText(rulesObj as string);
+                rulesObj = convertToRaw(ContentState.createFromText(rulesObj as string));
             }
 
             try {
                 if (descObj) {
-                    descObj = convertFromRaw(JSON.parse(descObj as string) as RawDraftContentState);
+                    descObj = JSON.parse(descObj as string) as RawDraftContentState;
                 } else {
-                    descObj = ContentState.createFromText('');
+                    descObj = convertToRaw(ContentState.createFromText(''));
                 }
             } catch (e) {
-                descObj = ContentState.createFromText(descObj as string);
+                descObj = convertToRaw(ContentState.createFromText(descObj as string));
             }
 
             reset({
                 ...competition,
-                description: EditorState.createWithContent(descObj),
-                rules: EditorState.createWithContent(rulesObj),
+                description: descObj,
+                rules: rulesObj,
             });
 
             setShowForm(true);
@@ -56,7 +56,33 @@ const CompetitionAdminEdit = () => {
     }, [competition]);
 
     const onSubmit = (formData: any) => {
-        console.log(formData);
+        if (!competition) {
+            return;
+        }
+
+        httpPut<ICompetition>(
+            `competitions/competitions/${competition.id}`,
+            JSON.stringify({
+                ...Object.entries(formData).reduce((competitionObject, [key, value]) => {
+                    if (value !== '') {
+                        competitionObject[key] = value;
+                    }
+
+                    return competitionObject;
+                }, {} as { [key: string]: any }),
+                genre: competition.genre.id,
+                rules: JSON.stringify(formData.rules),
+                description: JSON.stringify(formData.description),
+            })
+        )
+            .then((d) => {
+                toast.success(`Updated competition ${d.name}`);
+                revalidate();
+            })
+            .catch((err) => {
+                toast.error('Error updating competition');
+                parseError(err).forEach((e: any) => toast.error(e));
+            });
     };
 
     if (!showForm) {
@@ -90,7 +116,6 @@ const CompetitionAdminEdit = () => {
                     rules={{
                         required: 'You must give the competition a start time',
                     }}
-                    defaultValue={initialDate}
                     render={({ value, ...props }) => (
                         <>
                             <label id="runtime-start">Competition start time</label>
@@ -121,7 +146,6 @@ const CompetitionAdminEdit = () => {
                 <Controller
                     control={control}
                     name="run_time_end"
-                    defaultValue={addWeeks(initialDate, 1)}
                     rules={{
                         required: 'You must give the competition an end time',
                     }}
@@ -200,6 +224,168 @@ const CompetitionAdminEdit = () => {
                     name="header_credit"
                     errorLabel={errors.header_credit?.message}
                 />
+
+                <Controller
+                    control={control}
+                    name="prizes"
+                    defaultValue={[]}
+                    render={({ onChange, value }) => (
+                        <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} />
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="vote_time_start"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="votetime-start">Vote start time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'votetime-start'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+                <Controller
+                    control={control}
+                    name="vote_time_end"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="votetime-end">Vote end time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'votetime-end'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+                <Input type="number" label="Minimum team size (optional)" name="team_min" ref={register()} />
+                <Input type="number" label="Maximum team size (optional)" name="team_max" ref={register()} />
+                <Input label="Custom input field name (optional)" name="contributor_extra" ref={register()} />
+                <Input label="Toornament ID (optional)" name="toornament" ref={register()} />
+                <label>
+                    <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
+                    Users can report win/loss (optional)
+                </label>
+
+                <Controller
+                    control={control}
+                    name="register_time_start"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="register-end">Registration start time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'register-end'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="register_time_end"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="register-end">Registration end time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'register-end'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="show_time_start"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="showtime-end">Competition show start time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'showtime-end'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="show_time_end"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="showtime-end">Competition show end time (optional)</label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'showtime-end'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
+
+                <Input name="external_url_login" type="url" label="Login URL (optional)" ref={register()} />
+                <Input name="external_url_info" type="url" label="Homepage URL (optional)" ref={register()} />
+
+                <Input
+                    type="number"
+                    label="Max submission/participants (optional)"
+                    name="participant_limit"
+                    ref={register()}
+                />
+
+                <label>
+                    <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
+                    RSVP Only (optional)
+                </label>
+
+                <label>
+                    <input name="feature" type="checkbox" className="mr-2" ref={register()} />
+                    Featured (optional)
+                </label>
 
                 <footer>
                     <button>Save</button>

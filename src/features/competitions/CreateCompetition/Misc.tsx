@@ -31,8 +31,8 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
 
                     return competitionObject;
                 }, {} as { [key: string]: any }),
-                rules: formData.rules ? JSON.stringify(formData.rules) : null,
-                description: formData.rules ? JSON.stringify(formData.description) : null,
+                rules: JSON.stringify(formData.rules),
+                description: JSON.stringify(formData.description),
             })
         )
             .then((d) => {

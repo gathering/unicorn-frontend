@@ -8,8 +8,6 @@ import { httpGet } from '../utils/fetcher';
 const CompetitionAdminOverview = () => {
     const { data: competitions, isValidating } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
 
-    console.log(competitions, isValidating);
-
     if (!competitions) {
         return null;
     }
@@ -38,7 +36,7 @@ const CompetitionAdminOverview = () => {
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                     {competitions.results.map((c) => (
-                        <tr>
+                        <tr key={c.id}>
                             <td className="px-6 py-4 whitespace-nowrap">{c.name}</td>
                             <td className="px-6 py-4 whitespace-nowrap">{c.entries_count}</td>
                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
