@@ -1,24 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useId } from '@reach/auto-id';
-import reactDraft from 'react-draft-wysiwyg';
-import draftJs from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw, EditorState, RawDraftContentState } from 'draft-js';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 interface IProps {
     label: string;
     errorLabel?: string;
-    defaultState?: draftJs.EditorState;
-    onChange?: (editorState: draftJs.RawDraftContentState) => void;
+    defaultState?: EditorState;
+    onChange?: (editorState: RawDraftContentState) => void;
 }
 
 export const Wysiwyg = ({ label, errorLabel, defaultState, onChange }: IProps) => {
     let errorLabelId = `unicorn-wysiwyg-errorlabel--${useId()}`;
-    const [editorState, setEditorState] = useState(defaultState || draftJs.EditorState.createEmpty());
+    const [editorState, setEditorState] = useState(defaultState || EditorState.createEmpty());
 
-    const onEditorStateChange = (editorStateChange: draftJs.EditorState) => {
+    const onEditorStateChange = (editorStateChange: EditorState) => {
         setEditorState(editorStateChange);
 
-        onChange?.(draftJs.convertToRaw(editorStateChange.getCurrentContent()));
+        onChange?.(convertToRaw(editorStateChange.getCurrentContent()));
     };
 
     return (
@@ -29,7 +29,7 @@ export const Wysiwyg = ({ label, errorLabel, defaultState, onChange }: IProps) =
                     {errorLabel}
                 </label>
             )}
-            <reactDraft.Editor
+            <Editor
                 ariaLabel="Competition description"
                 ariaDescribedBy={errorLabel ? errorLabelId : undefined}
                 onEditorStateChange={onEditorStateChange}

@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import { addHours, addWeeks } from 'date-fns';
 import DatePicker from 'react-datepicker';
-import draftJs from 'draft-js';
+import { ContentState, convertFromRaw, EditorState, RawDraftContentState } from 'draft-js';
 import useSWR from 'swr';
 import { httpGet } from '../utils/fetcher';
 import { View } from '../components/View';
@@ -22,19 +22,46 @@ const CompetitionAdminEdit = () => {
     });
     const { register, handleSubmit, errors, control, reset } = useForm();
 
+    const [showForm, setShowForm] = useState(false);
+
     useEffect(() => {
         if (competition) {
+            let rulesObj: string | ContentState = competition.rules;
+            let descObj: string | ContentState = competition.description ?? '';
+
+            try {
+                rulesObj = convertFromRaw(JSON.parse(rulesObj as string) as RawDraftContentState);
+            } catch (e) {
+                rulesObj = ContentState.createFromText(rulesObj as string);
+            }
+
+            try {
+                if (descObj) {
+                    descObj = convertFromRaw(JSON.parse(descObj as string) as RawDraftContentState);
+                } else {
+                    descObj = ContentState.createFromText('');
+                }
+            } catch (e) {
+                descObj = ContentState.createFromText(descObj as string);
+            }
+
             reset({
                 ...competition,
-                description: draftJs.convertFromRaw(JSON.parse(competition.description)),
-                rules: draftJs.convertFromRaw(JSON.parse(competition.rules)),
+                description: EditorState.createWithContent(descObj),
+                rules: EditorState.createWithContent(rulesObj),
             });
+
+            setShowForm(true);
         }
     }, [competition]);
 
     const onSubmit = (formData: any) => {
         console.log(formData);
     };
+
+    if (!showForm) {
+        return null;
+    }
 
     return (
         <View>
@@ -131,7 +158,6 @@ const CompetitionAdminEdit = () => {
                     rules={{
                         required: 'You must write a description for the competition',
                     }}
-                    defaultValue={draftJs.EditorState.createEmpty()}
                     render={({ onChange, value }) => (
                         <Wysiwyg
                             label="Competition description"
@@ -148,13 +174,12 @@ const CompetitionAdminEdit = () => {
                     rules={{
                         required: 'You must write a ruleset for the competition',
                     }}
-                    defaultValue={draftJs.EditorState.createEmpty()}
                     render={({ onChange, value }) => (
                         <Wysiwyg
                             label="Competition rules"
-                            errorLabel={errors.rules?.message}
                             onChange={onChange}
                             defaultState={value}
+                            errorLabel={errors.rules?.message}
                         />
                     )}
                 />
