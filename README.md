@@ -1,24 +1,46 @@
-# New Project
+<h1 align="center">UNICORN 🦄</h1>
+<p align="center">Unified Net-based Interface for Competition Organization, Rules and News.</p>
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
+# Motivation
 
-## Available Scripts
+At The Gathering, there has always been a tradition for creative competitions with music, graphics and demos. In 2014 we started working on a competition system to support the creative competitions at The Gathering, and their needs. Summed up, this was handling entries, qualifying/disqualifying, enabling an API for showing entries on stage, votes and results.
+Over the years this has escalated a bit by taking on game competitions and achievements.
 
-### npm start
+The system has been the victim of about 4 rewrites as we have learned a lot, and made a ton of mistakes. "About" because it kind of depends of how you count. This is hopefully the last complete rewrite, where we have separated the frontend into it's own service based on React.
 
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
+# Getting started
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
+To run UNICORN yourself, you pretty much just have to fork and clone this project (and a few other things).
 
-### npm run build
+At this point of time, you will need a UNICORN backend running, and an authentication service. The UNICORN backend will be open sourced later this year, but for now you will need access to a running instance.
 
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
+## Environmentvariables
 
-**For the best production performance:** Add a build bundler plugin like [@snowpack/plugin-webpack](https://github.com/snowpackjs/snowpack/tree/main/plugins/plugin-webpack) or [snowpack-plugin-rollup-bundle](https://github.com/ParamagicDev/snowpack-plugin-rollup-bundle) to your `snowpack.config.json` config file.
+Add the necessary variables to your environment before continuing:
 
-### Q: What about Eject?
+| Name                    | Description                              |
+| ----------------------- | ---------------------------------------- |
+| VITE_APP_URL           | Backend service URL                      |
+| VITE_APP_API_URL       | API URL (typically \$VITE_APP_URL/api/) |
+| VITE_APP_AUTH_URL      | Authentication service URL               |
+| VITE_APP_CLIENT_SECRET | Authentication service client secret     |
+| VITE_APP_CLIENT_ID     | Authentication service client ID         |
+| VITE_APP_OSCAR_LINK    | Authorization URL                        |
 
-No eject needed! Snowpack guarantees zero lock-in, and CSA strives for the same.
+## Running
+
+Run `yarn` and `yarn dev` 🚀
+
+# Contributing
+
+Please send an MR for any cool features or changes you think we could benefit from 💕
+
+# Deployment with now.sh from Zeit
+
+Want to run UNICORN yourself? Awesome! Currently we've implemented support for GitLab with GitLab Runner and now.sh. This can be seen in the .gitlab-ci file, but you will need to know about a few variables:
+
+`ZEIT_BASE_DOMAIN` your default zeit root domain.
+
+`NOW_TOKEN` your now.sh token, which should be set through your projects CI/CD settings. The token could be found through https://zeit.co/account/tokens
+
+`NOW_ALIAS_PRODUCTION` is a comma separated strings describing the aliases now.sh should use for the production environment. This should be set in the CI/CD settings of your project.
