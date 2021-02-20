@@ -14,8 +14,8 @@ export enum FetchState {
     REJECTED,
 }
 
-export const API_URL = import.meta.env.SNOWPACK_PUBLIC_API_URL;
-export const AUTH_URL = import.meta.env.SNOWPACK_PUBLIC_AUTH_URL;
+export const API_URL = import.meta.env.VITE_APP_API_URL;
+export const AUTH_URL = import.meta.env.VITE_APP_AUTH_URL;
 
 const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
 
@@ -113,9 +113,7 @@ export const getOscarUrl = (state = '') => {
         uriState = state;
     }
 
-    return (
-        import.meta.env.SNOWPACK_PUBLIC_OSCAR_LINK + '&' + objectToQuery({ redirect_uri: redirectUri, state: uriState })
-    );
+    return import.meta.env.VITE_APP_OSCAR_LINK + '&' + objectToQuery({ redirect_uri: redirectUri, state: uriState });
 };
 
 export const objectToQuery = (object = {}, arrayAsCsv = false) =>

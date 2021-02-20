@@ -134,8 +134,8 @@ const AuthContextProvider: React.FC = ({ children }) => {
 
     const loginWithCode = (code?: string) => {
         fetchToken({
-            client_secret: import.meta.env.SNOWPACK_PUBLIC_CLIENT_SECRET,
-            client_id: import.meta.env.SNOWPACK_PUBLIC_CLIENT_ID,
+            client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
+            client_id: import.meta.env.VITE_APP_CLIENT_ID,
             grant_type: 'authorization_code',
             redirect_uri: document.location.origin + '/login',
             code,
@@ -167,8 +167,8 @@ const AuthContextProvider: React.FC = ({ children }) => {
             if (Number(accessTokenExp) < Date.now() / 1000 - 300 || !refreshToken) {
                 setUserFetchStatus('pending');
                 fetchToken({
-                    client_secret: import.meta.env.SNOWPACK_PUBLIC_CLIENT_SECRET,
-                    client_id: import.meta.env.SNOWPACK_PUBLIC_CLIENT_ID,
+                    client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
+                    client_id: import.meta.env.VITE_APP_CLIENT_ID,
                     grant_type: 'refresh_token',
                     refresh_token: refreshToken,
                     redirect_uri: document.location.origin + '/login',
@@ -189,8 +189,8 @@ const AuthContextProvider: React.FC = ({ children }) => {
         } else if (refreshToken) {
             setTokenFetchStatus('pending');
             fetchToken({
-                client_secret: import.meta.env.SNOWPACK_PUBLIC_CLIENT_SECRET,
-                client_id: import.meta.env.SNOWPACK_PUBLIC_CLIENT_ID,
+                client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
+                client_id: import.meta.env.VITE_APP_CLIENT_ID,
                 grant_type: 'refresh_token',
                 refresh_token: refreshToken,
                 redirect_uri: document.location.origin + '/login',
