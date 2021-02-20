@@ -9,7 +9,7 @@ import { httpGet } from '../utils/fetcher';
 
 const slides = [SelectGenre, GeneralSettings, Misc];
 
-const CompetitionAdminCreateCompetition = () => {
+const CompetitionAdminCreate = () => {
     const { data: genres } = useSWR<IGenreResponse>('competitions/genres', httpGet);
     const methods = useForm({ shouldUnregister: false });
 
@@ -65,4 +65,4 @@ const CompetitionAdminCreateCompetition = () => {
     );
 };
 
-export default CompetitionAdminCreateCompetition;
+export default CompetitionAdminCreate;

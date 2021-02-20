@@ -4,7 +4,8 @@ import CompetitionDetails from '../../views/CompetitionDetails';
 import CompetitionsOverview from '../../views/CompetitionOverview';
 import CompetitionRegisterEntry from '../../views/CompetitionRegisterEntry';
 import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
-import CompetitionAdminCreateCompetition from '../../views/CompetitionAdminCreateCompetition';
+import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
+import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
 import { getOscarUrl } from '../../utils/fetcher';
 import Auth from '../../views/Auth';
 import { AuthContext } from '../../context/auth';
@@ -38,7 +39,12 @@ const App = () => {
                     <ProtectedRoute
                         path="/admin/competitions/new"
                         requiredRole="crew"
-                        component={CompetitionAdminCreateCompetition}
+                        component={CompetitionAdminCreate}
+                    />
+                    <ProtectedRoute
+                        path="/admin/competitions/:id"
+                        requiredRole="crew"
+                        component={CompetitionAdminEdit}
                     />
                     <ProtectedRoute
                         path="/admin/competitions"

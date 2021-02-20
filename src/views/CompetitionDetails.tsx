@@ -76,7 +76,7 @@ const CompetitionDetails = () => {
                     </Tabs>
                 </div>
                 <aside style={{ minWidth: '20rem' }} className="ml-10">
-                    {user && (
+                    {/* {user && (
                         <>
                             <Link
                                 to={`/competitions/${id}/register`}
@@ -85,35 +85,7 @@ const CompetitionDetails = () => {
                                 {hasEntry ? 'Check registration' : 'Register now!'}
                             </Link>
                         </>
-                    )}
-
-                    <section className="p-4 mb-4 bg-white rounded">
-                        <h2 className="pb-2 text-lg font-bold">Schedule</h2>
-                        {
-                            <ul className="w-2/3 mt-2 leading-8">
-                                {hasPreRegistration(data) && (
-                                    <li>
-                                        <h3 className="font-bold">Registration</h3>
-                                        {format(data.register_time_start)}
-                                        <br />
-                                        {format(data.register_time_end)}
-                                    </li>
-                                )}
-                                <li>
-                                    <h3 className="font-bold">Competition</h3>
-                                    {format(data.run_time_start)} <br />
-                                    {format(data.run_time_end)}
-                                </li>
-                                {hasVote(data) && (
-                                    <li>
-                                        <h3 className="font-bold">Voting</h3>
-                                        {format(data.vote_time_start)} <br />
-                                        {format(data.vote_time_end)}
-                                    </li>
-                                )}
-                            </ul>
-                        }
-                    </section>
+                    )} */}
 
                     {!!data.prizes.length && (
                         <section className="p-4 bg-white rounded">
