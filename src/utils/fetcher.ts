@@ -161,6 +161,7 @@ export const objectToQuery = (object = {}, arrayAsCsv = false) =>
     Object.entries(object)
         .reduce((params, [key, value]) => {
             if (!Array.isArray(value)) {
+                // @ts-ignore
                 params.set(key, value);
                 return params;
             }
