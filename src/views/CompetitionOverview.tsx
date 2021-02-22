@@ -13,8 +13,7 @@ import '@reach/listbox/styles.css';
 const CompetitionsOverview: React.FC = () => {
     const [search, setSearch] = useState('');
     const [genre, setGenre] = useState('');
-
-    const { user } = useUserState;
+    const { user } = useUserState();
 
     const { data: competitionResult } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
     const { data: genreResult } = useSWR<IGenreResponse>('competitions/genres', httpGet);
@@ -118,7 +117,12 @@ const CompetitionsOverview: React.FC = () => {
                             </div>
                         ))
                     ) : (
-                        <h1 className="text-4xl">{competitionResult ? 'No competitions found' : 'Loading...'}</h1>
+                        <>
+                            <h1 className="mt-32 text-4xl text-gray-800">
+                                {competitionResult ? 'No competitions found' : 'Loading...'}
+                            </h1>
+                            {competitionResult && <p className="text-2xl text-gray-600">Is it even easter yet?</p>}
+                        </>
                     )}
                 </div>
             </div>
