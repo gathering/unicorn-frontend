@@ -1,13 +1,13 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Route, RouteProps } from 'react-router-dom';
-import { AuthContext } from '../../context/auth';
+import { useUserState } from '../../context/Auth';
 
 interface Props extends RouteProps {
     requiredRole?: 'crew' | 'particpant' | 'jury' | 'anon' | 'other';
 }
 
 export const ProtectedRoute = ({ requiredRole, ...rest }: Props) => {
-    const { isLoggedin, user } = useContext(AuthContext);
+    const { user } = useUserState();
     const hasRole = useMemo(() => {
         if (!requiredRole) {
             return true;
@@ -20,7 +20,7 @@ export const ProtectedRoute = ({ requiredRole, ...rest }: Props) => {
         return user.role.value === requiredRole;
     }, [user, requiredRole]);
 
-    if (!isLoggedin || !user || !hasRole) {
+    if (!user || !hasRole) {
         return null;
     }
 

@@ -1,15 +1,14 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { useLocation, useHistory } from 'react-router-dom';
-import { AuthContext } from '../context/auth';
+import { useLogin } from '../context/Auth';
 import { View } from '../components/View';
 
 const Auth = () => {
     const { search } = useLocation<{ code?: string }>();
-    const { loginWithCode, tokenFetchStatus, isLoggedin } = useContext(AuthContext);
     const s = new URLSearchParams(search);
     const history = useHistory();
 
-    const authCode = useMemo(() => {
+    const authorizationCode = useMemo(() => {
         if (!s.has('code')) {
             return null;
         }
@@ -17,17 +16,9 @@ const Auth = () => {
         return s.get('code');
     }, [s]);
 
-    useEffect(() => {
-        if (authCode && tokenFetchStatus === 'idle') {
-            loginWithCode(authCode);
-        }
-    }, [authCode, loginWithCode, tokenFetchStatus]);
+    useLogin(authorizationCode);
 
     if (!s.has('code')) {
-        history.replace('/');
-    }
-
-    if (isLoggedin) {
         history.replace('/');
     }
 

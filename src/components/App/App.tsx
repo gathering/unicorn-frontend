@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import CompetitionDetails from '../../views/CompetitionDetails';
 import CompetitionsOverview from '../../views/CompetitionOverview';
@@ -8,11 +8,11 @@ import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
 import { getOscarUrl } from '../../utils/fetcher';
 import Auth from '../../views/Auth';
-import { AuthContext } from '../../context/auth';
 import { ProtectedRoute } from '../ProtectedRoute';
+import { useUserState } from '../../context/Auth';
 
 const App = () => {
-    const { isLoggedin, user } = useContext(AuthContext);
+    const { user, accessToken } = useUserState();
 
     return (
         <BrowserRouter>
@@ -22,7 +22,7 @@ const App = () => {
                         <img src="/images/tg_logo_liten.png" className="inline w-16 ml-1" alt="Back to homepage" />
                     </Link>
 
-                    {isLoggedin ? (
+                    {accessToken ? (
                         <>{user?.display_name}</>
                     ) : (
                         <a

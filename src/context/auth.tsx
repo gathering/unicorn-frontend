@@ -1,30 +1,33 @@
-import React, { useState, useMemo, useEffect, useContext } from 'react';
-import { httpGet, fetchToken } from '../utils/fetcher';
+import React, { createContext, useContext, useEffect, useReducer } from 'react';
+import cookie from 'js-cookie';
+import dayjs from 'dayjs';
+import useSWR from 'swr';
+import { useHistory } from 'react-router-dom';
+import { httpGet, loginWithCode, loginWithRefreshToken } from '../utils/fetcher';
 
-interface AuthContext {
-    tokenFetchStatus: FetchStatus;
-    userFetchStatus: FetchStatus;
-    isLoggedin: boolean;
-    loginWithCode: Function;
-    logout: Function;
-    user?: User;
+const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
+const REFRESH_TOKEN = 'UNICORN_REFRESH_TOKEN';
+
+interface SetAccessTokenAction {
+    type: 'SET_ACCESS_TOKEN';
+    token?: string;
 }
 
-interface RefreshResponse {}
-
-interface Token {
-    accessToken: string;
-    refreshToken: string;
-    expiresAt: number;
+interface LogoutAction {
+    type: 'LOGOUT';
 }
 
-interface TokenResponse {
-    access_token: string;
-    expires_in: number;
-    refresh_token: string;
-    scope: string;
-    token_type: string;
+interface SaveUserAction {
+    type: 'SAVE_USER';
+    user: User;
 }
+
+interface SetFetchStatusAction {
+    type: 'SET_FETCH_STATUS';
+    status: FetchStatus;
+}
+
+export type Action = SetAccessTokenAction | LogoutAction | SaveUserAction | SetFetchStatusAction;
 
 type ObjType = 'full' | 'partial';
 
@@ -68,157 +71,146 @@ interface User {
 
 type FetchStatus = 'idle' | 'pending' | 'resolved' | 'rejected';
 
-export const AuthContext = React.createContext((null as unknown) as AuthContext);
+interface State {
+    error: string;
+    accessToken?: string;
+    tokenFetchStatus: FetchStatus;
+    user?: User;
+}
 
-const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
-const ACCESS_TOKEN_EXP = 'ACCESS_TOKEN_EXP';
-const REFRESH_TOKEN = 'UNICORN_REFRESH_TOKEN';
-
-const AuthContextProvider: React.FC = ({ children }) => {
-    const [tokenData, setTokenData] = useState<Token>();
-    const [user, updateUser] = useState<User>();
-    const [tokenFetchStatus, setTokenFetchStatus] = useState<FetchStatus>('idle');
-    const [userFetchStatus, setUserFetchStatus] = useState<FetchStatus>('idle');
-
-    const logout = (message?: { type: 'info' | 'error'; text: string }) => {
-        setTokenData(undefined);
-        updateUser(undefined);
-        window.sessionStorage.removeItem(ACCESS_TOKEN);
-        window.sessionStorage.removeItem(ACCESS_TOKEN_EXP);
-        window.localStorage.removeItem(REFRESH_TOKEN);
-
-        const s = new URLSearchParams();
-
-        if (message) {
-            s.append('a', 'logout');
-            s.append('t', message.type);
-            s.append('msg', message.text);
-        }
-
-        window.location.href = '/?' + s.toString();
-    };
-
-    const fetchUser = () => {
-        setUserFetchStatus('pending');
-        httpGet<User>('accounts/users/@me')
-            .then((d) => {
-                updateUser(d);
-                setUserFetchStatus('resolved');
-            })
-            .catch((e) => {
-                setUserFetchStatus('rejected');
-            });
-    };
-
-    const login = (accessToken: string, refreshToken: string, expiresIn: number) => {
-        const expiresAt = Math.floor(Number(expiresIn) + Date.now() / 1000);
-
-        window.sessionStorage.setItem(ACCESS_TOKEN, accessToken);
-        window.sessionStorage.setItem(ACCESS_TOKEN_EXP, expiresAt.toString());
-        window.localStorage.setItem(REFRESH_TOKEN, refreshToken);
-
-        setTokenData({
-            accessToken,
-            refreshToken,
-            expiresAt: Number(expiresAt),
-        });
-
-        if (user) {
-            updateUser(user);
-        } else {
-            fetchUser();
-        }
-    };
-
-    const isLoggedin = useMemo(() => (tokenData && tokenData.expiresAt > Date.now() / 1000) || false, [tokenData]);
-
-    const loginWithCode = (code?: string) => {
-        fetchToken({
-            client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
-            client_id: import.meta.env.VITE_APP_CLIENT_ID,
-            grant_type: 'authorization_code',
-            redirect_uri: document.location.origin + '/login',
-            code,
-        })
-            .then((d: TokenResponse) => {
-                setTokenFetchStatus('resolved');
-                login(d.access_token, d.refresh_token, d.expires_in);
-            })
-            .catch((e) => {
-                setTokenFetchStatus('rejected');
-                logout();
-            });
-    };
-
-    useEffect(() => {
-        if (tokenData && !isLoggedin) {
-            logout();
-        }
-    }, [tokenData, isLoggedin]);
-
-    // check for tokens on startup
-    useEffect(() => {
-        const accessTokenStr = window.sessionStorage.getItem(ACCESS_TOKEN);
-        const accessTokenExp = window.sessionStorage.getItem(ACCESS_TOKEN_EXP);
-        const refreshToken = window.localStorage.getItem(REFRESH_TOKEN);
-
-        if (accessTokenStr && accessTokenExp) {
-            // try to refresh token if it is expired or will expire within 5 minutes
-            if (Number(accessTokenExp) < Date.now() / 1000 - 300 || !refreshToken) {
-                setUserFetchStatus('pending');
-                fetchToken({
-                    client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
-                    client_id: import.meta.env.VITE_APP_CLIENT_ID,
-                    grant_type: 'refresh_token',
-                    refresh_token: refreshToken,
-                    redirect_uri: document.location.origin + '/login',
-                })
-                    .then((d: TokenResponse) => {
-                        setUserFetchStatus('resolved');
-                        login(d.access_token, d.refresh_token, d.expires_in);
-                    })
-                    .catch((e) => {
-                        setUserFetchStatus('rejected');
-                        logout();
-                    });
-            }
-
-            if (accessTokenStr && Number(accessTokenExp) && refreshToken) {
-                login(accessTokenStr, refreshToken, Number(accessTokenExp));
-            }
-        } else if (refreshToken) {
-            setTokenFetchStatus('pending');
-            fetchToken({
-                client_secret: import.meta.env.VITE_APP_CLIENT_SECRET,
-                client_id: import.meta.env.VITE_APP_CLIENT_ID,
-                grant_type: 'refresh_token',
-                refresh_token: refreshToken,
-                redirect_uri: document.location.origin + '/login',
-            })
-                .then((d: TokenResponse) => {
-                    setTokenFetchStatus('resolved');
-                    login(d.access_token, d.refresh_token, d.expires_in);
-                })
-                .catch((e) => {
-                    setTokenFetchStatus('rejected');
-                    logout();
-                });
-        }
-    }, []);
-
-    const context = {
-        loginWithCode,
-        isLoggedin,
-        logout,
-        user,
-        accessToken: tokenData?.accessToken,
-        tokenFetchStatus,
-        userFetchStatus,
-    };
-
-    return <AuthContext.Provider value={context}>{children}</AuthContext.Provider>;
+const defaultState: State = {
+    ...((null as unknown) as State),
+    tokenFetchStatus: 'idle',
 };
 
-export const useAuth = () => useContext(AuthContext);
+type Dispatch = (action: Action) => void;
+type UserProviderProps = { children: React.ReactNode };
 
-export { AuthContextProvider };
+const UserStateContext = createContext<State | undefined>(undefined);
+const UserDispatchContext = createContext<Dispatch | undefined>(undefined);
+
+const userReducer = (state: State, action: Action) => {
+    const _state = { ...state };
+
+    switch (action.type) {
+        case 'SET_ACCESS_TOKEN':
+            _state.accessToken = action.token;
+            return _state;
+
+        case 'SAVE_USER':
+            _state.user = action.user;
+            return _state;
+
+        case 'LOGOUT':
+            cookie.remove(REFRESH_TOKEN);
+            cookie.remove(ACCESS_TOKEN);
+
+            return defaultState;
+
+        default:
+            return state;
+    }
+};
+
+export const UserProvider = ({ children }: UserProviderProps) => {
+    const [state, dispatch] = useReducer(userReducer, defaultState);
+
+    const { data: user } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
+
+    useEffect(() => {
+        if (user) {
+            dispatch({ type: 'SAVE_USER', user });
+        }
+    }, [user]);
+
+    useEffect(() => {
+        if (window.location.pathname.startsWith('/login')) {
+            return;
+        }
+
+        const token = cookie.get(REFRESH_TOKEN);
+
+        if (!token) {
+            cookie.remove(REFRESH_TOKEN);
+            cookie.remove(ACCESS_TOKEN);
+            return;
+        }
+
+        dispatch({ type: 'SET_FETCH_STATUS', status: 'pending' });
+
+        loginWithRefreshToken(token)
+            .then((d) => {
+                cookie.set(REFRESH_TOKEN, d.refresh_token, {
+                    expires: 5,
+                });
+                cookie.set(ACCESS_TOKEN, d.access_token, {
+                    expires: dayjs(new Date()).add(d.expires_in, 'seconds').toDate(),
+                });
+
+                dispatch({ type: 'SET_FETCH_STATUS', status: 'resolved' });
+                dispatch({ type: 'SET_ACCESS_TOKEN', token: d.access_token });
+            })
+            .catch((e) => {
+                dispatch({ type: 'SET_FETCH_STATUS', status: 'rejected' });
+                dispatch({ type: 'SET_ACCESS_TOKEN' });
+            });
+    }, []);
+
+    return (
+        <UserStateContext.Provider value={state}>
+            <UserDispatchContext.Provider value={dispatch}>{children}</UserDispatchContext.Provider>
+        </UserStateContext.Provider>
+    );
+};
+
+export const useUserState = () => {
+    const context = useContext(UserStateContext);
+
+    if (context === undefined) {
+        throw new Error('useUserState must be used within a UserProvider');
+    }
+
+    return context;
+};
+
+export const useUserDispatch = () => {
+    const context = useContext(UserDispatchContext);
+
+    if (context === undefined) {
+        throw new Error('useUserDispatch must be used within a UserProvider');
+    }
+
+    return context;
+};
+
+export const useLogin = (code: string | null) => {
+    const dispatch = useUserDispatch();
+    const history = useHistory();
+    const { tokenFetchStatus } = useUserState();
+
+    useEffect(() => {
+        if (!code || tokenFetchStatus === 'pending') {
+            return;
+        }
+
+        dispatch({ type: 'SET_FETCH_STATUS', status: 'pending' });
+
+        loginWithCode(code)
+            .then((d) => {
+                cookie.set(REFRESH_TOKEN, d.refresh_token, {
+                    expires: 5,
+                });
+                cookie.set(ACCESS_TOKEN, d.access_token, {
+                    expires: dayjs(new Date()).add(d.expires_in, 'seconds').toDate(),
+                });
+
+                dispatch({ type: 'SET_FETCH_STATUS', status: 'resolved' });
+                dispatch({ type: 'SET_ACCESS_TOKEN', token: d.access_token });
+                history.push('/');
+            })
+            .catch((e) => {
+                dispatch({ type: 'SET_FETCH_STATUS', status: 'rejected' });
+                dispatch({ type: 'SET_ACCESS_TOKEN' });
+            });
+    }, [code]);
+};

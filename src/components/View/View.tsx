@@ -1,5 +1,9 @@
 import React from 'react';
 
-export const View: React.FC = ({ children }) => {
-    return <main className="flex-grow">{children}</main>;
+interface IProps {
+    className?: string;
+}
+
+export const View: React.FC<IProps> = ({ children, className }) => {
+    return <main className={`flex-grow ${className}`}>{children}</main>;
 };

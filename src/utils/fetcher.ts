@@ -1,4 +1,5 @@
 import get from 'lodash/get';
+import cookie from 'js-cookie';
 
 enum Method {
     GET = 'GET',
@@ -20,7 +21,7 @@ export const AUTH_URL = import.meta.env.VITE_APP_AUTH_URL;
 const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
 
 const fetcher = async <T>(request: Request): Promise<T> => {
-    const token = window.sessionStorage.getItem(ACCESS_TOKEN);
+    const token = cookie.get(ACCESS_TOKEN);
 
     if (token) {
         request.headers.append('authorization', 'Bearer ' + token);
@@ -28,6 +29,8 @@ const fetcher = async <T>(request: Request): Promise<T> => {
 
     return fetch(request).then<Promise<T>>((res) => {
         if (!res.ok) {
+            // TODO check if token is expired, try to refresh
+
             return res.json().then((body) => {
                 return Promise.reject({
                     status: res.status,
@@ -91,12 +94,50 @@ export const httpDelete = <T>(
     return fetcher(new Request(_url, args));
 };
 
-export const fetchToken = (payload) => {
+export const loginWithCode = (code: string) => {
     const url = AUTH_URL + '/oauth/token/';
-    const body = Object.entries(payload)
+    const body = Object.entries({
+        client_secret: import.meta.env.VITE_APP_CLIENT_SECRET!,
+        client_id: import.meta.env.VITE_APP_CLIENT_ID!,
+        grant_type: 'authorization_code',
+        redirect_uri: document.location.origin + '/login',
+        code,
+    })
         .map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value))
         .join('&');
-    return httpPost(url, body, {
+
+    return httpPost<{
+        access_token: string;
+        expires_in: number;
+        refresh_token: string;
+        scope: string;
+        token_type: string;
+    }>(url, body, {
+        method: Method.POST,
+        body,
+        headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    });
+};
+
+export const loginWithRefreshToken = (refreshToken: string) => {
+    const url = AUTH_URL + '/oauth/token/';
+    const body = Object.entries({
+        client_secret: import.meta.env.VITE_APP_CLIENT_SECRET!,
+        client_id: import.meta.env.VITE_APP_CLIENT_ID!,
+        grant_type: 'refresh_token',
+        redirect_uri: document.location.origin + '/login',
+        refresh_token: refreshToken,
+    })
+        .map(([key, value]) => encodeURIComponent(key) + '=' + encodeURIComponent(value))
+        .join('&');
+
+    return httpPost<{
+        access_token: string;
+        expires_in: number;
+        refresh_token: string;
+        scope: string;
+        token_type: string;
+    }>(url, body, {
         method: Method.POST,
         body,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },

@@ -7,14 +7,14 @@ import { httpGet } from '../utils/fetcher';
 import { Select } from '../components/Select';
 import { Input } from '../components/Input';
 import { View } from '../components/View';
-import { AuthContext } from '../context/auth';
+import { useUserState } from '../context/Auth';
 import '@reach/listbox/styles.css';
 
 const CompetitionsOverview: React.FC = () => {
     const [search, setSearch] = useState('');
     const [genre, setGenre] = useState('');
 
-    const { user } = useContext(AuthContext);
+    const { user } = useUserState;
 
     const { data: competitionResult } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
     const { data: genreResult } = useSWR<IGenreResponse>('competitions/genres', httpGet);

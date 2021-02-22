@@ -9,7 +9,7 @@ import CompetitionPhases from '../features/competitions/CompetitionPhases';
 import { amIParticipant, hasPreRegistration, hasVote } from '../utils/competitions';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { formatNumber } from '../utils/numbers';
-import { useAuth } from '../context/auth';
+import { useUserState } from '../context/Auth';
 import { httpGet } from '../utils/fetcher';
 import './CompetitionDetails.scss';
 import '@reach/tabs/styles.css';
@@ -32,7 +32,7 @@ const format = (date: string) => dayjs(date).format('Do MMM HH:mm');
 
 const CompetitionDetails = () => {
     const { id } = useParams<{ id: string }>();
-    const { user } = useAuth();
+    const { user } = useUserState();
     const { data } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
 
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
