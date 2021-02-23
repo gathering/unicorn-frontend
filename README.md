@@ -21,11 +21,8 @@ Add the necessary variables to your environment before continuing:
 | Name                    | Description                              |
 | ----------------------- | ---------------------------------------- |
 | VITE_APP_URL           | Backend service URL                      |
-| VITE_APP_API_URL       | API URL (typically \$VITE_APP_URL/api/) |
-| VITE_APP_AUTH_URL      | Authentication service URL               |
 | VITE_APP_CLIENT_SECRET | Authentication service client secret     |
 | VITE_APP_CLIENT_ID     | Authentication service client ID         |
-| VITE_APP_OSCAR_LINK    | Authorization URL                        |
 
 ## Running
 

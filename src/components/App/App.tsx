@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import CompetitionDetails from '../../views/CompetitionDetails';
@@ -7,7 +7,6 @@ import CompetitionRegisterEntry from '../../views/CompetitionRegisterEntry';
 import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
 import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
-import { getOscarUrl } from '../../utils/fetcher';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useUserState } from '../../context/Auth';
 import { ErrorBoundary } from '../ErrorBoundary';
@@ -20,6 +19,14 @@ Sentry.init({
 
 const App = () => {
     const { user, accessToken } = useUserState();
+    const loginUrl = useMemo(() => {
+        const url = new URL(import.meta.env.VITE_APP_API + '/oauth/authorize/');
+        url.searchParams.append('client_id', import.meta.env.VITE_APP_CLIENT_ID as string);
+        url.searchParams.append('response_type', 'code');
+        url.searchParams.append('redirect_uri', window.location.origin + '/login');
+
+        return url.toString();
+    }, []);
 
     return (
         <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>
@@ -35,7 +42,7 @@ const App = () => {
                         ) : (
                             <a
                                 className="px-1 pt-1 mx-3 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out border-b-2 border-transparent hover:text-black hover:border-orange-500"
-                                href={getOscarUrl()}
+                                href={loginUrl}
                                 rel="noreferrer noopener"
                             >
                                 Log in

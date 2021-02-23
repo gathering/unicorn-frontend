@@ -15,8 +15,8 @@ export enum FetchState {
     REJECTED,
 }
 
-export const API_URL = import.meta.env.VITE_APP_API_URL;
-export const AUTH_URL = import.meta.env.VITE_APP_AUTH_URL;
+export const API_URL = `${import.meta.env.VITE_APP_API}/api/`;
+export const AUTH_URL = `${import.meta.env.VITE_APP_API}/oauth/`;
 
 const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
 
@@ -95,7 +95,7 @@ export const httpDelete = <T>(
 };
 
 export const loginWithCode = (code: string) => {
-    const url = AUTH_URL + '/oauth/token/';
+    const url = AUTH_URL + 'token/';
     const body = Object.entries({
         client_secret: import.meta.env.VITE_APP_CLIENT_SECRET!,
         client_id: import.meta.env.VITE_APP_CLIENT_ID!,
@@ -120,7 +120,7 @@ export const loginWithCode = (code: string) => {
 };
 
 export const loginWithRefreshToken = (refreshToken: string) => {
-    const url = AUTH_URL + '/oauth/token/';
+    const url = AUTH_URL + 'token/';
     const body = Object.entries({
         client_secret: import.meta.env.VITE_APP_CLIENT_SECRET!,
         client_id: import.meta.env.VITE_APP_CLIENT_ID!,
@@ -142,19 +142,6 @@ export const loginWithRefreshToken = (refreshToken: string) => {
         body,
         headers: { 'content-type': 'application/x-www-form-urlencoded' },
     });
-};
-
-export const getOscarUrl = (state = '') => {
-    const redirectUri = get(document, 'location.origin', '') + '/login';
-    let uriState = '';
-
-    if (typeof state === 'object') {
-        uriState = JSON.stringify(state);
-    } else {
-        uriState = state;
-    }
-
-    return import.meta.env.VITE_APP_OSCAR_LINK + '&' + objectToQuery({ redirect_uri: redirectUri, state: uriState });
 };
 
 export const objectToQuery = (object = {}, arrayAsCsv = false) =>
