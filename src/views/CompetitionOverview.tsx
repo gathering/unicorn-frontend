@@ -121,7 +121,7 @@ const CompetitionsOverview: React.FC = () => {
                             <h1 className="mt-32 text-4xl text-gray-800">
                                 {competitionResult ? 'No competitions found' : 'Loading...'}
                             </h1>
-                            {competitionResult && <p className="text-2xl text-gray-600">Is it even easter yet?</p>}
+                            {competitionResult && <p className="text-2xl text-gray-600">#isiteasteryet</p>}
                         </>
                     )}
                 </div>
