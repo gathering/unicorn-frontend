@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import useSWR from 'swr';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
-import { amIParticipant, hasPreRegistration, hasVote } from '../utils/competitions';
+import { amIParticipant, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { formatNumber } from '../utils/numbers';
 import { useUserState } from '../context/Auth';
@@ -28,7 +28,65 @@ const convertDraftToHtml = (data: any) => {
     return html;
 };
 
-const format = (date: string) => dayjs(date).format('Do MMM HH:mm');
+const Content = ({
+    competition,
+    isAuthenticated,
+    to,
+}: {
+    competition: ICompetition;
+    isAuthenticated: boolean;
+    to: string;
+}) => {
+    const action = findRegisterAction(competition, isAuthenticated);
+
+    switch (action) {
+        case 'login':
+            return (
+                <span className="flex justify-end h-12 mb-6 text-base font-semibold border rounded">
+                    Log in to register
+                </span>
+            );
+
+        case 'register':
+            return (
+                <Link
+                    to={to + '/register'}
+                    className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                >
+                    Register now!
+                </Link>
+            );
+
+        case 'my_registration':
+            return (
+                <Link
+                    to={to + '/register/'}
+                    className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-indigo-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                >
+                    Check out your registration
+                </Link>
+            );
+
+        case 'result':
+            return null;
+
+        // case 'external':
+        //     return (
+        //         <Segment basic>
+        //             <Header as="a" href={competition.external_url_info} color="orange">
+        //                 This is an externally hosted competition, click here for more information!
+        //             </Header>
+        //             <br />
+        //             <Header size="small" as="a" href={competition.external_url_login} color="grey">
+        //                 Direct to login
+        //             </Header>
+        //         </Segment>
+        //     );
+
+        default:
+            return null;
+    }
+};
 
 const CompetitionDetails = () => {
     const { id } = useParams<{ id: string }>();
@@ -75,24 +133,15 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </Tabs>
                 </div>
-                <aside style={{ minWidth: '20rem' }} className="ml-10">
-                    {/* {user && (
-                        <>
-                            <Link
-                                to={`/competitions/${id}/register`}
-                                className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
-                            >
-                                {hasEntry ? 'Check registration' : 'Register now!'}
-                            </Link>
-                        </>
-                    )} */}
+                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10">
+                    <Content competition={data} isAuthenticated={!!user} to={`/competitions/${id}`} />
 
                     {!!data.prizes.length && (
                         <section className="p-4 bg-white rounded">
-                            <h2 className="pb-2 text-lg font-bold">Prizes</h2>
+                            <h2 className="pb-2 text-lg">Prizes</h2>
                             <ul className="w-2/3 mt-2 leading-8">
                                 {data.prizes.map((prize: String, i: number) => (
-                                    <li key={prize + i.toString()} className="pr-3">
+                                    <li key={prize + i.toString()} className="pr-3 font-light text-gray-600">
                                         {formatNumber(i + 1)} <span className="float-right">{prize}</span>
                                     </li>
                                 ))}

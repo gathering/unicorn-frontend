@@ -91,3 +91,75 @@ export const competitionPhases = (competition: ICompetition): [string, string, s
         competition ? competition[phase + '_end'] : undefined,
     ]);
 };
+
+export const findRegisterAction = (competition: ICompetition, isAuthenticated: boolean) => {
+    const hasOwnEntry = amIParticipant(competition);
+    const isExternalCompetition = isExternal(competition);
+
+    // Add functionality based on state
+    switch (competition.state.value) {
+        case 2: // Register
+            if (isExternalCompetition) {
+                return 'external';
+            }
+
+            if (!isAuthenticated) {
+                return 'login';
+            }
+
+            if (hasOwnEntry) {
+                return 'my_registration';
+            } else {
+                return 'register';
+            }
+
+        case 4: // Show registration
+            if (isExternalCompetition) {
+                return 'external';
+            }
+
+            if (hasOwnEntry && isAuthenticated) {
+                return 'my_competition';
+            }
+            break;
+
+        case 8: // Register or hand in
+            if (isExternalCompetition) {
+                return 'external';
+            }
+
+            if (isAuthenticated) {
+                if (hasOwnEntry && !!Object.keys(hasOwnEntry).length) {
+                    return 'my_registration';
+                } else {
+                    if (hasPreRegistration(competition)) {
+                        return null;
+                    }
+
+                    return 'register';
+                }
+            } else {
+                return 'login';
+            }
+
+        case 16: // Show information
+            if (isExternalCompetition) {
+                return 'external';
+            }
+
+            if (hasOwnEntry && isAuthenticated) {
+                return 'my_registration';
+            }
+            break;
+
+        case 256: // Show result details
+            if (isExternalCompetition) {
+                return null;
+            }
+
+            return 'result';
+
+        default:
+            return null;
+    }
+};

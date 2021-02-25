@@ -85,15 +85,15 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
     const color = havePassed ? 'green-700' : 'gray-600';
 
     return (
-        <div className={`flex-grow flex flex-col items-center font-light`}>
-            <h1 className={`mb-4 text-${color}`}>{heading}</h1>
+        <section className={`flex-grow flex flex-col items-center font-light`}>
+            <h2 className={`mb-4 text-${color}`}>{heading}</h2>
             <hr
                 style={{ height: '2px' }}
                 className={`border-0 bg-gray-400 -mb-3 min-w-full bg-${color} ${havePassed ? '' : 'border-dashed'}`}
             />
             <div className={`rounded-full bg-${color} w-6 h-6 border`} />
             <div className="flex flex-col items-center font-light">
-                <span title={dayjs(time).format('DD-MM-YYYY HH:mm')}>
+                <span title={dayjs(time).format('DD MMM YYYY HH:mm')}>
                     {dayjs(time).isYesterday()
                         ? 'Yesterday'
                         : dayjs(time).isToday()
@@ -104,7 +104,7 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                 </span>
                 <span>{dayjs(time).format('HH:mm')}</span>
             </div>
-        </div>
+        </section>
     );
 };
 
