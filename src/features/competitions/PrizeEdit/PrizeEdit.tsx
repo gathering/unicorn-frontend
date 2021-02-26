@@ -5,9 +5,10 @@ interface IProps {
     value: string[];
     onChange: (value: string[]) => void;
     label?: string;
+    className?: string;
 }
 
-export const PrizeEdit = ({ value, onChange, label }: IProps) => {
+export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
     const [newPrizeState, setNewPrizeState] = useState('');
 
     const addPrize = () => {
@@ -26,20 +27,36 @@ export const PrizeEdit = ({ value, onChange, label }: IProps) => {
     };
 
     return (
-        <fieldset>
+        <fieldset className={className ?? ''}>
             <legend>{label ?? 'Prizes'}</legend>
             {value.map((v, i) => (
-                <>
-                    <Input value={v} onChange={(e) => handleChange(i, e)} label={`#${i}`} />
-                    <button type="button" onClick={() => removePrize(i)}>
+                <fieldset className="flex items-center mb-2">
+                    <Input value={v} onChange={(e) => handleChange(i, e)} label={`#${i + 1}`} labelClassName="w-10" />
+                    <button
+                        type="button"
+                        onClick={() => removePrize(i)}
+                        className="flex items-center w-32 h-12 px-4 ml-6 text-base text-red-900 duration-150 bg-red-300 rounded justify-evenly hover:bg-red-700 hover:text-black hover:shadow"
+                    >
                         Remove
                     </button>
-                </>
+                </fieldset>
             ))}
-            <Input value={newPrizeState} onChange={(e) => setNewPrizeState(e.target.value)} label="Add prize" />
-            <button type="button" onClick={addPrize}>
-                Add
-            </button>
+            <div className="flex flex-wrap">
+                <Input
+                    value={newPrizeState}
+                    onChange={(e) => setNewPrizeState(e.target.value)}
+                    label={value.length > 0 ? '' : 'Add prize'}
+                    className={!!value.length ? 'ml-10' : ''}
+                    labelClassName="w-full font-light"
+                />
+                <button
+                    type="button"
+                    onClick={addPrize}
+                    className="flex items-center w-32 h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                >
+                    Add
+                </button>
+            </div>
         </fieldset>
     );
 };

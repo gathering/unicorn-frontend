@@ -21,8 +21,8 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
 
     return (
         <>
-            <h1>Create new competition</h1>
-            <p>
+            <h1 className="mb-8 text-3xl">Create new competition</h1>
+            <p className="mb-10 text-gray-700">
                 Some features may be hidden based on what genre you choose. All features will be available after initial
                 creation.
             </p>
@@ -47,12 +47,30 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
                                 onChange={onChange}
                                 value={value}
                             />
-                            {errors.genre?.message && <label>{errors.genre?.message}</label>}
+                            {errors.genre?.message && (
+                                <label className="flex items-center mt-1 text-red-600">
+                                    <svg
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20"
+                                        fill="currentColor"
+                                        className="w-4 h-4 mr-4"
+                                    >
+                                        <path
+                                            fillRule="evenodd"
+                                            d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z"
+                                            clipRule="evenodd"
+                                        />
+                                    </svg>
+                                    {errors.genre?.message}
+                                </label>
+                            )}
                         </>
                     )}
                 />
-                <footer>
-                    <button>Forward</button>
+                <footer className="mt-8">
+                    <button className="flex items-center h-12 px-4 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                        Forward
+                    </button>
                 </footer>
             </form>
         </>

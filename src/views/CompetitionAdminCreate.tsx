@@ -47,7 +47,7 @@ const CompetitionAdminCreate = () => {
     }, [selectedGenre, genres]);
 
     return (
-        <View>
+        <View className="flex flex-col items-center">
             <FormProvider {...methods}>
                 <AnimatePresence exitBeforeEnter initial={false}>
                     <motion.div
@@ -56,6 +56,7 @@ const CompetitionAdminCreate = () => {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.1 }}
+                        className="my-16 max-w-prose"
                     >
                         <CurrentSlide onForward={forward} onPrevious={previous} activeCategory={activeCategory} />
                     </motion.div>

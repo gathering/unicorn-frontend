@@ -9,6 +9,7 @@ interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
     label?: string;
     ariaLabelledBy?: string;
     fullWidth?: boolean;
+    labelClassName?: string;
 }
 
 const Label = styled.label`
@@ -30,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
             className,
             errorLabel,
             id,
+            labelClassName,
             ariaLabelledBy = '',
             fullWidth = false,
             ...inputProps
@@ -42,7 +44,9 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
         return (
             <>
                 {label ? (
-                    <Label id={labelId + '-label'}>{label}</Label>
+                    <Label id={labelId + '-label'} className={labelClassName ?? 'mb-1'}>
+                        {label}
+                    </Label>
                 ) : (
                     <VisuallyHidden id={labelId}>{placeholder}</VisuallyHidden>
                 )}

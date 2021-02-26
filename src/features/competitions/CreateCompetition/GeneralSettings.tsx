@@ -1,7 +1,6 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
-import draftJs from 'draft-js';
-import reactDraft from 'react-draft-wysiwyg';
+import { EditorState, convertToRaw } from 'draft-js';
 import DatePicker from 'react-datepicker';
 import { addHours, addWeeks } from 'date-fns';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
@@ -28,11 +27,18 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
 
     return (
         <>
-            <h1>General settings</h1>
+            <h1 className="mb-8 text-3xl">General settings</h1>
+            <p className="mb-10 text-gray-700">
+                All of these inputs are mandatory. They are the base data for the competition. If you're not sure what
+                to put into the fields yet, you may put in some dummy data for now. After creating the competition you
+                may come back to edit the fields.
+            </p>
+
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     name="name"
                     label="Competition title"
+                    className="mb-6"
                     ref={register({ required: 'You need to give the competition a title' })}
                     errorLabel={errors.name?.message}
                 />
@@ -40,6 +46,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     name="brief_description"
                     label="Brief description"
+                    className="mb-6"
                     ref={register({
                         required: 'You need to give the competition a short teasing description',
                         maxLength: {
@@ -93,7 +100,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     }}
                     render={({ value, ...props }) => (
                         <>
-                            <label id="runtime-end">Competition end time</label>
+                            <label id="runtime-end" className="mt-6">
+                                Competition end time
+                            </label>
                             {errors.run_time_end && (
                                 <label role="alert" className="block text-red-600" id="description-error-label">
                                     {errors.run_time_end.message}
@@ -124,7 +133,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     rules={{
                         required: 'You must write a description for the competition',
                     }}
-                    defaultValue={draftJs.EditorState.createEmpty()}
+                    defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
                     render={({ onChange, value }) => (
                         <Wysiwyg
                             label="Competition description"
@@ -141,7 +150,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     rules={{
                         required: 'You must write a ruleset for the competition',
                     }}
-                    defaultValue={draftJs.EditorState.createEmpty()}
+                    defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
                     render={({ onChange, value }) => (
                         <Wysiwyg
                             label="Competition rules"
@@ -158,6 +167,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     ref={register({ required: 'You must add a poster for the competition' })}
                     name="header_image"
                     errorLabel={errors.header_image?.message}
+                    className="mb-6"
                 />
 
                 <Input
@@ -169,9 +179,15 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     errorLabel={errors.header_credit?.message}
                 />
 
-                <footer className="flex flex-row-reverse justify-end">
-                    <button>Next</button>
-                    <button type="button" onClick={onPrevious}>
+                <footer className="flex flex-row-reverse justify-end mt-8">
+                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                        Next
+                    </button>
+                    <button
+                        type="button"
+                        onClick={onPrevious}
+                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                    >
                         Previous
                     </button>
                 </footer>
