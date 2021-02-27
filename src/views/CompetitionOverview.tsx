@@ -9,13 +9,17 @@ import { Input } from '../components/Input';
 import { View } from '../components/View';
 import { useUserState } from '../context/Auth';
 import '@reach/listbox/styles.css';
+import { motion } from 'framer-motion';
 
 const CompetitionsOverview: React.FC = () => {
     const [search, setSearch] = useState('');
     const [genre, setGenre] = useState('');
     const { user } = useUserState();
 
-    const { data: competitionResult } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
+    const { data: competitionResult, isValidating } = useSWR<ICompetitionListResponse>(
+        'competitions/competitions',
+        httpGet
+    );
     const { data: genreResult } = useSWR<IGenreResponse>('competitions/genres', httpGet);
 
     const competitions = useMemo(() => {
@@ -80,10 +84,28 @@ const CompetitionsOverview: React.FC = () => {
                         </>
                     )}
                 </aside>
-                <div className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4">
-                    {!!filteredCompetitions.length ? (
-                        filteredCompetitions.map((competition) => (
-                            <div
+                {!!filteredCompetitions.length && (
+                    <motion.ul
+                        initial="hidden"
+                        animate="show"
+                        variants={{
+                            hidden: { opacity: 0 },
+                            show: {
+                                opacity: 1,
+                                transition: {
+                                    staggerChildren: 0.05,
+                                },
+                            },
+                        }}
+                        className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4"
+                    >
+                        {filteredCompetitions.map((competition) => (
+                            <motion.li
+                                transition={{ duration: 0.1 }}
+                                variants={{
+                                    hidden: { opacity: 0, y: -60 },
+                                    show: { opacity: 1, y: 0 },
+                                }}
                                 className="w-full mb-6 duration-200 border-b hover:shadow-xl last:border-b-0"
                                 key={competition.id}
                             >
@@ -114,17 +136,18 @@ const CompetitionsOverview: React.FC = () => {
                                         </svg>
                                     </div>
                                 </Link>
-                            </div>
-                        ))
-                    ) : (
-                        <>
-                            <h1 className="mt-32 text-4xl text-gray-800">
-                                {competitionResult ? 'No competitions found' : 'Loading...'}
-                            </h1>
-                            {competitionResult && <p className="text-2xl text-gray-600">#isiteasteryet</p>}
-                        </>
-                    )}
-                </div>
+                            </motion.li>
+                        ))}
+                    </motion.ul>
+                )}
+                {!filteredCompetitions.length && !isValidating && (
+                    <article className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4">
+                        <h1 className="mt-32 text-4xl text-gray-800">
+                            {competitionResult ? 'No competitions found' : 'Loading...'}
+                        </h1>
+                        {competitionResult && <p className="text-2xl text-gray-600">#isiteasteryet</p>}
+                    </article>
+                )}
             </div>
         </View>
     );

@@ -31,7 +31,12 @@ export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
             <legend className="mb-1">{label ?? 'Prizes'}</legend>
             {value.map((v, i) => (
                 <fieldset className="flex items-center mb-2">
-                    <Input value={v} onChange={(e) => handleChange(i, e)} label={`#${i + 1}`} labelClassName="w-10" />
+                    <Input
+                        value={v}
+                        onChange={(e) => handleChange(i, e)}
+                        label={`#${i + 1}`}
+                        labelClassName="w-10 text-gray-700"
+                    />
                     <button
                         type="button"
                         onClick={() => removePrize(i)}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Controller, useForm } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
 import { ContentState, convertToRaw, RawDraftContentState } from 'draft-js';
@@ -435,10 +435,16 @@ const CompetitionAdminEdit = () => {
                     Featured (optional)
                 </label>
 
-                <footer className="mt-8">
-                    <button className="flex items-center h-12 px-4 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                <footer className="flex flex-row-reverse justify-end mt-8">
+                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
                         Save
                     </button>
+                    <Link
+                        to="/admin/competitions"
+                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                    >
+                        Cancel
+                    </Link>
                 </footer>
             </form>
         </View>
