@@ -90,17 +90,21 @@ const CompetitionAdminEdit = () => {
     }
 
     return (
-        <View>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <View className="flex flex-col items-center my-16">
+            <form onSubmit={handleSubmit(onSubmit)} className="max-w-prose">
+                <h1 className="mb-8 text-3xl">Edit {competition?.name}</h1>
+
                 <Input
                     label="Competition name"
                     name="name"
+                    className="mb-6"
                     ref={register({ required: 'You need to give the competition a name' })}
                 />
 
                 <Input
                     label="Brief description"
                     name="brief_description"
+                    className="mb-6"
                     ref={register({
                         required: 'You need to give the competition a short and teasing description',
                         maxLength: {
@@ -211,6 +215,7 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Poster url"
                     type="url"
+                    className="mb-6"
                     ref={register({ required: 'You must add a poster for the competition' })}
                     name="header_image"
                     errorLabel={errors.header_image?.message}
@@ -218,6 +223,7 @@ const CompetitionAdminEdit = () => {
 
                 <Input
                     label="Poster credit"
+                    className="mb-6"
                     ref={register({
                         required: 'You must credit the poster',
                     })}
@@ -230,7 +236,7 @@ const CompetitionAdminEdit = () => {
                     name="prizes"
                     defaultValue={[]}
                     render={({ onChange, value }) => (
-                        <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} />
+                        <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} className="mb-6" />
                     )}
                 />
 
@@ -239,7 +245,9 @@ const CompetitionAdminEdit = () => {
                     name="vote_time_start"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="votetime-start">Vote start time (optional)</label>
+                            <label id="votetime-start" className="block mb-1">
+                                Vote start time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'votetime-start'}
@@ -259,7 +267,9 @@ const CompetitionAdminEdit = () => {
                     name="vote_time_end"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="votetime-end">Vote end time (optional)</label>
+                            <label id="votetime-end" className="block mb-1">
+                                Vote end time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'votetime-end'}
@@ -274,11 +284,28 @@ const CompetitionAdminEdit = () => {
                         </>
                     )}
                 />
-                <Input type="number" label="Minimum team size (optional)" name="team_min" ref={register()} />
-                <Input type="number" label="Maximum team size (optional)" name="team_max" ref={register()} />
-                <Input label="Custom input field name (optional)" name="contributor_extra" ref={register()} />
-                <Input label="Toornament ID (optional)" name="toornament" ref={register()} />
-                <label>
+                <Input
+                    type="number"
+                    label="Minimum team size (optional)"
+                    name="team_min"
+                    ref={register()}
+                    className="mb-6"
+                />
+                <Input
+                    type="number"
+                    label="Maximum team size (optional)"
+                    name="team_max"
+                    ref={register()}
+                    className="mb-6"
+                />
+                <Input
+                    label="Custom input field name (optional)"
+                    name="contributor_extra"
+                    ref={register()}
+                    className="mb-6"
+                />
+                <Input label="Toornament ID (optional)" name="toornament" ref={register()} className="mb-6" />
+                <label className="block mb-6">
                     <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
                     Users can report win/loss (optional)
                 </label>
@@ -288,7 +315,9 @@ const CompetitionAdminEdit = () => {
                     name="register_time_start"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="register-end">Registration start time (optional)</label>
+                            <label id="register-end" className="block mb-1">
+                                Registration start time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'register-end'}
@@ -309,7 +338,9 @@ const CompetitionAdminEdit = () => {
                     name="register_time_end"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="register-end">Registration end time (optional)</label>
+                            <label id="register-end" className="block mb-1">
+                                Registration end time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'register-end'}
@@ -330,7 +361,9 @@ const CompetitionAdminEdit = () => {
                     name="show_time_start"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="showtime-end">Competition show start time (optional)</label>
+                            <label id="showtime-end" className="block mb-1">
+                                Competition show start time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'showtime-end'}
@@ -351,7 +384,9 @@ const CompetitionAdminEdit = () => {
                     name="show_time_end"
                     render={({ value, ...props }) => (
                         <>
-                            <label id="showtime-end">Competition show end time (optional)</label>
+                            <label id="showtime-end" className="block mb-1">
+                                Competition show end time (optional)
+                            </label>
                             <div className="block">
                                 <DatePicker
                                     ariaLabelledBy={'showtime-end'}
@@ -367,28 +402,43 @@ const CompetitionAdminEdit = () => {
                     )}
                 />
 
-                <Input name="external_url_login" type="url" label="Login URL (optional)" ref={register()} />
-                <Input name="external_url_info" type="url" label="Homepage URL (optional)" ref={register()} />
+                <Input
+                    name="external_url_login"
+                    type="url"
+                    label="Login URL (optional)"
+                    ref={register()}
+                    className="mb-6"
+                />
+                <Input
+                    name="external_url_info"
+                    type="url"
+                    label="Homepage URL (optional)"
+                    ref={register()}
+                    className="mb-6"
+                />
 
                 <Input
                     type="number"
                     label="Max submission/participants (optional)"
                     name="participant_limit"
                     ref={register()}
+                    className="mb-6"
                 />
 
-                <label>
+                <label className="block mb-1">
                     <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
                     RSVP Only (optional)
                 </label>
 
-                <label>
+                <label className="block mb-1">
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
                 </label>
 
-                <footer>
-                    <button>Save</button>
+                <footer className="mt-8">
+                    <button className="flex items-center h-12 px-4 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                        Save
+                    </button>
                 </footer>
             </form>
         </View>
