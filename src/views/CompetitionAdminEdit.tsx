@@ -12,6 +12,7 @@ import { Wysiwyg } from '../components/Wysiwyg';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { PrizeEdit } from '../features/competitions/PrizeEdit';
 import { parseError } from '../utils/error';
+import { FileEdit } from '../features/competitions/FileEdit';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const CompetitionAdminEdit = () => {
@@ -237,6 +238,15 @@ const CompetitionAdminEdit = () => {
                     defaultValue={[]}
                     render={({ onChange, value }) => (
                         <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} className="mb-6" />
+                    )}
+                />
+
+                <Controller
+                    control={control}
+                    name="fileupload"
+                    defaultValue={[]}
+                    render={({ onChange, value }) => (
+                        <FileEdit onChange={onChange} value={value} label="Upload files (optional)" />
                     )}
                 />
 

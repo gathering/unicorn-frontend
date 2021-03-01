@@ -101,12 +101,15 @@ const CompetitionsOverview: React.FC = () => {
                     >
                         {filteredCompetitions.map((competition) => (
                             <motion.li
+                                whileHover={{
+                                    scale: 1.025,
+                                }}
                                 transition={{ duration: 0.1 }}
                                 variants={{
                                     hidden: { opacity: 0, y: -60 },
                                     show: { opacity: 1, y: 0 },
                                 }}
-                                className="w-full mb-6 duration-200 border-b hover:shadow-xl last:border-b-0"
+                                className="w-full mb-6 duration-200 hover:shadow-xl"
                                 key={competition.id}
                             >
                                 <Link to={'/competitions/' + competition.id} className="flex h-32 mobile:flex-col">

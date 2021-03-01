@@ -9,6 +9,7 @@ import { Input } from '../../../components/Input';
 import { httpPost } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
 import { PrizeEdit } from '../PrizeEdit';
+import { FileEdit } from '../FileEdit';
 
 interface IProps {
     onForward: () => void;
@@ -62,6 +63,14 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
 
                 {[Genre.OTHER, Genre.CREATIVE].includes(Number(activeCategory)) ? (
                     <>
+                        <Controller
+                            control={control}
+                            name="fileupload"
+                            defaultValue={[]}
+                            render={({ onChange, value }) => (
+                                <FileEdit onChange={onChange} value={value} label="Upload files (optional)" />
+                            )}
+                        />
                         <Controller
                             control={control}
                             name="vote_time_start"
