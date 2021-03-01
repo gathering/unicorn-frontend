@@ -11,6 +11,8 @@ import { ProtectedRoute } from '../ProtectedRoute';
 import { useUserState } from '../../context/Auth';
 import { ErrorBoundary } from '../ErrorBoundary';
 import Auth from '../../views/Auth';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 Sentry.init({
     dsn: 'https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132',
@@ -71,6 +73,7 @@ const App = () => {
                         <Route path="/login" component={Auth} />
                     </Switch>
                 </div>
+                <ToastContainer />
             </BrowserRouter>
         </Sentry.ErrorBoundary>
     );

@@ -4,6 +4,7 @@ import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
 import draftToHtml from 'draftjs-to-html';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
+import styled from 'styled-components';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
 import { amIParticipant, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
@@ -27,6 +28,10 @@ const convertDraftToHtml = (data: any) => {
 
     return html;
 };
+
+const HeadingWrapper = styled.h1`
+    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
+`;
 
 const Content = ({
     competition,
@@ -107,9 +112,9 @@ const CompetitionDetails = () => {
         <div className="container mx-auto my-12 ">
             <div className="relative">
                 <img className="object-cover w-full h-48 mb-10 rounded-md" src={data.header_image} alt="" />
-                <h1 className="absolute bottom-0 w-full px-4 text-5xl text-white bg-black bg-opacity-75 rounded-b-lg">
+                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
                     {data.name}
-                </h1>
+                </HeadingWrapper>
             </div>
             <div className="flex flex-horizontal">
                 <div className="flex-grow">
