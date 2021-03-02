@@ -45,7 +45,7 @@ const fetcher = async <T>(request: Request): Promise<T> => {
 };
 
 export const httpGet = <T>(url: string, args: RequestInit = { method: Method.GET }): Promise<T> => {
-    const _url = url.startsWith('http') ? url : API_URL + url + '/';
+    const _url = url.startsWith('http') || url.includes('?') ? API_URL + url : API_URL + url + '/';
     return fetcher<T>(new Request(_url, args));
 };
 

@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import groupBy from 'lodash/groupBy';
 import draftJs from 'draft-js';
-import type { ICompetition, State } from '../features/competitions/competition.types';
+import type { ICompetition, IEntry, State } from '../features/competitions/competition.types';
 
 export const CLOSED = 1;
 export const REGISTRATION_OPEN = 2;
@@ -30,8 +30,9 @@ export const getUnfinishedCompetitions = (competitions: ICompetition[]) =>
 export const filterCompetitionsByState = (competitions: ICompetition[], state: State) =>
     competitions.filter((c) => c.state.value === state);
 
-export const amIParticipant = (c: ICompetition) =>
+export const amIParticipantInCompetition = (c: ICompetition) =>
     (c.entries?.length && c.entries.find((e) => e.is_contributor)) || false;
+export const amIParticipantInEntryList = (e: IEntry[]) => e.find((ee) => ee.is_contributor) || false;
 
 export const groupCompetitionsByKey = (competitions: ICompetition[], key = 'run_time_start') => {
     dayjs.extend(relativeTime);
@@ -93,7 +94,7 @@ export const competitionPhases = (competition: ICompetition): [string, string, s
 };
 
 export const findRegisterAction = (competition: ICompetition, isAuthenticated: boolean) => {
-    const hasOwnEntry = amIParticipant(competition);
+    const hasOwnEntry = amIParticipantInCompetition(competition);
     const isExternalCompetition = isExternal(competition);
 
     // Add functionality based on state

@@ -47,12 +47,23 @@ export interface IGenreResponse {
 }
 
 export interface IEntry {
+    comment?: string;
+    contributors: [];
+    crew_msg?: string;
+    files: [];
     id: number;
     is_contributor: boolean;
+    is_owner: boolean;
     obj_type: 'full' | 'nested';
+    order: number;
+    score: number;
+    screen_msg?: string;
     title: string;
     url: string;
-    crew_msg?: string;
+}
+
+export interface IEntryListResponse {
+    results: IEntry[];
 }
 
 export enum State {

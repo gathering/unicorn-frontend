@@ -3,7 +3,7 @@ import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import CompetitionDetails from '../../views/CompetitionDetails';
 import CompetitionsOverview from '../../views/CompetitionOverview';
-import CompetitionRegisterEntry from '../../views/CompetitionRegisterEntry';
+import CompetitionRegistration from '../../views/CompetitionRegistration';
 import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
 import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
@@ -68,7 +68,7 @@ const App = () => {
                             component={CompetitionAdminOverview}
                             requiredRole="crew"
                         />
-                        <ProtectedRoute path="/competitions/:id/register" component={CompetitionRegisterEntry} />
+                        <ProtectedRoute path="/competitions/:id/register" component={CompetitionRegistration} />
                         <Route path="/competitions/:id" component={CompetitionDetails} />
                         <Route path="/login" component={Auth} />
                     </Switch>

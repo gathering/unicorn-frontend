@@ -1,12 +1,11 @@
-import React, { useEffect, useMemo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { useLocation, useParams } from 'react-router-dom';
+import React, { useMemo } from 'react';
+import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import useSWR from 'swr';
-import { Input } from '../components/Input';
-import type { ICompetition, IEntry } from '../features/competitions/competition.types';
-import { amIParticipant, hasFileupload, hasTeams } from '../utils/competitions';
-import { httpGet, httpPost, httpPut } from '../utils/fetcher';
+import type { ICompetition } from '../competition.types';
+import { httpPost } from '../../../utils/fetcher';
+import { Input } from '../../../components/Input';
+import { useForm, Controller } from 'react-hook-form';
+import { hasFileupload, hasTeams } from '../../../utils/competitions';
 
 enum FormType {
     UPLOAD_TEAM,
@@ -19,34 +18,56 @@ interface IFormData {
     crew_msg?: string;
 }
 
-// TODO Resign
+const HeadingWrapper = styled.h1`
+    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
+`;
 
-const CompetitionRegisterEntry = () => {
-    const { pathname } = useLocation();
-    const { id, entryId } = useParams<{ id: string; entryId?: string }>();
+interface IProps {
+    competition: ICompetition;
+    onRegistrationFinish: () => void;
+}
+
+export const Register = ({ competition, onRegistrationFinish }: IProps) => {
     const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
-    const { data, mutate: refetchCompetition } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
 
-    const hasEntry = useMemo(() => (data ? amIParticipant(data) : false), [data]);
-
-    const { data: entry, mutate: refetchEntry } = useSWR<IEntry>(hasEntry ? hasEntry.url : null, httpGet);
-
-    useEffect(() => {
-        if (hasEntry && entry) {
-            reset({
-                title: entry?.title,
-                crew_msg: entry?.crew_msg,
-            });
+    const onSubmit = (formData: IFormData) => {
+        if (!formData && !competition.rsvp) {
+            return;
         }
-    }, [hasEntry, entry]);
+
+        httpPost(
+            'competitions/entries',
+            JSON.stringify({
+                competition: competition.id,
+                ...formData,
+            })
+        )
+            .then((d) => {
+                toast.success('Successfully registered!');
+                onRegistrationFinish();
+            })
+            .catch((error) => {
+                const errorList = Object.entries(error.body).map(([key, val]) => {
+                    if (Array.isArray(val)) {
+                        return `${key}: ${val[0]}`;
+                    }
+
+                    return `${key}: ${val}`;
+                });
+
+                for (const e of errorList) {
+                    toast.error(e);
+                }
+            });
+    };
 
     const registrationType = useMemo(() => {
-        if (!data) {
+        if (!competition) {
             return null;
         }
 
-        const team = hasTeams(data);
-        const upload = hasFileupload(data);
+        const team = hasTeams(competition);
+        const upload = hasFileupload(competition);
 
         if (team && upload) {
             return FormType.UPLOAD_TEAM;
@@ -57,99 +78,15 @@ const CompetitionRegisterEntry = () => {
         } else {
             return null;
         }
-    }, [data]);
+    }, [competition]);
 
-    if (!data) {
+    if (competition.rsvp) {
         return (
-            <div className="flex flex-col items-center justify-center h-full">
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    className="text-6xl animate-bounce"
-                >
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z"
-                    />
-                    <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9.879 16.121A3 3 0 1012.015 11L11 14H9c0 .768.293 1.536.879 2.121z"
-                    />
-                </svg>
-                <h1 className="pt-4 text-2xl">Fetching data...</h1>
-            </div>
-        );
-    }
-
-    const onSubmit = (formData: IFormData) => {
-        if (!formData && !data.rsvp) {
-            return;
-        }
-
-        if (entry?.id) {
-            httpPut(
-                `competitions/entries/${entry.id}`,
-                JSON.stringify({
-                    competition: data.id,
-                    ...formData,
-                })
-            )
-                .then((d) => {
-                    toast.success('Saved changes!');
-                    refetchEntry();
-                })
-                .catch((error) => {
-                    const errorList = Object.entries(error.body).map(([key, val]) => {
-                        if (Array.isArray(val)) {
-                            return `${key}: ${val[0]}`;
-                        }
-
-                        return `${key}: ${val}`;
-                    });
-
-                    for (const e of errorList) {
-                        toast.error(e);
-                    }
-                });
-        } else {
-            httpPost(
-                'competitions/entries',
-                JSON.stringify({
-                    competition: data.id,
-                    ...formData,
-                })
-            )
-                .then((d) => {
-                    toast.success('Successfully registered!');
-                    refetchCompetition();
-                })
-                .catch((error) => {
-                    const errorList = Object.entries(error.body).map(([key, val]) => {
-                        if (Array.isArray(val)) {
-                            return `${key}: ${val[0]}`;
-                        }
-
-                        return `${key}: ${val}`;
-                    });
-
-                    for (const e of errorList) {
-                        toast.error(e);
-                    }
-                });
-        }
-    };
-
-    const header = entry ? entry.title : `Sign up for ${data.name}`;
-
-    if (data.rsvp) {
-        return (
-            <RegisterContainer headerImage={data.header_image} name={data.name} header={header}>
+            <RegistrationContainer
+                headerImage={competition.header_image}
+                name={competition.name}
+                header={`Sign up for ${competition.name}`}
+            >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -172,12 +109,16 @@ const CompetitionRegisterEntry = () => {
                         RSVP
                     </button>
                 </div>
-            </RegisterContainer>
+            </RegistrationContainer>
         );
     }
 
     return (
-        <RegisterContainer headerImage={data.header_image} name={data.name} header={header}>
+        <RegistrationContainer
+            headerImage={competition.header_image}
+            name={competition.name}
+            header={`Sign up for ${competition.name}`}
+        >
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="flex p-4">
                     <h3 style={{ width: '360px' }}>Registration</h3>
@@ -209,7 +150,7 @@ const CompetitionRegisterEntry = () => {
                     </fieldset>
                 </div>
 
-                {data.genre.category.value === 2 && (
+                {competition.genre.category.value === 2 && (
                     <>
                         <hr className="my-6 border-t border-gray-300" />
 
@@ -225,10 +166,10 @@ const CompetitionRegisterEntry = () => {
                 <hr className="my-6 border-t border-gray-300" />
 
                 <button className="flex items-center float-right h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
-                    {hasEntry ? 'Save' : 'Register'}
+                    Register
                 </button>
             </form>
-        </RegisterContainer>
+        </RegistrationContainer>
     );
 };
 
@@ -260,7 +201,7 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
     );
 };
 
-const RegisterContainer: React.FC<{ name: string; headerImage: string; header: string }> = ({
+const RegistrationContainer: React.FC<{ name: string; headerImage: string; header: string }> = ({
     children,
     name,
     headerImage,
@@ -269,9 +210,9 @@ const RegisterContainer: React.FC<{ name: string; headerImage: string; header: s
     <div className="container mx-auto my-12 mobile:my-0">
         <div className="relative">
             <img className="object-cover w-full h-48 mb-4 rounded-md mobile:rounded-none" src={headerImage} alt="" />
-            <h1 className="absolute bottom-0 w-full px-4 text-5xl text-white bg-black bg-opacity-75 rounded-b-md mobile:rounded-none">
+            <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
                 {name}
-            </h1>
+            </HeadingWrapper>
         </div>
         <section className="flex flex-col bg-white rounded mobile:rounded-none">
             <h2 className="p-4 text-xl text-center">{header}</h2>
@@ -280,5 +221,3 @@ const RegisterContainer: React.FC<{ name: string; headerImage: string; header: s
         </section>
     </div>
 );
-
-export default CompetitionRegisterEntry;

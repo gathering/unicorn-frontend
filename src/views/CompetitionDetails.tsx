@@ -7,7 +7,7 @@ import useSWR from 'swr';
 import styled from 'styled-components';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
-import { amIParticipant, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
+import { amIParticipantInCompetition, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { formatNumber } from '../utils/numbers';
 import { useUserState } from '../context/Auth';
@@ -101,7 +101,7 @@ const CompetitionDetails = () => {
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
     const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
 
-    const hasEntry = useMemo(() => (data ? amIParticipant(data) : false), [data]);
+    const hasEntry = useMemo(() => (data ? amIParticipantInCompetition(data) : false), [data]);
 
     if (!data) {
         // TODO Return loading component
