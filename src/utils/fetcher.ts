@@ -4,6 +4,7 @@ import cookie from 'js-cookie';
 enum Method {
     GET = 'GET',
     POST = 'POST',
+    PATCH = 'PATCH',
     PUT = 'PUT',
     DELETE = 'DELETE',
 }
@@ -69,6 +70,21 @@ export const httpPut = <T>(
     body?: string,
     args: RequestInit = {
         method: Method.PUT,
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body,
+    }
+) => {
+    const _url = url.startsWith('http') ? url : API_URL + url + '/';
+    return fetcher<T>(new Request(_url, args));
+};
+
+export const httpPatch = <T>(
+    url: string,
+    body?: string,
+    args: RequestInit = {
+        method: Method.PATCH,
         headers: {
             'Content-Type': 'application/json',
         },
