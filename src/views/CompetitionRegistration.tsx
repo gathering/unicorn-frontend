@@ -30,8 +30,14 @@ const HeadingWrapper = styled.h1`
 const CompetitionRegistration = () => {
     const { id } = useParams<{ id: string }>();
     const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
-    const { data, mutate: refetchCompetition } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
-    const { data: entries } = useSWR<IEntryListResponse>(`competitions/entries/?competition_id=${id}`, httpGet);
+    const { data, mutate: refetchCompetition, isValidating } = useSWR<ICompetition>(
+        'competitions/competitions/' + id,
+        httpGet
+    );
+    const { data: entries } = useSWR<IEntryListResponse>(
+        `competitions/entries/?competition_id=${id}&limit=1000`,
+        httpGet
+    );
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
 
@@ -50,7 +56,7 @@ const CompetitionRegistration = () => {
         refetchCompetition();
     };
 
-    if (!data || !entries) {
+    if (!data || !entries || isValidating) {
         return (
             <div className="flex flex-col items-center justify-center h-full">
                 <svg

@@ -12,6 +12,7 @@ export interface ICompetition {
     entries_count: number;
     entries?: IEntry[];
     id: number;
+    published: boolean;
     name: string;
     obj_type: string;
     rules: string;

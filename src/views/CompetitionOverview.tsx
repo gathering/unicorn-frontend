@@ -43,8 +43,9 @@ const CompetitionsOverview: React.FC = () => {
         () =>
             competitions
                 .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
-                .filter((c) => (!genre ? true : genre === c.genre.id.toString())),
-        [competitions, search, genre]
+                .filter((c) => (!genre ? true : genre === c.genre.id.toString()))
+                .filter((c) => c.published),
+        [(competitions, search, genre)]
     );
 
     return (
