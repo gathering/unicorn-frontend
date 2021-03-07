@@ -7,7 +7,8 @@ import useSWR from 'swr';
 import { Input } from '../components/Input';
 import { amIParticipantInCompetition, amIParticipantInEntryList, hasFileupload, hasTeams } from '../utils/competitions';
 import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition.types';
-import { Register } from '../features/competitions/Register';
+import { RegisterEntry } from '../features/competitions/RegisterEntry';
+import { EditRegistration } from '../features/competitions/EditRegistration';
 import { httpGet, httpPost, httpPut } from '../utils/fetcher';
 
 enum FormType {
@@ -30,13 +31,15 @@ const HeadingWrapper = styled.h1`
 const CompetitionRegistration = () => {
     const { id } = useParams<{ id: string }>();
     const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
-    const { data, mutate: refetchCompetition, isValidating } = useSWR<ICompetition>(
+    const { data, mutate: refetchCompetition, isValidating: isValidatingCompetitions } = useSWR<ICompetition>(
         'competitions/competitions/' + id,
-        httpGet
+        httpGet,
+        { revalidateOnFocus: false }
     );
-    const { data: entries } = useSWR<IEntryListResponse>(
+    const { data: entries, mutate: refetchEntries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${id}&limit=1000`,
-        httpGet
+        httpGet,
+        { revalidateOnFocus: false }
     );
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
@@ -51,10 +54,11 @@ const CompetitionRegistration = () => {
     }, [hasEntry]);
 
     const onRegistrationFinish = () => {
+        refetchEntries();
         refetchCompetition();
     };
 
-    if (!data || !entries || isValidating) {
+    if (!data || !entries || isValidatingCompetitions || isValidatingEntries) {
         return (
             <div className="flex flex-col items-center justify-center h-full">
                 <svg
@@ -83,10 +87,10 @@ const CompetitionRegistration = () => {
     }
 
     if (!hasEntry) {
-        return <Register competition={data} onRegistrationFinish={onRegistrationFinish} />;
+        return <RegisterEntry competition={data} onRegistrationFinish={onRegistrationFinish} />;
     }
 
-    return <h1 className="mt-32 text-2xl text-center">You are registered in this competition</h1>;
+    return <EditRegistration competition={data} entry={hasEntry} refetchCompetition={refetchCompetition} />;
 };
 
 export default CompetitionRegistration;

@@ -25,42 +25,53 @@ const HeadingWrapper = styled.h1`
 
 interface IProps {
     competition: ICompetition;
-    onRegistrationFinish: () => void;
+    onRegistrationFinish?: () => void;
+    defaultValues?: IFormData;
+    onSubmit?: (data: IFormData) => void;
 }
 
-export const Register = ({ competition, onRegistrationFinish }: IProps) => {
+export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues, onSubmit }: IProps) => {
     const { user } = useUserState();
-    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
+    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>(
+        defaultValues ? { defaultValues } : {}
+    );
 
-    const onSubmit = (formData: IFormData) => {
+    const onUpdate = (formData: IFormData) => {
         if (!formData && !competition.rsvp) {
             return;
         }
 
-        httpPost(
-            'competitions/entries',
-            JSON.stringify({
-                competition: competition.id,
-                ...formData,
-            })
-        )
-            .then((d) => {
-                toast.success('Successfully registered!');
-                onRegistrationFinish();
-            })
-            .catch((error) => {
-                const errorList = Object.entries(error.body).map(([key, val]) => {
-                    if (Array.isArray(val)) {
-                        return `${key}: ${val[0]}`;
+        if (onSubmit) {
+            onSubmit(formData);
+            return;
+        }
+
+        if (!defaultValues) {
+            httpPost(
+                'competitions/entries',
+                JSON.stringify({
+                    competition: competition.id,
+                    ...formData,
+                })
+            )
+                .then((d) => {
+                    toast.success('Successfully registered!');
+                    onRegistrationFinish?.();
+                })
+                .catch((error) => {
+                    const errorList = Object.entries(error.body).map(([key, val]) => {
+                        if (Array.isArray(val)) {
+                            return `${key}: ${val[0]}`;
+                        }
+
+                        return `${key}: ${val}`;
+                    });
+
+                    for (const e of errorList) {
+                        toast.error(e);
                     }
-
-                    return `${key}: ${val}`;
                 });
-
-                for (const e of errorList) {
-                    toast.error(e);
-                }
-            });
+        }
     };
 
     const registrationType = useMemo(() => {
@@ -87,7 +98,7 @@ export const Register = ({ competition, onRegistrationFinish }: IProps) => {
             <RegistrationContainer
                 headerImage={competition.header_image}
                 name={competition.name}
-                header={`Sign up for ${competition.name}`}
+                header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +116,7 @@ export const Register = ({ competition, onRegistrationFinish }: IProps) => {
                 </svg>
                 <div className="flex justify-center">
                     <button
-                        onClick={() => onSubmit((null as unknown) as IFormData)}
+                        onClick={() => onUpdate((null as unknown) as IFormData)}
                         className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded mobile:w-full hover:bg-green-700 hover:text-black hover:shadow"
                     >
                         RSVP
@@ -119,9 +130,9 @@ export const Register = ({ competition, onRegistrationFinish }: IProps) => {
         <RegistrationContainer
             headerImage={competition.header_image}
             name={competition.name}
-            header={`Sign up for ${competition.name}`}
+            header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}
         >
-            <form onSubmit={handleSubmit(onSubmit)}>
+            <form onSubmit={handleSubmit(onUpdate)}>
                 <div className="flex p-4">
                     <h3 style={{ width: '360px' }}>Registration</h3>
                     <fieldset className="flex-grow">
@@ -177,7 +188,7 @@ export const Register = ({ competition, onRegistrationFinish }: IProps) => {
                 <hr className="my-6 border-t border-gray-300" />
 
                 <button className="flex items-center float-right h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
-                    Register
+                    {defaultValues ? 'Update' : 'Register'}
                 </button>
             </form>
         </RegistrationContainer>

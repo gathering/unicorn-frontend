@@ -1,0 +1,1 @@
+export { EditRegistration } from './EditRegistration';

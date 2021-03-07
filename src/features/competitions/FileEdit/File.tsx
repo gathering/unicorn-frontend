@@ -133,9 +133,9 @@ export const File = ({
                 <button
                     type="button"
                     onClick={onSubmit}
-                    className="flex items-center h-12 px-4 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                    className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
                 >
-                    Save
+                    Update
                 </button>
             )}
             {!addNew && !disableRemove && (

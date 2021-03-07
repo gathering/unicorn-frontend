@@ -37,6 +37,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
     return (
         <fieldset className="mb-6">
             <legend className="mb-2">{label ?? 'Upload Files'}</legend>
+            <span>Remember to save after updating a field</span>
             <ul>
                 {!!value.length &&
                     value.map((val, i) => (
