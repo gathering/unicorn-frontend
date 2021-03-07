@@ -294,6 +294,15 @@ const CompetitionAdminEdit = () => {
                         </>
                     )}
                 />
+
+                <Input
+                    type="number"
+                    label="Max submission/participants (optional)"
+                    name="participant_limit"
+                    ref={register()}
+                    className="mb-6"
+                />
+
                 <Input
                     type="number"
                     label="Minimum team size (optional)"
@@ -308,7 +317,8 @@ const CompetitionAdminEdit = () => {
                     ref={register()}
                     className="mb-6"
                 />
-                <Input
+
+                {/* <Input
                     label="Custom input field name (optional)"
                     name="contributor_extra"
                     ref={register()}
@@ -318,9 +328,9 @@ const CompetitionAdminEdit = () => {
                 <label className="block mb-6">
                     <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
                     Users can report win/loss (optional)
-                </label>
+                </label> */}
 
-                <Controller
+                {/* <Controller
                     control={control}
                     name="register_time_start"
                     render={({ value, ...props }) => (
@@ -364,7 +374,7 @@ const CompetitionAdminEdit = () => {
                             </div>
                         </>
                     )}
-                />
+                /> */}
 
                 <Controller
                     control={control}
@@ -412,7 +422,7 @@ const CompetitionAdminEdit = () => {
                     )}
                 />
 
-                <Input
+                {/* <Input
                     name="external_url_login"
                     type="url"
                     label="Login URL (optional)"
@@ -425,25 +435,17 @@ const CompetitionAdminEdit = () => {
                     label="Homepage URL (optional)"
                     ref={register()}
                     className="mb-6"
-                />
+                /> */}
 
-                <Input
-                    type="number"
-                    label="Max submission/participants (optional)"
-                    name="participant_limit"
-                    ref={register()}
-                    className="mb-6"
-                />
-
-                <label className="block mb-1">
+                {/* <label className="block mb-1">
                     <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
                     RSVP Only (optional)
-                </label>
+                </label> */}
 
-                <label className="block mb-1">
+                {/* <label className="block mb-1">
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
-                </label>
+                </label> */}
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
                     <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
