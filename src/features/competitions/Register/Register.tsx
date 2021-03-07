@@ -6,6 +6,7 @@ import { httpPost } from '../../../utils/fetcher';
 import { Input } from '../../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { hasFileupload, hasTeams } from '../../../utils/competitions';
+import { useUserState } from '../../../context/Auth';
 
 enum FormType {
     UPLOAD_TEAM,
@@ -28,6 +29,7 @@ interface IProps {
 }
 
 export const Register = ({ competition, onRegistrationFinish }: IProps) => {
+    const { user } = useUserState();
     const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
 
     const onSubmit = (formData: IFormData) => {
@@ -157,6 +159,15 @@ export const Register = ({ competition, onRegistrationFinish }: IProps) => {
                         <div className="flex p-4">
                             <h3 style={{ width: '360px' }}>Misc</h3>
                             <fieldset className="flex-grow">
+                                <label htmlFor="display_name_field" className="block w-full mb-1">
+                                    Display name
+                                </label>
+                                <span
+                                    id="display_name_field"
+                                    className="flex items-center h-12 px-4 mb-6 leading-tight text-gray-700 bg-gray-300 border border-gray-300 rounded"
+                                >
+                                    {user?.display_name}
+                                </span>
                                 <Input fullWidth name="crew_msg" label="Message to crew (optional)" ref={register()} />
                             </fieldset>
                         </div>
