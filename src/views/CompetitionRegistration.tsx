@@ -51,8 +51,6 @@ const CompetitionRegistration = () => {
     }, [hasEntry]);
 
     const onRegistrationFinish = () => {
-        console.log('asdf');
-
         refetchCompetition();
     };
 
