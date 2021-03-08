@@ -6,6 +6,7 @@ import CompetitionsOverview from '../../views/CompetitionOverview';
 import CompetitionRegistration from '../../views/CompetitionRegistration';
 import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
 import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
+import { Logout } from '../../views/Logout';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useUserState } from '../../context/Auth';
@@ -40,7 +41,17 @@ const App = () => {
                         </Link>
 
                         {accessToken ? (
-                            <>{user?.display_name}</>
+                            <div>
+                                {user?.display_name}
+                                <a
+                                    href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
+                                        window.location.origin
+                                    }/logout`}
+                                    className="p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                >
+                                    Logg ut
+                                </a>
+                            </div>
                         ) : (
                             <a
                                 className="px-1 pt-1 mx-3 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out border-b-2 border-transparent hover:text-black hover:border-orange-500"
@@ -71,6 +82,7 @@ const App = () => {
                         <ProtectedRoute path="/competitions/:id/register" component={CompetitionRegistration} />
                         <Route path="/competitions/:id" component={CompetitionDetails} />
                         <Route path="/login" component={Auth} />
+                        <Route path="/logout" component={Logout} />
                     </Switch>
                 </div>
                 <ToastContainer />
