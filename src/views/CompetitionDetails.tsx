@@ -7,8 +7,8 @@ import useSWR from 'swr';
 import styled from 'styled-components';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
-import { amIParticipantInCompetition, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
-import type { ICompetition } from '../features/competitions/competition.types';
+import { amIParticipantInEntryList, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
+import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition.types';
 import { formatNumber } from '../utils/numbers';
 import { useUserState } from '../context/Auth';
 import { httpGet } from '../utils/fetcher';
@@ -35,14 +35,16 @@ const HeadingWrapper = styled.h1`
 
 const Content = ({
     competition,
+    hasEntry,
     isAuthenticated,
     to,
 }: {
     competition: ICompetition;
+    hasEntry: IEntry | boolean;
     isAuthenticated: boolean;
     to: string;
 }) => {
-    const action = findRegisterAction(competition, isAuthenticated);
+    const action = findRegisterAction(competition, hasEntry, isAuthenticated);
 
     switch (action) {
         case 'login':
@@ -66,7 +68,7 @@ const Content = ({
             return (
                 <Link
                     to={to + '/register/'}
-                    className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-indigo-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                    className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
                 >
                     Check out your registration
                 </Link>
@@ -101,7 +103,13 @@ const CompetitionDetails = () => {
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
     const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
 
-    const hasEntry = useMemo(() => (data ? amIParticipantInCompetition(data) : false), [data]);
+    const { data: entries, mutate: refetchEntries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
+        `competitions/entries/?competition_id=${id}&limit=1000`,
+        httpGet,
+        { revalidateOnFocus: false }
+    );
+
+    const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
 
     if (!data) {
         // TODO Return loading component
@@ -139,7 +147,12 @@ const CompetitionDetails = () => {
                     </Tabs>
                 </div>
                 <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10">
-                    <Content competition={data} isAuthenticated={!!user} to={`/competitions/${id}`} />
+                    <Content
+                        competition={data}
+                        isAuthenticated={!!user}
+                        to={`/competitions/${id}`}
+                        hasEntry={hasEntry}
+                    />
 
                     {!!data.prizes.length && (
                         <section className="p-4 bg-white rounded">

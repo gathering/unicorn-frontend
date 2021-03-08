@@ -93,8 +93,7 @@ export const competitionPhases = (competition: ICompetition): [string, string, s
     ]);
 };
 
-export const findRegisterAction = (competition: ICompetition, isAuthenticated: boolean) => {
-    const hasOwnEntry = amIParticipantInCompetition(competition);
+export const findRegisterAction = (competition: ICompetition, ownEntry: IEntry | boolean, isAuthenticated: boolean) => {
     const isExternalCompetition = isExternal(competition);
 
     // Add functionality based on state
@@ -108,7 +107,7 @@ export const findRegisterAction = (competition: ICompetition, isAuthenticated: b
                 return 'login';
             }
 
-            if (hasOwnEntry) {
+            if (ownEntry) {
                 return 'my_registration';
             } else {
                 return 'register';
@@ -119,7 +118,7 @@ export const findRegisterAction = (competition: ICompetition, isAuthenticated: b
                 return 'external';
             }
 
-            if (hasOwnEntry && isAuthenticated) {
+            if (ownEntry && isAuthenticated) {
                 return 'my_competition';
             }
             break;
@@ -130,7 +129,7 @@ export const findRegisterAction = (competition: ICompetition, isAuthenticated: b
             }
 
             if (isAuthenticated) {
-                if (hasOwnEntry && !!Object.keys(hasOwnEntry).length) {
+                if (ownEntry && !!Object.keys(ownEntry).length) {
                     return 'my_registration';
                 } else {
                     if (hasPreRegistration(competition)) {
@@ -148,7 +147,7 @@ export const findRegisterAction = (competition: ICompetition, isAuthenticated: b
                 return 'external';
             }
 
-            if (hasOwnEntry && isAuthenticated) {
+            if (ownEntry && isAuthenticated) {
                 return 'my_registration';
             }
             break;
