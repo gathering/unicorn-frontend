@@ -129,12 +129,12 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                             ref={register()}
                             className="mb-6"
                         />
-                        <Input
+                        {/* <Input
                             label="Custom input field name (optional)"
                             name="contributor_extra"
                             ref={register()}
                             className="mb-6"
-                        />
+                        /> */}
 
                         <h1>TODO File upload settings</h1>
                     </>
@@ -261,7 +261,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     )}
                 />
 
-                <Input
+                {/* <Input
                     name="external_url_login"
                     type="url"
                     label="Login URL (optional)"
@@ -274,7 +274,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     label="Homepage URL (optional)"
                     ref={register()}
                     className="mb-6"
-                />
+                /> */}
 
                 <Input
                     type="number"
@@ -284,7 +284,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     ref={register()}
                 />
 
-                <label className="block mb-6">
+                {/* <label className="block mb-6">
                     <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
                     RSVP Only (optional)
                 </label>
@@ -292,7 +292,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                 <label className="block mb-6">
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
-                </label>
+                </label> */}
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
                     <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
