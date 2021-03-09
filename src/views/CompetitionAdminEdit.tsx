@@ -50,6 +50,14 @@ const CompetitionAdminEdit = () => {
                 ...competition,
                 description: descObj,
                 rules: rulesObj,
+                run_time_start: competition.run_time_start ? new Date(competition.run_time_start) : null,
+                run_time_end: competition.run_time_end ? new Date(competition.run_time_end) : null,
+                vote_time_start: competition.vote_time_start ? new Date(competition.vote_time_start) : null,
+                vote_time_end: competition.vote_time_end ? new Date(competition.vote_time_end) : null,
+                show_time_start: competition.show_time_start ? new Date(competition.show_time_start) : null,
+                show_time_end: competition.show_time_end ? new Date(competition.show_time_end) : null,
+                register_time_start: competition.register_time_start ? new Date(competition.register_time_start) : null,
+                register_time_end: competition.register_time_end ? new Date(competition.register_time_end) : null,
             });
 
             setShowForm(true);

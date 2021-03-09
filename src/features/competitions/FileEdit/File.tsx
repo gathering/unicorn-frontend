@@ -36,8 +36,6 @@ export const File = ({
     onRemove,
     disableRemove,
 }: IProps) => {
-    console.log(initialValue);
-
     const [value, setValue] = useState<IUploadFile>(initialValue || defaultValue(forceMain));
     const [isDirty, setIsDirty] = useState(false);
 

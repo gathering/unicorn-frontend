@@ -17,6 +17,14 @@ export interface ICompetition {
     obj_type: string;
     rules: string;
     state: ICompetitionState;
+    run_time_start: string | null;
+    run_time_end: string | null;
+    vote_time_start: string | null;
+    vote_time_end: string | null;
+    show_time_start: string | null;
+    show_time_end: string | null;
+    register_time_start: string | null;
+    register_time_end: string | null;
     [key: string]: any;
 }
 
