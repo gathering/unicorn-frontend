@@ -49,7 +49,7 @@ const App = () => {
                                     }/logout`}
                                     className="p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
                                 >
-                                    Logg ut
+                                    Logout
                                 </a>
                             </div>
                         ) : (
