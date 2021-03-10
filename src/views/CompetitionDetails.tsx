@@ -117,14 +117,18 @@ const CompetitionDetails = () => {
     }
 
     return (
-        <div className="container mx-auto my-12 ">
+        <div className="container mx-auto my-12 md:my-0">
             <div className="relative">
-                <img className="object-cover w-full h-48 mb-10 rounded-md" src={data.header_image} alt="" />
-                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
+                <img
+                    className="object-cover w-full h-48 mb-10 rounded-md md:rounded-none"
+                    src={data.header_image}
+                    alt=""
+                />
+                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md md:rounded-none text-gray-50">
                     {data.name}
                 </HeadingWrapper>
             </div>
-            <div className="flex flex-horizontal">
+            <div className="flex flex-horizontal md:flex-col-reverse">
                 <div className="flex-grow">
                     <CompetitionPhases competition={data} />
                     <Tabs className="bg-white rounded">
@@ -146,7 +150,7 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </Tabs>
                 </div>
-                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10">
+                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 md:m-0 md:mb-6">
                     <Content
                         competition={data}
                         isAuthenticated={!!user}

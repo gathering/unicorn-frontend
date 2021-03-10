@@ -52,10 +52,10 @@ const CompetitionsOverview: React.FC = () => {
         <View>
             {/* <FeaturedCompetitions competitions={featuredCompetitions} /> */}
 
-            <div className="flex flex-row mobile:flex-col">
-                <aside className="flex flex-col mx-10 mt-12 mobile:flex-row mobile:m-4">
+            <div className="flex flex-row md:flex-col">
+                <aside className="flex flex-col mx-10 mt-12 md:m-4">
                     <Input
-                        className="mb-6 mobile:mb-0"
+                        className="mb-6 md:mb-2"
                         placeholder="Search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -98,7 +98,7 @@ const CompetitionsOverview: React.FC = () => {
                                 },
                             },
                         }}
-                        className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4"
+                        className="flex flex-col items-center w-full mt-12 mb-10 mr-10 md:mt-4"
                     >
                         {filteredCompetitions.map((competition) => (
                             <motion.li
@@ -113,9 +113,9 @@ const CompetitionsOverview: React.FC = () => {
                                 className="w-full mb-6 duration-200 hover:shadow-xl"
                                 key={competition.id}
                             >
-                                <Link to={'/competitions/' + competition.id} className="flex h-32 mobile:flex-col">
+                                <Link to={'/competitions/' + competition.id} className="flex h-32">
                                     <img
-                                        className="flex-none object-cover w-64 overflow-hidden text-center bg-cover rounded-l mobile:rounded-none"
+                                        className="flex-none object-cover w-64 overflow-hidden text-center bg-cover rounded-l md:rounded-none"
                                         src={competition.header_image}
                                         alt={`Competition poster ${competition.name}`}
                                     />
@@ -124,7 +124,7 @@ const CompetitionsOverview: React.FC = () => {
                                         <div className="mb-2 text-xl font-bold text-black">{competition.name}</div>
                                         <p className="text-xl text-gray-600">{competition.brief_description}</p>
                                     </div>
-                                    <div className="flex pr-4 bg-white rounded-r mobile:rounded-none">
+                                    <div className="flex pr-4 bg-white rounded-r md:rounded-none">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
@@ -145,7 +145,7 @@ const CompetitionsOverview: React.FC = () => {
                     </motion.ul>
                 )}
                 {!filteredCompetitions.length && !isValidating && (
-                    <article className="flex flex-col items-center w-full mt-12 mb-10 mr-10 mobile:mt-4">
+                    <article className="flex flex-col items-center w-full mt-12 mb-10 mr-10 md:mt-4">
                         <h1 className="mt-32 text-4xl text-gray-800">
                             {competitionResult ? 'No competitions found' : 'Loading...'}
                         </h1>
