@@ -117,21 +117,17 @@ const CompetitionDetails = () => {
     }
 
     return (
-        <div className="container mx-auto my-12 md:my-0">
-            <div className="relative">
-                <img
-                    className="object-cover w-full h-48 mb-10 rounded-md md:rounded-none"
-                    src={data.header_image}
-                    alt=""
-                />
-                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md md:rounded-none text-gray-50">
+        <div className="container mx-auto my-12 sm:my-0">
+            <div className="relative mb-10 sm:mb-6">
+                <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={data.header_image} alt="" />
+                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
                     {data.name}
                 </HeadingWrapper>
             </div>
-            <div className="flex flex-horizontal md:flex-col-reverse">
+            <div className="flex flex-horizontal sm:flex-col-reverse">
                 <div className="flex-grow">
                     <CompetitionPhases competition={data} />
-                    <Tabs className="bg-white rounded">
+                    <Tabs className="bg-white rounded sm:rounded-none">
                         <TabList className="flex">
                             {competitionDescription && (
                                 <Tab className="flex-grow py-3 border-b border-tg-brand-orange">Information</Tab>
@@ -150,7 +146,7 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </Tabs>
                 </div>
-                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 md:m-0 md:mb-6">
+                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 sm:m-0 sm:mb-6">
                     <Content
                         competition={data}
                         isAuthenticated={!!user}
@@ -159,7 +155,7 @@ const CompetitionDetails = () => {
                     />
 
                     {!!data.prizes.length && (
-                        <section className="p-4 bg-white rounded">
+                        <section className="p-4 bg-white rounded sm:rounded-none">
                             <h2 className="pb-2 text-lg">Prizes</h2>
                             <ul className="w-2/3 mt-2 leading-8">
                                 {data.prizes.map((prize: String, i: number) => (

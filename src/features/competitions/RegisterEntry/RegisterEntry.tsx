@@ -117,7 +117,7 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                 <div className="flex justify-center">
                     <button
                         onClick={() => onUpdate((null as unknown) as IFormData)}
-                        className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded md:w-full hover:bg-green-700 hover:text-black hover:shadow"
+                        className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded sm:w-full hover:bg-green-700 hover:text-black hover:shadow"
                     >
                         RSVP
                     </button>
@@ -237,14 +237,14 @@ const RegistrationContainer: React.FC<{ name: string; headerImage: string; heade
     headerImage,
     header,
 }) => (
-    <div className="container mx-auto my-12 md:my-0">
-        <div className="relative">
-            <img className="object-cover w-full h-48 mb-4 rounded-md md:rounded-none" src={headerImage} alt="" />
+    <div className="container mx-auto my-12 sm:my-0">
+        <div className="relative mb-4 sm:mb-0">
+            <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={headerImage} alt="" />
             <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
                 {name}
             </HeadingWrapper>
         </div>
-        <section className="flex flex-col bg-white rounded md:rounded-none">
+        <section className="flex flex-col bg-white rounded sm:rounded-none">
             <h2 className="p-4 text-xl text-center">{header}</h2>
             <hr className="pb-6 border-t border-gray-300" />
             {children}
