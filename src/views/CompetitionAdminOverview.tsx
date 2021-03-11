@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import useSWR from 'swr';
 import { View } from '../components/View';
+import { Link } from '../components/Link';
 import type { ICompetition, ICompetitionListResponse } from '../features/competitions/competition.types';
 import { httpGet, httpPatch } from '../utils/fetcher';
 import { parseError } from '../utils/error';
