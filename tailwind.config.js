@@ -7,6 +7,8 @@ module.exports = {
                 tg: {
                     brand: {
                         orange: '#F4772B',
+                        blue: '',
+                        green: '#2E8F91',
                     },
                 },
             },

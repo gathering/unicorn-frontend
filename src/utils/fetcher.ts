@@ -32,13 +32,26 @@ const fetcher = async <T>(request: Request): Promise<T> => {
         if (!res.ok) {
             // TODO check if token is expired, try to refresh
 
-            return res.json().then((body) => {
-                return Promise.reject({
-                    status: res.status,
-                    ok: false,
-                    body,
+            return res
+                .json()
+                .then((body) => {
+                    return Promise.reject({
+                        status: res.status,
+                        ok: false,
+                        body,
+                    });
+                })
+                .catch(() => {
+                    return Promise.reject({
+                        status: res.status,
+                        ok: false,
+                        body: 'An unexpected error occured',
+                    });
                 });
-            });
+        }
+
+        if (res.status === 204) {
+            return Promise.resolve('Deleted');
         }
 
         return res.json();

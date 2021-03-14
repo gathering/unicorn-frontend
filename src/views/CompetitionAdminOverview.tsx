@@ -37,6 +37,12 @@ const CompetitionAdminOverview = () => {
                         >
                             Entries
                         </th>
+                        <th
+                            scope="col"
+                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                        >
+                            Status
+                        </th>
                         <th scope="col" className="relative px-6 py-3">
                             <span className="sr-only">Edit</span>
                         </th>
@@ -46,16 +52,21 @@ const CompetitionAdminOverview = () => {
                     {competitions.results.map((c) => (
                         <tr key={c.id}>
                             <td className="px-6 py-4 whitespace-nowrap">{c.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">{c.entries_count}</td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                {c.participant_limit ? `${c.entries_count}/${c.participant_limit}` : c.entries_count}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                                {c.published ? 'Published' : 'Not published'}
+                            </td>
                             <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                <button
-                                    onClick={togglePublish(c)}
-                                    className="p-1 ml-4 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
-                                >
-                                    {c.published ? 'Unpublish' : 'Publish'}
-                                </button>
                                 <Link
                                     to={`/admin/competitions/${c.id}`}
+                                    className="p-1 ml-4 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                >
+                                    View
+                                </Link>
+                                <Link
+                                    to={`/admin/competitions/${c.id}/edit`}
                                     className="p-1 ml-4 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
                                 >
                                     Edit

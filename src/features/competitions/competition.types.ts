@@ -58,6 +58,7 @@ export interface IGenreResponse {
 export interface IEntry {
     comment?: string;
     contributors: [];
+    participant_limit: number;
     crew_msg?: string;
     files: [];
     id: number;
