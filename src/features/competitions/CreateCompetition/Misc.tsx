@@ -135,8 +135,6 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                             ref={register()}
                             className="mb-6"
                         /> */}
-
-                        <h1>TODO File upload settings</h1>
                     </>
                 ) : (
                     <>
