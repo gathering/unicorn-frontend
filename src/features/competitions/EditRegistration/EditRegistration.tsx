@@ -41,5 +41,10 @@ export const EditRegistration = ({ competition, entry, refetchCompetition }: IPr
             defaultValues={{ title: entry.title, crew_msg: entry.crew_msg }}
             onSubmit={onUpdate}
         />
+            {hasUpload && (
+                <p className="container p-5 mx-auto mb-8 text-xl bg-red-400 rounded-md">
+                    File upload will be available soon.
+                </p>
+            )}
     );
 };
