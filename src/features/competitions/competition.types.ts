@@ -3,6 +3,12 @@ export interface ICompetitionState {
     value: number;
 }
 
+export interface IFile {
+    file: string;
+    type: string;
+    input: string;
+}
+
 export interface ICompetition {
     brief_description: string;
     description?: string;
@@ -10,6 +16,7 @@ export interface ICompetition {
     genre: IGenre;
     header_image: string;
     entries_count: number;
+    fileupload: IFile[];
     entries?: IEntry[];
     id: number;
     published: boolean;
@@ -60,7 +67,7 @@ export interface IEntry {
     contributors: [];
     participant_limit: number;
     crew_msg?: string;
-    files: [];
+    files: any[];
     id: number;
     is_contributor: boolean;
     is_owner: boolean;

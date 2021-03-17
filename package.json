@@ -47,7 +47,8 @@
         "styled-components": "^5.2.1",
         "swr": "^0.4.1",
         "tailwind-styled-components": "^1.0.7",
-        "tailwindcss": "^2.0.2"
+        "tailwindcss": "^2.0.2",
+        "tus-js-client": "^2.2.0"
     },
     "resolutions": {
         "styled-components": "^5"

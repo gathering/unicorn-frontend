@@ -90,7 +90,7 @@ const CompetitionRegistration = () => {
         return <RegisterEntry competition={data} onRegistrationFinish={onRegistrationFinish} />;
     }
 
-    return <EditRegistration competition={data} entry={hasEntry} refetchCompetition={refetchCompetition} />;
+    return <EditRegistration competition={data} entry={hasEntry} onRegistrationFinish={onRegistrationFinish} />;
 };
 
 export default CompetitionRegistration;

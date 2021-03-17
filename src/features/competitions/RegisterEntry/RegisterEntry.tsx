@@ -1,7 +1,7 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import type { ICompetition } from '../competition.types';
+import type { ICompetition, IEntry } from '../competition.types';
 import { httpPost } from '../../../utils/fetcher';
 import { Input } from '../../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
@@ -33,9 +33,14 @@ interface IProps {
 
 export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues, onSubmit }: IProps) => {
     const { user } = useUserState();
-    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>(
-        defaultValues ? { defaultValues } : {}
-    );
+    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>({
+        defaultValues: defaultValues ?? {},
+        shouldUnregister: false,
+    });
+
+    useEffect(() => {
+        reset(defaultValues);
+    }, [defaultValues]);
 
     const onUpdate = (formData: IFormData) => {
         if (!formData && !competition.rsvp) {
@@ -48,14 +53,14 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
         }
 
         if (!defaultValues) {
-            httpPost(
+            httpPost<IEntry>(
                 'competitions/entries',
                 JSON.stringify({
                     competition: competition.id,
                     ...formData,
                 })
             )
-                .then((d) => {
+                .then(() => {
                     toast.success('Successfully registered!');
                     onRegistrationFinish?.();
                 })

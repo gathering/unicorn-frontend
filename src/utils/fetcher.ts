@@ -21,8 +21,10 @@ export const AUTH_URL = `${import.meta.env.VITE_APP_API}/oauth/`;
 
 const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
 
+export const getToken = () => cookie.get(ACCESS_TOKEN);
+
 const fetcher = async <T>(request: Request): Promise<T> => {
-    const token = cookie.get(ACCESS_TOKEN);
+    const token = getToken();
 
     if (token) {
         request.headers.append('authorization', 'Bearer ' + token);

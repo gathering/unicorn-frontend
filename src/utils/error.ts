@@ -1,8 +1,6 @@
 export const parseError = (error: any) => {
     const { body } = error;
 
-    console.log(body, error);
-
     if (Array.isArray(body)) {
         // TODO Do something useful with error
         return error;
