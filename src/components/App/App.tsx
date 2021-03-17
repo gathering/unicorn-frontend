@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { BrowserRouter, Link, Route, Switch } from 'react-router-dom';
 import * as Sentry from '@sentry/react';
 import { ToastContainer } from 'react-toastify';
+import { motion } from 'framer-motion';
 import CompetitionDetails from '../../views/CompetitionDetails';
 import CompetitionsOverview from '../../views/CompetitionOverview';
 import CompetitionRegistration from '../../views/CompetitionRegistration';
@@ -16,7 +17,6 @@ import { ErrorBoundary } from '../ErrorBoundary';
 import { Logout } from '../../views/Logout';
 import Auth from '../../views/Auth';
 import 'react-toastify/dist/ReactToastify.css';
-import { motion } from 'framer-motion';
 
 Sentry.init({
     dsn: 'https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132',
@@ -110,6 +110,7 @@ const App = () => {
                             </a>
                         )}
                     </nav>
+
                     <Switch>
                         <Route path="/" exact component={CompetitionsOverview} />
                         <ProtectedRoute
