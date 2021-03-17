@@ -7,6 +7,7 @@ import { Input } from '../../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
 import { hasFileupload, hasTeams } from '../../../utils/competitions';
 import { useUserState } from '../../../context/Auth';
+import { Link } from '../../../components/Link';
 
 enum FormType {
     UPLOAD_TEAM,
@@ -182,8 +183,12 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                                     >
                                         {user?.display_name}
                                     </span>
-                                    <p className="inline-block px-4 py-2 mb-4 text-white bg-blue-400 rounded-md">
-                                        Changing display name will be available soon.
+                                    <p className="mb-6 font-light">
+                                        Not happy with your label? Change it{' '}
+                                        <Link inline to="/preferences">
+                                            here
+                                        </Link>
+                                        .
                                     </p>
                                     <Input
                                         fullWidth

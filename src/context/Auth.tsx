@@ -76,6 +76,7 @@ interface State {
     accessToken?: string;
     tokenFetchStatus: FetchStatus;
     user?: User;
+    revalidateUser: () => void;
 }
 
 const defaultState: State = {
@@ -115,7 +116,7 @@ const userReducer = (state: State, action: Action) => {
 export const UserProvider = ({ children }: UserProviderProps) => {
     const [state, dispatch] = useReducer(userReducer, defaultState);
 
-    const { data: user } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
+    const { data: user, revalidate } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
 
     useEffect(() => {
         if (user) {
@@ -157,7 +158,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }, []);
 
     return (
-        <UserStateContext.Provider value={state}>
+        <UserStateContext.Provider value={{ ...state, revalidateUser: revalidate }}>
             <UserDispatchContext.Provider value={dispatch}>{children}</UserDispatchContext.Provider>
         </UserStateContext.Provider>
     );
