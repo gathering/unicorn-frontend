@@ -1,11 +1,10 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { toast } from 'react-toastify';
 import { httpPatch } from '../../../utils/fetcher';
-import { useUserState } from '../../../context/Auth';
 import { parseError } from '../../../utils/error';
 import type { ICompetition, IEntry } from '../competition.types';
 import { RegisterEntry } from '../RegisterEntry';
+import { hasFileupload } from '../../../utils/competitions';
 
 interface IProps {
     competition: ICompetition;
@@ -31,20 +30,24 @@ export const EditRegistration = ({ competition, entry, refetchCompetition }: IPr
             });
     };
 
+    const hasUpload = hasFileupload(competition);
+
     if (!entry) {
         return null;
     }
 
     return (
-        <RegisterEntry
-            competition={competition}
-            defaultValues={{ title: entry.title, crew_msg: entry.crew_msg }}
-            onSubmit={onUpdate}
-        />
+        <>
+            <RegisterEntry
+                competition={competition}
+                defaultValues={{ title: entry.title, crew_msg: entry.crew_msg }}
+                onSubmit={onUpdate}
+            />
             {hasUpload && (
                 <p className="container p-5 mx-auto mb-8 text-xl bg-red-400 rounded-md">
                     File upload will be available soon.
                 </p>
             )}
+        </>
     );
 };
