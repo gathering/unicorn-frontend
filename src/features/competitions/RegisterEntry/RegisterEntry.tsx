@@ -178,10 +178,13 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                                     </label>
                                     <span
                                         id="display_name_field"
-                                        className="flex items-center h-12 px-4 mb-6 leading-tight text-gray-700 bg-gray-300 border border-gray-300 rounded"
+                                        className="flex items-center h-12 px-4 mb-2 leading-tight text-gray-700 bg-gray-300 border border-gray-300 rounded"
                                     >
                                         {user?.display_name}
                                     </span>
+                                    <p className="inline-block px-4 py-2 mb-4 text-white bg-blue-400 rounded-md">
+                                        Changing display name will be available soon.
+                                    </p>
                                     <Input
                                         fullWidth
                                         name="crew_msg"
