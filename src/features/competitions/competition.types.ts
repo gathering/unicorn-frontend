@@ -3,10 +3,20 @@ export interface ICompetitionState {
     value: number;
 }
 
-export interface IFile {
+export interface IUploadFile {
     file: string;
     type: string;
     input: string;
+}
+
+export interface IFile {
+    active: boolean;
+    id: number;
+    name: string;
+    obj_type: string;
+    status: number;
+    type: string;
+    url: string;
 }
 
 export interface ICompetition {
@@ -16,7 +26,7 @@ export interface ICompetition {
     genre: IGenre;
     header_image: string;
     entries_count: number;
-    fileupload: IFile[];
+    fileupload: IUploadFile[];
     entries?: IEntry[];
     id: number;
     published: boolean;

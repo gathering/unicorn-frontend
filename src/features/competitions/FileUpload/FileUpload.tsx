@@ -1,4 +1,6 @@
 import React from 'react';
+import useSWR from 'swr';
+import { httpGet } from '../../../utils/fetcher';
 import type { ICompetition, IEntry } from '../competition.types';
 import { UploadForm } from './UploadForm';
 
@@ -8,7 +10,10 @@ interface Props {
 }
 
 export const FileUpload = ({ competition, entry }: Props) => {
-    console.log(competition.fileupload, entry);
+    // local copy to prevent flash...
+    const { data: _entry, revalidate } = useSWR<IEntry>(`competitions/entries/${entry.id}`, httpGet, {
+        revalidateOnFocus: false,
+    });
 
     return (
         <section className="container mx-auto mb-6 bg-white rounded sm:rounded-none">
@@ -18,9 +23,10 @@ export const FileUpload = ({ competition, entry }: Props) => {
                 {competition.fileupload.map((fu) => (
                     <li key={fu.input + fu.type}>
                         <UploadForm
+                            onRefresh={revalidate}
                             formDefinition={fu}
-                            entry={entry}
-                            file={entry.files.find((f) => f.active && f.type === fu.type)}
+                            entry={_entry ?? entry}
+                            file={(_entry ?? entry).files.find((f) => f.active && f.type === fu.type)}
                         />
                     </li>
                 ))}

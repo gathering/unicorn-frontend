@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useId } from '@reach/auto-id';
 import * as tus from 'tus-js-client';
 import { toast } from 'react-toastify';
-import type { IEntry, IFile } from '../competition.types';
+import type { IEntry, IFile, IUploadFile } from '../competition.types';
 import { getToken } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
 
@@ -37,20 +37,27 @@ const getFileConstant = (file: string) => {
             return FILE_VIDEO;
 
         default:
-            return null;
+            return { types: [] };
     }
 };
 
 interface Props {
-    formDefinition: IFile;
+    formDefinition: IUploadFile;
     entry: IEntry;
-    file: any;
+    file: IFile;
+    onRefresh: () => void;
 }
 
-export const UploadForm = ({ formDefinition, entry, file }: Props) => {
+export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) => {
     let inputId = `unicorn-upload-input--${useId()}`;
     const [progress, setProgress] = useState('0');
-    const [stage, setStage] = useState(3);
+    const [stage, setStage] = useState(1);
+
+    useEffect(() => {
+        if (file) {
+            setStage(3);
+        }
+    }, [file]);
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
         const token = getToken();
@@ -82,9 +89,7 @@ export const UploadForm = ({ formDefinition, entry, file }: Props) => {
             },
             onSuccess: () => {
                 setStage(3);
-                // if (this.props.refreshEntry) {
-                //     this.props.refreshEntry();
-                // }
+                onRefresh();
             },
         });
 
@@ -93,9 +98,71 @@ export const UploadForm = ({ formDefinition, entry, file }: Props) => {
     };
 
     return (
-        <form className="">
+        <form className="m-4">
             <label htmlFor={inputId}>
-                <span className="p-4 bg-blue-400 rounded-md cursor-pointer">{formDefinition.input}</span>
+                <span className="flex flex-col items-center px-4 py-8 transition-colors bg-gray-300 rounded-md cursor-pointer w-72 hover:bg-gray-200">
+                    {stage === 1 ? (
+                        <>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="w-10 h-10 my-4 mt-4 text-indigo-900 opacity-75"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <p className="text-gray-700">No file uploaded yet</p>
+                            <h3 className="text-xl">
+                                {formDefinition.input} ({getFileConstant(formDefinition.file).types.join(', ')})
+                            </h3>
+                        </>
+                    ) : stage === 2 ? (
+                        <>
+                            <svg
+                                className="mb-8 mr-3 -ml-1 text-black w-7 h-7 animate-spin"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                ></circle>
+                                <path
+                                    className="text-indigo-900 opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
+                            <p className="text-2xl">{progress}%</p>
+                        </>
+                    ) : stage === 3 ? (
+                        <>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                className="w-10 h-10 my-4 mt-4 text-indigo-900 opacity-75"
+                            >
+                                <path
+                                    fillRule="evenodd"
+                                    d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM6.293 6.707a1 1 0 010-1.414l3-3a1 1 0 011.414 0l3 3a1 1 0 01-1.414 1.414L11 5.414V13a1 1 0 11-2 0V5.414L7.707 6.707a1 1 0 01-1.414 0z"
+                                    clipRule="evenodd"
+                                />
+                            </svg>
+                            <h3 className="break-all">Current file: {file?.name}</h3>
+                            <p className="text-gray-700">Upload new version</p>
+                        </>
+                    ) : null}
+                </span>
             </label>
             <input id={inputId} type="file" className="sr-only" onChange={onChange} />
         </form>
