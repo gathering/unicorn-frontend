@@ -189,7 +189,7 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                                         {user?.display_name}
                                     </span>
                                     <p className="mb-6 font-light">
-                                        Not happy with your label? Change it{' '}
+                                        Not happy with your display name? Change it{' '}
                                         <Link inline to="/preferences">
                                             here
                                         </Link>
