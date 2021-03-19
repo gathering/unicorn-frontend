@@ -30,26 +30,24 @@ const fetcher = async <T>(request: Request): Promise<T> => {
         request.headers.append('authorization', 'Bearer ' + token);
     }
 
-    return fetch(request).then<Promise<T>>((res) => {
+    return fetch(request).then<Promise<T>>(async (res) => {
         if (!res.ok) {
             // TODO check if token is expired, try to refresh
 
-            return res
-                .json()
-                .then((body) => {
-                    return Promise.reject({
-                        status: res.status,
-                        ok: false,
-                        body,
-                    });
-                })
-                .catch(() => {
-                    return Promise.reject({
-                        status: res.status,
-                        ok: false,
-                        body: 'An unexpected error occured',
-                    });
+            try {
+                const body = await res.json();
+                return Promise.reject({
+                    status: res.status,
+                    ok: false,
+                    body,
                 });
+            } catch (e) {
+                return Promise.reject({
+                    status: res.status,
+                    ok: false,
+                    body: 'An unexpected error occured',
+                });
+            }
         }
 
         if (res.status === 204) {
