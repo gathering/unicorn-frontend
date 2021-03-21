@@ -44,7 +44,7 @@ const CompetitionAdminEntry = () => {
                 role="alert"
             >
                 <h2 className="pb-2 font-bold">This page is under active development</h2>
-                <p>New features will be added</p>
+                <p>New features will be added shortly</p>
             </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
                 <h2 className="p-4 text-xl">
