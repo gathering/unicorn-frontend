@@ -63,7 +63,7 @@ const CompetitionAdminEntry = () => {
                                 const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
                                 return (
                                     <li>
-                                        <h3 className="mb-2 text-xl font-light">{fu.input}</h3>
+                                        <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
                                         {file ? (
                                             <a
                                                 href={file.url}
