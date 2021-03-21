@@ -100,6 +100,8 @@ const CompetitionAdminDetails = () => {
             });
     };
 
+    console.log(entries);
+
     if (!data) {
         return null;
     }
@@ -177,9 +179,9 @@ const CompetitionAdminDetails = () => {
                                     <circle cx="7" cy="7" r="7" fill="currentColor" />
                                 </svg>
 
-                                {/* <Link to={`/admin/competitions/${id}/participants/${e.id}`} className="mx-4">
+                                <Link to={`/admin/competitions/${id}/${e.id}`} className="mx-4">
                                     More information
-                                </Link> */}
+                                </Link>
                                 {i < entries.results.length - 1 && (
                                     <hr className="w-full my-6 border-t border-gray-300" />
                                 )}
