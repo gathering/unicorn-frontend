@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
 import styled from 'styled-components';
@@ -6,7 +6,6 @@ import type { ICompetition, IEntry, IFile } from '../features/competitions/compe
 import { httpGet } from '../utils/fetcher';
 import { View } from '../components/View';
 import { hasFileupload } from '../utils/competitions';
-import { FileUpload } from '../features/competitions/FileUpload';
 import { Link } from '../components/Link';
 
 const HeadingWrapper = styled.h1`
@@ -20,6 +19,32 @@ const CompetitionAdminEntry = () => {
         httpGet
     );
     const { data: entry, isValidating: isValidatingEntry } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
+
+    const nextEntry = useMemo(() => {
+        if (!competition?.entries) {
+            return undefined;
+        }
+
+        const index = competition.entries.findIndex((e) => e.id.toString() === eid);
+        if (index === -1 || index === competition.entries.length - 1) {
+            return undefined;
+        }
+
+        return competition.entries[index + 1];
+    }, [competition, eid, entry]);
+
+    const previousEntry = useMemo(() => {
+        if (!competition?.entries) {
+            return undefined;
+        }
+
+        const index = competition.entries.findIndex((e) => e.id.toString() === eid);
+        if (index === -1 || index === 0) {
+            return undefined;
+        }
+
+        return competition.entries[index - 1];
+    }, [competition, eid, entry]);
 
     if (!competition || !entry) {
         return null;
@@ -83,10 +108,22 @@ const CompetitionAdminEntry = () => {
                     </>
                 )}
             </section>
-            <aside className="col-start-3 row-span-3 row-start-2 bg-white rounded shadow sm:rounded-none">
-                <h2 className="p-4 text-xl">Status</h2>
+            <aside className="col-start-3 row-span-3 row-start-2">
+                {(nextEntry || previousEntry) && (
+                    <section className="mb-4">
+                        {previousEntry && (
+                            <Link to={`/admin/competitions/${cid}/${previousEntry.id}`} className="mr-6">
+                                Previous entry
+                            </Link>
+                        )}
+                        {nextEntry && <Link to={`/admin/competitions/${cid}/${nextEntry.id}`}>Next entry</Link>}
+                    </section>
+                )}
+                <section className="p-4 bg-white rounded shadow sm:rounded-none">
+                    <h2 className="text-xl">Status</h2>
 
-                <p className="px-6">Not yet handled</p>
+                    <p>Not yet handled</p>
+                </section>
             </aside>
             <footer className="col-span-3 mt-4">
                 <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{' '}

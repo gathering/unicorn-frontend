@@ -169,7 +169,7 @@ const CompetitionAdminDetails = () => {
                                 <svg
                                     className={`${
                                         entryStateColors.find((c) => c.value === e.status.value)?.bg
-                                    } mb-2 mr-4`}
+                                    } mb-1 mr-4`}
                                     width="14"
                                     height="14"
                                     viewBox="0 0 14 14"
@@ -178,8 +178,9 @@ const CompetitionAdminDetails = () => {
                                 >
                                     <circle cx="7" cy="7" r="7" fill="currentColor" />
                                 </svg>
+                                {entryStateColors.find((c) => c.value === e.status.value)?.label}
 
-                                <Link to={`/admin/competitions/${id}/${e.id}`} className="mx-4">
+                                <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-8 mr-4 -mb-1">
                                     More information
                                 </Link>
                                 {i < entries.results.length - 1 && (

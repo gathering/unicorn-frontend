@@ -72,6 +72,44 @@ export interface IGenreResponse {
     obj_type: string;
 }
 
+interface IEntryStatusDraft {
+    value: 1;
+    label: string;
+}
+
+interface IEntryStatusNew {
+    value: 2;
+    label: string;
+}
+
+interface IEntryStatusQualified {
+    value: 4;
+    label: string;
+}
+
+interface IEntryStatusDisqualified {
+    value: 8;
+    label: string;
+}
+
+interface IEntryStatusNotPreSelected {
+    value: 16;
+    label: string;
+}
+
+interface IEntryStatusInvalid {
+    value: 32;
+    label: string;
+}
+
+type EntryStatus =
+    | IEntryStatusDraft
+    | IEntryStatusNew
+    | IEntryStatusQualified
+    | IEntryStatusDisqualified
+    | IEntryStatusNotPreSelected
+    | IEntryStatusInvalid;
+
 export interface IEntry {
     comment?: string;
     contributors: [];
@@ -87,6 +125,7 @@ export interface IEntry {
     screen_msg?: string;
     title: string;
     url: string;
+    status: EntryStatus;
 }
 
 export interface IEntryListResponse {
