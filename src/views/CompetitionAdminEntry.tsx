@@ -91,7 +91,7 @@ const CompetitionAdminEntry = () => {
                                         {file ? (
                                             <a
                                                 href={file.url}
-                                                className="p-1 px-2 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                                className="p-1 px-2 -ml-2 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
                                             >
                                                 {file.name}
                                             </a>
