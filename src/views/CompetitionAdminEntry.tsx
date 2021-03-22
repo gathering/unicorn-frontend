@@ -73,10 +73,9 @@ const CompetitionAdminEntry = () => {
             </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
                 <h2 className="p-4 text-xl">
-                    {entry.title}{' '}
-                    <span className="ml-4 font-light">
-                        {entry.contributors.find((c) => c.is_owner)?.user.display_name}
-                    </span>
+                    {entry.title}
+                    <br />
+                    <span className="font-light">{entry.contributors.find((c) => c.is_owner)?.user.display_name}</span>
                 </h2>
             </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
@@ -109,8 +108,13 @@ const CompetitionAdminEntry = () => {
                 )}
             </section>
             <aside className="col-start-3 row-span-3 row-start-2">
+                <section className="p-4 bg-white rounded shadow sm:rounded-none">
+                    <h2 className="text-xl">Status</h2>
+
+                    <p>Not yet handled</p>
+                </section>
                 {(nextEntry || previousEntry) && (
-                    <section className="mb-4">
+                    <section className="my-6">
                         {previousEntry && (
                             <Link to={`/admin/competitions/${cid}/${previousEntry.id}`} className="mr-6">
                                 Previous entry
@@ -119,11 +123,6 @@ const CompetitionAdminEntry = () => {
                         {nextEntry && <Link to={`/admin/competitions/${cid}/${nextEntry.id}`}>Next entry</Link>}
                     </section>
                 )}
-                <section className="p-4 bg-white rounded shadow sm:rounded-none">
-                    <h2 className="text-xl">Status</h2>
-
-                    <p>Not yet handled</p>
-                </section>
             </aside>
             <footer className="col-span-3 mt-4">
                 <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{' '}

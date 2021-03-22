@@ -157,12 +157,12 @@ const CompetitionAdminDetails = () => {
                         Disqualified
                     </li>
                 </ul>
-                <div className="col-span-3 bg-white rounded shadow sm:rounded-none">
-                    <h2 className="p-4 text-xl">Participants</h2>
+                <div className="col-span-3 p-4 bg-white rounded shadow sm:rounded-none">
+                    <h2 className="pb-4 text-xl">Participants</h2>
                     <ul className="pb-4">
                         {entries?.results.map((e, i) => (
                             <li key={e.id} className="flex flex-wrap items-end my-3">
-                                <section className="flex-1 px-4">
+                                <section className="flex-1">
                                     <h3 className="pb-4 font-medium">{e.title}</h3>
                                     <p className="font-light">{e.title}</p>
                                 </section>
@@ -180,7 +180,7 @@ const CompetitionAdminDetails = () => {
                                 </svg>
                                 {entryStateColors.find((c) => c.value === e.status.value)?.label}
 
-                                <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-8 mr-4 -mb-1">
+                                <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-8 -mb-1">
                                     More information
                                 </Link>
                                 {i < entries.results.length - 1 && (
@@ -189,6 +189,9 @@ const CompetitionAdminDetails = () => {
                             </li>
                         ))}
                     </ul>
+                    <Link to="/admin/competitions" className="-ml-1">
+                        Back to competition list
+                    </Link>
                 </div>
             </section>
             <aside>
