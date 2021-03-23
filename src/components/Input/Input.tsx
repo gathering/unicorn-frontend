@@ -10,6 +10,7 @@ interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onCh
     ariaLabelledBy?: string;
     fullWidth?: boolean;
     labelClassName?: string;
+    helpLabel?: string;
 }
 
 const Label = styled.label`
@@ -30,6 +31,7 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
             label,
             className,
             errorLabel,
+            helpLabel,
             id,
             labelClassName,
             ariaLabelledBy = '',
@@ -38,8 +40,9 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
         },
         ref
     ) => {
-        let labelId = id || `unicorn-input--${useId()}`;
-        let errorLabelId = id ? `${id}-errorlabel` : `unicorn-input-errorlabel--${useId()}`;
+        const labelId = id || `unicorn-input--${useId()}`;
+        const errorLabelId = id ? `${id}-errorlabel` : `unicorn-input-errorlabel--${useId()}`;
+        const helpLabelId = id ? `${id}-helplabel` : `unicorn-input-helplabel--${useId()}`;
 
         return (
             <>
@@ -60,7 +63,7 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                         className ? className : ''
                     } ${errorLabel ? 'text-red border-red-600  focus:border-red-800 border' : ''}
                     ${fullWidth ? 'w-full' : ''}`}
-                    aria-labelledby={`${labelId}-label ${ariaLabelledBy}`}
+                    aria-labelledby={`${labelId}-label ${ariaLabelledBy} ${helpLabel ? helpLabelId : ''}`}
                     type={type}
                     placeholder={placeholder}
                     aria-describedby={errorLabel ? errorLabelId : undefined}
@@ -69,6 +72,11 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                     ref={ref}
                     {...inputProps}
                 />
+                {helpLabel && (
+                    <span className="text-sm" id={helpLabelId}>
+                        {helpLabel}
+                    </span>
+                )}
             </>
         );
     }

@@ -14,8 +14,6 @@ interface IProps {
     onRegistrationFinish: () => void;
 }
 
-interface IFormData {}
-
 export const EditRegistration = ({ competition, entry, onRegistrationFinish }: IProps) => {
     const onUpdate = (data: any) => {
         if (!entry) {
@@ -40,12 +38,37 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
 
     return (
         <>
+            {entry.status.value === 4 ? (
+                <section
+                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-green-700 bg-green-100 border-l-4 border-green-500"
+                    role="alert"
+                >
+                    <h2 className="pb-2 font-bold">Congratulations! 🥳</h2>
+                    <p>Your entry qualified for {competition.name}</p>
+                </section>
+            ) : entry.status.value === 8 ? (
+                <section
+                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500"
+                    role="alert"
+                >
+                    <h2 className="pb-2 font-bold">Sorry, your entry is disqualified:</h2>
+                    <p>{entry.comment}</p>
+                </section>
+            ) : entry.status.value === 16 ? (
+                <section
+                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500"
+                    role="alert"
+                >
+                    <h2 className="pb-2 font-bold">Your registration did not make it through the preselection</h2>
+                    <p>Please contact the crew if you have any questions.</p>
+                </section>
+            ) : null}
+
             <RegisterEntry
                 competition={competition}
                 defaultValues={{ title: entry.title, crew_msg: entry.crew_msg }}
                 onSubmit={onUpdate}
             />
-
             {hasUpload && <FileUpload competition={competition} entry={entry} />}
             {/* <ContributorEditor /> */}
         </>

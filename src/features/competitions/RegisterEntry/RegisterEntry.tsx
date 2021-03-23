@@ -1,5 +1,4 @@
 import React, { useEffect, useMemo } from 'react';
-import styled from 'styled-components';
 import { toast } from 'react-toastify';
 import type { ICompetition, IEntry } from '../competition.types';
 import { httpPost } from '../../../utils/fetcher';
@@ -19,10 +18,6 @@ interface IFormData {
     title: string;
     crew_msg?: string;
 }
-
-const HeadingWrapper = styled.h1`
-    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
-`;
 
 interface IProps {
     competition: ICompetition;
@@ -101,11 +96,7 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
 
     if (competition.rsvp) {
         return (
-            <RegistrationContainer
-                headerImage={competition.header_image}
-                name={competition.name}
-                header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}
-            >
+            <RegistrationContainer header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -133,11 +124,7 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
     }
 
     return (
-        <RegistrationContainer
-            headerImage={competition.header_image}
-            name={competition.name}
-            header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}
-        >
+        <RegistrationContainer header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}>
             <form onSubmit={handleSubmit(onUpdate)}>
                 <div className="flex p-4">
                     <h3 style={{ width: '360px' }}>Registration</h3>
@@ -244,19 +231,8 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
     );
 };
 
-const RegistrationContainer: React.FC<{ name: string; headerImage: string; header: string }> = ({
-    children,
-    name,
-    headerImage,
-    header,
-}) => (
+const RegistrationContainer: React.FC<{ header: string }> = ({ children, header }) => (
     <div className="container mx-auto my-12 sm:my-0">
-        <div className="relative mb-4 sm:mb-0">
-            <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={headerImage} alt="" />
-            <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
-                {name}
-            </HeadingWrapper>
-        </div>
         <section className="flex flex-col bg-white rounded sm:rounded-none">
             <h2 className="p-4 text-xl text-center">{header}</h2>
             <hr className="pb-6 border-t border-gray-300" />

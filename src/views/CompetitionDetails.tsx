@@ -130,7 +130,7 @@ const CompetitionDetails = () => {
                     <Tabs className="bg-white rounded sm:rounded-none">
                         <TabList className="flex">
                             {competitionDescription && (
-                                <Tab className="flex-grow py-3 border-b border-tg-brand-orange">Information</Tab>
+                                <Tab className="flex-grow py-3 border-b border-tg-brand-orange-500">Information</Tab>
                             )}
                             <Tab className="flex-grow py-3 border-b">Rules</Tab>
                         </TabList>

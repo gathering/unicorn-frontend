@@ -87,10 +87,34 @@ const CompetitionRegistration = () => {
     }
 
     if (!hasEntry) {
-        return <RegisterEntry competition={data} onRegistrationFinish={onRegistrationFinish} />;
+        return (
+            <>
+                <div className="container relative mx-auto mt-4 sm:mb-4">
+                    <img
+                        className="object-cover w-full h-48 rounded-md sm:rounded-none"
+                        src={data.header_image}
+                        alt=""
+                    />
+                    <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
+                        {data.name}
+                    </HeadingWrapper>
+                </div>
+                <RegisterEntry competition={data} onRegistrationFinish={onRegistrationFinish} />
+            </>
+        );
     }
 
-    return <EditRegistration competition={data} entry={hasEntry} onRegistrationFinish={onRegistrationFinish} />;
+    return (
+        <>
+            <div className="container relative mx-auto mt-4 sm:mb-4">
+                <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={data.header_image} alt="" />
+                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
+                    {data.name}
+                </HeadingWrapper>
+            </div>
+            <EditRegistration competition={data} entry={hasEntry} onRegistrationFinish={onRegistrationFinish} />
+        </>
+    );
 };
 
 export default CompetitionRegistration;

@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "@reach/auto-id": "^0.13.0",
+        "@reach/dialog": "^0.13.2",
         "@reach/listbox": "^0.13.0",
         "@reach/tabs": "^0.13.0",
         "@reach/visually-hidden": "^0.13.0",

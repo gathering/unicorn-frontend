@@ -1,24 +1,38 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router';
-import useSWR from 'swr';
+import useSWR, { mutate } from 'swr';
 import styled from 'styled-components';
+import Dialog from '@reach/dialog';
+import VisuallyHidden from '@reach/visually-hidden';
 import type { ICompetition, IEntry, IFile } from '../features/competitions/competition.types';
-import { httpGet } from '../utils/fetcher';
-import { View } from '../components/View';
+import { PrimaryButton, SecondaryButton } from '../components/Button';
+import { httpGet, httpPatch } from '../utils/fetcher';
 import { hasFileupload } from '../utils/competitions';
+import { Input } from '../components/Input';
+import { View } from '../components/View';
 import { Link } from '../components/Link';
+import { useForm } from 'react-hook-form';
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
 `;
 
+interface IFormData {
+    preselect?: boolean;
+    comment?: boolean;
+}
+
 const CompetitionAdminEntry = () => {
     const { cid, eid } = useParams<{ cid: string; eid: string }>();
+    const [showDisqualify, setShowDisqualify] = useState(false);
     const { data: competition, isValidating: isValidatingCompetition } = useSWR<ICompetition>(
         'competitions/competitions/' + cid,
         httpGet
     );
-    const { data: entry, isValidating: isValidatingEntry } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
+    const { data: entry, mutate } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
+    const { register, errors, handleSubmit, watch } = useForm<IFormData>();
+
+    const preselect = watch('preselect');
 
     const nextEntry = useMemo(() => {
         if (!competition?.entries) {
@@ -46,6 +60,25 @@ const CompetitionAdminEntry = () => {
         return competition.entries[index - 1];
     }, [competition, eid, entry]);
 
+    const handleQualify = () => {
+        httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 4 })).then((d) => mutate(d));
+    };
+    const handleDisqualify = (formData: IFormData) => {
+        if (formData.preselect === true) {
+            httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 16 })).then((d) => {
+                setShowDisqualify(false);
+                mutate(d);
+            });
+        } else {
+            httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 8, comment: formData.comment })).then(
+                (d) => {
+                    setShowDisqualify(false);
+                    mutate(d);
+                }
+            );
+        }
+    };
+
     if (!competition || !entry) {
         return null;
     }
@@ -64,18 +97,11 @@ const CompetitionAdminEntry = () => {
                     {competition.name}
                 </HeadingWrapper>
             </header>
-            <section
-                className="w-full col-span-2 px-3 py-4 mx-auto text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500"
-                role="alert"
-            >
-                <h2 className="pb-2 font-bold">This page is under active development</h2>
-                <p>New features will be added shortly</p>
-            </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
                 <h2 className="p-4 text-xl">
                     {entry.title}
                     <br />
-                    <span className="font-light">{entry.contributors.find((c) => c.is_owner)?.user.display_name}</span>
+                    <span className="font-light">{entry.owner?.display_name}</span>
                 </h2>
             </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
@@ -86,7 +112,7 @@ const CompetitionAdminEntry = () => {
                             {competition.fileupload.map((fu) => {
                                 const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
                                 return (
-                                    <li>
+                                    <li key={fu.file}>
                                         <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
                                         {file ? (
                                             <a
@@ -108,10 +134,25 @@ const CompetitionAdminEntry = () => {
                 )}
             </section>
             <aside className="col-start-3 row-span-3 row-start-2">
-                <section className="p-4 bg-white rounded shadow sm:rounded-none">
+                <section className="flex flex-col flex-wrap p-4 bg-white rounded shadow sm:rounded-none">
                     <h2 className="text-xl">Status</h2>
 
-                    <p>Not yet handled</p>
+                    <p>
+                        {entry.status.value === 4
+                            ? 'Qualified'
+                            : entry.status.value === 8
+                            ? `Disqualified: ${entry.comment}`
+                            : entry.status.value === 16
+                            ? 'Not preselected'
+                            : entry.status.label}
+                    </p>
+
+                    {entry.status.value !== 4 && (
+                        <PrimaryButton className="mt-6 mb-2" onClick={handleQualify}>
+                            Qualify
+                        </PrimaryButton>
+                    )}
+                    <SecondaryButton onClick={() => setShowDisqualify(true)}>Disqualify</SecondaryButton>
                 </section>
                 {(nextEntry || previousEntry) && (
                     <section className="my-6">
@@ -127,6 +168,40 @@ const CompetitionAdminEntry = () => {
             <footer className="col-span-3 mt-4">
                 <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{' '}
             </footer>
+            <Dialog
+                isOpen={showDisqualify}
+                onDismiss={() => setShowDisqualify(false)}
+                className="rounded-md"
+                aria-label={`Disqualify ${entry.title}`}
+            >
+                <VisuallyHidden>
+                    <button className="close-button" onClick={() => setShowDisqualify(false)}>
+                        Close
+                    </button>
+                </VisuallyHidden>
+                <h2 className="mb-3 text-xl">Disqualify {entry.title}</h2>
+                <p>A reason is required if this is not a result of not being preselected.</p>
+                <form onSubmit={handleSubmit(handleDisqualify)}>
+                    <label className="block mt-6">
+                        <input name="preselect" type="checkbox" className="mr-2" ref={register()} />
+                        Not preselected
+                    </label>
+
+                    {preselect !== true && (
+                        <Input
+                            name="comment"
+                            ref={register({ required: 'You need to give the participant a reason' })}
+                            label="Disqualification reason"
+                            helpLabel="This will be displayed to the participant"
+                            labelClassName="mt-5"
+                            className="w-full"
+                            errorLabel={errors.comment?.message}
+                        />
+                    )}
+
+                    <PrimaryButton className="mt-4">Submit</PrimaryButton>
+                </form>
+            </Dialog>
         </View>
     );
 };

@@ -4,12 +4,17 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                tg: {
-                    brand: {
-                        orange: '#F4772B',
-                        blue: '',
-                        green: '#2E8F91',
-                    },
+                'tg-brand-orange': {
+                    50: '#faf5e9',
+                    100: '#fbedcd',
+                    200: '#f8df9a',
+                    300: '#f5c857',
+                    400: '#f1a422',
+                    500: '#f4772b',
+                    600: '#e45a0a',
+                    700: '#c4430e',
+                    800: '#a13515',
+                    900: '#842c16',
                 },
             },
         },
@@ -23,6 +28,8 @@ module.exports = {
     },
     variants: {
         extend: {
+            borderWidth: ['hover'],
+            margin: ['hover'],
             padding: ['hover'],
         },
     },

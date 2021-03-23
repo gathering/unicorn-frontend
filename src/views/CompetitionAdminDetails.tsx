@@ -40,7 +40,7 @@ const entryStateColors = [
     },
     {
         value: 16,
-        label: 'Not pre-selected',
+        label: 'Not preselected',
         bg: 'text-red-400',
     },
     {
@@ -164,7 +164,7 @@ const CompetitionAdminDetails = () => {
                             <li key={e.id} className="flex flex-wrap items-end my-3">
                                 <section className="flex-1">
                                     <h3 className="pb-4 font-medium">{e.title}</h3>
-                                    <p className="font-light">{e.title}</p>
+                                    <p className="font-light">{e.owner?.display_name}</p>
                                 </section>
                                 <svg
                                     className={`${
