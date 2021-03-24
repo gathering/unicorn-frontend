@@ -164,21 +164,22 @@ const CompetitionAdminDetails = () => {
                                     <h3 className="pb-4 font-medium">{e.title}</h3>
                                     <p className="font-light">{e.owner?.display_name}</p>
                                 </section>
-                                <svg
-                                    className={`${
-                                        entryStateColors.find((c) => c.value === e.status.value)?.bg
-                                    } mb-1 mr-4`}
-                                    width="14"
-                                    height="14"
-                                    viewBox="0 0 14 14"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                >
-                                    <circle cx="7" cy="7" r="7" fill="currentColor" />
-                                </svg>
-                                {entryStateColors.find((c) => c.value === e.status.value)?.label}
+                                <span title={entryStateColors.find((c) => c.value === e.status.value)?.label}>
+                                    <svg
+                                        className={`${
+                                            entryStateColors.find((c) => c.value === e.status.value)?.bg
+                                        } mb-1 mr-4`}
+                                        width="14"
+                                        height="14"
+                                        viewBox="0 0 14 14"
+                                        fill="none"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                        <circle cx="7" cy="7" r="7" fill="currentColor" />
+                                    </svg>
+                                </span>
 
-                                <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-8 -mb-1">
+                                <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-4 -mb-1">
                                     More information
                                 </Link>
                                 {i < entries.results.length - 1 && (
