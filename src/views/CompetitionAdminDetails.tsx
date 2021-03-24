@@ -100,8 +100,6 @@ const CompetitionAdminDetails = () => {
             });
     };
 
-    console.log(entries);
-
     if (!data) {
         return null;
     }
