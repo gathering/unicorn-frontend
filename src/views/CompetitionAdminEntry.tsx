@@ -133,6 +133,49 @@ const CompetitionAdminEntry = () => {
                     </>
                 )}
             </section>
+            <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
+                <h2 className="p-4 text-xl">Contributors</h2>
+                <table className="min-w-full divide-y divide-gray-200">
+                    <thead className="bg-gray-50">
+                        <tr>
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                            >
+                                Display Name
+                            </th>
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                            >
+                                Email
+                            </th>
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
+                            >
+                                Phone number
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white divide-y divide-gray-200">
+                        {entry.contributors.map((c) => (
+                            <tr key={c.uuid}>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {c.is_owner && (
+                                        <span className="px-1 mr-4 font-light text-white rounded bg-tg-brand-orange-500 ">
+                                            Owner
+                                        </span>
+                                    )}{' '}
+                                    {c.user.display_name}
+                                </td>
+                                <td className="px-6 py-4 whitespace-nowrap">{c.user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{c.user.phone_number}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </section>
             <aside className="col-start-3 row-span-3 row-start-2">
                 <section className="flex flex-col flex-wrap p-4 bg-white rounded shadow sm:rounded-none">
                     <h2 className="text-xl">Status</h2>
