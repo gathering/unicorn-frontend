@@ -53,6 +53,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
                 >
                     <h2 className="pb-2 font-bold">Sorry, your entry is disqualified:</h2>
                     <p>{entry.comment}</p>
+                    <p className="mt-4">Please contact the crew if you have any questions.</p>
                 </section>
             ) : entry.status.value === 16 ? (
                 <section
