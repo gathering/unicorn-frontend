@@ -7,7 +7,7 @@ interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement
 export const SecondaryButton: React.FC<Props> = ({ loading, children, className, ...props }) => {
     return (
         <button
-            className={`py-2 px-7 hover:px-6 hover:mx-1 rounded-lg flex justify-center items-center text-tg-brand-orange-500 transition-all duration-150 border-2 border-tg-brand-orange-500 hover:border-tg-brand-orange-600 ${
+            className={`py-2 px-7 hover:scale-105 transform hover:font-semibold rounded-lg flex justify-center items-center text-tg-brand-orange-500 transition-all duration-150 border-2 border-tg-brand-orange-500 hover:border-tg-brand-orange-600 ${
                 className ?? ''
             }`}
             {...props}

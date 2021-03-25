@@ -31,6 +31,7 @@ module.exports = {
             borderWidth: ['hover'],
             margin: ['hover'],
             padding: ['hover'],
+            fontWeight: ['hover'],
         },
     },
     plugins: [],
