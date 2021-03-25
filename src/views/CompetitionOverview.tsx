@@ -54,7 +54,7 @@ const CompetitionsOverview: React.FC = () => {
         () =>
             competitions
                 .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
-                .filter((c) => (!genre ? true : genre === c.genre.id.toString()))
+                .filter((c) => (!genre ? true : genre === '__all__' ? true : genre === c.genre.id.toString()))
                 .filter((c) => c.published),
         [competitions, search, genre]
     );
@@ -88,7 +88,7 @@ const CompetitionsOverview: React.FC = () => {
                     />
 
                     <Select
-                        options={options}
+                        options={[{ label: 'All genres', value: '__all__' }, ...options]}
                         aria-label="Select genre"
                         placeholder="Select genre"
                         value={genre}
