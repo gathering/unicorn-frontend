@@ -190,12 +190,16 @@ const CompetitionAdminEntry = () => {
                             : entry.status.label}
                     </p>
 
-                    {entry.status.value !== 4 && (
-                        <PrimaryButton className="mt-6 mb-2" onClick={handleQualify}>
-                            Qualify
-                        </PrimaryButton>
-                    )}
-                    <SecondaryButton onClick={() => setShowDisqualify(true)}>Disqualify</SecondaryButton>
+                    <footer>
+                        {entry.status.value !== 4 && (
+                            <PrimaryButton className="mt-6 mb-2 w-36" onClick={handleQualify}>
+                                Qualify
+                            </PrimaryButton>
+                        )}
+                        <SecondaryButton onClick={() => setShowDisqualify(true)} className="w-36">
+                            Disqualify
+                        </SecondaryButton>
+                    </footer>
                 </section>
                 {(nextEntry || previousEntry) && (
                     <section className="my-6">
