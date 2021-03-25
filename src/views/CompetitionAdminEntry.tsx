@@ -190,9 +190,9 @@ const CompetitionAdminEntry = () => {
                             : entry.status.label}
                     </p>
 
-                    <footer>
+                    <footer className="flex flex-wrap gap-4 mt-6">
                         {entry.status.value !== 4 && (
-                            <PrimaryButton className="mt-6 mb-2 w-36" onClick={handleQualify}>
+                            <PrimaryButton className="w-36" onClick={handleQualify}>
                                 Qualify
                             </PrimaryButton>
                         )}
