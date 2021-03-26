@@ -158,7 +158,8 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            <h3 className="break-all">Current file: {file?.name}</h3>
+                            <h3>{formDefinition.input}</h3>
+                            <p className="font-light break-all">Current file: {file?.name}</p>
                             <p className="text-gray-700">Upload new version</p>
                         </>
                     ) : null}
