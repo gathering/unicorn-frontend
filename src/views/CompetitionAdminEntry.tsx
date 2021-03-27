@@ -103,6 +103,8 @@ const CompetitionAdminEntry = () => {
                     <br />
                     <span className="font-light">{entry.owner?.display_name}</span>
                 </h2>
+
+                {entry.crew_msg && <p className="p-4">Message from participant: {entry.crew_msg}</p>}
             </section>
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
                 {hasUpload && (
