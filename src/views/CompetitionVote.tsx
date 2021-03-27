@@ -50,6 +50,16 @@ const CompetitionVote = () => {
         return null;
     }
 
+    if (competition.state.value !== 32) {
+        return (
+            <View className="container mx-auto">
+                <h1 role="alert" className="mt-32 text-xl text-center">
+                    This competition is not open for voting yet.
+                </h1>
+            </View>
+        );
+    }
+
     return (
         <View className="container grid grid-cols-3 gap-4 mx-auto md:grid-cols-2 sm:grid-cols-1">
             <h1 className="col-span-3 mt-6 text-3xl md:col-span-2 sm:col-span-1">Vote for the awesome entries!</h1>
