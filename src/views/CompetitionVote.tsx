@@ -46,7 +46,7 @@ const CompetitionVote = () => {
         });
     };
 
-    if (isValidatingEntries || (isValidatingVotes && !votes) || !competition) {
+    if (isValidatingEntries || !votes || !competition) {
         return null;
     }
 

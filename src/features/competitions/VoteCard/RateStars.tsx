@@ -69,7 +69,9 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
                     })
                 )}
             </div>
-            <p style={{ minHeight: '2.5rem' }}>{hoverStar !== undefined && starDescription[hoverStar]}</p>
+            <p style={{ minHeight: '2.5rem' }} className="text-gray-700">
+                {hoverStar !== undefined ? starDescription[hoverStar] : score !== 0 ? starDescription[score - 1] : null}
+            </p>
         </>
     );
 };
