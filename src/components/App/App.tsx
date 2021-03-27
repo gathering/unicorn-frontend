@@ -11,6 +11,7 @@ import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
 import CompetitionAdminDetails from '../../views/CompetitionAdminDetails';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
 import CompetitionAdminEntry from '../../views/CompetitionAdminEntry';
+import CompetitionVote from '../../views/CompetitionVote';
 import Preferences from '../../views/Preferences';
 import { ProtectedRoute } from '../ProtectedRoute';
 import { useUserState } from '../../context/Auth';
@@ -139,6 +140,7 @@ const App = () => {
                             component={CompetitionAdminOverview}
                             requiredRole="crew"
                         />
+                        <ProtectedRoute path="/competitions/:cid/vote" component={CompetitionVote} />
                         <ProtectedRoute path="/competitions/:id/register" component={CompetitionRegistration} />
                         <ProtectedRoute path="/preferences" component={Preferences} />
                         <Route path="/competitions/:id" component={CompetitionDetails} />
