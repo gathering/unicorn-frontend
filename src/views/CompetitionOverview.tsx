@@ -141,7 +141,7 @@ const CompetitionsOverview: React.FC = () => {
                             >
                                 <Link to={'/competitions/' + competition.id} className="flex h-32">
                                     <img
-                                        className="flex-none object-cover w-64 overflow-hidden text-center bg-cover rounded-l sm:rounded-none"
+                                        className="flex-none object-cover w-64 overflow-hidden text-center bg-gray-400 bg-cover rounded-l sm:rounded-none"
                                         src={competition.header_image}
                                         alt={`Competition poster ${competition.name}`}
                                     />
