@@ -119,7 +119,7 @@ const CompetitionAdminEntry = () => {
                             {competition.fileupload.map((fu) => {
                                 const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
                                 return (
-                                    <li key={fu.file}>
+                                    <li key={fu.type}>
                                         <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
                                         {file ? (
                                             <a
