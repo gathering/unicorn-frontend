@@ -9,7 +9,7 @@ import type { ICompetition, IEntryListResponse } from '../features/competitions/
 const CompetitionVote = () => {
     const { cid } = useParams<{ cid: string }>();
     const { data: competition } = useSWR<ICompetition>(`competitions/competitions/${cid}`, httpGet);
-    const { data: entries, mutate: mutateEntries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
+    const { data: entries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${cid}&limit=1000`,
         httpGet,
         { revalidateOnFocus: false }
