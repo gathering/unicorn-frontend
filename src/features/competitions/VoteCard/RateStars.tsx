@@ -7,7 +7,7 @@ interface Props {
     score: number;
 }
 
-const starDescription = ['Not my taste', 'Seen better', 'Good', 'I like it', 'Love this!'];
+const starDescription = ['Not my taste', "It's ok", 'Cool!', 'I like it!', 'Amazing!'];
 
 export const RateStars = ({ onChange, score, isFetching }: Props) => {
     const [hoverStar, setHoverStar] = useState<number>();
