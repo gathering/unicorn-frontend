@@ -126,13 +126,17 @@ const CompetitionDetails = () => {
             </div>
             <div className="flex flex-horizontal sm:flex-col-reverse">
                 <div className="flex-grow">
-                    <section
-                        className="container w-full col-span-2 px-3 py-4 mx-auto mb-6 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500 "
-                        role="alert"
-                    >
-                        <h2 className="pb-2 font-bold">Voting is open!</h2>
-                        <p className="mt-4">{!!user ? 'Cast your votes now!' : 'Please log in to cast your votes!'}</p>
-                    </section>
+                    {data.state.value === 32 && (
+                        <section
+                            className="container w-full col-span-2 px-3 py-4 mx-auto mb-6 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500 "
+                            role="alert"
+                        >
+                            <h2 className="pb-2 font-bold">Voting is open!</h2>
+                            <p className="mt-4">
+                                {!!user ? 'Cast your votes now!' : 'Please log in to cast your votes!'}
+                            </p>
+                        </section>
+                    )}
                     <CompetitionPhases competition={data} />
                     <Tabs className="bg-white rounded sm:rounded-none">
                         <TabList className="flex">
@@ -154,7 +158,7 @@ const CompetitionDetails = () => {
                     </Tabs>
                 </div>
                 <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 sm:m-0 sm:mb-6">
-                    {!!user && (
+                    {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
                             className="flex items-center justify-center py-2 text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
