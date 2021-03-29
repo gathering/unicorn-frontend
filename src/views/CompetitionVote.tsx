@@ -24,6 +24,8 @@ const CompetitionVote = () => {
         () =>
             entries?.results.filter((e) => {
                 // status qualified
+                return true;
+
                 if (e.status.value === 4) {
                     return true;
                 }
@@ -50,15 +52,15 @@ const CompetitionVote = () => {
         return null;
     }
 
-    if (competition.state.value !== 32) {
-        return (
-            <View className="container mx-auto">
-                <h1 role="alert" className="mt-32 text-xl text-center">
-                    This competition is not open for voting yet.
-                </h1>
-            </View>
-        );
-    }
+    // if (competition.state.value !== 32) {
+    //     return (
+    //         <View className="container mx-auto">
+    //             <h1 role="alert" className="mt-32 text-xl text-center">
+    //                 This competition is not open for voting yet.
+    //             </h1>
+    //         </View>
+    //     );
+    // }
 
     return (
         <View className="container grid grid-cols-3 gap-4 mx-auto md:grid-cols-2 sm:grid-cols-1">
