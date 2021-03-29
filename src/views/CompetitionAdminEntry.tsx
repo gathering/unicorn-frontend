@@ -174,7 +174,9 @@ const CompetitionAdminEntry = () => {
                                             Owner
                                         </span>
                                     )}{' '}
-                                    {c.user.display_name}
+                                    {c.user.first_name} {c.user.last_name}
+                                    <br />
+                                    <span className="font-light text-gray-800">{c.user.display_name}</span>
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.phone_number}</td>
