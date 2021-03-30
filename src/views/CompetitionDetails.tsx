@@ -128,11 +128,11 @@ const CompetitionDetails = () => {
                 <div className="flex-grow">
                     {data.state.value === 32 && (
                         <section
-                            className="container w-full col-span-2 px-3 py-4 mx-auto mb-6 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500 "
+                            className="container w-full col-span-2 px-3 py-5 mx-auto mt-4 mb-6 text-green-700 bg-green-100 border-l-4 border-green-500 "
                             role="alert"
                         >
-                            <h2 className="pb-2 font-bold">Voting is open!</h2>
-                            <p className="mt-4">
+                            <p>
+                                <strong>Voting is open! </strong>{' '}
                                 {!!user ? 'Cast your votes now!' : 'Please log in to cast your votes!'}
                             </p>
                         </section>
@@ -161,9 +161,10 @@ const CompetitionDetails = () => {
                     {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
-                            className="flex items-center justify-center py-2 mb-6 text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
+                            className="flex items-center justify-center py-4 mb-6 text-xl text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
                         >
                             Vote!
+                            <span className="pl-2">🎉</span>
                         </Link>
                     )}
 
