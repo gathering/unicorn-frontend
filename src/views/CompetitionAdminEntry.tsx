@@ -79,6 +79,13 @@ const CompetitionAdminEntry = () => {
         }
     };
 
+    const activeMainFile: IFile | undefined = useMemo(() => entry?.files.find((f) => f.active && f.type === 'main'), [
+        entry,
+    ]);
+    const activeMainFileType = useMemo(() => competition?.fileupload?.find((fu) => fu.type === 'main')?.file, [
+        competition,
+    ]);
+
     if (!competition || !entry) {
         return null;
     }
@@ -111,35 +118,36 @@ const CompetitionAdminEntry = () => {
                     </p>
                 )}
             </section>
-            <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
-                {hasUpload && (
-                    <>
-                        <h2 className="p-4 text-xl">Files</h2>
-                        <ul className="px-4 pb-4">
-                            {competition.fileupload.map((fu) => {
-                                const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
-                                return (
-                                    <li key={fu.type}>
-                                        <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
-                                        {file ? (
-                                            <a
-                                                href={file.url}
-                                                className="p-1 px-2 -ml-2 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
-                                            >
-                                                {file.name}
-                                            </a>
-                                        ) : (
-                                            <span className="px-2 py-1 text-sm bg-red-200 rounded-md " role="alert">
-                                                No file uploaded yet
-                                            </span>
-                                        )}
-                                    </li>
-                                );
-                            })}
-                        </ul>
-                    </>
-                )}
-            </section>
+            {hasUpload && (
+                <section className="grid grid-cols-2 col-span-2 bg-white rounded shadow sm:rounded-none">
+                    <h2 className="col-span-1 col-start-1 p-4 text-xl">Files</h2>
+                    <ul className="col-span-1 col-start-1 px-4 pb-4">
+                        {competition.fileupload.map((fu) => {
+                            const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
+                            return (
+                                <li key={fu.type}>
+                                    <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
+                                    {file ? (
+                                        <a
+                                            href={file.url}
+                                            className="p-1 px-2 -ml-2 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                        >
+                                            {file.name}
+                                        </a>
+                                    ) : (
+                                        <span className="px-2 py-1 text-sm bg-red-200 rounded-md " role="alert">
+                                            No file uploaded yet
+                                        </span>
+                                    )}
+                                </li>
+                            );
+                        })}
+                    </ul>
+                    {activeMainFileType === 'picture' && (
+                        <img className="col-start-2 row-span-2 row-start-1 rounded-r" src={activeMainFile?.url} />
+                    )}
+                </section>
+            )}
             <section className="col-span-2 bg-white rounded shadow sm:rounded-none">
                 <h2 className="p-4 text-xl">Contributors</h2>
                 <table className="min-w-full divide-y divide-gray-200">
