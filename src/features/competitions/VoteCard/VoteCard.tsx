@@ -79,7 +79,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />
                     )}
                 </>
-            ) : activeMainFileType === 'music!' ? (
+            ) : activeMainFileType === 'music' ? (
                 <>
                     <h2 className="my-3 text-2xl text-gray-700">{entry.title}</h2>
                     {entry.is_contributor ? (
@@ -91,7 +91,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                     ) : (
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />
                     )}
-                    <MusicPlayer src={activeMainFile.url} />
+                    <audio className="box-border w-full px-4 mb-4" controls src={activeMainFile.url} />
                 </>
             ) : (
                 <>
