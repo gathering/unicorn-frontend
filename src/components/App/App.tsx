@@ -11,6 +11,7 @@ import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
 import CompetitionAdminDetails from '../../views/CompetitionAdminDetails';
 import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
 import CompetitionAdminEntry from '../../views/CompetitionAdminEntry';
+import CompetitionAdminResults from '../../views/CompetitionAdminResults';
 import CompetitionVote from '../../views/CompetitionVote';
 import Preferences from '../../views/Preferences';
 import { ProtectedRoute } from '../ProtectedRoute';
@@ -124,6 +125,11 @@ const App = () => {
                             path="/admin/competitions/:id/edit"
                             requiredRole="crew"
                             component={CompetitionAdminEdit}
+                        />
+                        <ProtectedRoute
+                            path="/admin/competitions/:id/results"
+                            requiredRole="crew"
+                            component={CompetitionAdminResults}
                         />
                         <ProtectedRoute
                             path="/admin/competitions/:cid/:eid"

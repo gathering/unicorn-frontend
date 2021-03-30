@@ -114,7 +114,7 @@ const CompetitionAdminDetails = () => {
             </header>
             <section className="grid w-full grid-cols-3 col-span-2 gap-4 auto-rows-min">
                 {/* <Input placeholder="Search" aria-label="Search for participant" /> */}
-                <ul className="flex items-end justify-end col-span-3 gap-4">
+                <ul className="flex items-end justify-end col-span-3 gap-4 mr-4">
                     <li className="flex items-center gap-1">
                         <svg
                             className="text-green-400"
@@ -156,7 +156,13 @@ const CompetitionAdminDetails = () => {
                     </li>
                 </ul>
                 <div className="col-span-3 p-4 bg-white rounded shadow sm:rounded-none">
-                    <h2 className="pb-4 text-xl">Participants</h2>
+                    <h2 className="pb-4 text-xl">
+                        Participants
+                        <Link to={`/admin/competitions/${id}/results`} className="float-right text-base">
+                            Results
+                        </Link>
+                    </h2>
+
                     <ul className="pb-4">
                         {entries?.results.map((e, i) => (
                             <li key={e.id} className="flex flex-wrap items-end my-3">
@@ -188,8 +194,13 @@ const CompetitionAdminDetails = () => {
                             </li>
                         ))}
                     </ul>
+
                     <Link to="/admin/competitions" className="-ml-1">
                         Back to competition list
+                    </Link>
+
+                    <Link to={`/admin/competitions/${id}/results`} className="ml-10">
+                        Results
                     </Link>
                 </div>
             </section>
