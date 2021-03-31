@@ -19,3 +19,7 @@ html {
 [data-reach-tab][data-selected] {
     @apply border-tg-brand-orange-500 border-b-2 !important;
 }
+
+[data-reach-tab-panel] a {
+    @apply p-1 px-0 text-indigo-700 underline transition-all duration-150 rounded-sm hover:px-2 hover:text-indigo-900 hover:bg-indigo-200;
+}
