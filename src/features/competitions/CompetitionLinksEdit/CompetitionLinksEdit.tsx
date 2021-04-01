@@ -4,7 +4,7 @@ import { Input } from '../../../components/Input';
 import { Select } from '../../../components/Select';
 import { Link } from './Link';
 
-type Destinations = 'twitch' | 'discord';
+type Destinations = 'twitch' | 'discord' | 'facebook' | 'gathering.org';
 
 interface ILink {
     href: string;
@@ -49,6 +49,8 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
                                 options={[
                                     { label: 'Twitch', value: 'twitch' },
                                     { label: 'Discord channel', value: 'discord' },
+                                    { label: 'Facebook', value: 'facebook' },
+                                    { label: 'Gathering.org', value: 'gathering.org' },
                                 ]}
                                 onChange={(e) => handleChangeDestination(i, e)}
                                 value={val.destination}
