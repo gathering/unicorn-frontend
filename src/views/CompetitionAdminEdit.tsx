@@ -11,6 +11,7 @@ import { Input } from '../components/Input';
 import { Wysiwyg } from '../components/Wysiwyg';
 import type { ICompetition } from '../features/competitions/competition.types';
 import { PrizeEdit } from '../features/competitions/PrizeEdit';
+import { CompetitionLinksEdit } from '../features/competitions/CompetitionLinksEdit';
 import { parseError } from '../utils/error';
 import { FileEdit } from '../features/competitions/FileEdit';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -454,6 +455,13 @@ const CompetitionAdminEdit = () => {
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
                 </label> */}
+
+                <Controller
+                    control={control}
+                    defaultValue={[]}
+                    name="links"
+                    render={(props) => <CompetitionLinksEdit {...props} />}
+                />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
                     <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">

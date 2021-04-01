@@ -110,6 +110,7 @@ const CompetitionDetails = () => {
     );
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
+    const hasMeta = useMemo(() => !!data?.prizes.length || !!data?.links.length, [data]);
 
     if (!data) {
         // TODO Return loading component
@@ -175,16 +176,40 @@ const CompetitionDetails = () => {
                         hasEntry={hasEntry}
                     />
 
-                    {!!data.prizes.length && (
+                    {hasMeta && (
                         <section className="p-4 bg-white rounded sm:rounded-none">
-                            <h2 className="pb-2 text-lg">Prizes</h2>
-                            <ul className="w-2/3 mt-2 leading-8">
-                                {data.prizes.map((prize: String, i: number) => (
-                                    <li key={prize + i.toString()} className="pr-3 font-light text-gray-600">
-                                        {formatNumber(i + 1)} <span className="float-right">{prize}</span>
-                                    </li>
-                                ))}
-                            </ul>
+                            {!!data.prizes.length && (
+                                <>
+                                    <h2 className="pb-2 text-lg">Prizes</h2>
+                                    <ul className="w-2/3 mt-2 leading-8">
+                                        {data.prizes.map((prize: String, i: number) => (
+                                            <li key={prize + i.toString()} className="pr-3 font-light text-gray-600">
+                                                {formatNumber(i + 1)} <span className="float-right">{prize}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+
+                            {!!data.links.length && (
+                                <>
+                                    <h2 className="pb-2 text-lg">Links</h2>
+                                    <ul className="w-2/3 mt-2 leading-8">
+                                        {data.links.map((link: any) => (
+                                            <li>
+                                                <a
+                                                    href={link.href}
+                                                    target="_blank"
+                                                    className="px-1 py-1 text-indigo-700 underline capitalize transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 hover:px-2"
+                                                    rel="noreferrer noopener"
+                                                >
+                                                    {link.destination}
+                                                </a>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
                         </section>
                     )}
                 </aside>
