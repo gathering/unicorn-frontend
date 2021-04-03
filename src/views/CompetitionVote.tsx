@@ -5,6 +5,11 @@ import { httpGet } from '../utils/fetcher';
 import { View } from '../components/View';
 import { VoteCard } from '../features/competitions/VoteCard';
 import type { ICompetition, IEntryListResponse } from '../features/competitions/competition.types';
+import styled from 'styled-components';
+
+const HeadingWrapper = styled.h1`
+    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
+`;
 
 const CompetitionVote = () => {
     const { cid } = useParams<{ cid: string }>();
@@ -63,20 +68,34 @@ const CompetitionVote = () => {
     }
 
     return (
-        <View className="container grid grid-cols-3 gap-4 mx-auto md:grid-cols-2 sm:grid-cols-1">
-            <h1 className="col-span-3 mt-6 text-3xl md:col-span-2 sm:col-span-1">Vote for the awesome entries!</h1>
-            <p className="col-span-3 mb-8 md:col-span-2 sm:col-span-1">
-                Every vote counts, so please vote for all entries
-            </p>
-            {votableEntries.map((e) => (
-                <VoteCard
-                    key={e.id}
-                    entry={e}
-                    uploadForm={competition?.fileupload}
-                    vote={votes.results.find((v) => v.entry === e.id)}
-                    onVote={onVote}
-                />
-            ))}
+        <View>
+            <div className="container mx-auto my-12 sm:my-0">
+                <div className="relative mb-10 sm:mb-6">
+                    <img
+                        className="object-cover w-full h-48 rounded-md sm:rounded-none"
+                        src={competition.header_image}
+                        alt=""
+                    />
+                    <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
+                        {competition.name}
+                    </HeadingWrapper>
+                </div>
+            </div>
+            <main className="container grid grid-cols-3 gap-4 mx-auto md:grid-cols-2 sm:grid-cols-1">
+                <h2 className="col-span-3 mt-6 text-3xl md:col-span-2 sm:col-span-1">Vote for the awesome entries!</h2>
+                <p className="col-span-3 mb-8 md:col-span-2 sm:col-span-1">
+                    Every vote counts, so please vote for all entries
+                </p>
+                {votableEntries.map((e) => (
+                    <VoteCard
+                        key={e.id}
+                        entry={e}
+                        uploadForm={competition?.fileupload}
+                        vote={votes.results.find((v) => v.entry === e.id)}
+                        onVote={onVote}
+                    />
+                ))}
+            </main>
         </View>
     );
 };
