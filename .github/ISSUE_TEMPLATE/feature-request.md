@@ -1,13 +1,13 @@
 ---
 name: "✨ Feature Request"
 about: Propose a new UNICORN Frontend feature or enhancement
-title: "[FEAT]"
+title: "[FEAT] "
 labels: enhancement
 assignees: ''
 
 ---
 
-NOTE: This form is only for submitting well-formed proposals to extend or modify the UNICORN Frontend in some way. If you're trying to solve a problem but can't figure out how, or if you still need time to work on the details of a proposed new feature, please start a [discussion](https://github.com/zoodo/unicorn10/discussions) instead.
+<!-- NOTE: This form is only for submitting well-formed proposals to extend or modify the UNICORN Frontend in some way. If you're trying to solve a problem but can't figure out how, or if you still need time to work on the details of a proposed new feature, please start a [discussion](https://github.com/zoodo/unicorn10/discussions) instead. -->
 
 **Proposed functionality**
 Describe in detail the new feature or behavior you'd like to propose. Include any specific changes to work flows, data models, or the user interface.
