@@ -6,9 +6,6 @@ import { Link } from '../components/Link';
 import type { ICompetition, ICompetitionListResponse } from '../features/competitions/competition.types';
 import { httpGet, httpPatch } from '../utils/fetcher';
 import { parseError } from '../utils/error';
-import './AdminDetails.scss';
-import '@reach/tabs/styles.css';
-
 
 
 const CompetitionAdminOverview = () => {
