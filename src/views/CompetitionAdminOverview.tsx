@@ -6,6 +6,10 @@ import { Link } from '../components/Link';
 import type { ICompetition, ICompetitionListResponse } from '../features/competitions/competition.types';
 import { httpGet, httpPatch } from '../utils/fetcher';
 import { parseError } from '../utils/error';
+import './AdminDetails.scss';
+import '@reach/tabs/styles.css';
+
+
 
 const CompetitionAdminOverview = () => {
     const { data: competitions, revalidate } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
@@ -22,60 +26,31 @@ const CompetitionAdminOverview = () => {
 
     return (
         <View>
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                    <tr>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                            Competition
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                            Entries
-                        </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
-                            Status
-                        </th>
-                        <th scope="col" className="relative px-6 py-3">
-                            <span className="sr-only">Edit</span>
-                        </th>
-                    </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+            <div className="admingrid mx-5 my-5">
                     {competitions.results.map((c) => (
-                        <tr key={c.id}>
-                            <td className="px-6 py-4 whitespace-nowrap">{c.name}</td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                {c.participant_limit ? `${c.entries_count}/${c.participant_limit}` : c.entries_count}
-                            </td>
-                            <td className="px-6 py-4 whitespace-nowrap">
-                                {c.published ? 'Published' : 'Not published'}
-                            </td>
-                            <td className="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                <Link
-                                    to={`/admin/competitions/${c.id}`}
-                                    className="p-1 ml-4 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
-                                >
-                                    View
-                                </Link>
-                                <Link
-                                    to={`/admin/competitions/${c.id}/edit`}
-                                    className="p-1 ml-4 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
-                                >
-                                    Edit
-                                </Link>
-                            </td>
-                        </tr>
+                        <div className="mt-2.5 mb-1 mr-10">
+                            <span className="text-4xl pt-20px mb-3">{c.name}</span>
+                            <div className="bg-yellow-200 mr-5">
+                                <p>Partisipants: {c.participant_limit ? `${c.entries_count}/${c.participant_limit}` : c.entries_count}</p>
+                                <div>
+                                    <div>Status: {c.published ? 'Published' : 'Not published'}</div>
+                                    <div>PLACEHOLDER compo progress mini bar</div>
+                                </div>
+                            </div>
+                            <Link
+                                to={`/admin/competitions/${c.id}`}
+                                className="">
+                                View
+                            </Link>
+                            <Link
+                                to={`/admin/competitions/${c.id}/edit`}
+                                className=" ">
+                                Edit
+                            </Link>
+                        </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+
         </View>
     );
 };
