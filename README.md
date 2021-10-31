@@ -28,16 +28,16 @@ Add the necessary variables to your environment before continuing:
 
 Run `yarn` and `yarn dev` 🚀
 
+## Building
+
+Run `yarn` and `yarn build`
+
+## Hosting
+
+Serve static files generated in the dist folder however you'd like:
+- Web server like Nginx
+- Newest CDN on the block
+
 # Contributing
 
-Please send an MR for any cool features or changes you think we could benefit from 💕
-
-# Deployment with now.sh from Zeit
-
-Want to run UNICORN yourself? Awesome! Currently we've implemented support for GitLab with GitLab Runner and now.sh. This can be seen in the .gitlab-ci file, but you will need to know about a few variables:
-
-`ZEIT_BASE_DOMAIN` your default zeit root domain.
-
-`NOW_TOKEN` your now.sh token, which should be set through your projects CI/CD settings. The token could be found through https://zeit.co/account/tokens
-
-`NOW_ALIAS_PRODUCTION` is a comma separated strings describing the aliases now.sh should use for the production environment. This should be set in the CI/CD settings of your project.
+Please send a PR for any cool features or changes you think we could benefit from 💕
