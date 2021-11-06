@@ -1,7 +1,7 @@
 import React from 'react';
 import useSWR from 'swr';
 import { httpGet } from '../../../utils/fetcher';
-import type { ICompetition, IEntry } from '../competition.types';
+import type { ICompetition, IEntry } from '../competition';
 import { UploadForm } from './UploadForm';
 
 interface Props {

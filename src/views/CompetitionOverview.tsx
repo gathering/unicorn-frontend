@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import { motion } from 'framer-motion';
-import type { ICompetitionListResponse, IGenreResponse } from '../features/competitions/competition.types';
+import type { ICompetitionListResponse, IGenreResponse } from '../features/competitions/competition';
 // import FeaturedCompetitions from '../features/competitions/FeaturedCompetitions';
 import { httpGet } from '../utils/fetcher';
 import { Select } from '../components/Select';

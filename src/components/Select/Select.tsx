@@ -1,5 +1,6 @@
 import React from 'react';
-import { ListboxOption, ListboxInput, ListboxButton, ListboxPopover, ListboxList, ListboxValue } from '@reach/listbox';
+import { ListboxOption, ListboxInput, ListboxButton, ListboxPopover, ListboxList } from '@reach/listbox';
+import type { ListboxValue } from '@reach/listbox';
 import { useId } from '@reach/auto-id';
 import VisuallyHidden from '@reach/visually-hidden';
 import styled from 'styled-components';

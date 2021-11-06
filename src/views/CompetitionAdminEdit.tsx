@@ -9,7 +9,7 @@ import { httpGet, httpPut } from '../utils/fetcher';
 import { View } from '../components/View';
 import { Input } from '../components/Input';
 import { Wysiwyg } from '../components/Wysiwyg';
-import type { ICompetition } from '../features/competitions/competition.types';
+import type { ICompetition } from '../features/competitions/competition';
 import { PrizeEdit } from '../features/competitions/PrizeEdit';
 import { CompetitionLinksEdit } from '../features/competitions/CompetitionLinksEdit';
 import { parseError } from '../utils/error';

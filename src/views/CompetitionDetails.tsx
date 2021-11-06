@@ -8,7 +8,7 @@ import styled from 'styled-components';
 import advancedFormat from 'dayjs/plugin/advancedFormat';
 import CompetitionPhases from '../features/competitions/CompetitionPhases';
 import { amIParticipantInEntryList, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
-import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition.types';
+import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition';
 import { formatNumber } from '../utils/numbers';
 import { useUserState } from '../context/Auth';
 import { httpGet } from '../utils/fetcher';

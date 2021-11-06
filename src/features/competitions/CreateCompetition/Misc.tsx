@@ -4,7 +4,7 @@ import DatePicker from 'react-datepicker';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
-import { Genre, ICompetition } from '../competition.types';
+import type { Genre, ICompetition } from '../competition';
 import { Input } from '../../../components/Input';
 import { httpPost } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';

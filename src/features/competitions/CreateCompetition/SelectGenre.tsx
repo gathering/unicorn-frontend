@@ -3,7 +3,7 @@ import { Controller, useFormContext } from 'react-hook-form';
 import useSWR from 'swr';
 import { httpGet } from '../../../utils/fetcher';
 import { Select } from '../../../components/Select';
-import type { Genre, IGenreResponse } from '../competition.types';
+import type { Genre, IGenreResponse } from '../competition';
 
 interface IProps {
     onForward: () => void;

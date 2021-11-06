@@ -3,7 +3,7 @@ import { useForm, FormProvider } from 'react-hook-form';
 import { AnimatePresence, motion } from 'framer-motion';
 import useSWR from 'swr';
 import { SelectGenre, GeneralSettings, Misc } from '../features/competitions/CreateCompetition';
-import type { IGenreResponse, Genre } from '../features/competitions/competition.types';
+import type { IGenreResponse, Genre } from '../features/competitions/competition';
 import { View } from '../components/View';
 import { httpGet } from '../utils/fetcher';
 

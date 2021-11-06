@@ -4,7 +4,7 @@ import useSWR from 'swr';
 import { httpGet } from '../utils/fetcher';
 import { View } from '../components/View';
 import { VoteCard } from '../features/competitions/VoteCard';
-import type { ICompetition, IEntryListResponse } from '../features/competitions/competition.types';
+import type { ICompetition, IEntryListResponse } from '../features/competitions/competition';
 import styled from 'styled-components';
 
 const HeadingWrapper = styled.h1`

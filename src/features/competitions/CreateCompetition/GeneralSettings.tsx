@@ -7,7 +7,7 @@ import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Input } from '../../../components/Input';
 import { Wysiwyg } from '../../../components/Wysiwyg/Wysiwyg';
-import type { Genre } from '../competition.types';
+import type { Genre } from '../competition';
 
 interface IProps {
     onForward: () => void;

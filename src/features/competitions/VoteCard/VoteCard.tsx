@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 import { httpPatch, httpPost } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
-import type { IEntry, IUploadFile } from '../competition.types';
+import type { IEntry, IUploadFile } from '../competition';
 import { RateStars } from './RateStars';
 import { MusicPlayer } from '../../../components/MusicPlayer';
 

@@ -4,7 +4,7 @@ import useSWR, { mutate } from 'swr';
 import styled from 'styled-components';
 import Dialog from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
-import type { ICompetition, IEntry, IFile } from '../features/competitions/competition.types';
+import type { ICompetition, IEntry, IFile } from '../features/competitions/competition';
 import { PrimaryButton, SecondaryButton } from '../components/Button';
 import { httpGet, httpPatch } from '../utils/fetcher';
 import { hasFileupload } from '../utils/competitions';

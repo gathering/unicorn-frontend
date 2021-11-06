@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
-import { Route, RouteProps } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import type { RouteProps } from 'react-router-dom';
 import { useUserState } from '../../context/Auth';
 
 interface Props extends RouteProps {

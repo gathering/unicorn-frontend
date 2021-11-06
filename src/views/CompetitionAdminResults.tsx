@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router';
 import useSWR from 'swr';
-import type { IEntry, IEntryListResponse } from '../features/competitions/competition.types';
+import type { IEntry, IEntryListResponse } from '../features/competitions/competition';
 import { View } from '../components/View';
 import { httpGet } from '../utils/fetcher';
 import { Link } from '../components/Link';

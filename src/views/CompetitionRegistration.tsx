@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import useSWR from 'swr';
 import { Input } from '../components/Input';
 import { amIParticipantInCompetition, amIParticipantInEntryList, hasFileupload, hasTeams } from '../utils/competitions';
-import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition.types';
+import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition';
 import { RegisterEntry } from '../features/competitions/RegisterEntry';
 import { EditRegistration } from '../features/competitions/EditRegistration';
 import { httpGet, httpPost, httpPut } from '../utils/fetcher';

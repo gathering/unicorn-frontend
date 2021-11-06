@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import groupBy from 'lodash/groupBy';
 import draftJs from 'draft-js';
-import type { ICompetition, IEntry, State } from '../features/competitions/competition.types';
+import type { ICompetition, IEntry, State } from '../features/competitions/competition';
 
 export const CLOSED = 1;
 export const REGISTRATION_OPEN = 2;

@@ -1,4 +1,3 @@
-import get from 'lodash/get';
 import cookie from 'js-cookie';
 
 enum Method {

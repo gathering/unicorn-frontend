@@ -2,7 +2,7 @@ import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useId } from '@reach/auto-id';
 import * as tus from 'tus-js-client';
 import { toast } from 'react-toastify';
-import type { IEntry, IFile, IUploadFile } from '../competition.types';
+import type { IEntry, IFile, IUploadFile } from '../competition';
 import { getToken } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
 

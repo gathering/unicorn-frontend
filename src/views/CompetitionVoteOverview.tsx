@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import useSWR from 'swr';
 import { View } from '../components/View';
 import { useUserState } from '../context/Auth';
-import type { ICompetitionListResponse } from '../features/competitions/competition.types';
+import type { ICompetitionListResponse } from '../features/competitions/competition';
 import { httpGet } from '../utils/fetcher';
 
 const CompetitionVoteOverview = () => {

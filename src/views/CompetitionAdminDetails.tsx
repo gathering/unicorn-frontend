@@ -3,7 +3,7 @@ import { useHistory, useLocation, useParams } from 'react-router';
 import useSWR from 'swr';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
-import type { ICompetition, IEntryListResponse } from '../features/competitions/competition.types';
+import type { ICompetition, IEntryListResponse } from '../features/competitions/competition';
 import { useUserState } from '../context/Auth';
 import { httpDelete, httpGet, httpPatch } from '../utils/fetcher';
 import { View } from '../components/View';

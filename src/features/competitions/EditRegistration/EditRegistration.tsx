@@ -2,7 +2,7 @@ import React from 'react';
 import { toast } from 'react-toastify';
 import { httpPatch } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
-import type { ICompetition, IEntry } from '../competition.types';
+import type { ICompetition, IEntry } from '../competition';
 import { hasFileupload } from '../../../utils/competitions';
 import { RegisterEntry } from '../RegisterEntry';
 import { ContributorEditor } from '../ContributorEditor';

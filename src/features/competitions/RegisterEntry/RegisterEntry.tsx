@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react';
 import { toast } from 'react-toastify';
-import type { ICompetition, IEntry } from '../competition.types';
+import type { ICompetition, IEntry } from '../competition';
 import { httpPost } from '../../../utils/fetcher';
 import { Input } from '../../../components/Input';
 import { useForm, Controller } from 'react-hook-form';
