@@ -11,4 +11,5 @@ RUN node node_modules/esbuild/install.js
 RUN yarn build
 
 FROM nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
