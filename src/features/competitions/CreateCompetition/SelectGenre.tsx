@@ -19,6 +19,17 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
         onForward();
     };
 
+    if (!genres?.results.length) {
+        return (
+            <>
+                <h1 className="mb-8 text-3xl">Create new competition</h1>
+                <p className="mb-10 text-gray-700">
+                    No available genres found... Please contact the administrators to set up genres.
+                </p>
+            </>
+        );
+    }
+
     return (
         <>
             <h1 className="mb-8 text-3xl">Create new competition</h1>
