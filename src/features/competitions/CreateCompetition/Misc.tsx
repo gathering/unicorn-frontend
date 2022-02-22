@@ -4,13 +4,15 @@ import DatePicker from 'react-datepicker';
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
-import type { Genre, ICompetition } from '../competition';
+import { Genre } from '../competition.d';
+import type { ICompetition } from '../competition';
 import { Input } from '../../../components/Input';
 import { httpPost } from '../../../utils/fetcher';
 import { parseError } from '../../../utils/error';
 import { PrizeEdit } from '../PrizeEdit';
 import { FileEdit } from '../FileEdit';
 import { CompetitionLinksEdit } from '../CompetitionLinksEdit/CompetitionLinksEdit';
+import { Select } from '../../../components/Select';
 
 interface IProps {
     onForward: () => void;
@@ -292,6 +294,35 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
                 </label> */}
+
+                <Controller
+                    control={control}
+                    name="visibility"
+                    defaultValue=""
+                    render={({ onChange, value }) => (
+                        <>
+                            <Select
+                                label="Visibility"
+                                options={[
+                                    {
+                                        label: 'Public',
+                                        value: 'public',
+                                    },
+                                    {
+                                        label: 'Crew',
+                                        value: 'crew',
+                                    },
+                                    {
+                                        label: 'Hidden',
+                                        value: 'hidden',
+                                    },
+                                ]}
+                                onChange={onChange}
+                                value={value}
+                            />
+                        </>
+                    )}
+                />
 
                 <Controller
                     control={control}
