@@ -1,3 +1,5 @@
+import type { Permission } from '../../utils/permissions';
+
 export interface ICompetitionState {
     label: string;
     value: number;
@@ -42,6 +44,7 @@ export interface ICompetition {
     show_time_end: string | null;
     register_time_start: string | null;
     register_time_end: string | null;
+    permissions: Permission[];
     [key: string]: any;
 }
 
