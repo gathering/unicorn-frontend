@@ -15,6 +15,7 @@ import { CompetitionLinksEdit } from '../features/competitions/CompetitionLinksE
 import { parseError } from '../utils/error';
 import { FileEdit } from '../features/competitions/FileEdit';
 import 'react-datepicker/dist/react-datepicker.css';
+import { Select } from '../components/Select';
 
 const CompetitionAdminEdit = () => {
     const { id } = useParams<{ id: string }>();
@@ -455,6 +456,33 @@ const CompetitionAdminEdit = () => {
                     <input name="feature" type="checkbox" className="mr-2" ref={register()} />
                     Featured (optional)
                 </label> */}
+
+                <Controller
+                    control={control}
+                    name="visibility"
+                    defaultValue=""
+                    render={({ onChange, value }) => (
+                        <Select
+                            label="Visibility"
+                            options={[
+                                {
+                                    label: 'Public',
+                                    value: 'public',
+                                },
+                                {
+                                    label: 'Crew',
+                                    value: 'crew',
+                                },
+                                {
+                                    label: 'Hidden',
+                                    value: 'hidden',
+                                },
+                            ]}
+                            onChange={onChange}
+                            value={value}
+                        />
+                    )}
+                />
 
                 <Controller
                     control={control}

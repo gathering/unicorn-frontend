@@ -300,27 +300,25 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     name="visibility"
                     defaultValue=""
                     render={({ onChange, value }) => (
-                        <>
-                            <Select
-                                label="Visibility"
-                                options={[
-                                    {
-                                        label: 'Public',
-                                        value: 'public',
-                                    },
-                                    {
-                                        label: 'Crew',
-                                        value: 'crew',
-                                    },
-                                    {
-                                        label: 'Hidden',
-                                        value: 'hidden',
-                                    },
-                                ]}
-                                onChange={onChange}
-                                value={value}
-                            />
-                        </>
+                        <Select
+                            label="Visibility"
+                            options={[
+                                {
+                                    label: 'Public',
+                                    value: 'public',
+                                },
+                                {
+                                    label: 'Crew',
+                                    value: 'crew',
+                                },
+                                {
+                                    label: 'Hidden',
+                                    value: 'hidden',
+                                },
+                            ]}
+                            onChange={onChange}
+                            value={value}
+                        />
                     )}
                 />
 
