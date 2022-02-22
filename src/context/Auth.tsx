@@ -4,6 +4,7 @@ import dayjs from 'dayjs';
 import useSWR from 'swr';
 import { useHistory } from 'react-router-dom';
 import { httpGet, loginWithCode, loginWithRefreshToken } from '../utils/fetcher';
+import type { Permission } from '../utils/permissions';
 
 const ACCESS_TOKEN = 'UNICORN_ACCESS_TOKEN';
 const REFRESH_TOKEN = 'UNICORN_REFRESH_TOKEN';
@@ -27,7 +28,17 @@ interface SetFetchStatusAction {
     status: FetchStatus;
 }
 
-export type Action = SetAccessTokenAction | LogoutAction | SaveUserAction | SetFetchStatusAction;
+interface SaveUserPermissionsAction {
+    type: 'SAVE_USER_PERMISSIONS';
+    permissions: Permission[];
+}
+
+export type Action =
+    | SetAccessTokenAction
+    | LogoutAction
+    | SaveUserAction
+    | SetFetchStatusAction
+    | SaveUserPermissionsAction;
 
 type ObjType = 'full' | 'partial';
 
@@ -75,12 +86,13 @@ interface State {
     error: string;
     accessToken?: string;
     tokenFetchStatus: FetchStatus;
+    permissions?: Permission[];
     user?: User;
     revalidateUser: () => void;
 }
 
 const defaultState: State = {
-    ...((null as unknown) as State),
+    ...(null as unknown as State),
     tokenFetchStatus: 'idle',
 };
 
@@ -108,6 +120,10 @@ const userReducer = (state: State, action: Action) => {
 
             return defaultState;
 
+        case 'SAVE_USER_PERMISSIONS':
+            _state.permissions = action.permissions;
+            return _state;
+
         default:
             return state;
     }
@@ -117,12 +133,19 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     const [state, dispatch] = useReducer(userReducer, defaultState);
 
     const { data: user, revalidate } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
+    const { data: permissions } = useSWR<Permission[]>(state.accessToken ? 'accounts/mypermissions' : null, httpGet);
 
     useEffect(() => {
         if (user) {
             dispatch({ type: 'SAVE_USER', user });
         }
     }, [user]);
+
+    useEffect(() => {
+        if (permissions) {
+            dispatch({ type: 'SAVE_USER_PERMISSIONS', permissions });
+        }
+    }, [permissions]);
 
     useEffect(() => {
         if (window.location.pathname.startsWith('/login')) {
