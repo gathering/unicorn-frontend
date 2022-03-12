@@ -96,7 +96,7 @@ const CompetitionsOverview: React.FC = () => {
                         onChange={setGenre}
                     />
                     {hasPermission(
-                        [Permission.CompetitionsChangeCompetition, Permission.CompetitionsDeleteCompetition],
+                        [Permission.CompetitionsChangeCompetition, Permission.CompetitionsDeleteCompetition, Permission.CompetitionsModifyAll],
                         permissions
                     ) && (
                         <Link
