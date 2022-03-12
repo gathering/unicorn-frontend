@@ -108,14 +108,14 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Competition name"
                     name="name"
-                    className="mb-6"
+                    className="mb-6 w-full"
                     ref={register({ required: 'You need to give the competition a name' })}
                 />
 
                 <Input
                     label="Brief description"
                     name="brief_description"
-                    className="mb-6"
+                    className="mb-6 w-full"
                     ref={register({
                         required: 'You need to give the competition a short and teasing description',
                         maxLength: {
@@ -224,17 +224,17 @@ const CompetitionAdminEdit = () => {
                 />
 
                 <Input
-                    label="Poster url"
+                    label="Poster image URL"
                     type="url"
-                    className="mb-6"
+                    className="mb-6 w-full"
                     ref={register({ required: 'You must add a poster for the competition' })}
                     name="header_image"
                     errorLabel={errors.header_image?.message}
                 />
 
                 <Input
-                    label="Poster credit"
-                    className="mb-6"
+                    label="Poster image credit"
+                    className="mb-6 w-full"
                     ref={register({
                         required: 'You must credit the poster',
                     })}

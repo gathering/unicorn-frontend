@@ -38,7 +38,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     name="name"
                     label="Competition title"
-                    className="mb-6"
+                    className="mb-6 w-full"
                     ref={register({ required: 'You need to give the competition a title' })}
                     errorLabel={errors.name?.message}
                 />
@@ -46,7 +46,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     name="brief_description"
                     label="Brief description"
-                    className="mb-6"
+                    className="mb-6 w-full"
                     ref={register({
                         required: 'You need to give the competition a short teasing description',
                         maxLength: {
@@ -162,21 +162,22 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 />
 
                 <Input
-                    label="Poster url"
+                    label="Poster image URL"
                     type="url"
                     ref={register({ required: 'You must add a poster for the competition' })}
                     name="header_image"
                     errorLabel={errors.header_image?.message}
-                    className="mb-6"
+                    className="mb-6 w-full"
                 />
 
                 <Input
-                    label="Poster credit"
+                    label="Poster image credits"
                     ref={register({
                         required: 'You must credit the poster',
                     })}
                     name="header_credit"
                     errorLabel={errors.header_credit?.message}
+                    className="w-full"
                 />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
