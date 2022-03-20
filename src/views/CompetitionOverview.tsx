@@ -96,7 +96,11 @@ const CompetitionsOverview: React.FC = () => {
                         onChange={setGenre}
                     />
                     {hasPermission(
-                        [Permission.CompetitionsChangeCompetition, Permission.CompetitionsDeleteCompetition, Permission.CompetitionsModifyAll],
+                        [
+                            Permission.CompetitionsChangeCompetition,
+                            Permission.CompetitionsDeleteCompetition,
+                            Permission.CompetitionsModifyAll,
+                        ],
                         permissions
                     ) && (
                         <Link
@@ -154,7 +158,7 @@ const CompetitionsOverview: React.FC = () => {
                                         <div className="mb-2 text-xl font-bold text-black">{competition.name}</div>
                                         <p className="text-xl text-gray-600">{competition.brief_description}</p>
                                     </div>
-                                    <div className="flex pr-4 bg-white rounded-r sm:rounded-none">
+                                    <div className="flex pr-4 bg-white rounded-r sm:hidden">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
