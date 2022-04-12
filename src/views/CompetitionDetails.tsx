@@ -125,6 +125,7 @@ const CompetitionDetails = () => {
                 <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
                     {data.name}
                 </HeadingWrapper>
+                <p className="absolute bottom-0 right-0 pb-2 px-4 text-gray-200 text-sm">Image by: {data.header_credit}</p>
             </div>
             <div className="flex flex-horizontal sm:flex-col-reverse">
                 <div className="flex-grow">

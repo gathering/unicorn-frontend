@@ -27,6 +27,7 @@ export interface ICompetition {
     featured: boolean;
     genre: IGenre;
     header_image: string;
+    header_credit: string;
     entries_count: number;
     fileupload: IUploadFile[];
     entries?: IEntry[];
