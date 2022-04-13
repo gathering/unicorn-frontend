@@ -5,5 +5,5 @@ interface IProps {
 }
 
 export const View: React.FC<IProps> = ({ children, className }) => {
-    return <main className={`flex-grow ${className ?? ''}`}>{children}</main>;
+    return <main className={`${className ?? ''}`}>{children}</main>;
 };
