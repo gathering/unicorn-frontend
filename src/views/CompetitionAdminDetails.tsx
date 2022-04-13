@@ -295,6 +295,14 @@ const CompetitionAdminDetails = () => {
                                     >
                                         Delete
                                     </button>
+                                    <a
+                                        href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
+                                            data.id
+                                        }/download`}
+                                        className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 rounded-lg hover:bg-blue-900"
+                                    >
+                                        Download all entries
+                                    </a>
                                 </motion.div>
                             )}
                         </AnimatePresence>
