@@ -41,6 +41,7 @@ export interface ICompetition {
     run_time_end: string | null;
     vote_time_start: string | null;
     vote_time_end: string | null;
+    show_prestart_lock: string | null;
     show_time_start: string | null;
     show_time_end: string | null;
     register_time_start: string | null;

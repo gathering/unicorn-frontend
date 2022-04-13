@@ -56,6 +56,7 @@ const CompetitionAdminEdit = () => {
                 run_time_end: competition.run_time_end ? new Date(competition.run_time_end) : null,
                 vote_time_start: competition.vote_time_start ? new Date(competition.vote_time_start) : null,
                 vote_time_end: competition.vote_time_end ? new Date(competition.vote_time_end) : null,
+                show_prestart_lock: competition.show_prestart_lock ? new Date(competition.show_prestart_lock) : null,
                 show_time_start: competition.show_time_start ? new Date(competition.show_time_start) : null,
                 show_time_end: competition.show_time_end ? new Date(competition.show_time_end) : null,
                 register_time_start: competition.register_time_start ? new Date(competition.register_time_start) : null,
@@ -385,6 +386,29 @@ const CompetitionAdminEdit = () => {
                         </>
                     )}
                 /> */}
+
+                <Controller
+                    control={control}
+                    name="show_prestart_lock"
+                    render={({ value, ...props }) => (
+                        <>
+                            <label id="showtime-lock" className="block mb-1">
+                                Pre-show lockdown start (optional)
+                            </label>
+                            <div className="block">
+                                <DatePicker
+                                    ariaLabelledBy={'showtime-lock'}
+                                    selected={value}
+                                    {...props}
+                                    timeInputLabel="Time:"
+                                    dateFormat="yyyy-MM-dd HH:mm"
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    showTimeInput
+                                />
+                            </div>
+                        </>
+                    )}
+                />
 
                 <Controller
                     control={control}

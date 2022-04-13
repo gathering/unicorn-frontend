@@ -12,6 +12,8 @@ import { Input } from '../components/Input';
 import { View } from '../components/View';
 import { Link } from '../components/Link';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
+import { parseError } from '../utils/error';
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
@@ -75,7 +77,10 @@ const CompetitionAdminEntry = () => {
                     setShowDisqualify(false);
                     mutate(d);
                 }
-            );
+            )
+            .catch((err) => {
+                parseError(err).forEach((e: any) => toast.error(e));
+            });;
         }
     };
 
