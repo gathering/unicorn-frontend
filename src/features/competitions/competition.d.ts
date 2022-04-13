@@ -28,6 +28,8 @@ export interface ICompetition {
     genre: IGenre;
     header_image: string;
     header_credit: string;
+    sponsor_name: string;
+    sponsor_logo: string;
     entries_count: number;
     fileupload: IUploadFile[];
     entries?: IEntry[];
