@@ -125,7 +125,7 @@ const CompetitionDetails = () => {
                 <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
                     {data.name}
                 </HeadingWrapper>
-                <p className="absolute bottom-0 right-0 pb-2 px-4 text-gray-200 text-sm">Image by: {data.header_credit}</p>
+                <p className="absolute bottom-0 sm:top-0 right-0 py-2 px-4 text-gray-200 text-sm">Image by: {data.header_credit}</p>
             </div>
             <div className="flex flex-horizontal sm:flex-col-reverse">
                 <div className="flex-grow">
@@ -160,11 +160,11 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </Tabs>
                 </div>
-                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 sm:m-0 sm:mb-6">
+                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 sm:my-0 sm:mx-2">
                     {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
-                            className="flex items-center justify-center py-4 mb-6 text-xl text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
+                            className="flex items-center justify-center py-4 mb-0 text-xl text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
                         >
                             Vote!
                             <span className="pl-2">🎉</span>
@@ -181,7 +181,7 @@ const CompetitionDetails = () => {
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) && (
                         <Link
                             to={`/admin/competitions/${id}/edit`}
-                            className="flex items-center h-12 px-4 mt-10 mb-10 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                            className="flex items-center h-12 px-4 mt-10 sm:mt-6 mb-10 sm:mb-6 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
                         >
                             Edit
                         </Link>

@@ -149,7 +149,7 @@ const CompetitionsOverview: React.FC = () => {
                             >
                                 <Link to={'/competitions/' + competition.id} className="flex h-32">
                                     <img
-                                        className="flex-none object-cover w-64 overflow-hidden text-center bg-gray-400 bg-cover rounded-l sm:rounded-none"
+                                        className="flex-none object-cover sm:w-40 w-64 overflow-hidden text-center bg-gray-400 bg-cover rounded-l sm:rounded-none"
                                         src={competition.header_image}
                                         alt={`Competition poster ${competition.name}`}
                                     />
@@ -158,7 +158,7 @@ const CompetitionsOverview: React.FC = () => {
                                         <div className="mb-2 text-xl font-bold text-black">{competition.name}</div>
                                         <p className="text-xl text-gray-600">{competition.brief_description}</p>
                                     </div>
-                                    <div className="flex pr-4 bg-white rounded-r sm:hidden">
+                                    <div className="flex sm:hidden md:hidden pr-4 bg-white rounded-r">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
