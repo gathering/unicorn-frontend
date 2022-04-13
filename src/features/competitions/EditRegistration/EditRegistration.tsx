@@ -69,6 +69,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
                 competition={competition}
                 defaultValues={{ title: entry.title, crew_msg: entry.crew_msg }}
                 onSubmit={onUpdate}
+                exists={true}
             />
             {hasUpload && <FileUpload competition={competition} entry={entry} />}
             {/* <ContributorEditor /> */}

@@ -24,9 +24,16 @@ interface IProps {
     onRegistrationFinish?: () => void;
     defaultValues?: IFormData;
     onSubmit?: (data: IFormData) => void;
+    exists?: boolean;
 }
 
-export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues, onSubmit }: IProps) => {
+export const RegisterEntry = ({
+    competition,
+    onRegistrationFinish,
+    defaultValues,
+    onSubmit,
+    exists = false,
+}: IProps) => {
     const { user } = useUserState();
     const { register, handleSubmit, control, errors, reset } = useForm<IFormData>({
         defaultValues: defaultValues ?? {},
@@ -113,7 +120,7 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                 </svg>
                 <div className="flex justify-center">
                     <button
-                        onClick={() => onUpdate((null as unknown) as IFormData)}
+                        onClick={() => onUpdate(null as unknown as IFormData)}
                         className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded sm:w-full hover:bg-green-700 hover:text-black hover:shadow"
                     >
                         RSVP
@@ -145,13 +152,21 @@ export const RegisterEntry = ({ competition, onRegistrationFinish, defaultValues
                                 render={(props) => <UploadTeam {...props} />}
                             />
                         ) : (
-                            <Input
-                                fullWidth
-                                name="title"
-                                label="Entry title"
-                                ref={register({ required: 'You have to give your entry a title' })}
-                                errorLabel={errors.title?.message}
-                            />
+                            <>
+                                <Input
+                                    fullWidth
+                                    name="title"
+                                    label="Entry Title"
+                                    ref={register({ required: 'You have to give your entry a title' })}
+                                    errorLabel={errors.title?.message}
+                                />
+                                {!exists && (
+                                    <p className="pt-2 text-gray-700">
+                                        After giving your entry a title and clicking Register, you will be able to
+                                        upload any required files for the competition.
+                                    </p>
+                                )}
+                            </>
                         )}
                     </fieldset>
                 </div>
