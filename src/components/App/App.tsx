@@ -62,7 +62,7 @@ const App = () => {
             <BrowserRouter>
                 <div id="unicorn" className="flex flex-col min-h-screen bg-gray-200">
                     <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white shadow-lg">
-                        <Link to="/" href="https://gathering.org">
+                        <Link to="/" href="https://gathering.org" className="rounded-md hover:bg-gray-100 my-1 pr-1">
                             <img src="/images/tg_logo_liten.png" className="inline w-16 ml-1" alt="Back to homepage" />
                         </Link>
 
