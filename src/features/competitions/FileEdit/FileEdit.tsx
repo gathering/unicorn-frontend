@@ -41,7 +41,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
             <ul>
                 {!!value.length &&
                     value.map((val, i) => (
-                        <li className="flex items-end mb-2">
+                        <li key={i} className="flex items-end mb-2">
                             <File
                                 disableRemove={val.type === 'main'}
                                 onRemove={() => removeFile(i)}

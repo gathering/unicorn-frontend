@@ -44,7 +44,7 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
             {value.length && (
                 <ul>
                     {value.map((val, i) => (
-                        <li className="flex items-end mb-2">
+                        <li key={i} className="flex items-end mb-2">
                             <Select
                                 options={[
                                     { label: 'Twitch', value: 'twitch' },

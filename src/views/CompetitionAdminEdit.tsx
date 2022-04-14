@@ -126,71 +126,73 @@ const CompetitionAdminEdit = () => {
                     })}
                 />
 
-                <Controller
-                    control={control}
-                    name="run_time_start"
-                    rules={{
-                        required: 'You must give the competition a start time',
-                    }}
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="runtime-start">Competition start time</label>
-                            {errors.run_time_start && (
-                                <label role="alert" className="block text-red-600" id="description-error-label">
-                                    {errors.run_time_start.message}
-                                </label>
-                            )}
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'runtime-start'}
-                                    selected={typeof value === 'string' ? new Date(value) : value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
-                                        errors.run_time_start
-                                            ? 'text-red border-red-600  focus:border-red-800 border'
-                                            : ''
-                                    }`}
-                                    showTimeInput
-                                />
+                <div className="flex flex-row gap-6">
+                    <Controller
+                        control={control}
+                        name="run_time_start"
+                        rules={{
+                            required: 'You must give the competition a start time',
+                        }}
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="runtime-start">Competition start time</label>
+                                {errors.run_time_start && (
+                                    <label role="alert" className="block text-red-600" id="description-error-label">
+                                        {errors.run_time_start.message}
+                                    </label>
+                                )}
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'runtime-start'}
+                                        selected={typeof value === 'string' ? new Date(value) : value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
+                                            errors.run_time_start
+                                                ? 'text-red border-red-600  focus:border-red-800 border'
+                                                : ''
+                                        }`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
+                        )}
+                    />
 
-                <Controller
-                    control={control}
-                    name="run_time_end"
-                    rules={{
-                        required: 'You must give the competition an end time',
-                    }}
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="runtime-end">Competition end time</label>
-                            {errors.run_time_end && (
-                                <label role="alert" className="block text-red-600" id="description-error-label">
-                                    {errors.run_time_end.message}
-                                </label>
-                            )}
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'runtime-end'}
-                                    selected={typeof value === 'string' ? new Date(value) : value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
-                                        errors.run_time_end
-                                            ? 'text-red border-red-600  focus:border-red-800 border'
-                                            : ''
-                                    }`}
-                                    showTimeInput
-                                />
+                    <Controller
+                        control={control}
+                        name="run_time_end"
+                        rules={{
+                            required: 'You must give the competition an end time',
+                        }}
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="runtime-end">Competition end time</label>
+                                {errors.run_time_end && (
+                                    <label role="alert" className="block text-red-600" id="description-error-label">
+                                        {errors.run_time_end.message}
+                                    </label>
+                                )}
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'runtime-end'}
+                                        selected={typeof value === 'string' ? new Date(value) : value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
+                                            errors.run_time_end
+                                                ? 'text-red border-red-600  focus:border-red-800 border'
+                                                : ''
+                                        }`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
+                        )}
+                    />
+                </div>
 
                 <Controller
                     control={control}
@@ -261,50 +263,52 @@ const CompetitionAdminEdit = () => {
                     )}
                 />
 
-                <Controller
-                    control={control}
-                    name="vote_time_start"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="votetime-start" className="block mb-1">
-                                Vote start time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'votetime-start'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
-                                    showTimeInput
-                                />
+                <div className="flex flex-row gap-6">
+                    <Controller
+                        control={control}
+                        name="vote_time_start"
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="votetime-start" className="block mb-1">
+                                    Vote start time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'votetime-start'}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
-                <Controller
-                    control={control}
-                    name="vote_time_end"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="votetime-end" className="block mb-1">
-                                Vote end time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'votetime-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
-                                    showTimeInput
-                                />
+                        )}
+                    />
+                    <Controller
+                        control={control}
+                        name="vote_time_end"
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="votetime-end" className="block mb-1">
+                                    Vote end time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'votetime-end'}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
+                        )}
+                    />
+                </div>
 
                 <Input
                     type="number"
@@ -314,20 +318,26 @@ const CompetitionAdminEdit = () => {
                     className="mb-6"
                 />
 
-                <Input
-                    type="number"
-                    label="Minimum team size (optional)"
-                    name="team_min"
-                    ref={register()}
-                    className="mb-6"
-                />
-                <Input
-                    type="number"
-                    label="Maximum team size (optional)"
-                    name="team_max"
-                    ref={register()}
-                    className="mb-6"
-                />
+                <div className="flex flex-row gap-6">
+                    <div>
+                        <Input
+                            type="number"
+                            label="Minimum team size (optional)"
+                            name="team_min"
+                            ref={register()}
+                            className="mb-6"
+                        />
+                    </div>
+                    <div>
+                        <Input
+                            type="number"
+                            label="Maximum team size (optional)"
+                            name="team_max"
+                            ref={register()}
+                            className="mb-6"
+                        />
+                    </div>
+                </div>
 
                 {/* <Input
                     label="Custom input field name (optional)"
@@ -410,51 +420,53 @@ const CompetitionAdminEdit = () => {
                     )}
                 />
 
-                <Controller
-                    control={control}
-                    name="show_time_start"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="showtime-end" className="block mb-1">
-                                Competition show start time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'showtime-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
-                                    showTimeInput
-                                />
+                <div className="flex flex-row gap-6">
+                    <Controller
+                        control={control}
+                        name="show_time_start"
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="showtime-end" className="block mb-1">
+                                    Stage show start (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'showtime-end'}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
+                        )}
+                    />
 
-                <Controller
-                    control={control}
-                    name="show_time_end"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="showtime-end" className="block mb-1">
-                                Competition show end time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'showtime-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
-                                    showTimeInput
-                                />
+                    <Controller
+                        control={control}
+                        name="show_time_end"
+                        render={({ value, ...props }) => (
+                            <div>
+                                <label id="showtime-end" className="block mb-1">
+                                    Stage show end (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={'showtime-end'}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
                             </div>
-                        </>
-                    )}
-                />
+                        )}
+                    />
+                </div>
 
                 {/* <Input
                     name="external_url_login"

@@ -30,7 +30,7 @@ export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
         <fieldset className={className ?? ''}>
             <legend className="mb-1">{label ?? 'Prizes'}</legend>
             {value.map((v, i) => (
-                <fieldset className="flex items-center mb-2">
+                <fieldset key={i} className="flex items-center mb-2">
                     <Input
                         value={v}
                         onChange={(e) => handleChange(i, e)}
