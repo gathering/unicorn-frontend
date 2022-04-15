@@ -11,7 +11,7 @@ const byScore = (a: IEntry, b: IEntry) => a.score - b.score;
 const CompetitionAdminResults = () => {
     const { id } = useParams<{ id: string }>();
     const { data: entries } = useSWR<IEntryListResponse>(
-        `competitions/entries/?competition_id=${id}&limit=1000`,
+        `competitions/entries/?competition_id=${id}&status=4&limit=1000`,
         httpGet
     );
 
