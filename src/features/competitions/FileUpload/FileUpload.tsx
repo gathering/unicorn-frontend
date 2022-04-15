@@ -16,12 +16,15 @@ export const FileUpload = ({ competition, entry }: Props) => {
     });
 
     return (
-        <section className="container mx-auto mb-6 bg-white rounded sm:rounded-none">
+        <section className="container mx-auto mb-6 bg-white dark:bg-gray-800 rounded sm:rounded-none">
             <h2 className="p-4 text-xl text-center">Upload files</h2>
-            <hr className="pb-6 border-t border-gray-300" />
+            <hr className="pb-6 border-t border-gray-300 dark:border-gray-700" />
 
             {competition.fileupload.length === 0 && (
-                <p className='text-center pb-6 text-red-700'>Uploading files is enabled on this competition, but the organizer has not specified which files to upload yet.</p>
+                <p className="text-center pb-6 text-red-700">
+                    Uploading files is enabled on this competition, but the organizer has not specified which files to
+                    upload yet.
+                </p>
             )}
 
             <ul className="flex">

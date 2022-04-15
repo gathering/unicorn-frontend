@@ -22,7 +22,7 @@ const CompetitionAdminOverview = () => {
 
     return (
         <View>
-            <div className="mx-4 mt-8 overflow-hidden shadow ring-1 ring-black dark:ring-white ring-opacity-5 rounded-lg">
+            <div className="mx-4 my-8 overflow-hidden shadow ring-1 ring-black dark:ring-white ring-opacity-5 rounded-lg">
                 <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-600">
                     <thead className="bg-gray-50 dark:bg-gray-900">
                         <tr>

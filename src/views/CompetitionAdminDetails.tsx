@@ -22,32 +22,32 @@ const entryStateColors = [
     {
         value: 1,
         label: 'Draft',
-        bg: 'text-yellow-400',
+        bg: 'text-yellow-400 dark:text-yellow-600',
     },
     {
         value: 2,
         label: 'New',
-        bg: 'text-yellow-400',
+        bg: 'text-yellow-400 dark:text-yellow-600',
     },
     {
         value: 4,
         label: 'Qualified',
-        bg: 'text-green-400',
+        bg: 'text-green-400 dark:text-green-600',
     },
     {
         value: 8,
         label: 'Disqualified',
-        bg: 'text-red-400',
+        bg: 'text-red-400 dark:text-red-600',
     },
     {
         value: 16,
         label: 'Not preselected',
-        bg: 'text-red-400',
+        bg: 'text-red-400 dark:text-red-600',
     },
     {
         value: 32,
         label: 'Invalid file',
-        bg: 'text-yellow-400',
+        bg: 'text-yellow-400 dark:text-yellow-600',
     },
 ];
 
@@ -118,7 +118,7 @@ const CompetitionAdminDetails = () => {
                 <ul className="flex items-end justify-end col-span-3 gap-4 mr-4">
                     <li className="flex items-center gap-1">
                         <svg
-                            className="text-green-400"
+                            className="text-green-400 dark:text-green-600"
                             width="14"
                             height="14"
                             viewBox="0 0 14 14"
@@ -131,7 +131,7 @@ const CompetitionAdminDetails = () => {
                     </li>
                     <li className="flex items-center gap-1">
                         <svg
-                            className="text-yellow-400"
+                            className="text-yellow-400 dark:text-yellow-600"
                             width="14"
                             height="14"
                             viewBox="0 0 14 14"
@@ -144,7 +144,7 @@ const CompetitionAdminDetails = () => {
                     </li>
                     <li className="flex items-center gap-1">
                         <svg
-                            className="text-red-400"
+                            className="text-red-400 dark:text-red-600"
                             width="14"
                             height="14"
                             viewBox="0 0 14 14"
@@ -156,7 +156,7 @@ const CompetitionAdminDetails = () => {
                         Disqualified
                     </li>
                 </ul>
-                <div className="col-span-3 p-4 bg-white rounded shadow sm:rounded-none">
+                <div className="col-span-3 p-4 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
                     <h2 className="pb-4 text-xl">
                         Participants
                         <Link to={`/admin/competitions/${id}/results`} className="float-right text-base">
@@ -191,7 +191,7 @@ const CompetitionAdminDetails = () => {
                                         More information
                                     </Link>
                                     {i < entries.results.length - 1 && (
-                                        <hr className="w-full my-6 border-t border-gray-300" />
+                                        <hr className="w-full my-6 border-t border-gray-300 dark:border-gray-600" />
                                     )}
                                 </li>
                             ))}
@@ -210,10 +210,10 @@ const CompetitionAdminDetails = () => {
                 </div>
             </section>
             <aside>
-                <section className="mb-4 bg-white rounded shadow sm-rounded-none">
+                <section className="mb-4 bg-white dark:bg-gray-800 rounded shadow sm-rounded-none">
                     <h2 className="px-4 py-6 text-xl">{data.entries_count} registered</h2>
                 </section>
-                <section className="mb-4 bg-white rounded shadow sm:rounded-none">
+                <section className="mb-4 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
                     <h2 className="p-4 text-xl pb-7">Quick settings</h2>
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) ? (
                         <ul>
@@ -260,7 +260,7 @@ const CompetitionAdminDetails = () => {
                                     {isDeleting ? (
                                         <>
                                             <svg
-                                                className="w-full h-5 my-4 text-center text-red-800 animate-bounce"
+                                                className="w-full h-5 my-4 text-center text-red-800 dark:text-red-300 animate-bounce"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
                                                 viewBox="0 0 24 24"
@@ -291,7 +291,7 @@ const CompetitionAdminDetails = () => {
                                 >
                                     <button
                                         onClick={() => setValidateDelete(true)}
-                                        className="float-right px-8 py-3 text-white transition-all duration-150 bg-red-400 rounded-lg hover:bg-red-900"
+                                        className="float-right px-8 py-3 text-white transition-all duration-150 bg-red-400 dark:bg-red-600 rounded-lg hover:bg-red-900"
                                     >
                                         Delete
                                     </button>
@@ -299,7 +299,7 @@ const CompetitionAdminDetails = () => {
                                         href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
                                             data.id
                                         }/download`}
-                                        className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 rounded-lg hover:bg-blue-900"
+                                        className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 dark:bg-blue-600 rounded-lg hover:bg-blue-900"
                                     >
                                         Download all entries
                                     </a>

@@ -60,7 +60,10 @@ const App = () => {
     return (
         <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>
             <BrowserRouter>
-                <div id="unicorn" className="flex flex-col min-h-screen bg-gray-200 dark:bg-gray-700">
+                <div
+                    id="unicorn"
+                    className="flex flex-col min-h-screen bg-gray-200 dark:bg-gray-700 dark:text-gray-100"
+                >
                     <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white dark:bg-gray-800 shadow-lg">
                         <Link
                             to="/"

@@ -100,7 +100,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
     return (
         <form className="m-4">
             <label htmlFor={inputId}>
-                <span className="flex flex-col items-center px-4 py-8 transition-colors bg-gray-300 rounded-md cursor-pointer w-72 hover:bg-gray-200">
+                <span className="flex flex-col items-center px-4 py-8 transition-colors bg-gray-300 dark:bg-gray-900 rounded-md cursor-pointer w-72 hover:bg-gray-200 dark:hover:bg-gray-700">
                     {stage === 1 ? (
                         <>
                             <svg
@@ -115,7 +115,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                                     clipRule="evenodd"
                                 />
                             </svg>
-                            <p className="text-gray-700">No file uploaded yet</p>
+                            <p className="text-gray-700 dark:text-gray-300">No file uploaded yet</p>
                             <h3 className="text-xl">
                                 {formDefinition.input} ({getFileConstant(formDefinition.file).types.join(', ')})
                             </h3>
@@ -123,7 +123,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                     ) : stage === 2 ? (
                         <>
                             <svg
-                                className="mb-8 mr-3 -ml-1 text-black w-7 h-7 animate-spin"
+                                className="mb-8 mr-3 -ml-1 text-black dark:text-gray-100 w-7 h-7 animate-spin"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -137,7 +137,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                                     strokeWidth="4"
                                 ></circle>
                                 <path
-                                    className="text-indigo-900 opacity-75"
+                                    className="text-indigo-900 dark:text-indigo-500 opacity-75"
                                     fill="currentColor"
                                     d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                                 ></path>
@@ -150,7 +150,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                className="w-10 h-10 my-4 mt-4 text-indigo-900 opacity-75"
+                                className="w-10 h-10 my-4 mt-4 text-indigo-900 dark:text-indigo-500 opacity-75"
                             >
                                 <path
                                     fillRule="evenodd"
@@ -160,7 +160,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                             </svg>
                             <h3>{formDefinition.input}</h3>
                             <p className="font-light break-all">Current file: {file?.name}</p>
-                            <p className="text-gray-700">Upload new version</p>
+                            <p className="text-gray-700 dark:text-gray-400">Upload new version</p>
                         </>
                     ) : null}
                 </span>
