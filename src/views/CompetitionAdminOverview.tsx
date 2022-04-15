@@ -50,6 +50,12 @@ const CompetitionAdminOverview = () => {
                             >
                                 Status
                             </th>
+                            <th
+                                scope="col"
+                                className="sm:hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 table-cell"
+                            >
+                                Voting Start
+                            </th>
                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
                                 <span className="sr-only">Edit</span>
                             </th>
@@ -85,6 +91,9 @@ const CompetitionAdminOverview = () => {
                                 </td>
                                 <td className="sm:hidden px-3 py-4 text-sm text-gray-700 table-cell">
                                     {c.published ? 'Published' : 'Not published'}
+                                </td>
+                                <td className="sm:hidden px-3 py-4 text-sm text-gray-700 table-cell">
+                                    {c.vote_time_start && new Date(c.vote_time_start).toLocaleString('nb-NO')}
                                 </td>
                                 <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                     <Link
