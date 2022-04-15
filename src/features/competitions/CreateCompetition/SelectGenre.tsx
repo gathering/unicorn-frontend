@@ -23,7 +23,7 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
         return (
             <>
                 <h1 className="mb-8 text-3xl">Create new competition</h1>
-                <p className="mb-10 text-gray-700">
+                <p className="mb-10 text-gray-700 dark:text-gray-200">
                     No available genres found... Please contact the administrators to set up genres.
                 </p>
             </>
@@ -32,8 +32,8 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
 
     return (
         <>
-            <h1 className="mb-8 text-3xl">Create new competition</h1>
-            <p className="mb-10 text-gray-700">
+            <h1 className="mb-8 text-3xl dark:text-gray-100">Create new competition</h1>
+            <p className="mb-10 text-gray-700 dark:text-gray-200">
                 Some features may be hidden based on what genre you choose. All features will be available after initial
                 creation.
             </p>
@@ -59,7 +59,7 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
                                 value={value}
                             />
                             {errors.genre?.message && (
-                                <label className="flex items-center mt-1 text-red-600">
+                                <label className="flex items-center mt-1 text-red-600 dark:text-red-400">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         viewBox="0 0 20 20"
@@ -79,7 +79,7 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
                     )}
                 />
                 <footer className="mt-8">
-                    <button className="flex items-center h-12 px-4 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="flex items-center h-12 px-4 text-base text-green-900 dark:text-green-200 duration-150 bg-green-300 dark:bg-green-800 rounded justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black hover:shadow">
                         Forward
                     </button>
                 </footer>

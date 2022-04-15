@@ -25,9 +25,9 @@ export const Wysiwyg = ({ label, errorLabel, defaultState, onChange }: IProps) =
 
     return (
         <>
-            <label>{label}</label>
+            <label className="dark:text-gray-100">{label}</label>
             {errorLabel && (
-                <label role="alert" className="text-red-600" id={errorLabelId}>
+                <label role="alert" className="text-red-600 dark:text-red-400" id={errorLabelId}>
                     {errorLabel}
                 </label>
             )}
@@ -36,8 +36,8 @@ export const Wysiwyg = ({ label, errorLabel, defaultState, onChange }: IProps) =
                 ariaDescribedBy={errorLabel ? errorLabelId : undefined}
                 onEditorStateChange={onEditorStateChange}
                 editorState={editorState}
-                wrapperClassName="block mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500"
-                toolbarClassName="rounded-t"
+                wrapperClassName="block mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500"
+                toolbarClassName="rounded-t dark:bg-gray-800 dark:text-gray-100 dark:border-gray-700"
                 editorClassName="p-4"
                 toolbar={{
                     options: ['inline', 'blockType', 'list', 'textAlign', 'link', 'history'],

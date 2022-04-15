@@ -82,7 +82,7 @@ const CompetitionsOverview: React.FC = () => {
             <div className="flex flex-row sm:flex-col">
                 <aside className="flex flex-col mx-10 mt-12 sm:m-4">
                     <Input
-                        className="mb-6 sm:mb-2"
+                        className="mb-6 sm:mb-2 dark:bg-gray-800 dark:border-gray-600 dark:focus:bg-gray-900 dark:text-gray-100"
                         placeholder="Search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -105,7 +105,7 @@ const CompetitionsOverview: React.FC = () => {
                     ) && (
                         <Link
                             to="/admin/competitions"
-                            className="flex items-center h-12 px-4 mt-10 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                            className="flex items-center h-12 px-4 mt-10 text-base font-semibold text-yellow-800 dark:text-yellow-200 duration-150 bg-yellow-300 dark:bg-yellow-800 rounded justify-evenly hover:bg-yellow-700 dark:hover:bg-yellow-500 hover:text-black hover:shadow"
                         >
                             Admin
                         </Link>
@@ -113,7 +113,7 @@ const CompetitionsOverview: React.FC = () => {
                     {hasPermission(Permission.CompetitionsAddCompetition, permissions) && (
                         <Link
                             to="/admin/competitions/new"
-                            className="flex items-center h-12 px-4 mt-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
+                            className="flex items-center h-12 px-4 mt-6 text-base font-semibold text-green-800 dark:text-green-200 duration-150 bg-green-300 dark:bg-green-800 rounded justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black hover:shadow"
                         >
                             New competition
                         </Link>
@@ -153,17 +153,24 @@ const CompetitionsOverview: React.FC = () => {
                                         src={competition.header_image}
                                         alt={`Competition poster ${competition.name}`}
                                     />
-                                    <div className="flex flex-col justify-between w-full p-4 leading-normal bg-white">
-                                        <p className="text-sm leading-none text-gray-600">{competition.state.label}</p>
-                                        <div className="mb-2 text-xl font-bold text-black">{competition.name}</div>
-                                        <p className="text-xl text-gray-600">{competition.brief_description}</p>
+                                    <div className="flex flex-col justify-between w-full p-4 leading-normal bg-white dark:bg-gray-800">
+                                        <p className="text-sm leading-none text-gray-600 dark:text-gray-200">
+                                            {competition.state.label}
+                                        </p>
+                                        <div className="mb-2 text-xl font-bold text-black dark:text-white">
+                                            {competition.name}
+                                        </div>
+                                        <p className="text-xl text-gray-600 dark:text-gray-200">
+                                            {competition.brief_description}
+                                        </p>
                                     </div>
-                                    <div className="flex sm:hidden md:hidden pr-4 bg-white rounded-r">
+                                    <div className="flex sm:hidden md:hidden pr-4 bg-white dark:bg-gray-800 dark:text-gray-200 rounded-r">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
                                             stroke="currentColor"
+                                            className="h-16 my-auto"
                                         >
                                             <path
                                                 strokeLinecap="round"
@@ -180,10 +187,12 @@ const CompetitionsOverview: React.FC = () => {
                 )}
                 {!filteredCompetitions.length && !isValidating && (
                     <article className="flex flex-col items-center w-full mt-12 mb-10 mr-10 sm:mt-4">
-                        <h1 className="mt-32 text-4xl text-gray-800">
+                        <h1 className="mt-32 text-4xl text-gray-800 dark:text-white">
                             {competitionResult ? 'No competitions found' : 'Loading...'}
                         </h1>
-                        {competitionResult && <p className="text-2xl text-gray-600">#isiteasteryet</p>}
+                        {competitionResult && (
+                            <p className="text-2xl text-gray-600 dark:text-gray-200">#isiteasteryet</p>
+                        )}
                     </article>
                 )}
             </div>
