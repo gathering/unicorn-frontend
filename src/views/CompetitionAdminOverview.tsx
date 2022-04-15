@@ -42,6 +42,12 @@ const CompetitionAdminOverview = () => {
                                 scope="col"
                                 className="sm:hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 table-cell"
                             >
+                                State
+                            </th>
+                            <th
+                                scope="col"
+                                className="sm:hidden px-3 py-3.5 text-left text-sm font-semibold text-gray-900 table-cell"
+                            >
                                 Status
                             </th>
                             <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6">
@@ -61,6 +67,8 @@ const CompetitionAdminOverview = () => {
                                                 ? `${c.entries_count} entries (${c.participant_limit} limit)`
                                                 : `${c.entries_count} entries`}
                                         </dd>
+                                        <dt className="sr-only hidden sm:block">State</dt>
+                                        <dd className="hidden mt-1 truncate text-gray-500 sm:block">{c.state.label}</dd>
                                         <dt className="sr-only hidden sm:block">Status</dt>
                                         <dd className="hidden mt-1 truncate text-gray-500 sm:block">
                                             {c.published ? 'Published' : 'Not published'}
@@ -71,6 +79,9 @@ const CompetitionAdminOverview = () => {
                                     {c.participant_limit
                                         ? `${c.entries_count} (${c.participant_limit} limit)`
                                         : c.entries_count}
+                                </td>
+                                <td className="sm:hidden px-3 py-4 text-sm text-gray-700 table-cell">
+                                    {c.state.label}
                                 </td>
                                 <td className="sm:hidden px-3 py-4 text-sm text-gray-700 table-cell">
                                     {c.published ? 'Published' : 'Not published'}
