@@ -130,6 +130,7 @@ export interface IEntry {
     order: number;
     score: number;
     screen_msg?: string;
+    vote_msg?: string;
     title: string;
     url: string;
     status: EntryStatus;

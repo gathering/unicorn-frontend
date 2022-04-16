@@ -126,6 +126,12 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                     )}
                 </>
             )}
+            {entry.vote_msg && (
+                <p
+                    className="mb-2 text-indigo-800 hover:text-indigo-500 hover:underline"
+                    dangerouslySetInnerHTML={{ __html: entry.vote_msg }}
+                ></p>
+            )}
         </article>
     );
 };
