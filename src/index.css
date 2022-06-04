@@ -13,7 +13,7 @@ html {
 @tailwind utilities;
 
 [data-reach-tab] {
-    @apply py-2 bg-white text-xl font-light !important;
+    @apply py-2 bg-white dark:bg-gray-800 text-xl font-light !important;
 }
 
 [data-reach-tab][data-selected] {
