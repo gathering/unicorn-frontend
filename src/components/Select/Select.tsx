@@ -27,12 +27,20 @@ export const Select = ({ options, placeholder, label, value, onChange }: IProps)
 
     return (
         <Wrapper>
-            {label ? <label id={labelId}>{label}</label> : <VisuallyHidden id={labelId}>{placeholder}</VisuallyHidden>}
+            {label ? (
+                <label id={labelId} className="dark:text-gray-100">
+                    {label}
+                </label>
+            ) : (
+                <VisuallyHidden id={labelId}>{placeholder}</VisuallyHidden>
+            )}
             <ListboxInput aria-labelledby={labelId} value={value} onChange={(value) => onChange(value)}>
-                <ListboxButton className="flex items-center justify-between w-full h-12 px-4 text-base duration-150 bg-white rounded hover:shadow">
+                <ListboxButton className="flex items-center justify-between w-full h-12 px-4 text-base duration-150 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 rounded hover:shadow">
                     {({ label: optionLabel, value, isExpanded }) => (
                         <>
-                            <span className={value ? '' : 'text-gray-600'}>{value ? optionLabel : placeholder}</span>
+                            <span className={value ? '' : 'text-gray-600 dark:text-gray-400'}>
+                                {value ? optionLabel : placeholder}
+                            </span>
                             {isExpanded ? (
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -63,12 +71,12 @@ export const Select = ({ options, placeholder, label, value, onChange }: IProps)
                         </>
                     )}
                 </ListboxButton>
-                <ListboxPopover className="w-48 mt-2 bg-white rounded shadow-lg">
+                <ListboxPopover className="w-48 mt-2 bg-white dark:bg-gray-800  rounded shadow-lg">
                     <ListboxList>
                         {options.map((option) => (
                             <ListboxOption
                                 key={option.value}
-                                className="px-4 py-2 hover:bg-indigo-500 hover:text-white hover:cursor-pointer"
+                                className="px-4 py-2 hover:bg-indigo-500 dark:text-gray-100 hover:text-white hover:cursor-pointer"
                                 value={option.value.toString()}
                             >
                                 {option.label}

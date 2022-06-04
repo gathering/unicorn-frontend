@@ -21,48 +21,30 @@ const CompetitionAdminResults = () => {
 
     return (
         <View>
-            <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
+            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600 my-6">
+                <thead className="bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-200">
                     <tr>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Entry
                         </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Credit
                         </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Owner
                         </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Email
                         </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Phone
                         </th>
-                        <th
-                            scope="col"
-                            className="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase"
-                        >
+                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
                             Score
                         </th>
                     </tr>
                 </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
+                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                     {entries.results.sort(byScore).map((e) => {
                         const owner = e.contributors.find((c) => c.is_owner);
                         return (

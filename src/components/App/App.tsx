@@ -60,9 +60,16 @@ const App = () => {
     return (
         <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>
             <BrowserRouter>
-                <div id="unicorn" className="flex flex-col min-h-screen bg-gray-200">
-                    <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white shadow-lg">
-                        <Link to="/" href="https://gathering.org" className="rounded-md hover:bg-gray-100 my-1 pr-1">
+                <div
+                    id="unicorn"
+                    className="flex flex-col min-h-screen bg-gray-200 dark:bg-gray-700 dark:text-gray-100"
+                >
+                    <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white dark:bg-gray-800 shadow-lg">
+                        <Link
+                            to="/"
+                            href="https://gathering.org"
+                            className="rounded-md hover:bg-gray-100 dark:hover:bg-gray-700 my-1 pr-1"
+                        >
                             <img src="/images/tg_logo_liten.png" className="inline w-16 ml-1" alt="Back to homepage" />
                         </Link>
 
@@ -70,7 +77,7 @@ const App = () => {
                             <motion.div className="flex" initial="rest" whileHover="hover" animate="rest">
                                 <Link
                                     to="/preferences"
-                                    className="flex items-center p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                    className="flex items-center p-1 px-2 ml-6 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
                                 >
                                     {user?.display_name}
                                 </Link>
@@ -78,14 +85,14 @@ const App = () => {
                                     href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
                                         window.location.origin
                                     }/logout`}
-                                    className="p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200"
+                                    className="p-1 px-2 ml-6 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
                                 >
                                     Logout
                                 </a>
                             </motion.div>
                         ) : (
                             <a
-                                className="px-1 pt-1 mx-3 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out border-b-2 border-transparent hover:text-black hover:border-orange-500"
+                                className="px-1 pt-1 mx-3 text-xl leading-8 text-gray-800 dark:text-gray-300 transition duration-200 ease-in-out border-b-2 border-transparent hover:text-black dark:hover:text-white hover:border-orange-500"
                                 href={loginUrl}
                                 rel="noreferrer noopener"
                             >

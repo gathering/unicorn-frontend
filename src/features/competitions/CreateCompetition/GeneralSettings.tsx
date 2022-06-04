@@ -27,8 +27,8 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
 
     return (
         <>
-            <h1 className="mb-8 text-3xl">General settings</h1>
-            <p className="mb-10 text-gray-700">
+            <h1 className="mb-8 text-3xl dark:text-gray-100">General settings</h1>
+            <p className="mb-10 text-gray-700 dark:text-gray-300">
                 All of these inputs are mandatory. They are the base data for the competition. If you're not sure what
                 to put into the fields yet, you may put in some dummy data for now. After creating the competition you
                 may come back to edit the fields.
@@ -66,9 +66,15 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     defaultValue={initialDate}
                     render={({ value, ...props }) => (
                         <>
-                            <label id="runtime-start">Competition start time</label>
+                            <label id="runtime-start" className="dark:text-gray-100">
+                                Competition start time
+                            </label>
                             {errors.run_time_start && (
-                                <label role="alert" className="block text-red-600" id="description-error-label">
+                                <label
+                                    role="alert"
+                                    className="block text-red-600 dark:text-red-400"
+                                    id="description-error-label"
+                                >
                                     {errors.run_time_start.message}
                                 </label>
                             )}
@@ -79,9 +85,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
+                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
                                         errors.run_time_start
-                                            ? 'text-red border-red-600  focus:border-red-800 border'
+                                            ? 'text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border'
                                             : ''
                                     }`}
                                     showTimeInput
@@ -100,11 +106,15 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     }}
                     render={({ value, ...props }) => (
                         <>
-                            <label id="runtime-end" className="mt-6">
+                            <label id="runtime-end" className="mt-6 dark:text-gray-100">
                                 Competition end time
                             </label>
                             {errors.run_time_end && (
-                                <label role="alert" className="block text-red-600" id="description-error-label">
+                                <label
+                                    role="alert"
+                                    className="block text-red-600 dark:text-red-400"
+                                    id="description-error-label"
+                                >
                                     {errors.run_time_end.message}
                                 </label>
                             )}
@@ -115,9 +125,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500 ${
+                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
                                         errors.run_time_end
-                                            ? 'text-red border-red-600  focus:border-red-800 border'
+                                            ? 'text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border'
                                             : ''
                                     }`}
                                     showTimeInput
@@ -181,13 +191,13 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
-                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-800 dark:text-green-200 duration-150 bg-green-300 dark:bg-green-800 rounded justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black  hover:shadow">
                         Next
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                        className="flex items-center h-12 px-4 text-base text-yellow-900 dark:text-yellow-200 duration-150 bg-yellow-300 dark:bg-yellow-800 rounded justify-evenly hover:bg-yellow-700 dark:hover:bg-yellow-500 hover:text-black hover:shadow"
                     >
                         Previous
                     </button>

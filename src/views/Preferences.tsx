@@ -71,7 +71,10 @@ const Preferences = () => {
 
     return (
         <View className="container mx-auto mt-10">
-            <form onSubmit={handleSubmit(onSubmit)} className="px-4 py-6 bg-white rounded-md shadow-md max-w-prose">
+            <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="px-4 py-6 bg-white dark:bg-gray-800 rounded-md shadow-md max-w-prose"
+            >
                 <fieldset>
                     <legend className="mb-4 text-xl">How do you want to be presented?</legend>
                     <Input

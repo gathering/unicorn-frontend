@@ -104,11 +104,13 @@ const CompetitionDetails = () => {
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
     const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
 
-    const { data: entries, mutate: refetchEntries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
-        `competitions/entries/?competition_id=${id}&limit=1000`,
-        httpGet,
-        { revalidateOnFocus: false }
-    );
+    const {
+        data: entries,
+        mutate: refetchEntries,
+        isValidating: isValidatingEntries,
+    } = useSWR<IEntryListResponse>(`competitions/entries/?competition_id=${id}&limit=1000`, httpGet, {
+        revalidateOnFocus: false,
+    });
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
     const hasMeta = useMemo(() => !!data?.prizes.length || !!data?.links.length || data?.sponsor_name, [data]);
@@ -125,7 +127,9 @@ const CompetitionDetails = () => {
                 <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
                     {data.name}
                 </HeadingWrapper>
-                <p className="absolute bottom-0 sm:top-0 right-0 py-2 px-4 text-gray-200 text-sm">Image by: {data.header_credit}</p>
+                <p className="absolute bottom-0 sm:top-0 right-0 py-2 px-4 text-gray-200 text-sm">
+                    Image by: {data.header_credit}
+                </p>
             </div>
             <div className="flex flex-horizontal sm:flex-col-reverse">
                 <div className="flex-grow">
@@ -141,7 +145,7 @@ const CompetitionDetails = () => {
                         </section>
                     )}
                     <CompetitionPhases competition={data} />
-                    <Tabs className="bg-white rounded sm:rounded-none">
+                    <Tabs className="bg-white dark:bg-gray-800 rounded sm:rounded-none">
                         <TabList className="flex">
                             {competitionDescription && (
                                 <Tab className="flex-grow py-3 border-b border-tg-brand-orange-500">Information</Tab>
@@ -188,13 +192,16 @@ const CompetitionDetails = () => {
                     )}
 
                     {hasMeta && (
-                        <section className="p-4 bg-white rounded sm:rounded-none">
+                        <section className="p-4 bg-white dark:bg-gray-800 rounded sm:rounded-none">
                             {!!data.prizes.length && (
                                 <>
                                     <h2 className="pb-2 text-lg">Prizes</h2>
                                     <ul className="w-2/3 mt-2 leading-8 pb-4">
                                         {data.prizes.map((prize: String, i: number) => (
-                                            <li key={prize + i.toString()} className="pr-3 font-light text-gray-600">
+                                            <li
+                                                key={prize + i.toString()}
+                                                className="pr-3 font-light text-gray-600 dark:text-gray-200"
+                                            >
                                                 {formatNumber(i + 1)} <span className="float-right">{prize}</span>
                                             </li>
                                         ))}
@@ -205,8 +212,8 @@ const CompetitionDetails = () => {
                             {!!data.sponsor_name && (
                                 <>
                                     <h2 className="pb-2 text-lg">Powered By</h2>
-                                    <div className="w-64 mt-2 mx-auto pb-4">
-                                        <img src={data.sponsor_logo} alt={data.sponsor_name} />
+                                    <div className="w-64 mt-2 mx-auto pb-4 dark:bg-gray-100">
+                                        <img src={data.sponsor_logo} alt={data.sponsor_name} className="p-2" />
                                     </div>
                                 </>
                             )}
