@@ -89,7 +89,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                             showTimeInput
                                         />
                                     </div>
@@ -111,7 +111,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                             showTimeInput
                                         />
                                     </div>
@@ -185,7 +185,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -208,7 +208,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -231,7 +231,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -254,7 +254,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -277,7 +277,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
