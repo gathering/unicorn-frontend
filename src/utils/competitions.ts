@@ -21,7 +21,6 @@ export const hasPreRegistration = (competition: ICompetition) =>
 export const hasVote = (competition: ICompetition) => !!competition.vote_time_start || !!competition.vote_time_end;
 export const hasTeams = (competition: ICompetition) => !!competition.team_min || !!competition.team_max;
 export const hasFileupload = (competition: ICompetition) => !!competition.fileupload || !!competition.fileupload.length;
-export const hasToornament = (competition: ICompetition) => !!competition.toornament;
 
 export const getFinishedCompetitions = (competitions: ICompetition[]) =>
     competitions.filter((c) => c.state.value === FINISHED);

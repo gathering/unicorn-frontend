@@ -161,7 +161,6 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                             ref={register()}
                             className="mb-6"
                         />
-                        <Input label="Toornament ID (optional)" name="toornament" ref={register()} className="mb-6" />
 
                         <label className="block mb-6">
                             <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
