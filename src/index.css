@@ -1,4 +1,6 @@
 @tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
     font-family: 'Inter', sans-serif;
@@ -9,8 +11,6 @@ html {
     }
 }
 
-@tailwind components;
-@tailwind utilities;
 
 [data-reach-tab] {
     @apply py-2 bg-white dark:bg-gray-800 text-xl font-light !important;

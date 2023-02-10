@@ -168,7 +168,7 @@ const CompetitionDetails = () => {
                     {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
-                            className="flex items-center justify-center py-4 mb-0 text-xl text-white transition-all duration-150 transform rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
+                            className="flex items-center justify-center py-4 mb-0 text-xl text-white transition-all duration-150 rounded-lg px-7 hover:scale-105 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold"
                         >
                             Vote!
                             <span className="pl-2">🎉</span>
