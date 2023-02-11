@@ -11,7 +11,7 @@ interface Props {
 
 export const FileUpload = ({ competition, entry }: Props) => {
     // local copy to prevent flash...
-    const { data: _entry, revalidate } = useSWR<IEntry>(`competitions/entries/${entry.id}`, httpGet, {
+    const { data: _entry, mutate } = useSWR<IEntry>(`competitions/entries/${entry.id}`, httpGet, {
         revalidateOnFocus: false,
     });
 
@@ -31,7 +31,7 @@ export const FileUpload = ({ competition, entry }: Props) => {
                 {competition.fileupload.map((fu) => (
                     <li key={fu.input + fu.type}>
                         <UploadForm
-                            onRefresh={revalidate}
+                            onRefresh={mutate}
                             formDefinition={fu}
                             entry={_entry ?? entry}
                             file={(_entry ?? entry).files.find((f) => f.active && f.type === fu.type)}

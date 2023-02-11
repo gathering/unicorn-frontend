@@ -8,11 +8,11 @@ import { httpGet, httpPatch } from '../utils/fetcher';
 import { parseError } from '../utils/error';
 
 const CompetitionAdminOverview = () => {
-    const { data: competitions, revalidate } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
+    const { data: competitions, mutate } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
 
     const togglePublish = (c: ICompetition) => () => {
         httpPatch(`competitions/competitions/${c.id}`, JSON.stringify({ published: !c.published }))
-            .then((d) => revalidate())
+            .then((d) => mutate())
             .catch((err) => parseError(err).forEach((e: any) => toast.error(e)));
     };
 

@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import { useParams } from 'react-router';
-import useSWR, { mutate } from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import styled from 'styled-components';
 import Dialog from '@reach/dialog';
 import VisuallyHidden from '@reach/visually-hidden';
@@ -31,7 +31,8 @@ const CompetitionAdminEntry = () => {
         'competitions/competitions/' + cid,
         httpGet
     );
-    const { data: entry, mutate } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
+    const { mutate } = useSWRConfig();
+    const { data: entry } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
     const { register, errors, handleSubmit, watch } = useForm<IFormData>();
 
     const preselect = watch('preselect');

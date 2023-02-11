@@ -19,7 +19,7 @@ import { Select } from '../components/Select';
 
 const CompetitionAdminEdit = () => {
     const { id } = useParams<{ id: string }>();
-    const { data: competition, revalidate } = useSWR<ICompetition>(`competitions/competitions/${id}`, httpGet, {
+    const { data: competition, mutate } = useSWR<ICompetition>(`competitions/competitions/${id}`, httpGet, {
         revalidateOnFocus: false,
     });
     const { register, handleSubmit, errors, control, reset } = useForm();
@@ -89,7 +89,7 @@ const CompetitionAdminEdit = () => {
         )
             .then((d) => {
                 toast.success(`Updated competition ${d.name}`);
-                revalidate();
+                mutate();
             })
             .catch((err) => {
                 toast.error('Error updating competition');

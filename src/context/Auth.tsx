@@ -132,7 +132,7 @@ const userReducer = (state: State, action: Action) => {
 export const UserProvider = ({ children }: UserProviderProps) => {
     const [state, dispatch] = useReducer(userReducer, defaultState);
 
-    const { data: user, revalidate } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
+    const { data: user, mutate } = useSWR<User>(state.accessToken ? 'accounts/users/@me' : null, httpGet);
     const { data: permissions } = useSWR<Permission[]>(state.accessToken ? 'accounts/mypermissions' : null, httpGet);
 
     useEffect(() => {
@@ -181,7 +181,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }, []);
 
     return (
-        <UserStateContext.Provider value={{ ...state, revalidateUser: revalidate }}>
+        <UserStateContext.Provider value={{ ...state, revalidateUser: mutate }}>
             <UserDispatchContext.Provider value={dispatch}>{children}</UserDispatchContext.Provider>
         </UserStateContext.Provider>
     );
