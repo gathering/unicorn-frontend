@@ -1,10 +1,10 @@
-import React from 'react';
-import { useParams } from 'react-router';
-import useSWR from 'swr';
-import type { IEntry, IEntryListResponse } from '../features/competitions/competition';
-import { View } from '../components/View';
-import { httpGet } from '../utils/fetcher';
-import { Link } from '../components/Link';
+import React from "react";
+import { useParams } from "react-router";
+import useSWR from "swr";
+import type { IEntry, IEntryListResponse } from "@features/competitions/competition";
+import { View } from "@components/View";
+import { httpGet } from "@utils/fetcher";
+import { Link } from "@components/Link";
 
 const byScore = (a: IEntry, b: IEntry) => a.score - b.score;
 

@@ -1,19 +1,19 @@
-import React, { useMemo, useState } from 'react';
-import { useParams } from 'react-router';
-import useSWR, { useSWRConfig } from 'swr';
-import styled from 'styled-components';
-import Dialog from '@reach/dialog';
-import VisuallyHidden from '@reach/visually-hidden';
-import type { ICompetition, IEntry, IFile } from '../features/competitions/competition';
-import { PrimaryButton, SecondaryButton } from '../components/Button';
-import { httpGet, httpPatch } from '../utils/fetcher';
-import { hasFileupload } from '../utils/competitions';
-import { Input } from '../components/Input';
-import { View } from '../components/View';
-import { Link } from '../components/Link';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-toastify';
-import { parseError } from '../utils/error';
+import React, { useMemo, useState } from "react";
+import { useParams } from "react-router";
+import useSWR, { useSWRConfig } from "swr";
+import styled from "styled-components";
+import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Dialog from "@reach/dialog";
+import VisuallyHidden from "@reach/visually-hidden";
+import type { ICompetition, IEntry, IFile } from "@features/competitions/competition";
+import { PrimaryButton, SecondaryButton } from "@components/Button";
+import { httpGet, httpPatch } from "@utils/fetcher";
+import { hasFileupload } from "@utils/competitions";
+import { Input } from "@components/Input";
+import { View } from "@components/View";
+import { Link } from "@components/Link";
+import { parseError } from "@utils/error";
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
@@ -28,14 +28,14 @@ const CompetitionAdminEntry = () => {
     const { cid, eid } = useParams<{ cid: string; eid: string }>();
     const [showDisqualify, setShowDisqualify] = useState(false);
     const { data: competition, isValidating: isValidatingCompetition } = useSWR<ICompetition>(
-        'competitions/competitions/' + cid,
+        "competitions/competitions/" + cid,
         httpGet
     );
     const { mutate } = useSWRConfig();
-    const { data: entry } = useSWR<IEntry>('competitions/entries/' + eid, httpGet);
+    const { data: entry } = useSWR<IEntry>("competitions/entries/" + eid, httpGet);
     const { register, errors, handleSubmit, watch } = useForm<IFormData>();
 
-    const preselect = watch('preselect');
+    const preselect = watch("preselect");
 
     const nextEntry = useMemo(() => {
         if (!competition?.entries) {
@@ -85,11 +85,11 @@ const CompetitionAdminEntry = () => {
     };
 
     const activeMainFile: IFile | undefined = useMemo(
-        () => entry?.files.find((f) => f.active && f.type === 'main'),
+        () => entry?.files.find((f) => f.active && f.type === "main"),
         [entry]
     );
     const activeMainFileType = useMemo(
-        () => competition?.fileupload?.find((fu) => fu.type === 'main')?.file,
+        () => competition?.fileupload?.find((fu) => fu.type === "main")?.file,
         [competition]
     );
 
@@ -122,7 +122,7 @@ const CompetitionAdminEntry = () => {
                     <p className="p-4 border-t border-tg-brand-orange-500">
                         <strong className="font-semibold text-gray-700 dark:text-gray-300">
                             Message from participant:
-                        </strong>{' '}
+                        </strong>{" "}
                         {entry.crew_msg}
                     </p>
                 )}
@@ -155,7 +155,7 @@ const CompetitionAdminEntry = () => {
                             );
                         })}
                     </ul>
-                    {activeMainFileType === 'picture' && (
+                    {activeMainFileType === "picture" && (
                         <img className="col-start-2 row-span-2 row-start-1 rounded-r" src={activeMainFile?.url} />
                     )}
                 </section>
@@ -193,7 +193,7 @@ const CompetitionAdminEntry = () => {
                                         <span className="px-1 mr-4 font-light text-white dark:text-tg-brand-orange-50 rounded bg-tg-brand-orange-500 dark:bg-tg-brand-orange-600 ">
                                             Owner
                                         </span>
-                                    )}{' '}
+                                    )}{" "}
                                     {c.user.first_name} {c.user.last_name}
                                     <br />
                                     <span className="font-light text-gray-800 dark:text-gray-200">
@@ -213,11 +213,11 @@ const CompetitionAdminEntry = () => {
 
                     <p>
                         {entry.status.value === 4
-                            ? 'Qualified'
+                            ? "Qualified"
                             : entry.status.value === 8
                             ? `Disqualified: ${entry.comment}`
                             : entry.status.value === 16
-                            ? 'Not preselected'
+                            ? "Not preselected"
                             : entry.status.label}
                     </p>
 
@@ -244,7 +244,7 @@ const CompetitionAdminEntry = () => {
                 )}
             </aside>
             <footer className="col-span-3 mt-4">
-                <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{' '}
+                <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{" "}
             </footer>
             <Dialog
                 isOpen={showDisqualify}
@@ -261,18 +261,19 @@ const CompetitionAdminEntry = () => {
                 <p>A reason is required if this is not a result of not being preselected.</p>
                 <form onSubmit={handleSubmit(handleDisqualify)}>
                     <label className="block mt-6">
-                        <input {...register('preselect')} type="checkbox" className="mr-2" />
+                        <input {...register("preselect")} type="checkbox" className="mr-2" />
                         Not preselected
                     </label>
 
                     {preselect !== true && (
                         <Input
-                            {...register('comment', { required: 'You need to give the participant a reason' })}
+                            {...register("comment", { required: "You need to give the participant a reason" })}
                             label="Disqualification reason"
                             helpLabel="This will be displayed to the participant"
                             labelClassName="mt-5"
                             className="w-full"
-                            errorLabel={errors.comment?.message} />
+                            errorLabel={errors.comment?.message}
+                        />
                     )}
 
                     <PrimaryButton className="mt-4">Submit</PrimaryButton>

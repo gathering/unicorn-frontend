@@ -1,18 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate, useLocation, useParams } from 'react-router';
-import useSWR from 'swr';
-import styled from 'styled-components';
-import { toast } from 'react-toastify';
-import type { ICompetition, IEntryListResponse } from '../features/competitions/competition';
-import { useUserState } from '../context/Auth';
-import { httpDelete, httpGet, httpPatch } from '../utils/fetcher';
-import { View } from '../components/View';
-import { Link } from '../components/Link';
-import { Input } from '../components/Input';
-import { Button } from '../components/Button';
-import { parseError } from '../utils/error';
-import { AnimatePresence, motion } from 'framer-motion';
-import { hasPermission, Permission } from '../utils/permissions';
+import React, { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import useSWR from "swr";
+import styled from "styled-components";
+import { toast } from "react-toastify";
+import type { ICompetition, IEntryListResponse } from "@features/competitions/competition";
+import { View } from "@components/View";
+import { Link } from "@components/Link";
+import { Button } from "@components/Button";
+import { parseError } from "@utils/error";
+import { httpDelete, httpGet, httpPatch } from "@utils/fetcher";
+import { hasPermission, Permission } from "@/utils/permissions";
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
@@ -21,40 +18,40 @@ const HeadingWrapper = styled.h1`
 const entryStateColors = [
     {
         value: 1,
-        label: 'Draft',
-        bg: 'text-yellow-400 dark:text-yellow-600',
+        label: "Draft",
+        bg: "text-yellow-400 dark:text-yellow-600",
     },
     {
         value: 2,
-        label: 'New',
-        bg: 'text-yellow-400 dark:text-yellow-600',
+        label: "New",
+        bg: "text-yellow-400 dark:text-yellow-600",
     },
     {
         value: 4,
-        label: 'Qualified',
-        bg: 'text-green-400 dark:text-green-600',
+        label: "Qualified",
+        bg: "text-green-400 dark:text-green-600",
     },
     {
         value: 8,
-        label: 'Disqualified',
-        bg: 'text-red-400 dark:text-red-600',
+        label: "Disqualified",
+        bg: "text-red-400 dark:text-red-600",
     },
     {
         value: 16,
-        label: 'Not preselected',
-        bg: 'text-red-400 dark:text-red-600',
+        label: "Not preselected",
+        bg: "text-red-400 dark:text-red-600",
     },
     {
         value: 32,
-        label: 'Invalid file',
-        bg: 'text-yellow-400 dark:text-yellow-600',
+        label: "Invalid file",
+        bg: "text-yellow-400 dark:text-yellow-600",
     },
 ];
 
 const CompetitionAdminDetails = () => {
     const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
-    const { data, mutate } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
+    const { data, mutate } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet);
     const [isUpdatingPublished, setIsUpdatingPublished] = useState<string>();
     const [validateDelete, setValidateDelete] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -68,7 +65,7 @@ const CompetitionAdminDetails = () => {
             return;
         }
 
-        setIsUpdatingPublished('Processing');
+        setIsUpdatingPublished("Processing");
 
         httpPatch<ICompetition>(
             `competitions/competitions/${data.id}`,
@@ -92,8 +89,8 @@ const CompetitionAdminDetails = () => {
         setIsDeleting(true);
         httpDelete(`competitions/competitions/${data.id}`)
             .then(() => {
-                toast.success('Deleted competition');
-                navigate('/admin/competitions');
+                toast.success("Deleted competition");
+                navigate("/admin/competitions");
             })
             .catch((err) => {
                 parseError(err).forEach((e: any) => toast.error(e));
@@ -164,7 +161,7 @@ const CompetitionAdminDetails = () => {
                         </Link>
                     </h2>
 
-                    {entries?.results.length > 0 ? (
+                    {(entries?.results ?? []).length > 0 ? (
                         <ul className="pb-4">
                             {entries?.results.map((e, i) => (
                                 <li key={e.id} className="flex flex-wrap items-end my-3">
@@ -224,7 +221,7 @@ const CompetitionAdminDetails = () => {
                                 </section>
 
                                 <Button loading={isUpdatingPublished} onClick={() => updatePublished()}>
-                                    {data.published ? 'Hide' : 'Publish'}
+                                    {data.published ? "Hide" : "Publish"}
                                 </Button>
 
                                 {/* <hr className="w-full my-6 border-t border-gray-300" /> */}
@@ -248,64 +245,51 @@ const CompetitionAdminDetails = () => {
                 {hasPermission(Permission.CompetitionsDeleteCompetition, data.permissions) && (
                     <section>
                         <h2 className="sr-only">Danger zone</h2>
-                        <AnimatePresence initial={false} exitBeforeEnter>
-                            {validateDelete ? (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    key="on"
-                                    className="flex flex-wrap"
+                        {validateDelete ? (
+                            <div className="flex flex-wrap">
+                                {isDeleting ? (
+                                    <>
+                                        <svg
+                                            className="w-full h-5 my-4 text-center text-red-800 dark:text-red-300 animate-bounce"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="currentColor"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth={2}
+                                                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                            />
+                                        </svg>
+                                    </>
+                                ) : (
+                                    <>
+                                        <p className="w-full">Are you sure you want to delete {data.name}?</p>
+                                        <Button onClick={() => deleteCompetition()}>Yes</Button>
+                                        <Button onClick={() => setValidateDelete(false)}>No</Button>
+                                    </>
+                                )}
+                            </div>
+                        ) : (
+                            <div key="off">
+                                <button
+                                    onClick={() => setValidateDelete(true)}
+                                    className="float-right px-8 py-3 text-white transition-all duration-150 bg-red-400 dark:bg-red-600 rounded-lg hover:bg-red-900"
                                 >
-                                    {isDeleting ? (
-                                        <>
-                                            <svg
-                                                className="w-full h-5 my-4 text-center text-red-800 dark:text-red-300 animate-bounce"
-                                                xmlns="http://www.w3.org/2000/svg"
-                                                fill="none"
-                                                viewBox="0 0 24 24"
-                                                stroke="currentColor"
-                                            >
-                                                <path
-                                                    strokeLinecap="round"
-                                                    strokeLinejoin="round"
-                                                    strokeWidth={2}
-                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                                />
-                                            </svg>
-                                        </>
-                                    ) : (
-                                        <>
-                                            <p className="w-full">Are you sure you want to delete {data.name}?</p>
-                                            <Button onClick={() => deleteCompetition()}>Yes</Button>
-                                            <Button onClick={() => setValidateDelete(false)}>No</Button>
-                                        </>
-                                    )}
-                                </motion.div>
-                            ) : (
-                                <motion.div
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                    key="off"
+                                    Delete
+                                </button>
+                                <a
+                                    href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
+                                        data.id
+                                    }/download`}
+                                    className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 dark:bg-blue-600 rounded-lg hover:bg-blue-900"
                                 >
-                                    <button
-                                        onClick={() => setValidateDelete(true)}
-                                        className="float-right px-8 py-3 text-white transition-all duration-150 bg-red-400 dark:bg-red-600 rounded-lg hover:bg-red-900"
-                                    >
-                                        Delete
-                                    </button>
-                                    <a
-                                        href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
-                                            data.id
-                                        }/download`}
-                                        className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 dark:bg-blue-600 rounded-lg hover:bg-blue-900"
-                                    >
-                                        Download all entries
-                                    </a>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                                    Download all entries
+                                </a>
+                            </div>
+                        )}
                     </section>
                 )}
             </aside>

@@ -1,79 +1,37 @@
-import React from 'react';
-import { Outlet, RouteObject } from 'react-router-dom';
-import { App } from './components/App';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import Auth from './views/Auth';
-import CompetitionAdminCreate from './views/CompetitionAdminCreate';
-import CompetitionAdminDetails from './views/CompetitionAdminDetails';
-import CompetitionAdminEdit from './views/CompetitionAdminEdit';
-import CompetitionAdminEntry from './views/CompetitionAdminEntry';
-import CompetitionAdminOverview from './views/CompetitionAdminOverview';
-import CompetitionAdminResults from './views/CompetitionAdminResults';
-import CompetitionDetails from './views/CompetitionDetails';
-import CompetitionsOverview from './views/CompetitionOverview';
-import CompetitionRegistration from './views/CompetitionRegistration';
-import CompetitionVote from './views/CompetitionVote';
-import CompetitionVoteOverview from './views/CompetitionVoteOverview';
-import { Logout } from './views/Logout';
-import Preferences from './views/Preferences';
+import React from "react";
+import type { RouteObject } from "react-router-dom";
+import { App } from "./components/App";
+import { ProtectedRoute } from "./components/ProtectedRoute";
+import Auth from "./views/Auth";
+import CompetitionAdminOverview from "./features/competitionAdmin/views/CompetitionAdminOverview";
+import CompetitionDetails from "./views/CompetitionDetails";
+import CompetitionsOverview from "./views/CompetitionOverview";
+import CompetitionRegistration from "./views/CompetitionRegistration";
+import CompetitionVote from "./views/CompetitionVote";
+import CompetitionVoteOverview from "./views/CompetitionVoteOverview";
+import { Logout } from "./views/Logout";
+import Preferences from "./views/Preferences";
+import { competitionAdminRoutes } from "./features/competitionAdmin";
 
 export const routeConfig: RouteObject[] = [
     {
-        path: '/',
+        path: "/",
         element: <App />,
         children: [
             {
                 index: true,
                 element: <CompetitionsOverview />,
             },
+            competitionAdminRoutes,
             {
-                path: 'admin/competitions',
-                element: (
-                    <ProtectedRoute requiredRole="crew">
-                        <Outlet />
-                    </ProtectedRoute>
-                ),
-                children: [
-                    {
-                        index: true,
-                        element: <CompetitionAdminOverview />,
-                    },
-                    {
-                        path: 'new',
-                        element: <CompetitionAdminCreate />,
-                    },
-                    {
-                        path: ':id',
-                        children: [
-                            {
-                                index: true,
-                                element: <CompetitionAdminDetails />,
-                            },
-                            {
-                                path: 'edit',
-                                element: <CompetitionAdminEdit />,
-                            },
-                            {
-                                path: 'results',
-                                element: <CompetitionAdminResults />,
-                            },
-                            {
-                                path: ':eid',
-                                element: <CompetitionAdminEntry />,
-                            },
-                        ],
-                    },
-                ],
-            },
-            {
-                path: 'competitions/:id',
+                path: "competitions/:id",
                 children: [
                     {
                         index: true,
                         element: <CompetitionDetails />,
                     },
                     {
-                        path: 'vote',
+                        path: "vote",
                         element: (
                             <ProtectedRoute>
                                 <CompetitionVote />
@@ -81,7 +39,7 @@ export const routeConfig: RouteObject[] = [
                         ),
                     },
                     {
-                        path: 'register',
+                        path: "register",
                         element: (
                             <ProtectedRoute>
                                 <CompetitionRegistration />
@@ -90,9 +48,9 @@ export const routeConfig: RouteObject[] = [
                     },
                 ],
             },
-            { path: 'vote', element: <CompetitionVoteOverview /> },
+            { path: "vote", element: <CompetitionVoteOverview /> },
             {
-                path: 'preferences',
+                path: "preferences",
                 element: (
                     <ProtectedRoute>
                         <Preferences />
@@ -100,11 +58,11 @@ export const routeConfig: RouteObject[] = [
                 ),
             },
             {
-                path: 'login',
+                path: "login",
                 element: <Auth />,
             },
             {
-                path: 'logout',
+                path: "logout",
                 element: <Logout />,
             },
         ],

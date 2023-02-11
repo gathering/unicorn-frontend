@@ -20,7 +20,6 @@ initialDate.setMinutes(0, 0, 0);
 
 export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
     const { register, formState, handleSubmit, control, watch } = useFormContext();
-    console.log(watch());
 
     const onSubmit = () => {
         onForward();

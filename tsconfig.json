@@ -2,8 +2,14 @@
     "compilerOptions": {
         "module": "ESNext",
         "target": "ESNext",
-        "lib": ["DOM", "DOM.Iterable", "ESNext"],
-        "types": ["vite/client"],
+        "lib": [
+            "DOM",
+            "DOM.Iterable",
+            "ESNext"
+        ],
+        "types": [
+            "vite/client"
+        ],
         "moduleResolution": "node",
         "jsx": "preserve",
         "baseUrl": "./",
@@ -13,7 +19,14 @@
         "forceConsistentCasingInFileNames": true,
         "resolveJsonModule": true,
         "allowSyntheticDefaultImports": true,
-        "importsNotUsedAsValues": "error"
+        "importsNotUsedAsValues": "error",
+        "paths": {
+            "@*": [
+                "./src/*"
+            ],
+        }
     },
-    "include": ["./src"]
+    "include": [
+        "./src"
+    ]
 }

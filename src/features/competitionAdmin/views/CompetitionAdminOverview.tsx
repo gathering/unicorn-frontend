@@ -1,14 +1,14 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import useSWR from 'swr';
-import { View } from '../components/View';
-import { Link } from '../components/Link';
-import type { ICompetition, ICompetitionListResponse } from '../features/competitions/competition';
-import { httpGet, httpPatch } from '../utils/fetcher';
-import { parseError } from '../utils/error';
+import React from "react";
+import { toast } from "react-toastify";
+import useSWR from "swr";
+import { View } from "../../../components/View";
+import { Link } from "../../../components/Link";
+import type { ICompetition, ICompetitionListResponse } from "../../competitions/competition";
+import { httpGet, httpPatch } from "../../../utils/fetcher";
+import { parseError } from "../../../utils/error";
 
 const CompetitionAdminOverview = () => {
-    const { data: competitions, mutate } = useSWR<ICompetitionListResponse>('competitions/competitions', httpGet);
+    const { data: competitions, mutate } = useSWR<ICompetitionListResponse>("competitions/competitions", httpGet);
 
     const togglePublish = (c: ICompetition) => () => {
         httpPatch(`competitions/competitions/${c.id}`, JSON.stringify({ published: !c.published }))
@@ -77,7 +77,7 @@ const CompetitionAdminOverview = () => {
                                         <dd className="hidden mt-1 truncate text-gray-500 sm:block">{c.state.label}</dd>
                                         <dt className="sr-only hidden sm:block">Status</dt>
                                         <dd className="hidden mt-1 truncate text-gray-500 dark:text-gray-400 sm:block">
-                                            {c.published ? 'Published' : 'Not published'}
+                                            {c.published ? "Published" : "Not published"}
                                         </dd>
                                     </dl>
                                 </td>
@@ -90,10 +90,10 @@ const CompetitionAdminOverview = () => {
                                     {c.state.label}
                                 </td>
                                 <td className="sm:hidden px-3 py-4 text-sm text-gray-700 dark:text-gray-100 table-cell">
-                                    {c.published ? 'Published' : 'Not published'}
+                                    {c.published ? "Published" : "Not published"}
                                 </td>
                                 <td className="sm:hidden px-3 py-4 text-sm text-gray-700 table-cell">
-                                    {c.vote_time_start && new Date(c.vote_time_start).toLocaleString('nb-NO')}
+                                    {c.vote_time_start && new Date(c.vote_time_start).toLocaleString("nb-NO")}
                                 </td>
                                 <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                                     <Link to={`/admin/competitions/${c.id}`} className="mr-6">

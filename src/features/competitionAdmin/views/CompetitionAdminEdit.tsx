@@ -5,17 +5,17 @@ import DatePicker from "react-datepicker";
 import { ContentState, convertToRaw, RawDraftContentState } from "draft-js";
 import useSWR from "swr";
 import { toast } from "react-toastify";
-import { httpGet, httpPut } from "../utils/fetcher";
-import { View } from "../components/View";
-import { Input } from "../components/Input";
-import { Wysiwyg } from "../components/Wysiwyg";
-import type { ICompetition } from "../features/competitions/competition";
-import { PrizeEdit } from "../features/competitions/PrizeEdit";
-import { CompetitionLinksEdit } from "../features/competitions/CompetitionLinksEdit";
-import { parseError } from "../utils/error";
-import { FileEdit } from "../features/competitions/FileEdit";
+import { httpGet, httpPut } from "@utils/fetcher";
+import { View } from "@components/View";
+import { Input } from "@components/Input";
+import { Wysiwyg } from "@components/Wysiwyg";
+import type { ICompetition } from "@features/competitions/competition";
+import { PrizeEdit } from "@features/competitions/PrizeEdit";
+import { CompetitionLinksEdit } from "@features/competitions/CompetitionLinksEdit";
+import { parseError } from "@utils/error";
+import { FileEdit } from "@features/competitions/FileEdit";
 import "react-datepicker/dist/react-datepicker.css";
-import { Select } from "../components/Select";
+import { Select } from "@components/Select";
 
 const CompetitionAdminEdit = () => {
     const { id } = useParams<{ id: string }>();
