@@ -3,8 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import * as Sentry from "@sentry/react";
 import { ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
-import { useUserState } from "../../context/Auth";
-import { ErrorBoundary } from "../ErrorBoundary";
+import { useUserState } from "./context/Auth";
+import { ErrorBoundary } from "./components/ErrorBoundary";
 import "react-toastify/dist/ReactToastify.css";
 
 Sentry.init({

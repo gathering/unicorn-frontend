@@ -1,9 +1,8 @@
 import React from "react";
 import type { RouteObject } from "react-router-dom";
-import { App } from "./components/App";
+import { App } from "./App";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import Auth from "./views/Auth";
-import CompetitionAdminOverview from "./features/competitionAdmin/views/CompetitionAdminOverview";
 import CompetitionDetails from "./views/CompetitionDetails";
 import CompetitionsOverview from "./views/CompetitionOverview";
 import CompetitionRegistration from "./views/CompetitionRegistration";
