@@ -2,7 +2,7 @@ import React, { createContext, useContext, useEffect, useReducer } from 'react';
 import cookie from 'js-cookie';
 import dayjs from 'dayjs';
 import useSWR from 'swr';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { httpGet, loginWithCode, loginWithRefreshToken } from '../utils/fetcher';
 import type { Permission } from '../utils/permissions';
 
@@ -209,7 +209,7 @@ export const useUserDispatch = () => {
 
 export const useLogin = (code: string | null) => {
     const dispatch = useUserDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const { tokenFetchStatus } = useUserState();
 
     useEffect(() => {
@@ -230,7 +230,7 @@ export const useLogin = (code: string | null) => {
 
                 dispatch({ type: 'SET_FETCH_STATUS', status: 'resolved' });
                 dispatch({ type: 'SET_ACCESS_TOKEN', token: d.access_token });
-                history.push('/');
+                navigate('/');
             })
             .catch((e) => {
                 dispatch({ type: 'SET_FETCH_STATUS', status: 'rejected' });

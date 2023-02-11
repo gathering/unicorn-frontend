@@ -1,12 +1,12 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useUserDispatch } from '../context/Auth';
 
 export const Logout = () => {
     const dispatch = useUserDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     dispatch({ type: 'LOGOUT' });
-    history.push('/');
+    navigate('/');
 
     return null;
 };

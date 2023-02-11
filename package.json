@@ -47,7 +47,7 @@
         "react-draft": "^0.0.0",
         "react-draft-wysiwyg": "^1.15.0",
         "react-hook-form": "^6.15.1",
-        "react-router-dom": "^5.2.0",
+        "react-router-dom": "^6.8.1",
         "react-toastify": "^7.0.3",
         "styled-components": "^5.3.6",
         "swr": "^2.0.3",

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Controller, useFormContext } from 'react-hook-form';
 import DatePicker from 'react-datepicker';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-datepicker/dist/react-datepicker.css';
 import { Genre } from '../competition.d';
@@ -22,7 +22,7 @@ interface IProps {
 
 export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
     const { register, errors, control, handleSubmit } = useFormContext();
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const onSubmit = (formData: any) => {
         httpPost<ICompetition>(
@@ -40,7 +40,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
             })
         )
             .then((d) => {
-                history.push(`/admin/competitions/${d.id}`);
+                navigate(`/admin/competitions/${d.id}`);
                 toast.success(`Created competition ${d.name}`);
             })
             .catch((err) => {

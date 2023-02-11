@@ -1,12 +1,12 @@
 import React, { useContext, useEffect, useMemo } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useLogin } from '../context/Auth';
 import { View } from '../components/View';
 
 const Auth = () => {
     const { search } = useLocation<{ code?: string }>();
     const s = new URLSearchParams(search);
-    const history = useHistory();
+    const navigate = useNavigate();
 
     const authorizationCode = useMemo(() => {
         if (!s.has('code')) {
@@ -19,7 +19,7 @@ const Auth = () => {
     useLogin(authorizationCode);
 
     if (!s.has('code')) {
-        history.replace('/');
+        navigate('/', { replace: true });
     }
 
     return <View>Logging in</View>;

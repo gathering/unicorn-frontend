@@ -1,15 +1,17 @@
 import React, { useMemo } from 'react';
-import { Route } from 'react-router-dom';
-import type { RouteProps } from 'react-router-dom';
 import { useUserState } from '../../context/Auth';
 import { hasPermission as objectHasPermission, Permission } from '../../utils/permissions';
 
-interface Props extends RouteProps {
+interface Props {
     requiredRole?: 'crew' | 'particpant' | 'jury' | 'anon' | 'other';
     requiredPermission?: Permission | Permission[];
 }
 
-export const ProtectedRoute = ({ requiredRole, requiredPermission, ...rest }: Props) => {
+export const ProtectedRoute: React.FC<React.PropsWithChildren<Props>> = ({
+    requiredRole,
+    requiredPermission,
+    children,
+}) => {
     const { user, permissions } = useUserState();
 
     const hasRole = useMemo(() => {
@@ -40,5 +42,5 @@ export const ProtectedRoute = ({ requiredRole, requiredPermission, ...rest }: Pr
         return null;
     }
 
-    return <Route {...rest} />;
+    return <>{children}</>;
 };

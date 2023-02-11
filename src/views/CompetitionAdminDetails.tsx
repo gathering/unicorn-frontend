@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useHistory, useLocation, useParams } from 'react-router';
+import { useNavigate, useLocation, useParams } from 'react-router';
 import useSWR from 'swr';
 import styled from 'styled-components';
 import { toast } from 'react-toastify';
@@ -52,7 +52,7 @@ const entryStateColors = [
 ];
 
 const CompetitionAdminDetails = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const { id } = useParams<{ id: string }>();
     const { data, mutate } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
     const [isUpdatingPublished, setIsUpdatingPublished] = useState<string>();
@@ -93,7 +93,7 @@ const CompetitionAdminDetails = () => {
         httpDelete(`competitions/competitions/${data.id}`)
             .then(() => {
                 toast.success('Deleted competition');
-                history.push('/admin/competitions');
+                navigate('/admin/competitions');
             })
             .catch((err) => {
                 parseError(err).forEach((e: any) => toast.error(e));
