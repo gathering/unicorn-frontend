@@ -1,9 +1,9 @@
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import useSWR from 'swr';
-import { httpGet } from '../../../utils/fetcher';
-import { Select } from '../../../components/Select';
-import type { Genre, IGenreResponse } from '../competition';
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import useSWR from "swr";
+import { httpGet } from "../../../utils/fetcher";
+import { Select } from "../../../components/Select";
+import type { Genre, IGenreResponse } from "../competition";
 
 interface IProps {
     onForward: () => void;
@@ -12,8 +12,8 @@ interface IProps {
 }
 
 export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
-    const { data: genres } = useSWR<IGenreResponse>('competitions/genres', httpGet);
-    const { errors, handleSubmit, control, register } = useFormContext();
+    const { data: genres } = useSWR<IGenreResponse>("competitions/genres", httpGet);
+    const { errors, handleSubmit, control } = useFormContext();
 
     const onSubmit = () => {
         onForward();
@@ -24,7 +24,7 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
             <>
                 <h1 className="mb-8 text-3xl">Create new competition</h1>
                 <p className="mb-10 text-gray-700 dark:text-gray-200">
-                    No available genres found... Please contact the administrators to set up genres.
+                    No available genres found... Please contact the administrators to configure genres.
                 </p>
             </>
         );
@@ -42,21 +42,17 @@ export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
                 <Controller
                     control={control}
                     name="genre"
-                    defaultValue="__default_value__"
-                    rules={{ validate: (v) => v !== '__default_value__' || 'You must select a genre' }}
+                    rules={{ required: "You must select a genre" }}
                     render={({ onChange, value }) => (
                         <>
                             <Select
                                 label="Select genre"
-                                options={[
-                                    { name: 'Choose a genre', id: '__default_value__' },
-                                    ...(genres?.results || []),
-                                ].map((g) => ({
+                                options={[...(genres?.results ?? [])].map((g) => ({
                                     label: g.name,
-                                    value: g.id,
+                                    value: g.id.toString(),
                                 }))}
-                                onChange={onChange}
-                                value={value}
+                                onChange={(e) => onChange(Number(e))}
+                                value={value?.toString() ?? ""}
                             />
                             {errors.genre?.message && (
                                 <label className="flex items-center mt-1 text-red-600 dark:text-red-400">

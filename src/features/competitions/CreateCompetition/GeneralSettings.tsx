@@ -1,13 +1,13 @@
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import { EditorState, convertToRaw } from 'draft-js';
-import DatePicker from 'react-datepicker';
-import { addHours, addWeeks } from 'date-fns';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Input } from '../../../components/Input';
-import { Wysiwyg } from '../../../components/Wysiwyg/Wysiwyg';
-import type { Genre } from '../competition';
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import { EditorState, convertToRaw } from "draft-js";
+import DatePicker from "react-datepicker";
+import { addHours, addWeeks } from "date-fns";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import "react-datepicker/dist/react-datepicker.css";
+import { Input } from "../../../components/Input";
+import { Wysiwyg } from "../../../components/Wysiwyg/Wysiwyg";
+import type { Genre } from "../competition";
 
 interface IProps {
     onForward: () => void;
@@ -20,6 +20,7 @@ initialDate.setMinutes(0, 0, 0);
 
 export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
     const { register, errors, handleSubmit, control, watch } = useFormContext();
+    console.log(watch());
 
     const onSubmit = () => {
         onForward();
@@ -39,7 +40,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     name="name"
                     label="Competition title"
                     className="mb-6 w-full"
-                    ref={register({ required: 'You need to give the competition a title' })}
+                    ref={register({ required: "You need to give the competition a title" })}
                     errorLabel={errors.name?.message}
                 />
 
@@ -48,9 +49,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     label="Brief description"
                     className="mb-6 w-full"
                     ref={register({
-                        required: 'You need to give the competition a short teasing description',
+                        required: "You need to give the competition a short teasing description",
                         maxLength: {
-                            message: 'The length is limited to 40 characters. This should only be a short tease',
+                            message: "The length is limited to 40 characters. This should only be a short tease",
                             value: 40,
                         },
                     })}
@@ -61,7 +62,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     control={control}
                     name="run_time_start"
                     rules={{
-                        required: 'You must give the competition a start time',
+                        required: "You must give the competition a start time",
                     }}
                     defaultValue={initialDate}
                     render={({ value, ...props }) => (
@@ -80,15 +81,15 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                             )}
                             <div className="block">
                                 <DatePicker
-                                    ariaLabelledBy={'runtime-start'}
+                                    ariaLabelledBy={"runtime-start"}
                                     selected={value}
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
                                     className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
                                         errors.run_time_start
-                                            ? 'text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border'
-                                            : ''
+                                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                            : ""
                                     }`}
                                     showTimeInput
                                 />
@@ -102,7 +103,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     name="run_time_end"
                     defaultValue={addWeeks(initialDate, 1)}
                     rules={{
-                        required: 'You must give the competition an end time',
+                        required: "You must give the competition an end time",
                     }}
                     render={({ value, ...props }) => (
                         <>
@@ -120,15 +121,15 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                             )}
                             <div className="block">
                                 <DatePicker
-                                    ariaLabelledBy={'runtime-end'}
+                                    ariaLabelledBy={"runtime-end"}
                                     selected={value}
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
                                     className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
                                         errors.run_time_end
-                                            ? 'text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border'
-                                            : ''
+                                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                            : ""
                                     }`}
                                     showTimeInput
                                 />
@@ -141,7 +142,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     control={control}
                     name="description"
                     rules={{
-                        required: 'You must write a description for the competition',
+                        required: "You must write a description for the competition",
                     }}
                     defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
                     render={({ onChange, value }) => (
@@ -158,7 +159,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     control={control}
                     name="rules"
                     rules={{
-                        required: 'You must write a ruleset for the competition',
+                        required: "You must write a ruleset for the competition",
                     }}
                     defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
                     render={({ onChange, value }) => (
@@ -174,7 +175,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     label="Poster image URL"
                     type="url"
-                    ref={register({ required: 'You must add a poster for the competition' })}
+                    ref={register({ required: "You must add a poster for the competition" })}
                     name="header_image"
                     errorLabel={errors.header_image?.message}
                     className="mb-6 w-full"
@@ -183,7 +184,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     label="Poster image credits"
                     ref={register({
-                        required: 'You must credit the poster',
+                        required: "You must credit the poster",
                     })}
                     name="header_credit"
                     errorLabel={errors.header_credit?.message}

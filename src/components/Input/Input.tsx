@@ -1,9 +1,9 @@
-import React, { forwardRef } from 'react';
-import { useId } from '@reach/auto-id';
-import VisuallyHidden from '@reach/visually-hidden';
-import styled from 'styled-components';
+import React, { forwardRef } from "react";
+import { useId } from "@reach/auto-id";
+import VisuallyHidden from "@reach/visually-hidden";
+import styled from "styled-components";
 
-interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     errorLabel?: string;
     label?: string;
@@ -24,17 +24,15 @@ const Wrapper = styled.input`
 export const Input = forwardRef<HTMLInputElement, IProps>(
     (
         {
-            type = 'text',
+            type = "text",
             placeholder,
-            value,
-            onChange,
             label,
             className,
             errorLabel,
             helpLabel,
             id,
             labelClassName,
-            ariaLabelledBy = '',
+            ariaLabelledBy = "",
             fullWidth = false,
             ...inputProps
         },
@@ -47,7 +45,7 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
         return (
             <>
                 {label ? (
-                    <Label id={labelId + '-label'} className={labelClassName ?? 'mb-1 dark:text-gray-100'}>
+                    <Label id={labelId + "-label"} className={labelClassName ?? "mb-1 dark:text-gray-100"}>
                         {label}
                     </Label>
                 ) : (
@@ -60,19 +58,17 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                 )}
                 <Wrapper
                     className={`block px-4 h-12 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded focus:outline-none focus:bg-white dark:focus:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:border-gray-500 ${
-                        className ? className : ''
+                        className ? className : ""
                     } ${
                         errorLabel
-                            ? 'text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border'
-                            : ''
+                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                            : ""
                     }
-                    ${fullWidth ? 'w-full' : ''}`}
-                    aria-labelledby={`${labelId}-label ${ariaLabelledBy} ${helpLabel ? helpLabelId : ''}`}
+                    ${fullWidth ? "w-full" : ""}`}
+                    aria-labelledby={`${labelId}-label ${ariaLabelledBy} ${helpLabel ? helpLabelId : ""}`}
                     type={type}
                     placeholder={placeholder}
                     aria-describedby={errorLabel ? errorLabelId : undefined}
-                    value={value}
-                    onChange={onChange}
                     ref={ref}
                     {...inputProps}
                 />

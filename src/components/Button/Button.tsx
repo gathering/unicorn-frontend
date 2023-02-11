@@ -1,15 +1,16 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     loading?: string;
 }
 
-export const Button: React.FC<Props> = ({ loading, children, className, ...props }) => {
+export const Button = React.forwardRef<HTMLButtonElement, Props>(({ loading, children, className, ...props }, ref) => {
     return (
         <button
             className={`p-1 px-2 mx-4 flex items-center text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500 ${
-                className ?? ''
+                className ?? ""
             }`}
+            ref={ref}
             {...props}
         >
             {loading ? (
@@ -41,4 +42,4 @@ export const Button: React.FC<Props> = ({ loading, children, className, ...props
             )}
         </button>
     );
-};
+});

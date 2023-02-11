@@ -1,13 +1,10 @@
-import React from 'react';
-import { ListboxOption, ListboxInput, ListboxButton, ListboxPopover, ListboxList } from '@reach/listbox';
-import type { ListboxValue } from '@reach/listbox';
-import { useId } from '@reach/auto-id';
-import VisuallyHidden from '@reach/visually-hidden';
-import styled from 'styled-components';
+import React from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
 
 interface IOptions {
     label: string;
-    value: string | number;
+    value: string;
 }
 
 interface IProps {
@@ -15,76 +12,64 @@ interface IProps {
     placeholder?: string;
     label?: string;
     value: string;
-    onChange: (newValue: ListboxValue) => void;
+    onChange: (newValue: string) => void;
 }
 
-const Wrapper = styled.div`
-    min-width: 238px;
-`;
-
 export const Select = ({ options, placeholder, label, value, onChange }: IProps) => {
-    let labelId = `unicorn-select--${useId()}`;
+    const currentValueLabel = options.find((option) => option.value === value)?.label;
 
     return (
-        <Wrapper>
-            {label ? (
-                <label id={labelId} className="dark:text-gray-100">
-                    {label}
-                </label>
-            ) : (
-                <VisuallyHidden id={labelId}>{placeholder}</VisuallyHidden>
-            )}
-            <ListboxInput aria-labelledby={labelId} value={value} onChange={(value) => onChange(value)}>
-                <ListboxButton className="flex items-center justify-between w-full h-12 px-4 text-base duration-150 bg-white dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100 rounded hover:shadow">
-                    {({ label: optionLabel, value, isExpanded }) => (
-                        <>
-                            <span className={value ? '' : 'text-gray-600 dark:text-gray-400'}>
-                                {value ? optionLabel : placeholder}
-                            </span>
-                            {isExpanded ? (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="w-5 h-5"
+        <div className="w-72">
+            <Listbox value={value} onChange={onChange}>
+                <div className="relative mt-1">
+                    <Listbox.Label>{label}</Listbox.Label>
+
+                    <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 h-11 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                        <span className="block truncate">{currentValueLabel ?? placeholder}</span>
+                        <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                            <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                        </span>
+                    </Listbox.Button>
+                    <Transition
+                        as={React.Fragment}
+                        leave="transition ease-in duration-100"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                            {options.map((option) => (
+                                <Listbox.Option
+                                    key={option.value}
+                                    className={({ active }) =>
+                                        `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                                            active ? "bg-amber-100 text-amber-900" : "text-gray-900"
+                                        }`
+                                    }
+                                    value={option.value}
                                 >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            ) : (
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="w-5 h-5"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-                            )}
-                        </>
-                    )}
-                </ListboxButton>
-                <ListboxPopover className="w-48 mt-2 bg-white dark:bg-gray-800  rounded shadow-lg">
-                    <ListboxList>
-                        {options.map((option) => (
-                            <ListboxOption
-                                key={option.value}
-                                className="px-4 py-2 hover:bg-indigo-500 dark:text-gray-100 hover:text-white hover:cursor-pointer"
-                                value={option.value.toString()}
-                            >
-                                {option.label}
-                            </ListboxOption>
-                        ))}
-                    </ListboxList>
-                </ListboxPopover>
-            </ListboxInput>
-        </Wrapper>
+                                    {({ selected }) => (
+                                        <>
+                                            <span
+                                                className={`block truncate ${selected ? "font-medium" : "font-normal"}`}
+                                            >
+                                                {option.label}
+                                            </span>
+                                            {selected ? (
+                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                                                    <CheckIcon
+                                                        className="h-5 w-5 to-tg-brand-orange-500"
+                                                        aria-hidden="true"
+                                                    />
+                                                </span>
+                                            ) : null}
+                                        </>
+                                    )}
+                                </Listbox.Option>
+                            ))}
+                        </Listbox.Options>
+                    </Transition>
+                </div>
+            </Listbox>
+        </div>
     );
 };
