@@ -1,61 +1,28 @@
-import React, { useMemo } from 'react';
-import { BrowserRouter, Link, Outlet, Route, Routes } from 'react-router-dom';
-import * as Sentry from '@sentry/react';
-import { ToastContainer } from 'react-toastify';
-import { motion } from 'framer-motion';
-import CompetitionDetails from '../../views/CompetitionDetails';
-import CompetitionsOverview from '../../views/CompetitionOverview';
-import CompetitionRegistration from '../../views/CompetitionRegistration';
-import CompetitionAdminOverview from '../../views/CompetitionAdminOverview';
-import CompetitionAdminCreate from '../../views/CompetitionAdminCreate';
-import CompetitionAdminDetails from '../../views/CompetitionAdminDetails';
-import CompetitionAdminEdit from '../../views/CompetitionAdminEdit';
-import CompetitionAdminEntry from '../../views/CompetitionAdminEntry';
-import CompetitionAdminResults from '../../views/CompetitionAdminResults';
-import CompetitionVoteOverview from '../../views/CompetitionVoteOverview';
-import CompetitionVote from '../../views/CompetitionVote';
-import Preferences from '../../views/Preferences';
-import { ProtectedRoute } from '../ProtectedRoute';
-import { useUserState } from '../../context/Auth';
-import { ErrorBoundary } from '../ErrorBoundary';
-import { Logout } from '../../views/Logout';
-import Auth from '../../views/Auth';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useMemo } from "react";
+import { Link, Outlet } from "react-router-dom";
+import * as Sentry from "@sentry/react";
+import { ToastContainer } from "react-toastify";
+import { motion } from "framer-motion";
+import { useUserState } from "../../context/Auth";
+import { ErrorBoundary } from "../ErrorBoundary";
+import "react-toastify/dist/ReactToastify.css";
 
 Sentry.init({
-    dsn: 'https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132',
+    dsn: "https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132",
     environment: import.meta.env.MODE,
+    integrations: [new Sentry.Integrations.Breadcrumbs({ console: false })],
 });
 
 const App = () => {
     const { user, accessToken } = useUserState();
     const loginUrl = useMemo(() => {
-        const url = new URL(import.meta.env.VITE_APP_API + '/oauth/authorize/');
-        url.searchParams.append('client_id', import.meta.env.VITE_APP_CLIENT_ID as string);
-        url.searchParams.append('response_type', 'code');
-        url.searchParams.append('redirect_uri', window.location.origin + '/login');
+        const url = new URL(import.meta.env.VITE_APP_API + "/oauth/authorize/");
+        url.searchParams.append("client_id", import.meta.env.VITE_APP_CLIENT_ID as string);
+        url.searchParams.append("response_type", "code");
+        url.searchParams.append("redirect_uri", window.location.origin + "/login");
 
         return url.toString();
     }, []);
-
-    const cogwheelMotion = {
-        rest: {
-            opacity: 0,
-            x: '25px',
-            transition: {
-                ease: 'easeOut',
-                bounce: 0,
-                duration: 0.15,
-            },
-        },
-        hover: {
-            opacity: 1,
-            x: '0px',
-            transition: {
-                ease: 'easeIn',
-            },
-        },
-    };
 
     return (
         <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>

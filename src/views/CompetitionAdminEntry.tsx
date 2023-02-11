@@ -261,20 +261,18 @@ const CompetitionAdminEntry = () => {
                 <p>A reason is required if this is not a result of not being preselected.</p>
                 <form onSubmit={handleSubmit(handleDisqualify)}>
                     <label className="block mt-6">
-                        <input name="preselect" type="checkbox" className="mr-2" ref={register()} />
+                        <input {...register('preselect')} type="checkbox" className="mr-2" />
                         Not preselected
                     </label>
 
                     {preselect !== true && (
                         <Input
-                            name="comment"
-                            ref={register({ required: 'You need to give the participant a reason' })}
+                            {...register('comment', { required: 'You need to give the participant a reason' })}
                             label="Disqualification reason"
                             helpLabel="This will be displayed to the participant"
                             labelClassName="mt-5"
                             className="w-full"
-                            errorLabel={errors.comment?.message}
-                        />
+                            errorLabel={errors.comment?.message} />
                     )}
 
                     <PrimaryButton className="mt-4">Submit</PrimaryButton>

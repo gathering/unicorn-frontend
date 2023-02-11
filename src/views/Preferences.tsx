@@ -79,13 +79,11 @@ const Preferences = () => {
                     <legend className="mb-4 text-xl">How do you want to be presented?</legend>
                     <Input
                         label="Nick"
-                        name="username"
-                        ref={register({
+                        {...register('username', {
                             required: 'You have to choose a nick name',
                         })}
                         errorLabel={errors.username?.message}
-                        className="mb-4"
-                    />
+                        className="mb-4" />
                     <Controller
                         control={control}
                         name="display_name_format"

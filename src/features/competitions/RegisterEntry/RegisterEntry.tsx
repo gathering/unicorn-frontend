@@ -139,11 +139,9 @@ export const RegisterEntry = ({
                         {registrationType === FormType.TEAM_ONLY ? (
                             <Input
                                 fullWidth
-                                name="title"
+                                {...register('title', { required: 'You have to give your team a name' })}
                                 label="Team name"
-                                ref={register({ required: 'You have to give your team a name' })}
-                                errorLabel={errors.title?.message}
-                            />
+                                errorLabel={errors.title?.message} />
                         ) : registrationType === FormType.UPLOAD_TEAM ? (
                             <Controller
                                 control={control}
@@ -155,11 +153,9 @@ export const RegisterEntry = ({
                             <>
                                 <Input
                                     fullWidth
-                                    name="title"
+                                    {...register('title', { required: 'You have to give your entry a title' })}
                                     label="Entry Title"
-                                    ref={register({ required: 'You have to give your entry a title' })}
-                                    errorLabel={errors.title?.message}
-                                />
+                                    errorLabel={errors.title?.message} />
                                 {!exists && (
                                     <p className="pt-2 text-gray-700">
                                         After giving your entry a title and clicking Register, you will be able to
@@ -197,12 +193,7 @@ export const RegisterEntry = ({
                                         </Link>
                                         .
                                     </p>
-                                    <Input
-                                        fullWidth
-                                        name="crew_msg"
-                                        label="Message to crew (optional)"
-                                        ref={register()}
-                                    />
+                                    <Input fullWidth {...register('crew_msg')} label="Message to crew (optional)" />
                                 </fieldset>
                             </div>
                         </>

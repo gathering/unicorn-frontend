@@ -19,7 +19,7 @@ const initialDate = addHours(new Date(), 1);
 initialDate.setMinutes(0, 0, 0);
 
 export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
-    const { register, errors, handleSubmit, control, watch } = useFormContext();
+    const { register, formState, handleSubmit, control, watch } = useFormContext();
     console.log(watch());
 
     const onSubmit = () => {
@@ -37,25 +37,23 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
-                    name="name"
+                    {...register("name", { required: "You need to give the competition a title" })}
                     label="Competition title"
                     className="mb-6 w-full"
-                    ref={register({ required: "You need to give the competition a title" })}
-                    errorLabel={errors.name?.message}
+                    errorLabel={formState.errors.name?.message}
                 />
 
                 <Input
-                    name="brief_description"
-                    label="Brief description"
-                    className="mb-6 w-full"
-                    ref={register({
+                    {...register("brief_description", {
                         required: "You need to give the competition a short teasing description",
                         maxLength: {
                             message: "The length is limited to 40 characters. This should only be a short tease",
                             value: 40,
                         },
                     })}
-                    errorLabel={errors.brief_description?.message}
+                    label="Brief description"
+                    className="mb-6 w-full"
+                    errorLabel={formState.errors.brief_description?.message}
                 />
 
                 <Controller
@@ -65,37 +63,40 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         required: "You must give the competition a start time",
                     }}
                     defaultValue={initialDate}
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="runtime-start" className="dark:text-gray-100">
-                                Competition start time
-                            </label>
-                            {errors.run_time_start && (
-                                <label
-                                    role="alert"
-                                    className="block text-red-600 dark:text-red-400"
-                                    id="description-error-label"
-                                >
-                                    {errors.run_time_start.message}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="runtime-start" className="dark:text-gray-100">
+                                    Competition start time
                                 </label>
-                            )}
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={"runtime-start"}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
-                                        errors.run_time_start
-                                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
-                                            : ""
-                                    }`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                                {formState.errors.run_time_start && (
+                                    <label
+                                        role="alert"
+                                        className="block text-red-600 dark:text-red-400"
+                                        id="description-error-label"
+                                    >
+                                        {formState.errors.run_time_start.message}
+                                    </label>
+                                )}
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"runtime-start"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
+                                            formState.errors.run_time_start
+                                                ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                                : ""
+                                        }`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
@@ -105,37 +106,40 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     rules={{
                         required: "You must give the competition an end time",
                     }}
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="runtime-end" className="mt-6 dark:text-gray-100">
-                                Competition end time
-                            </label>
-                            {errors.run_time_end && (
-                                <label
-                                    role="alert"
-                                    className="block text-red-600 dark:text-red-400"
-                                    id="description-error-label"
-                                >
-                                    {errors.run_time_end.message}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="runtime-end" className="mt-6 dark:text-gray-100">
+                                    Competition end time
                                 </label>
-                            )}
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={"runtime-end"}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
-                                        errors.run_time_end
-                                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
-                                            : ""
-                                    }`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                                {formState.errors.run_time_end && (
+                                    <label
+                                        role="alert"
+                                        className="block text-red-600 dark:text-red-400"
+                                        id="description-error-label"
+                                    >
+                                        {formState.errors.run_time_end.message}
+                                    </label>
+                                )}
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"runtime-end"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
+                                            formState.errors.run_time_end
+                                                ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                                : ""
+                                        }`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
@@ -145,12 +149,12 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         required: "You must write a description for the competition",
                     }}
                     defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
-                    render={({ onChange, value }) => (
+                    render={({ field }) => (
                         <Wysiwyg
                             label="Competition description"
-                            onChange={onChange}
-                            defaultState={value}
-                            errorLabel={errors.description?.message}
+                            onChange={field.onChange}
+                            defaultState={field.value}
+                            errorLabel={formState.errors.description?.message}
                         />
                     )}
                 />
@@ -162,12 +166,12 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         required: "You must write a ruleset for the competition",
                     }}
                     defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
-                    render={({ onChange, value }) => (
+                    render={({ field }) => (
                         <Wysiwyg
                             label="Competition rules"
-                            errorLabel={errors.rules?.message}
-                            onChange={onChange}
-                            defaultState={value}
+                            errorLabel={formState.errors.rules?.message}
+                            onChange={field.onChange}
+                            defaultState={field.value}
                         />
                     )}
                 />
@@ -175,19 +179,17 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     label="Poster image URL"
                     type="url"
-                    ref={register({ required: "You must add a poster for the competition" })}
-                    name="header_image"
-                    errorLabel={errors.header_image?.message}
+                    {...register("header_image", { required: "You must add a poster for the competition" })}
+                    errorLabel={formState.errors.header_image?.message}
                     className="mb-6 w-full"
                 />
 
                 <Input
                     label="Poster image credits"
-                    ref={register({
+                    {...register("header_credit", {
                         required: "You must credit the poster",
                     })}
-                    name="header_credit"
-                    errorLabel={errors.header_credit?.message}
+                    errorLabel={formState.errors.header_credit?.message}
                     className="w-full"
                 />
 

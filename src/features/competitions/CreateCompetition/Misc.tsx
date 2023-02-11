@@ -1,18 +1,18 @@
-import React from 'react';
-import { Controller, useFormContext } from 'react-hook-form';
-import DatePicker from 'react-datepicker';
-import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import 'react-datepicker/dist/react-datepicker.css';
-import { Genre } from '../competition.d';
-import type { ICompetition } from '../competition';
-import { Input } from '../../../components/Input';
-import { httpPost } from '../../../utils/fetcher';
-import { parseError } from '../../../utils/error';
-import { PrizeEdit } from '../PrizeEdit';
-import { FileEdit } from '../FileEdit';
-import { CompetitionLinksEdit } from '../CompetitionLinksEdit/CompetitionLinksEdit';
-import { Select } from '../../../components/Select';
+import React from "react";
+import { Controller, useFormContext } from "react-hook-form";
+import DatePicker from "react-datepicker";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-datepicker/dist/react-datepicker.css";
+import { Genre } from "../competition.d";
+import type { ICompetition } from "../competition";
+import { Input } from "../../../components/Input";
+import { httpPost } from "../../../utils/fetcher";
+import { parseError } from "../../../utils/error";
+import { PrizeEdit } from "../PrizeEdit";
+import { FileEdit } from "../FileEdit";
+import { CompetitionLinksEdit } from "../CompetitionLinksEdit/CompetitionLinksEdit";
+import { Select } from "../../../components/Select";
 
 interface IProps {
     onForward: () => void;
@@ -21,15 +21,20 @@ interface IProps {
 }
 
 export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
-    const { register, errors, control, handleSubmit } = useFormContext();
+    const {
+        register,
+        formState: { errors },
+        control,
+        handleSubmit,
+    } = useFormContext();
     const navigate = useNavigate();
 
     const onSubmit = (formData: any) => {
         httpPost<ICompetition>(
-            'competitions/competitions',
+            "competitions/competitions",
             JSON.stringify({
                 ...Object.entries(formData).reduce((competitionObject, [key, value]) => {
-                    if (value !== '') {
+                    if (value !== "") {
                         competitionObject[key] = value;
                     }
 
@@ -44,7 +49,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                 toast.success(`Created competition ${d.name}`);
             })
             .catch((err) => {
-                toast.error('Error creating competition');
+                toast.error("Error creating competition");
                 parseError(err).forEach((e: any) => toast.error(e));
             });
     };
@@ -59,9 +64,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                     control={control}
                     name="prizes"
                     defaultValue={[]}
-                    render={({ onChange, value }) => (
-                        <PrizeEdit label="Prizes (optional)" onChange={onChange} value={value} className="mb-6" />
-                    )}
+                    render={({ field }) => <PrizeEdit label="Prizes (optional)" {...field} className="mb-6" />}
                 />
 
                 {[Genre.OTHER, Genre.CREATIVE].includes(Number(activeCategory)) ? (
@@ -70,100 +73,99 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                             control={control}
                             name="fileupload"
                             defaultValue={[]}
-                            render={({ onChange, value }) => (
-                                <FileEdit onChange={onChange} value={value} label="Upload files (optional)" />
-                            )}
+                            render={({ field }) => <FileEdit {...field} label="Upload files (optional)" />}
                         />
                         <Controller
                             control={control}
                             name="vote_time_start"
-                            render={({ value, ...props }) => (
-                                <>
-                                    <label id="votetime-start" className="block mt-6 mb-1">
-                                        Vote start time (optional)
-                                    </label>
-                                    <div className="block">
-                                        <DatePicker
-                                            ariaLabelledBy={'votetime-start'}
-                                            selected={value}
-                                            {...props}
-                                            timeInputLabel="Time:"
-                                            dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                            showTimeInput
-                                        />
-                                    </div>
-                                </>
-                            )}
+                            render={({ field }) => {
+                                const { value, ...props } = field;
+                                return (
+                                    <>
+                                        <label id="votetime-start" className="block mt-6 mb-1">
+                                            Vote start time (optional)
+                                        </label>
+                                        <div className="block">
+                                            <DatePicker
+                                                ariaLabelledBy={"votetime-start"}
+                                                selected={value}
+                                                {...props}
+                                                timeInputLabel="Time:"
+                                                dateFormat="yyyy-MM-dd HH:mm"
+                                                className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                                showTimeInput
+                                            />
+                                        </div>
+                                    </>
+                                );
+                            }}
                         />
                         <Controller
                             control={control}
                             name="vote_time_end"
-                            render={({ value, ...props }) => (
-                                <>
-                                    <label id="votetime-end" className="mb-1">
-                                        Vote end time (optional)
-                                    </label>
-                                    <div className="block">
-                                        <DatePicker
-                                            ariaLabelledBy={'votetime-end'}
-                                            selected={value}
-                                            {...props}
-                                            timeInputLabel="Time:"
-                                            dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                            showTimeInput
-                                        />
-                                    </div>
-                                </>
-                            )}
+                            render={({ field }) => {
+                                const { value, ...props } = field;
+                                return (
+                                    <>
+                                        <label id="votetime-end" className="mb-1">
+                                            Vote end time (optional)
+                                        </label>
+                                        <div className="block">
+                                            <DatePicker
+                                                ariaLabelledBy={"votetime-end"}
+                                                selected={value}
+                                                {...props}
+                                                timeInputLabel="Time:"
+                                                dateFormat="yyyy-MM-dd HH:mm"
+                                                className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                                showTimeInput
+                                            />
+                                        </div>
+                                    </>
+                                );
+                            }}
                         />
                         <Input
                             type="number"
                             label="Minimum team size (optional)"
-                            name="team_min"
-                            ref={register()}
+                            {...register("team_min")}
                             className="mb-6"
                         />
                         <Input
                             type="number"
                             label="Maximum team size (optional)"
-                            name="team_max"
-                            ref={register()}
+                            {...register("team_max")}
                             className="mb-6"
                         />
                         {/* <Input
-                            label="Custom input field name (optional)"
-                            name="contributor_extra"
-                            ref={register()}
-                            className="mb-6"
-                        /> */}
+                        label="Custom input field name (optional)"
+                        name="contributor_extra"
+                        ref={register()}
+                        className="mb-6"
+                    /> */}
                     </>
                 ) : (
                     <>
                         <Input
                             type="number"
                             label="Minimum team size (optional)"
-                            name="team_min"
-                            ref={register()}
+                            {...register("team_min")}
                             className="mb-6"
                         />
                         <Input
                             type="number"
                             label="Maximum team size (optional)"
-                            name="team_max"
-                            ref={register()}
+                            {...register("team_max")}
                             className="mb-6"
                         />
                         <Input
                             label="Custom input field name (optional)"
-                            name="contributor_extra"
-                            ref={register()}
+                            {...register("contributor_extra")}
                             className="mb-6"
                         />
 
                         <label className="block mb-6">
-                            <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
+                            <input {...register("report_win_loss")} type="checkbox" className="mr-2" />
                             Users can report win/loss (optional)
                         </label>
                     </>
@@ -172,183 +174,198 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                 <Controller
                     control={control}
                     name="register_time_start"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="register-end" className="mb-1">
-                                Registration start time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'register-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="register-end" className="mb-1">
+                                    Registration start time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"register-end"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
                     control={control}
                     name="register_time_end"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="register-end" className="mb-1">
-                                Registration end time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'register-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="register-end" className="mb-1">
+                                    Registration end time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"register-end"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
                     control={control}
                     name="show_prestart_lock"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="showtime-lock" className="block mb-1">
-                                Pre-show lockdown start (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'showtime-lock'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="showtime-lock" className="block mb-1">
+                                    Pre-show lockdown start (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"showtime-lock"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
                     control={control}
                     name="show_time_start"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="showtime-end" className="block mb-1">
-                                Competition show start time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'showtime-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="showtime-end" className="block mb-1">
+                                    Competition show start time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"showtime-end"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 <Controller
                     control={control}
                     name="show_time_end"
-                    render={({ value, ...props }) => (
-                        <>
-                            <label id="showtime-end" className="block mb-1">
-                                Competition show end time (optional)
-                            </label>
-                            <div className="block">
-                                <DatePicker
-                                    ariaLabelledBy={'showtime-end'}
-                                    selected={value}
-                                    {...props}
-                                    timeInputLabel="Time:"
-                                    dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
-                                    showTimeInput
-                                />
-                            </div>
-                        </>
-                    )}
+                    render={({ field }) => {
+                        const { value, ...props } = field;
+                        return (
+                            <>
+                                <label id="showtime-end" className="block mb-1">
+                                    Competition show end time (optional)
+                                </label>
+                                <div className="block">
+                                    <DatePicker
+                                        ariaLabelledBy={"showtime-end"}
+                                        selected={value}
+                                        {...props}
+                                        timeInputLabel="Time:"
+                                        dateFormat="yyyy-MM-dd HH:mm"
+                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        showTimeInput
+                                    />
+                                </div>
+                            </>
+                        );
+                    }}
                 />
 
                 {/* <Input
-                    name="external_url_login"
-                    type="url"
-                    label="Login URL (optional)"
-                    ref={register()}
-                    className="mb-6"
-                />
-                <Input
-                    name="external_url_info"
-                    type="url"
-                    label="Homepage URL (optional)"
-                    ref={register()}
-                    className="mb-6"
-                /> */}
+                name="external_url_login"
+                type="url"
+                label="Login URL (optional)"
+                ref={register()}
+                className="mb-6"
+            />
+            <Input
+                name="external_url_info"
+                type="url"
+                label="Homepage URL (optional)"
+                ref={register()}
+                className="mb-6"
+            /> */}
 
                 <Input
                     type="number"
                     label="Max submission/participants (optional)"
-                    name="participant_limit"
+                    {...register("participant_limit")}
                     className="mb-6"
-                    ref={register()}
                 />
 
                 {/* <label className="block mb-6">
-                    <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
-                    RSVP Only (optional)
-                </label>
+                <input name="rsvp" type="checkbox" className="mr-2" ref={register()} />
+                RSVP Only (optional)
+            </label>
 
-                <label className="block mb-6">
-                    <input name="feature" type="checkbox" className="mr-2" ref={register()} />
-                    Featured (optional)
-                </label> */}
+            <label className="block mb-6">
+                <input name="feature" type="checkbox" className="mr-2" ref={register()} />
+                Featured (optional)
+            </label> */}
 
                 <Controller
                     control={control}
                     name="visibility"
                     defaultValue=""
-                    render={({ onChange, value }) => (
-                        <Select
-                            label="Visibility"
-                            options={[
-                                {
-                                    label: 'Public',
-                                    value: 'public',
-                                },
-                                {
-                                    label: 'Crew',
-                                    value: 'crew',
-                                },
-                                {
-                                    label: 'Hidden',
-                                    value: 'hidden',
-                                },
-                            ]}
-                            onChange={onChange}
-                            value={value}
-                        />
-                    )}
+                    render={({ field }) => {
+                        return (
+                            <Select
+                                label="Visibility"
+                                options={[
+                                    {
+                                        label: "Public",
+                                        value: "public",
+                                    },
+                                    {
+                                        label: "Crew",
+                                        value: "crew",
+                                    },
+                                    {
+                                        label: "Hidden",
+                                        value: "hidden",
+                                    },
+                                ]}
+                                {...field}
+                            />
+                        );
+                    }}
                 />
 
                 <Controller
                     control={control}
                     defaultValue={[]}
                     name="links"
-                    render={(props) => <CompetitionLinksEdit {...props} />}
+                    render={({ field }) => <CompetitionLinksEdit {...field} />}
                 />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
