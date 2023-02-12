@@ -30,7 +30,6 @@
         "@heroicons/react": "^2.0.15",
         "@reach/auto-id": "^0.18.0",
         "@reach/dialog": "^0.16.2",
-        "@reach/listbox": "^0.18.0",
         "@reach/tabs": "^0.16.1",
         "@reach/visually-hidden": "^0.16.0",
         "@sentry/react": "^7.37.1",

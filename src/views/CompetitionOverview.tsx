@@ -9,7 +9,6 @@ import { Select } from "../components/Select";
 import { Input } from "../components/Input";
 import { View } from "../components/View";
 import { useUserState } from "../context/Auth";
-import "@reach/listbox/styles.css";
 import { Link as ULink } from "../components/Link";
 import { hasPermission, Permission } from "../utils/permissions";
 
