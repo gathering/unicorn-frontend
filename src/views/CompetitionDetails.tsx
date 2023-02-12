@@ -1,20 +1,20 @@
-import React, { useMemo } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { Tabs, TabList, Tab, TabPanels, TabPanel } from '@reach/tabs';
-import draftToHtml from 'draftjs-to-html';
-import dayjs from 'dayjs';
-import useSWR from 'swr';
-import styled from 'styled-components';
-import advancedFormat from 'dayjs/plugin/advancedFormat';
-import CompetitionPhases from '../features/competitions/CompetitionPhases';
-import { amIParticipantInEntryList, findRegisterAction, hasPreRegistration, hasVote } from '../utils/competitions';
-import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition';
-import { formatNumber } from '../utils/numbers';
-import { useUserState } from '../context/Auth';
-import { httpGet } from '../utils/fetcher';
-import { hasPermission, Permission } from '../utils/permissions';
-import './CompetitionDetails.scss';
-import '@reach/tabs/styles.css';
+import React, { useMemo } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
+import draftToHtml from "draftjs-to-html";
+import dayjs from "dayjs";
+import useSWR from "swr";
+import styled from "styled-components";
+import advancedFormat from "dayjs/plugin/advancedFormat";
+import CompetitionPhases from "../features/competitions/CompetitionPhases";
+import { amIParticipantInEntryList, findRegisterAction, hasPreRegistration, hasVote } from "../utils/competitions";
+import type { ICompetition, IEntry, IEntryListResponse } from "../features/competitions/competition";
+import { formatNumber } from "../utils/numbers";
+import { useUserState } from "../context/Auth";
+import { httpGet } from "../utils/fetcher";
+import { hasPermission, Permission } from "../utils/permissions";
+import "./CompetitionDetails.scss";
+import "@reach/tabs/styles.css";
 
 dayjs.extend(advancedFormat);
 
@@ -46,36 +46,49 @@ const Content = ({
     to: string;
 }) => {
     const action = findRegisterAction(competition, hasEntry, isAuthenticated);
+    const loginUrl = useMemo(() => {
+        const url = new URL(import.meta.env.VITE_APP_API + "/oauth/authorize/");
+        url.searchParams.append("client_id", import.meta.env.VITE_APP_CLIENT_ID as string);
+        url.searchParams.append("response_type", "code");
+        url.searchParams.append("redirect_uri", window.location.origin + "/login");
+
+        return url.toString();
+    }, []);
 
     switch (action) {
-        case 'login':
+        case "login":
             return (
-                <span className="flex justify-end h-12 mb-6 text-base font-semibold border rounded">
-                    Log in to register
-                </span>
+                <div className="text-right">
+                    <a
+                        href={loginUrl}
+                        className="px-1 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
+                    >
+                        Log in to register
+                    </a>
+                </div>
             );
 
-        case 'register':
+        case "register":
             return (
                 <Link
-                    to={to + '/register'}
+                    to={to + "/register"}
                     className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
                 >
                     Register now!
                 </Link>
             );
 
-        case 'my_registration':
+        case "my_registration":
             return (
                 <Link
-                    to={to + '/register/'}
+                    to={to + "/register/"}
                     className="flex items-center h-12 px-4 mb-6 text-base font-semibold text-green-800 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow"
                 >
                     Check out your registration
                 </Link>
             );
 
-        case 'result':
+        case "result":
             return null;
 
         // case 'external':
@@ -99,7 +112,7 @@ const Content = ({
 const CompetitionDetails = () => {
     const { id } = useParams<{ id: string }>();
     const { user } = useUserState();
-    const { data } = useSWR<ICompetition>('competitions/competitions/' + id, httpGet);
+    const { data } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet);
 
     const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
     const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
@@ -139,8 +152,8 @@ const CompetitionDetails = () => {
                             role="alert"
                         >
                             <p>
-                                <strong>Voting is open! </strong>{' '}
-                                {!!user ? 'Cast your votes now!' : 'Please log in to cast your votes!'}
+                                <strong>Voting is open! </strong>{" "}
+                                {!!user ? "Cast your votes now!" : "Please log in to cast your votes!"}
                             </p>
                         </section>
                     )}
@@ -164,7 +177,7 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </Tabs>
                 </div>
-                <aside style={{ minWidth: '20rem' }} className="mt-4 ml-10 sm:my-0 sm:mx-2">
+                <aside style={{ minWidth: "20rem" }} className="mt-4 ml-10 sm:my-0 sm:mx-2">
                     {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
