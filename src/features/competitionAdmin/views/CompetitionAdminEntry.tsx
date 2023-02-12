@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { useParams } from "react-router";
-import useSWR, { useSWRConfig } from "swr";
+import useSWR from "swr";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
