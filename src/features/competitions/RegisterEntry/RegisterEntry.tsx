@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
-import { toast } from 'react-toastify';
-import type { ICompetition, IEntry } from '../competition';
-import { httpPost } from '../../../utils/fetcher';
-import { Input } from '../../../components/Input';
-import { useForm, Controller } from 'react-hook-form';
-import { hasFileupload, hasTeams } from '../../../utils/competitions';
-import { useUserState } from '../../../context/Auth';
-import { Link } from '../../../components/Link';
+import React, { useEffect, useMemo } from "react";
+import { toast } from "react-toastify";
+import type { ICompetition, IEntry } from "../competition";
+import { httpPost } from "../../../utils/fetcher";
+import { Input } from "../../../components/Input";
+import { useForm, Controller } from "react-hook-form";
+import { hasFileupload, hasTeams } from "../../../utils/competitions";
+import { useUserState } from "../../../context/Auth";
+import { Link } from "../../../components/Link";
 
 enum FormType {
     UPLOAD_TEAM,
@@ -35,7 +35,13 @@ export const RegisterEntry = ({
     exists = false,
 }: IProps) => {
     const { user } = useUserState();
-    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>({
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { errors },
+        reset,
+    } = useForm<IFormData>({
         defaultValues: defaultValues ?? {},
         shouldUnregister: false,
     });
@@ -56,14 +62,14 @@ export const RegisterEntry = ({
 
         if (!defaultValues) {
             httpPost<IEntry>(
-                'competitions/entries',
+                "competitions/entries",
                 JSON.stringify({
                     competition: competition.id,
                     ...formData,
                 })
             )
                 .then(() => {
-                    toast.success('Successfully registered!');
+                    toast.success("Successfully registered!");
                     onRegistrationFinish?.();
                 })
                 .catch((error) => {
@@ -103,7 +109,7 @@ export const RegisterEntry = ({
 
     if (competition.rsvp) {
         return (
-            <RegistrationContainer header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}>
+            <RegistrationContainer header={`${defaultValues ? "Update" : "Sign up for"} ${competition.name}`}>
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -131,33 +137,35 @@ export const RegisterEntry = ({
     }
 
     return (
-        <RegistrationContainer header={`${defaultValues ? 'Update' : 'Sign up for'} ${competition.name}`}>
+        <RegistrationContainer header={`${defaultValues ? "Update" : "Sign up for"} ${competition.name}`}>
             <form onSubmit={handleSubmit(onUpdate)}>
                 <div className="flex p-4">
-                    <h3 style={{ width: '360px' }}>Registration</h3>
+                    <h3 style={{ width: "360px" }}>Registration</h3>
                     <fieldset className="flex-grow">
                         {registrationType === FormType.TEAM_ONLY ? (
                             <Input
                                 fullWidth
-                                {...register('title', { required: 'You have to give your team a name' })}
+                                {...register("title", { required: "You have to give your team a name" })}
                                 label="Team name"
-                                errorLabel={errors.title?.message} />
+                                errorLabel={errors.title?.message}
+                            />
                         ) : registrationType === FormType.UPLOAD_TEAM ? (
                             <Controller
                                 control={control}
                                 name="title"
                                 defaultValue=" by "
-                                render={(props) => <UploadTeam {...props} />}
+                                render={({ field }) => <UploadTeam {...field} />}
                             />
                         ) : (
                             <>
                                 <Input
                                     fullWidth
-                                    {...register('title', { required: 'You have to give your entry a title' })}
+                                    {...register("title", { required: "You have to give your entry a title" })}
                                     label="Entry Title"
-                                    errorLabel={errors.title?.message} />
+                                    errorLabel={errors.title?.message}
+                                />
                                 {!exists && (
-                                    <p className="pt-2 text-gray-700">
+                                    <p className="pt-2 text-gray-700 dark:text-gray-100">
                                         After giving your entry a title and clicking Register, you will be able to
                                         upload any required files for the competition.
                                     </p>
@@ -175,7 +183,7 @@ export const RegisterEntry = ({
                             <hr className="my-6 border-t border-gray-300" />
 
                             <div className="flex p-4">
-                                <h3 style={{ width: '360px' }}>Misc</h3>
+                                <h3 style={{ width: "360px" }}>Misc</h3>
                                 <fieldset className="flex-grow">
                                     <label htmlFor="display_name_field" className="block w-full mb-1">
                                         Display name
@@ -187,13 +195,13 @@ export const RegisterEntry = ({
                                         {user?.display_name}
                                     </span>
                                     <p className="mb-6 font-light">
-                                        Not happy with your display name? Change it{' '}
+                                        Not happy with your display name? Change it{" "}
                                         <Link inline to="/preferences">
                                             here
                                         </Link>
                                         .
                                     </p>
-                                    <Input fullWidth {...register('crew_msg')} label="Message to crew (optional)" />
+                                    <Input fullWidth {...register("crew_msg")} label="Message to crew (optional)" />
                                 </fieldset>
                             </div>
                         </>
@@ -202,7 +210,7 @@ export const RegisterEntry = ({
                 <hr className="my-6 border-t border-gray-300" />
 
                 <button className="flex items-center float-right h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
-                    {defaultValues ? 'Update' : 'Register'}
+                    {defaultValues ? "Update" : "Register"}
                 </button>
             </form>
         </RegistrationContainer>
@@ -211,11 +219,11 @@ export const RegisterEntry = ({
 
 const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: string) => void }) => {
     const title = useMemo(() => {
-        return value.split(' by ')[0] || '';
+        return value.split(" by ")[0] || "";
     }, [value]);
 
     const team = useMemo(() => {
-        return value.split(' by ')[1] || '';
+        return value.split(" by ")[1] || "";
     }, [value]);
 
     return (
@@ -225,19 +233,19 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
                 label="Entry title"
                 className="mb-4"
                 value={title}
-                onChange={(e) => onChange(e.target.value + ' by ' + team)}
+                onChange={(e) => onChange(e.target.value + " by " + team)}
             />
             <Input
                 fullWidth
                 label="Team name"
                 value={team}
-                onChange={(e) => onChange(title + ' by ' + e.target.value)}
+                onChange={(e) => onChange(title + " by " + e.target.value)}
             />
         </>
     );
 };
 
-const RegistrationContainer: React.FC<{ header: string }> = ({ children, header }) => (
+const RegistrationContainer: React.FC<React.PropsWithChildren<{ header: string }>> = ({ children, header }) => (
     <div className="container mx-auto my-12 sm:my-0">
         <section className="flex flex-col bg-white dark:bg-gray-800 rounded sm:rounded-none">
             <h2 className="p-4 text-xl text-center">{header}</h2>

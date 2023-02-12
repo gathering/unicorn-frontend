@@ -1,15 +1,15 @@
-import React, { useEffect, useMemo } from 'react';
-import { useForm, Controller } from 'react-hook-form';
-import { useLocation, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
-import styled from 'styled-components';
-import useSWR from 'swr';
-import { Input } from '../components/Input';
-import { amIParticipantInCompetition, amIParticipantInEntryList, hasFileupload, hasTeams } from '../utils/competitions';
-import type { ICompetition, IEntry, IEntryListResponse } from '../features/competitions/competition';
-import { RegisterEntry } from '../features/competitions/RegisterEntry';
-import { EditRegistration } from '../features/competitions/EditRegistration';
-import { httpGet, httpPost, httpPut } from '../utils/fetcher';
+import React, { useEffect, useMemo } from "react";
+import { useForm, Controller } from "react-hook-form";
+import { useLocation, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import useSWR from "swr";
+import { Input } from "../components/Input";
+import { amIParticipantInCompetition, amIParticipantInEntryList, hasFileupload, hasTeams } from "../utils/competitions";
+import type { ICompetition, IEntry, IEntryListResponse } from "../features/competitions/competition";
+import { RegisterEntry } from "../features/competitions/RegisterEntry";
+import { EditRegistration } from "../features/competitions/EditRegistration";
+import { httpGet, httpPost, httpPut } from "../utils/fetcher";
 
 enum FormType {
     UPLOAD_TEAM,
@@ -30,17 +30,25 @@ const HeadingWrapper = styled.h1`
 
 const CompetitionRegistration = () => {
     const { id } = useParams<{ id: string }>();
-    const { register, handleSubmit, control, errors, reset } = useForm<IFormData>();
-    const { data, mutate: refetchCompetition, isValidating: isValidatingCompetitions } = useSWR<ICompetition>(
-        'competitions/competitions/' + id,
-        httpGet,
-        { revalidateOnFocus: false }
-    );
-    const { data: entries, mutate: refetchEntries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
-        `competitions/entries/?competition_id=${id}&limit=1000`,
-        httpGet,
-        { revalidateOnFocus: false }
-    );
+    const {
+        register,
+        handleSubmit,
+        control,
+        formState: { errors },
+        reset,
+    } = useForm<IFormData>();
+    const {
+        data,
+        mutate: refetchCompetition,
+        isValidating: isValidatingCompetitions,
+    } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet, { revalidateOnFocus: false });
+    const {
+        data: entries,
+        mutate: refetchEntries,
+        isValidating: isValidatingEntries,
+    } = useSWR<IEntryListResponse>(`competitions/entries/?competition_id=${id}&limit=1000`, httpGet, {
+        revalidateOnFocus: false,
+    });
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
 

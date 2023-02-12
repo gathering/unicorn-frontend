@@ -25,15 +25,19 @@ interface IFormData {
 }
 
 const CompetitionAdminEntry = () => {
-    const { cid, eid } = useParams<{ cid: string; eid: string }>();
+    const { id, eid } = useParams<{ id: string; eid: string }>();
     const [showDisqualify, setShowDisqualify] = useState(false);
     const { data: competition, isValidating: isValidatingCompetition } = useSWR<ICompetition>(
-        "competitions/competitions/" + cid,
+        "competitions/competitions/" + id,
         httpGet
     );
-    const { mutate } = useSWRConfig();
-    const { data: entry } = useSWR<IEntry>("competitions/entries/" + eid, httpGet);
-    const { register, errors, handleSubmit, watch } = useForm<IFormData>();
+    const { data: entry, mutate } = useSWR<IEntry>("competitions/entries/" + eid, httpGet);
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        watch,
+    } = useForm<IFormData>();
 
     const preselect = watch("preselect");
 
@@ -64,19 +68,19 @@ const CompetitionAdminEntry = () => {
     }, [competition, eid, entry]);
 
     const handleQualify = () => {
-        httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 4 })).then((d) => mutate(d));
+        httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 4 })).then(() => mutate());
     };
     const handleDisqualify = (formData: IFormData) => {
         if (formData.preselect === true) {
             httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 16 })).then((d) => {
                 setShowDisqualify(false);
-                mutate(d);
+                mutate();
             });
         } else {
             httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 8, comment: formData.comment }))
                 .then((d) => {
                     setShowDisqualify(false);
-                    mutate(d);
+                    mutate();
                 })
                 .catch((err) => {
                     parseError(err).forEach((e: any) => toast.error(e));
@@ -235,16 +239,16 @@ const CompetitionAdminEntry = () => {
                 {(nextEntry || previousEntry) && (
                     <section className="my-6">
                         {previousEntry && (
-                            <Link to={`/admin/competitions/${cid}/${previousEntry.id}`} className="mr-6">
+                            <Link to={`/admin/competitions/${id}/${previousEntry.id}`} className="mr-6">
                                 Previous entry
                             </Link>
                         )}
-                        {nextEntry && <Link to={`/admin/competitions/${cid}/${nextEntry.id}`}>Next entry</Link>}
+                        {nextEntry && <Link to={`/admin/competitions/${id}/${nextEntry.id}`}>Next entry</Link>}
                     </section>
                 )}
             </aside>
             <footer className="col-span-3 mt-4">
-                <Link to={`/admin/competitions/${cid}`}>Back to competition</Link>{" "}
+                <Link to={`/admin/competitions/${id}`}>Back to competition</Link>{" "}
             </footer>
             <Dialog
                 isOpen={showDisqualify}
