@@ -1,8 +1,8 @@
-import React from 'react';
-import { File } from './File';
+import React from "react";
+import { File } from "./File";
 
-type FileType = 'archive' | 'music' | 'picture' | 'video';
-type InputType = 'main' | 'screenshot' | 'progress1' | 'progress2' | 'progress3' | 'other';
+type FileType = "archive" | "music" | "picture" | "video";
+type InputType = "main" | "screenshot" | "progress1" | "progress2" | "progress3" | "other";
 
 interface IUploadFile {
     input: string;
@@ -36,14 +36,14 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
 
     return (
         <fieldset className="mb-6">
-            <legend className="mb-2">{label ?? 'Upload Files'}</legend>
+            <legend className="mb-2">{label ?? "Upload Files"}</legend>
             <span>Remember to save the form after updating a field</span>
             <ul>
                 {!!value.length &&
                     value.map((val, i) => (
                         <li key={i} className="flex items-end mb-2">
                             <File
-                                disableRemove={val.type === 'main'}
+                                disableRemove={val.type === "main"}
                                 onRemove={() => removeFile(i)}
                                 onChange={(d) => handleChange(i, d)}
                                 forceMain={i === 0}

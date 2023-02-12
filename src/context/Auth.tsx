@@ -153,7 +153,6 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }
 
         const token = cookie.get(REFRESH_TOKEN);
-        console.log(window.location.pathname, token);
         if (!token) {
             cookie.remove(REFRESH_TOKEN);
             cookie.remove(ACCESS_TOKEN);
