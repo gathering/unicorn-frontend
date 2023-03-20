@@ -141,12 +141,20 @@ const CompetitionAdminEntry = () => {
                                 <li key={fu.type}>
                                     <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
                                     {file ? (
-                                        <a
-                                            href={file.url}
-                                            className="p-1 px-2 -ml-2 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500"
-                                        >
-                                            {file.name}
-                                        </a>
+                                        <>
+                                            {file.type === "screenshot" ? (
+                                                <a href={file.url} aria-label={file.name}>
+                                                    <img src={file.url} alt={fu.input} className="h-32" />
+                                                </a>
+                                            ) : (
+                                                <a
+                                                    href={file.url}
+                                                    className="p-1 px-2 -ml-2 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500"
+                                                >
+                                                    {file.name}
+                                                </a>
+                                            )}
+                                        </>
                                     ) : (
                                         <span
                                             className="px-2 py-1 text-sm bg-red-200 dark:bg-red-400 rounded-md "
