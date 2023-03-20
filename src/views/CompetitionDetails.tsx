@@ -58,10 +58,10 @@ const Content = ({
     switch (action) {
         case "login":
             return (
-                <div className="text-right">
+                <div className="text-right mb-6">
                     <a
                         href={loginUrl}
-                        className="px-1 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
+                        className="px-1 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700 p-2"
                     >
                         Log in to register
                     </a>
@@ -209,16 +209,27 @@ const CompetitionDetails = () => {
                             {!!data.prizes.length && (
                                 <>
                                     <h2 className="pb-2 text-lg">Prizes</h2>
-                                    <ul className="w-2/3 mt-2 leading-8 pb-4">
-                                        {data.prizes.map((prize: String, i: number) => (
-                                            <li
-                                                key={prize + i.toString()}
-                                                className="pr-3 font-light text-gray-600 dark:text-gray-200"
-                                            >
-                                                {formatNumber(i + 1)} <span className="float-right">{prize}</span>
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    <table className="mt-2 leading-8 pb-4">
+                                        <thead className="sr-only">
+                                            <tr>
+                                                <th>Place</th>
+                                                <th>Prize</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {data.prizes.map((prize: String, i: number) => (
+                                                <tr
+                                                    key={prize + i.toString()}
+                                                    className="pr-3 font-light text-gray-600 dark:text-gray-200 align-top"
+                                                >
+                                                    <td>{formatNumber(i + 1)}</td>
+                                                    <td>
+                                                        <span className="float-right">{prize}</span>
+                                                    </td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
                                 </>
                             )}
 
