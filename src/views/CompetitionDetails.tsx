@@ -196,12 +196,20 @@ const CompetitionDetails = () => {
                     />
 
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) && (
-                        <Link
-                            to={`/admin/competitions/${id}/edit`}
-                            className="flex items-center h-12 px-4 mt-10 sm:mt-6 mb-10 sm:mb-6 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
-                        >
-                            Edit
-                        </Link>
+                        <>
+                            <Link
+                                to={`/admin/competitions/${id}/edit`}
+                                className="flex items-center h-12 px-4 mt-10 sm:mt-6 mb-10 sm:mb-6 text-base font-semibold text-yellow-800 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                            >
+                                Edit
+                            </Link>
+                            <Link
+                                to={`/admin/competitions/${id}`}
+                                className="flex items-center h-12 px-4 mt-10 sm:mt-6 mb-10 sm:mb-6 text-base font-semibold text-blue-800 duration-150 bg-blue-300 rounded justify-evenly hover:bg-blue-700 hover:text-black hover:shadow"
+                            >
+                                Entries
+                            </Link>
+                        </>
                     )}
 
                     {hasMeta && (
