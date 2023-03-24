@@ -94,6 +94,7 @@ const CompetitionsOverview: React.FC = () => {
                         [
                             Permission.CompetitionsChangeCompetition,
                             Permission.CompetitionsDeleteCompetition,
+                            Permission.CompetitionsAddCompetition,
                             Permission.CompetitionsModifyAll,
                         ],
                         permissions
