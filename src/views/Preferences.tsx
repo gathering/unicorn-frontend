@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo } from 'react';
-import { Controller, useForm } from 'react-hook-form';
-import useSWR from 'swr';
-import { toast } from 'react-toastify';
-import { useUserState } from '../context/Auth';
-import { View } from '../components/View';
-import { Input } from '../components/Input';
-import { Select } from '../components/Select';
-import { httpGet, httpPatch } from '../utils/fetcher';
-import { parseError } from '../utils/error';
-import { Link } from '../components/Link';
+import React, { useEffect, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
+import useSWR from "swr";
+import { toast } from "react-toastify";
+import { useUserState } from "../context/Auth";
+import { View } from "../components/View";
+import { Input } from "../components/Input";
+import { Select } from "../components/Select";
+import { httpGet, httpPatch } from "../utils/fetcher";
+import { parseError } from "../utils/error";
+import { Link } from "../components/Link";
 
 interface FormData {
     display_name_format: string;
@@ -16,20 +16,27 @@ interface FormData {
 }
 
 interface AccountChoicesResponse {
-    'user:display_name_format': {
+    "user:display_name_format": {
         value: string;
         label: string;
     }[];
 }
 
 const Preferences = () => {
-    const { data: accountChoices } = useSWR<AccountChoicesResponse>('accounts/_choices', httpGet);
+    const { data: accountChoices } = useSWR<AccountChoicesResponse>("accounts/_choices", httpGet);
 
     const { user, revalidateUser } = useUserState();
 
-    const { register, errors, handleSubmit, reset, control, watch } = useForm<FormData>();
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        reset,
+        control,
+        watch,
+    } = useForm<FormData>();
 
-    const chosenFormat = watch('display_name_format');
+    const chosenFormat = watch("display_name_format");
 
     useEffect(() => {
         if (user) {
@@ -41,17 +48,17 @@ const Preferences = () => {
     }, [user, reset]);
 
     const selectOptions = useMemo(() => {
-        const none = { label: 'Select display name format', value: '__default_value__' };
+        const none = { label: "Select display name format", value: "__default_value__" };
 
         if (!accountChoices) {
             return [none];
         }
 
         if (!chosenFormat) {
-            return [none, ...(accountChoices?.['user:display_name_format'] ?? [])];
+            return [none, ...(accountChoices?.["user:display_name_format"] ?? [])];
         }
 
-        return accountChoices?.['user:display_name_format'] ?? [];
+        return accountChoices?.["user:display_name_format"] ?? [];
     }, [accountChoices]);
 
     const onSubmit = (formData: FormData) => {
@@ -62,7 +69,7 @@ const Preferences = () => {
         httpPatch(`accounts/users/${user.uuid}`, JSON.stringify(formData))
             .then(() => {
                 revalidateUser();
-                toast.success('Saved!');
+                toast.success("Saved!");
             })
             .catch((err) => {
                 parseError(err).forEach((e: any) => toast.error(e));
@@ -73,29 +80,30 @@ const Preferences = () => {
         <View className="container mx-auto mt-10">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="px-4 py-6 bg-white dark:bg-gray-800 rounded-md shadow-md max-w-prose"
+                className="px-4 py-6 bg-white rounded-md shadow-md dark:bg-gray-800 max-w-prose"
             >
                 <fieldset>
                     <legend className="mb-4 text-xl">How do you want to be presented?</legend>
                     <Input
                         label="Nick"
-                        {...register('username', {
-                            required: 'You have to choose a nick name',
+                        {...register("username", {
+                            required: "You have to choose a nick name",
                         })}
                         errorLabel={errors.username?.message}
-                        className="mb-4" />
+                        className="mb-4"
+                    />
                     <Controller
                         control={control}
                         name="display_name_format"
                         defaultValue="__default_value__"
-                        rules={{ validate: (v) => v !== '__default_value__' || 'You must select a genre' }}
-                        render={({ onChange, value }) => (
+                        rules={{ validate: (v) => v !== "__default_value__" || "You must select a genre" }}
+                        render={({ field }) => (
                             <>
                                 <Select
                                     label="Display format"
                                     options={selectOptions}
-                                    value={value}
-                                    onChange={onChange}
+                                    value={field.value}
+                                    onChange={field.onChange}
                                 />
 
                                 {errors.display_name_format?.message && (
