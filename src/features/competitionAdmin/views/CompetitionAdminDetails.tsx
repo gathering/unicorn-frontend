@@ -153,7 +153,7 @@ const CompetitionAdminDetails = () => {
                         Disqualified
                     </li>
                 </ul>
-                <div className="col-span-3 p-4 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+                <div className="col-span-3 p-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="pb-4 text-xl">
                         Participants
                         <Link to={`/admin/competitions/${id}/results`} className="float-right text-base">
@@ -207,10 +207,10 @@ const CompetitionAdminDetails = () => {
                 </div>
             </section>
             <aside>
-                <section className="mb-4 bg-white dark:bg-gray-800 rounded shadow sm-rounded-none">
+                <section className="mb-4 bg-white rounded shadow dark:bg-gray-800 sm-rounded-none">
                     <h2 className="px-4 py-6 text-xl">{data.entries_count} registered</h2>
                 </section>
-                <section className="mb-4 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+                <section className="mb-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="p-4 text-xl pb-7">Quick settings</h2>
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) ? (
                         <ul>
@@ -273,21 +273,21 @@ const CompetitionAdminDetails = () => {
                                 )}
                             </div>
                         ) : (
-                            <div key="off">
-                                <button
-                                    onClick={() => setValidateDelete(true)}
-                                    className="float-right px-8 py-3 text-white transition-all duration-150 bg-red-400 dark:bg-red-600 rounded-lg hover:bg-red-900"
-                                >
-                                    Delete
-                                </button>
+                            <div key="off" className="flex flex-wrap justify-between gap-3">
                                 <a
                                     href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
                                         data.id
                                     }/download`}
-                                    className="float-left px-8 py-3 text-white transition-all duration-150 bg-blue-400 dark:bg-blue-600 rounded-lg hover:bg-blue-900"
+                                    className="px-8 py-3 text-white transition-all duration-150 bg-blue-400 rounded-lg dark:bg-blue-600 hover:bg-blue-900"
                                 >
                                     Download all entries
                                 </a>
+                                <button
+                                    onClick={() => setValidateDelete(true)}
+                                    className="px-8 py-3 text-white transition-all duration-150 bg-red-400 rounded-lg dark:bg-red-600 hover:bg-red-900"
+                                >
+                                    Delete
+                                </button>
                             </div>
                         )}
                     </section>
