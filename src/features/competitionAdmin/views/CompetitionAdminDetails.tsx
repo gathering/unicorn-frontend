@@ -280,7 +280,7 @@ const CompetitionAdminDetails = () => {
                                     }/download`}
                                     className="px-8 py-3 text-white transition-all duration-150 bg-blue-400 rounded-lg dark:bg-blue-600 hover:bg-blue-900"
                                 >
-                                    Download all entries
+                                    Download all qualified entries
                                 </a>
                                 <button
                                     onClick={() => setValidateDelete(true)}
