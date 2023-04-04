@@ -115,7 +115,7 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Competition name"
                     {...register("name", { required: "You need to give the competition a name" })}
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                 />
 
                 <Input
@@ -127,7 +127,7 @@ const CompetitionAdminEdit = () => {
                             value: 40,
                         },
                     })}
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                 />
 
                 <div className="flex flex-row gap-6">
@@ -138,7 +138,7 @@ const CompetitionAdminEdit = () => {
                             required: "You must give the competition a start time",
                         }}
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="runtime-start">Competition start time</label>
@@ -174,7 +174,7 @@ const CompetitionAdminEdit = () => {
                             required: "You must give the competition an end time",
                         }}
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="runtime-end">Competition end time</label>
@@ -239,14 +239,14 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Poster image URL"
                     type="url"
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
                     errorLabel={errors.header_image?.message}
                 />
 
                 <Input
                     label="Poster image credit"
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                     {...register("header_credit", {
                         required: "You must credit the poster",
                     })}
@@ -257,14 +257,23 @@ const CompetitionAdminEdit = () => {
                     control={control}
                     name="prizes"
                     defaultValue={[]}
-                    render={({ field }) => <PrizeEdit label="Prizes (optional)" {...field} className="mb-6" />}
+                    render={({ field }) => (
+                        <PrizeEdit
+                            label="Prizes (optional)"
+                            onChange={field.onChange}
+                            value={field.value}
+                            className="mb-6"
+                        />
+                    )}
                 />
 
                 <Controller
                     control={control}
                     name="fileupload"
                     defaultValue={[]}
-                    render={({ field }) => <FileEdit {...field} label="Upload files (optional)" />}
+                    render={({ field }) => (
+                        <FileEdit onChange={field.onChange} value={field.value} label="Upload files (optional)" />
+                    )}
                 />
 
                 <div className="flex flex-row gap-6">
@@ -272,7 +281,7 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="vote_time_start"
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="votetime-start" className="block mb-1">
@@ -297,7 +306,7 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="vote_time_end"
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="votetime-end" className="block mb-1">
@@ -346,13 +355,8 @@ const CompetitionAdminEdit = () => {
                     </div>
                 </div>
 
-                {/* <Input
-                    label="Custom input field name (optional)"
-                    name="contributor_extra"
-                    ref={register()}
-                    className="mb-6"
-                />
-                <label className="block mb-6">
+                <Input label="Custom input field name (optional)" {...register("contributor_extra")} className="mb-6" />
+                {/* <label className="block mb-6">
                     <input name="report_win_loss" type="checkbox" className="mr-2" ref={register()} />
                     Users can report win/loss (optional)
                 </label> */}
@@ -407,7 +411,7 @@ const CompetitionAdminEdit = () => {
                     control={control}
                     name="show_prestart_lock"
                     render={({ field }) => {
-                        const { value, ...props } = field;
+                        const { value, ref, ...props } = field;
                         return (
                             <>
                                 <label id="showtime-lock" className="block mb-1">
@@ -434,7 +438,7 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="show_time_start"
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="showtime-end" className="block mb-1">
@@ -460,7 +464,7 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="show_time_end"
                         render={({ field }) => {
-                            const { value, ...props } = field;
+                            const { value, ref, ...props } = field;
                             return (
                                 <div>
                                     <label id="showtime-end" className="block mb-1">
@@ -529,7 +533,8 @@ const CompetitionAdminEdit = () => {
                                     value: "hidden",
                                 },
                             ]}
-                            {...field}
+                            onChange={field.onChange}
+                            value={field.value}
                         />
                     )}
                 />
@@ -538,7 +543,7 @@ const CompetitionAdminEdit = () => {
                     control={control}
                     defaultValue={[]}
                     name="links"
-                    render={({ field }) => <CompetitionLinksEdit {...field} />}
+                    render={({ field }) => <CompetitionLinksEdit onChange={field.onChange} value={field.value} />}
                 />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
