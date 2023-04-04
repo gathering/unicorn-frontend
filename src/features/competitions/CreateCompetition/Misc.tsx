@@ -137,12 +137,11 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                             {...register("team_max")}
                             className="mb-6"
                         />
-                        {/* <Input
-                        label="Custom input field name (optional)"
-                        name="contributor_extra"
-                        ref={register()}
-                        className="mb-6"
-                    /> */}
+                        <Input
+                            label="Custom input field name (optional)"
+                            {...register("contributor_extra")}
+                            className="mb-6"
+                        />
                     </>
                 ) : (
                     <>

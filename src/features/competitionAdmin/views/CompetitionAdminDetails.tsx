@@ -210,23 +210,28 @@ const CompetitionAdminDetails = () => {
                 <section className="mb-4 bg-white rounded shadow dark:bg-gray-800 sm-rounded-none">
                     <h2 className="px-4 py-6 text-xl">{data.entries_count} registered</h2>
                 </section>
-                <section className="mb-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
-                    <h2 className="p-4 text-xl pb-7">Quick settings</h2>
+                <section className="p-4 mb-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
+                    <h2 className="text-xl pb-7">Quick settings</h2>
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) ? (
-                        <ul>
-                            <li className="flex flex-wrap items-end pb-6">
-                                <section className="flex-1 px-4 text-sm">
-                                    <h3 className="font-semibold">Publish status</h3>
-                                    {data.published ? <p>Published</p> : <p className="text-red-500">Not published</p>}
-                                </section>
+                        <>
+                            <ul>
+                                <li className="flex flex-wrap items-end pb-6">
+                                    <section className="flex-1 text-sm">
+                                        <h3 className="font-semibold">Publish status</h3>
+                                        {data.published ? (
+                                            <p>Published</p>
+                                        ) : (
+                                            <p className="text-red-500">Not published</p>
+                                        )}
+                                    </section>
 
-                                <Button loading={isUpdatingPublished} onClick={() => updatePublished()}>
-                                    {data.published ? "Hide" : "Publish"}
-                                </Button>
+                                    <Button loading={isUpdatingPublished} onClick={() => updatePublished()}>
+                                        {data.published ? "Hide" : "Publish"}
+                                    </Button>
 
-                                {/* <hr className="w-full my-6 border-t border-gray-300" /> */}
-                            </li>
-                            {/* <li className="flex flex-wrap items-end pb-4">
+                                    {/* <hr className="w-full my-6 border-t border-gray-300" /> */}
+                                </li>
+                                {/* <li className="flex flex-wrap items-end pb-4">
                             <section className="flex-1 px-4 text-sm">
                                 <h3 className="font-semibold">Start time</h3>
                                 {data.published ? <p>Published</p> : <p className="text-red-500">Not published</p>}
@@ -236,7 +241,9 @@ const CompetitionAdminDetails = () => {
                                 Change
                             </button>
                         </li> */}
-                        </ul>
+                            </ul>
+                            <Link to="edit">Edit</Link>
+                        </>
                     ) : (
                         <p className="px-4 pb-6">You do not have access to any settings in this competition.</p>
                     )}

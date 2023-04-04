@@ -1,12 +1,12 @@
-import React from 'react';
-import { toast } from 'react-toastify';
-import { httpPatch } from '../../../utils/fetcher';
-import { parseError } from '../../../utils/error';
-import type { ICompetition, IEntry } from '../competition';
-import { hasFileupload } from '../../../utils/competitions';
-import { RegisterEntry } from '../RegisterEntry';
-import { ContributorEditor } from '../ContributorEditor';
-import { FileUpload } from '../FileUpload';
+import React from "react";
+import { toast } from "react-toastify";
+import { httpPatch } from "../../../utils/fetcher";
+import { parseError } from "../../../utils/error";
+import type { ICompetition, IEntry } from "../competition";
+import { hasFileupload } from "../../../utils/competitions";
+import { RegisterEntry } from "../RegisterEntry";
+import { ContributorEditor } from "../ContributorEditor";
+import { FileUpload } from "../FileUpload";
 
 interface IProps {
     competition: ICompetition;
@@ -22,10 +22,10 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
         httpPatch<IEntry>(`competitions/entries/${entry.id}`, JSON.stringify(data))
             .then((d) => {
                 onRegistrationFinish();
-                toast.success('Updated entry');
+                toast.success("Updated entry");
             })
             .catch((err) => {
-                toast.error('Error updating entry');
+                toast.error("Error updating entry");
                 parseError(err).forEach((e: any) => toast.error(e));
             });
     };
@@ -72,7 +72,13 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
                 exists={true}
             />
             {hasUpload && <FileUpload competition={competition} entry={entry} />}
-            {/* <ContributorEditor /> */}
+            {competition.id === 39 && (
+                <ContributorEditor
+                    entry={entry}
+                    contributorExtra={competition.contributor_extra}
+                    competition={competition}
+                />
+            )}
         </>
     );
 };

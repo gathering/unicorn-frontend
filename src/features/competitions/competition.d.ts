@@ -1,4 +1,4 @@
-import type { Permission } from '../../utils/permissions';
+import type { Permission } from "../../utils/permissions";
 
 export interface ICompetitionState {
     label: string;
@@ -23,6 +23,7 @@ export interface IFile {
 
 export interface ICompetition {
     brief_description: string;
+    contributor_extra: string | null;
     description?: string;
     featured: boolean;
     genre: IGenre;
@@ -49,6 +50,9 @@ export interface ICompetition {
     register_time_start: string | null;
     register_time_end: string | null;
     permissions: Permission[];
+    team_min: number;
+    team_max: number;
+    team_required?: boolean;
     [key: string]: any;
 }
 
@@ -117,16 +121,34 @@ type EntryStatus =
     | IEntryStatusNotPreSelected
     | IEntryStatusInvalid;
 
+export interface Contributor {
+    extra_info?: null | string;
+    id: number;
+    is_owner: boolean;
+    obj_type: "full" | "nested";
+    user: {
+        display_name: string;
+        email: string;
+        first_name: string;
+        last_name: string;
+        obj_type: "nested";
+        phone_number: string;
+        row: string;
+        seat: string;
+        uuid: string;
+    };
+}
+
 export interface IEntry {
     comment?: string;
-    contributors: [];
+    contributors: Contributor[];
     participant_limit: number;
     crew_msg?: string;
     files: any[];
     id: number;
     is_contributor: boolean;
     is_owner: boolean;
-    obj_type: 'full' | 'nested';
+    obj_type: "full" | "nested";
     order: number;
     score: number;
     screen_msg?: string;
