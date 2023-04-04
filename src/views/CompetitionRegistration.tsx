@@ -120,7 +120,12 @@ const CompetitionRegistration = () => {
                     {data.name}
                 </HeadingWrapper>
             </div>
-            <EditRegistration competition={data} entry={hasEntry} onRegistrationFinish={onRegistrationFinish} />
+            <EditRegistration
+                competition={data}
+                entry={hasEntry}
+                onRegistrationFinish={onRegistrationFinish}
+                revalidate={refetchEntries}
+            />
         </>
     );
 };

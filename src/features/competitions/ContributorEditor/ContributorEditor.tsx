@@ -6,14 +6,16 @@ import { Input } from "../../../components/Input";
 import { useUserState } from "../../../context/Auth";
 import { httpGet, httpPost } from "../../../utils/fetcher";
 import type { ICompetition, IEntry } from "../competition";
+import { Contributor } from "./Contributor";
 
 interface Props {
     contributorExtra?: string | null;
     entry: IEntry;
     competition: ICompetition;
+    revalidate: VoidFunction;
 }
 
-export const ContributorEditor = ({ contributorExtra, entry, competition }: Props) => {
+export const ContributorEditor = ({ contributorExtra, entry, competition, revalidate }: Props) => {
     const { user } = useUserState();
     const [showAddContributor, setShowAddContributor] = useState(false);
     const searchRef = useRef<HTMLInputElement>(null);
@@ -60,6 +62,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition }: Prop
         )
             .then((res) => {
                 setShowAddContributor(false);
+                revalidate();
             })
             .catch((err) => {
                 const errorBody = err.body;
@@ -76,7 +79,9 @@ export const ContributorEditor = ({ contributorExtra, entry, competition }: Prop
             });
     };
 
-    const iAmContributorOwner = entry.contributors.some((e) => e.is_owner && e.user.uuid === user?.uuid);
+    if (!user) {
+        return null;
+    }
 
     return (
         <div className="container mx-auto my-12 sm:my-0">
@@ -97,24 +102,13 @@ export const ContributorEditor = ({ contributorExtra, entry, competition }: Prop
 
                     {entry.contributors.map((contributor, i) => (
                         <>
-                            <div className="flex">
-                                <div>
-                                    <span className="font-medium">{contributor.user.display_name}</span>
-                                    {contributorExtra && (
-                                        <>
-                                            {iAmContributorOwner || contributor.user.uuid === user?.uuid ? (
-                                                <Input label={contributorExtra} />
-                                            ) : (
-                                                <span>Fekekk</span>
-                                            )}
-                                        </>
-                                    )}
-                                </div>
-                                <div className="flex items-end justify-end flex-1 gap-4">
-                                    <button>Update</button>
-                                    <button>Remove</button>
-                                </div>
-                            </div>
+                            <Contributor
+                                contributor={contributor}
+                                entry={entry}
+                                user={user}
+                                contributorExtra={contributorExtra}
+                                revalidate={revalidate}
+                            />
                             {i !== entry.contributors.length - 1 && <hr className="my-6 border-t border-gray-300" />}
                         </>
                     ))}

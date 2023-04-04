@@ -65,7 +65,7 @@ interface ROLE_OTHER {
 
 export type Role = ROLE_CREW | ROLE_PARTICIPANT | ROLE_JURY | ROLE_ANON | ROLE_OTHER;
 
-interface User {
+export interface User {
     obj_type: ObjType;
     uuid: string;
     display_name_format: { value: string; label: string };

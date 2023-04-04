@@ -12,9 +12,10 @@ interface IProps {
     competition: ICompetition;
     entry?: IEntry;
     onRegistrationFinish: () => void;
+    revalidate: VoidFunction;
 }
 
-export const EditRegistration = ({ competition, entry, onRegistrationFinish }: IProps) => {
+export const EditRegistration = ({ competition, entry, onRegistrationFinish, revalidate }: IProps) => {
     const onUpdate = (data: any) => {
         if (!entry) {
             return;
@@ -74,6 +75,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish }: I
             {hasUpload && <FileUpload competition={competition} entry={entry} />}
             {competition.id === 39 && (
                 <ContributorEditor
+                    revalidate={revalidate}
                     entry={entry}
                     contributorExtra={competition.contributor_extra}
                     competition={competition}
