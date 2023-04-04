@@ -73,14 +73,12 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
                 exists={true}
             />
             {hasUpload && <FileUpload competition={competition} entry={entry} />}
-            {competition.id === 39 && (
-                <ContributorEditor
-                    revalidate={revalidate}
-                    entry={entry}
-                    contributorExtra={competition.contributor_extra}
-                    competition={competition}
-                />
-            )}
+            <ContributorEditor
+                revalidate={revalidate}
+                entry={entry}
+                contributorExtra={competition.contributor_extra}
+                competition={competition}
+            />
         </>
     );
 };

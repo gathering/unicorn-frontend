@@ -76,7 +76,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
                     )}
                 </div>
                 <div className="flex items-end justify-end flex-1 gap-4">
-                    <button className="">Update</button>
+                    {contributorExtra && <button className="">Update</button>}
                     {iAmContributorOwner && !contributor.is_owner && (
                         <button onClick={removeContributor} type="button">
                             Remove
