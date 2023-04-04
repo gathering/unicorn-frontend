@@ -115,7 +115,7 @@ const CompetitionAdminEntry = () => {
                     {competition.name}
                 </HeadingWrapper>
             </header>
-            <section className="col-span-2 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+            <section className="col-span-2 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                 <h2 className="p-4 text-xl">
                     {entry.title}
                     <br />
@@ -132,7 +132,7 @@ const CompetitionAdminEntry = () => {
                 )}
             </section>
             {hasUpload && (
-                <section className="grid grid-cols-2 col-span-2 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+                <section className="grid grid-cols-2 col-span-2 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="col-span-1 col-start-1 p-4 text-xl">Files</h2>
                     <ul className="col-span-1 col-start-1 px-4 pb-4">
                         {competition.fileupload.map((fu) => {
@@ -149,7 +149,7 @@ const CompetitionAdminEntry = () => {
                                             ) : (
                                                 <a
                                                     href={file.url}
-                                                    className="p-1 px-2 -ml-2 text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500"
+                                                    className="p-1 px-2 -ml-2 text-indigo-700 underline transition-all duration-150 rounded-sm dark:text-indigo-300 hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500"
                                                 >
                                                     {file.name}
                                                 </a>
@@ -157,7 +157,7 @@ const CompetitionAdminEntry = () => {
                                         </>
                                     ) : (
                                         <span
-                                            className="px-2 py-1 text-sm bg-red-200 dark:bg-red-400 rounded-md "
+                                            className="px-2 py-1 text-sm bg-red-200 rounded-md dark:bg-red-400 "
                                             role="alert"
                                         >
                                             No file uploaded yet
@@ -172,10 +172,10 @@ const CompetitionAdminEntry = () => {
                     )}
                 </section>
             )}
-            <section className="col-span-2 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+            <section className="col-span-2 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                 <h2 className="p-4 text-xl">Contributors</h2>
                 <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-100">
+                    <thead className="text-gray-500 bg-gray-50 dark:bg-gray-900 dark:text-gray-100">
                         <tr>
                             <th
                                 scope="col"
@@ -195,14 +195,22 @@ const CompetitionAdminEntry = () => {
                             >
                                 Phone number
                             </th>
+                            {competition.contributor_extra && (
+                                <th
+                                    scope="col"
+                                    className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase"
+                                >
+                                    {competition.contributor_extra}
+                                </th>
+                            )}
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                    <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         {entry.contributors.map((c) => (
                             <tr key={c.uuid}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {c.is_owner && (
-                                        <span className="px-1 mr-4 font-light text-white dark:text-tg-brand-orange-50 rounded bg-tg-brand-orange-500 dark:bg-tg-brand-orange-600 ">
+                                        <span className="px-1 mr-4 font-light text-white rounded dark:text-tg-brand-orange-50 bg-tg-brand-orange-500 dark:bg-tg-brand-orange-600 ">
                                             Owner
                                         </span>
                                     )}{" "}
@@ -214,13 +222,16 @@ const CompetitionAdminEntry = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.phone_number}</td>
+                                {competition.contributor_extra && (
+                                    <td className="px-6 py-4 whitespace-nowrap">{c.extra_info}</td>
+                                )}
                             </tr>
                         ))}
                     </tbody>
                 </table>
             </section>
             <aside className="col-start-3 row-span-3 row-start-2">
-                <section className="flex flex-col flex-wrap p-4 bg-white dark:bg-gray-800 rounded shadow sm:rounded-none">
+                <section className="flex flex-col flex-wrap p-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="text-xl">Status</h2>
 
                     <p>
