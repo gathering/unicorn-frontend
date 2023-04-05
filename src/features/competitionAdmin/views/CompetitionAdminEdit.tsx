@@ -16,6 +16,7 @@ import { parseError } from "@utils/error";
 import { FileEdit } from "@features/competitions/FileEdit";
 import "react-datepicker/dist/react-datepicker.css";
 import { Select } from "@components/Select";
+import { Textarea } from "../../../components/Textarea/Textarea";
 
 const CompetitionAdminEdit = () => {
     const { id } = useParams<{ id: string }>();
@@ -28,6 +29,7 @@ const CompetitionAdminEdit = () => {
         formState: { errors },
         control,
         reset,
+        getValues,
     } = useForm();
 
     const [showForm, setShowForm] = useState(false);
@@ -38,20 +40,28 @@ const CompetitionAdminEdit = () => {
             let descObj: string | RawDraftContentState =
                 competition.description ?? convertToRaw(ContentState.createFromText(""));
 
-            try {
-                rulesObj = JSON.parse(rulesObj as string) as RawDraftContentState;
-            } catch (e) {
-                rulesObj = convertToRaw(ContentState.createFromText(rulesObj as string));
+            if (competition.rules.startsWith("{")) {
+                try {
+                    rulesObj = JSON.parse(rulesObj as string) as RawDraftContentState;
+                } catch (e) {
+                    rulesObj = convertToRaw(ContentState.createFromText(rulesObj as string));
+                }
+            } else {
+                rulesObj = competition.rules;
             }
 
-            try {
-                if (descObj) {
-                    descObj = JSON.parse(descObj as string) as RawDraftContentState;
-                } else {
-                    descObj = convertToRaw(ContentState.createFromText(""));
+            if ((competition.description ?? "").startsWith("{")) {
+                try {
+                    if (descObj) {
+                        descObj = JSON.parse(descObj as string) as RawDraftContentState;
+                    } else {
+                        descObj = convertToRaw(ContentState.createFromText(""));
+                    }
+                } catch (e) {
+                    descObj = convertToRaw(ContentState.createFromText(descObj as string));
                 }
-            } catch (e) {
-                descObj = convertToRaw(ContentState.createFromText(descObj as string));
+            } else {
+                descObj = competition.description ?? "";
             }
 
             reset({
@@ -89,8 +99,11 @@ const CompetitionAdminEdit = () => {
                     return competitionObject;
                 }, {} as { [key: string]: any }),
                 genre: competition.genre.id,
-                rules: JSON.stringify(formData.rules),
-                description: JSON.stringify(formData.description),
+                rules: typeof formData.rules === "string" ? formData.rules : JSON.stringify(formData.rules),
+                description:
+                    typeof formData.description === "string"
+                        ? formData.description
+                        : JSON.stringify(formData.description),
             })
         )
             .then((d) => {
@@ -204,37 +217,55 @@ const CompetitionAdminEdit = () => {
                     />
                 </div>
 
-                <Controller
-                    control={control}
-                    name="description"
-                    rules={{
-                        required: "You must write a description for the competition",
-                    }}
-                    render={({ field }) => (
-                        <Wysiwyg
-                            label="Competition description"
-                            onChange={field.onChange}
-                            defaultState={field.value}
-                            errorLabel={errors.description?.message}
-                        />
-                    )}
-                />
+                {typeof getValues("description") === "string" ? (
+                    <Textarea
+                        label="Competition description"
+                        className="w-full mb-6"
+                        rows={10}
+                        {...register("description")}
+                    ></Textarea>
+                ) : (
+                    <Controller
+                        control={control}
+                        name="description"
+                        rules={{
+                            required: "You must write a description for the competition",
+                        }}
+                        render={({ field }) => (
+                            <Wysiwyg
+                                label="Competition description"
+                                onChange={field.onChange}
+                                defaultState={field.value}
+                                errorLabel={errors.description?.message}
+                            />
+                        )}
+                    />
+                )}
 
-                <Controller
-                    control={control}
-                    name="rules"
-                    rules={{
-                        required: "You must write a ruleset for the competition",
-                    }}
-                    render={({ field }) => (
-                        <Wysiwyg
-                            label="Competition rules"
-                            onChange={field.onChange}
-                            defaultState={field.value}
-                            errorLabel={errors.rules?.message}
-                        />
-                    )}
-                />
+                {typeof getValues("rules") === "string" ? (
+                    <Textarea
+                        className="w-full mb-6"
+                        rows={20}
+                        label="Competition rules"
+                        {...register("rules")}
+                    ></Textarea>
+                ) : (
+                    <Controller
+                        control={control}
+                        name="rules"
+                        rules={{
+                            required: "You must write a ruleset for the competition",
+                        }}
+                        render={({ field }) => (
+                            <Wysiwyg
+                                label="Competition rules"
+                                onChange={field.onChange}
+                                defaultState={field.value}
+                                errorLabel={errors.rules?.message}
+                            />
+                        )}
+                    />
+                )}
 
                 <Input
                     label="Poster image URL"
