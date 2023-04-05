@@ -195,6 +195,12 @@ const CompetitionAdminEntry = () => {
                             >
                                 Phone number
                             </th>
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase"
+                            >
+                                Row/Seat
+                            </th>
                             {competition.contributor_extra && (
                                 <th
                                     scope="col"
@@ -222,6 +228,9 @@ const CompetitionAdminEntry = () => {
                                 </td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.email}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">{c.user.phone_number}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    {c.user.row}/{c.user.seat}
+                                </td>
                                 {competition.contributor_extra && (
                                     <td className="px-6 py-4 whitespace-nowrap">{c.extra_info}</td>
                                 )}
