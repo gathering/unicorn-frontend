@@ -89,6 +89,7 @@ interface State {
     permissions?: Permission[];
     user?: User;
     revalidateUser: () => void;
+    forcedLoggedOut: boolean;
 }
 
 const defaultState: State = {
@@ -104,6 +105,7 @@ const UserDispatchContext = createContext<Dispatch | undefined>(undefined);
 
 const userReducer = (state: State, action: Action) => {
     const _state = { ...state };
+    console.log(action.type, { action });
 
     switch (action.type) {
         case "SET_ACCESS_TOKEN":
@@ -118,7 +120,7 @@ const userReducer = (state: State, action: Action) => {
             cookie.remove(REFRESH_TOKEN);
             cookie.remove(ACCESS_TOKEN);
 
-            return defaultState;
+            return { ...defaultState, forcedLoggedOut: true };
 
         case "SAVE_USER_PERMISSIONS":
             _state.permissions = action.permissions;
@@ -148,7 +150,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }, [permissions]);
 
     useEffect(() => {
-        if (window.location.pathname.startsWith("/login")) {
+        if (window.location.pathname.startsWith("/login") || state.forcedLoggedOut !== true) {
             return;
         }
 
