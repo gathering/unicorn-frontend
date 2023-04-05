@@ -172,7 +172,7 @@ const CompetitionDetails = () => {
                                     {data?.description?.startsWith("{") ? (
                                         <div dangerouslySetInnerHTML={{ __html: competitionDescription }} />
                                     ) : (
-                                        <div className="prose">
+                                        <div className="max-w-full prose">
                                             <Remark>{data?.description ?? ""}</Remark>
                                         </div>
                                     )}
@@ -182,7 +182,7 @@ const CompetitionDetails = () => {
                                 {data.rules.startsWith("{") ? (
                                     <div dangerouslySetInnerHTML={{ __html: competitionRules }} />
                                 ) : (
-                                    <div className="prose">
+                                    <div className="max-w-full prose">
                                         <Remark>{data.rules}</Remark>
                                     </div>
                                 )}
