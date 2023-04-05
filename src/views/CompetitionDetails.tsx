@@ -1,7 +1,6 @@
 import React, { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Tabs, TabList, Tab, TabPanels, TabPanel } from "@reach/tabs";
-import draftToHtml from "draftjs-to-html";
 import dayjs from "dayjs";
 import useSWR from "swr";
 import styled from "styled-components";
@@ -18,18 +17,6 @@ import "@reach/tabs/styles.css";
 import { Remark } from "react-remark";
 
 dayjs.extend(advancedFormat);
-
-const convertDraftToHtml = (data: any) => {
-    let html = data;
-
-    try {
-        html = draftToHtml(JSON.parse(data));
-    } catch (_) {
-        return html;
-    }
-
-    return html;
-};
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
@@ -115,9 +102,6 @@ const CompetitionDetails = () => {
     const { user } = useUserState();
     const { data } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet);
 
-    const competitionDescription = useMemo(() => convertDraftToHtml(data?.description), [data]);
-    const competitionRules = useMemo(() => convertDraftToHtml(data?.rules), [data]);
-
     const {
         data: entries,
         mutate: refetchEntries,
@@ -161,31 +145,23 @@ const CompetitionDetails = () => {
                     <CompetitionPhases competition={data} />
                     <Tabs className="bg-white rounded dark:bg-gray-800 sm:rounded-none">
                         <TabList className="flex">
-                            {competitionDescription && (
+                            {data.description && (
                                 <Tab className="flex-grow py-3 border-b border-tg-brand-orange-500">Information</Tab>
                             )}
                             <Tab className="flex-grow py-3 border-b">Rules</Tab>
                         </TabList>
                         <TabPanels className="p-4">
-                            {competitionDescription && (
+                            {data.description && (
                                 <TabPanel>
-                                    {data?.description?.startsWith("{") ? (
-                                        <div dangerouslySetInnerHTML={{ __html: competitionDescription }} />
-                                    ) : (
-                                        <div className="max-w-full prose">
-                                            <Remark>{data?.description ?? ""}</Remark>
-                                        </div>
-                                    )}
+                                    <div className="max-w-full prose">
+                                        <Remark>{data.description}</Remark>
+                                    </div>
                                 </TabPanel>
                             )}
                             <TabPanel>
-                                {data.rules.startsWith("{") ? (
-                                    <div dangerouslySetInnerHTML={{ __html: competitionRules }} />
-                                ) : (
-                                    <div className="max-w-full prose">
-                                        <Remark>{data.rules}</Remark>
-                                    </div>
-                                )}
+                                <div className="max-w-full prose">
+                                    <Remark>{data.rules}</Remark>
+                                </div>
                             </TabPanel>
                         </TabPanels>
                     </Tabs>

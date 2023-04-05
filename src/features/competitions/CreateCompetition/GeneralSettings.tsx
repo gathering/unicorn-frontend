@@ -1,13 +1,12 @@
 import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
-import { EditorState, convertToRaw } from "draft-js";
 import DatePicker from "react-datepicker";
 import { addHours, addWeeks } from "date-fns";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import "react-datepicker/dist/react-datepicker.css";
 import { Input } from "../../../components/Input";
-import { Wysiwyg } from "../../../components/Wysiwyg/Wysiwyg";
 import type { Genre } from "../competition";
+import { Textarea } from "../../../components/Textarea/Textarea";
 
 interface IProps {
     onForward: () => void;
@@ -38,7 +37,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 <Input
                     {...register("name", { required: "You need to give the competition a title" })}
                     label="Competition title"
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                     errorLabel={formState.errors.name?.message}
                 />
 
@@ -51,7 +50,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         },
                     })}
                     label="Brief description"
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                     errorLabel={formState.errors.brief_description?.message}
                 />
 
@@ -141,46 +140,32 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     }}
                 />
 
-                <Controller
-                    control={control}
-                    name="description"
-                    rules={{
+                <Textarea
+                    label="Competition description"
+                    className="w-full mb-6"
+                    rows={10}
+                    errorLabel={formState.errors.description?.message}
+                    {...register("description", {
                         required: "You must write a description for the competition",
-                    }}
-                    defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
-                    render={({ field }) => (
-                        <Wysiwyg
-                            label="Competition description"
-                            onChange={field.onChange}
-                            defaultState={field.value}
-                            errorLabel={formState.errors.description?.message}
-                        />
-                    )}
-                />
+                    })}
+                ></Textarea>
 
-                <Controller
-                    control={control}
-                    name="rules"
-                    rules={{
+                <Textarea
+                    className="w-full mb-6"
+                    rows={20}
+                    label="Competition rules"
+                    errorLabel={formState.errors.rules?.message}
+                    {...register("rules", {
                         required: "You must write a ruleset for the competition",
-                    }}
-                    defaultValue={convertToRaw(EditorState.createEmpty().getCurrentContent())}
-                    render={({ field }) => (
-                        <Wysiwyg
-                            label="Competition rules"
-                            errorLabel={formState.errors.rules?.message}
-                            onChange={field.onChange}
-                            defaultState={field.value}
-                        />
-                    )}
-                />
+                    })}
+                ></Textarea>
 
                 <Input
                     label="Poster image URL"
                     type="url"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
                     errorLabel={formState.errors.header_image?.message}
-                    className="mb-6 w-full"
+                    className="w-full mb-6"
                 />
 
                 <Input
@@ -193,13 +178,13 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 />
 
                 <footer className="flex flex-row-reverse justify-end mt-8">
-                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-800 dark:text-green-200 duration-150 bg-green-300 dark:bg-green-800 rounded justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black  hover:shadow">
+                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-800 duration-150 bg-green-300 rounded dark:text-green-200 dark:bg-green-800 justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black hover:shadow">
                         Next
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex items-center h-12 px-4 text-base text-yellow-900 dark:text-yellow-200 duration-150 bg-yellow-300 dark:bg-yellow-800 rounded justify-evenly hover:bg-yellow-700 dark:hover:bg-yellow-500 hover:text-black hover:shadow"
+                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded dark:text-yellow-200 dark:bg-yellow-800 justify-evenly hover:bg-yellow-700 dark:hover:bg-yellow-500 hover:text-black hover:shadow"
                     >
                         Previous
                     </button>

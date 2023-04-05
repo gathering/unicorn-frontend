@@ -40,8 +40,8 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
 
                     return competitionObject;
                 }, {} as { [key: string]: any }),
-                rules: JSON.stringify(formData.rules),
-                description: JSON.stringify(formData.description),
+                rules: formData.rules,
+                description: formData.description,
             })
         )
             .then((d) => {

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Controller, useForm } from "react-hook-form";
 import DatePicker from "react-datepicker";
-import { ContentState, convertToRaw, RawDraftContentState } from "draft-js";
 import useSWR from "swr";
 import { toast } from "react-toastify";
 import { httpGet, httpPut } from "@utils/fetcher";
 import { View } from "@components/View";
 import { Input } from "@components/Input";
-import { Wysiwyg } from "@components/Wysiwyg";
 import type { ICompetition } from "@features/competitions/competition";
 import { PrizeEdit } from "@features/competitions/PrizeEdit";
 import { CompetitionLinksEdit } from "@features/competitions/CompetitionLinksEdit";
@@ -29,45 +27,16 @@ const CompetitionAdminEdit = () => {
         formState: { errors },
         control,
         reset,
-        getValues,
     } = useForm();
 
     const [showForm, setShowForm] = useState(false);
 
     useEffect(() => {
         if (competition) {
-            let rulesObj: string | RawDraftContentState = competition.rules;
-            let descObj: string | RawDraftContentState =
-                competition.description ?? convertToRaw(ContentState.createFromText(""));
-
-            if (competition.rules.startsWith("{")) {
-                try {
-                    rulesObj = JSON.parse(rulesObj as string) as RawDraftContentState;
-                } catch (e) {
-                    rulesObj = convertToRaw(ContentState.createFromText(rulesObj as string));
-                }
-            } else {
-                rulesObj = competition.rules;
-            }
-
-            if ((competition.description ?? "").startsWith("{")) {
-                try {
-                    if (descObj) {
-                        descObj = JSON.parse(descObj as string) as RawDraftContentState;
-                    } else {
-                        descObj = convertToRaw(ContentState.createFromText(""));
-                    }
-                } catch (e) {
-                    descObj = convertToRaw(ContentState.createFromText(descObj as string));
-                }
-            } else {
-                descObj = competition.description ?? "";
-            }
-
             reset({
                 ...competition,
-                description: descObj,
-                rules: rulesObj,
+                description: competition.description,
+                rules: competition.rules,
                 run_time_start: competition.run_time_start ? new Date(competition.run_time_start) : null,
                 run_time_end: competition.run_time_end ? new Date(competition.run_time_end) : null,
                 vote_time_start: competition.vote_time_start ? new Date(competition.vote_time_start) : null,
@@ -99,11 +68,8 @@ const CompetitionAdminEdit = () => {
                     return competitionObject;
                 }, {} as { [key: string]: any }),
                 genre: competition.genre.id,
-                rules: typeof formData.rules === "string" ? formData.rules : JSON.stringify(formData.rules),
-                description:
-                    typeof formData.description === "string"
-                        ? formData.description
-                        : JSON.stringify(formData.description),
+                rules: formData.rules,
+                description: formData.description,
             })
         )
             .then((d) => {
@@ -217,55 +183,14 @@ const CompetitionAdminEdit = () => {
                     />
                 </div>
 
-                {typeof getValues("description") === "string" ? (
-                    <Textarea
-                        label="Competition description"
-                        className="w-full mb-6"
-                        rows={10}
-                        {...register("description")}
-                    ></Textarea>
-                ) : (
-                    <Controller
-                        control={control}
-                        name="description"
-                        rules={{
-                            required: "You must write a description for the competition",
-                        }}
-                        render={({ field }) => (
-                            <Wysiwyg
-                                label="Competition description"
-                                onChange={field.onChange}
-                                defaultState={field.value}
-                                errorLabel={errors.description?.message}
-                            />
-                        )}
-                    />
-                )}
+                <Textarea
+                    label="Competition description"
+                    className="w-full mb-6"
+                    rows={10}
+                    {...register("description")}
+                ></Textarea>
 
-                {typeof getValues("rules") === "string" ? (
-                    <Textarea
-                        className="w-full mb-6"
-                        rows={20}
-                        label="Competition rules"
-                        {...register("rules")}
-                    ></Textarea>
-                ) : (
-                    <Controller
-                        control={control}
-                        name="rules"
-                        rules={{
-                            required: "You must write a ruleset for the competition",
-                        }}
-                        render={({ field }) => (
-                            <Wysiwyg
-                                label="Competition rules"
-                                onChange={field.onChange}
-                                defaultState={field.value}
-                                errorLabel={errors.rules?.message}
-                            />
-                        )}
-                    />
-                )}
+                <Textarea className="w-full mb-6" rows={20} label="Competition rules" {...register("rules")}></Textarea>
 
                 <Input
                     label="Poster image URL"
