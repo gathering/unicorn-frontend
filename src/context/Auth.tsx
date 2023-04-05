@@ -150,7 +150,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }, [permissions]);
 
     useEffect(() => {
-        if (window.location.pathname.startsWith("/login") || state.forcedLoggedOut !== true) {
+        if (window.location.pathname.startsWith("/login") || state.forcedLoggedOut === true) {
             return;
         }
 
