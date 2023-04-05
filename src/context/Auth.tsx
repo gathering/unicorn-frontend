@@ -105,7 +105,6 @@ const UserDispatchContext = createContext<Dispatch | undefined>(undefined);
 
 const userReducer = (state: State, action: Action) => {
     const _state = { ...state };
-    console.log(action.type, { action });
 
     switch (action.type) {
         case "SET_ACCESS_TOKEN":
@@ -150,7 +149,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     }, [permissions]);
 
     useEffect(() => {
-        if (window.location.pathname.startsWith("/login") || state.forcedLoggedOut === true) {
+        if (window.location.pathname.startsWith("/login") || window.location.pathname.startsWith("/logout")) {
             return;
         }
 
