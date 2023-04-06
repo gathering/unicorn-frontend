@@ -1,18 +1,18 @@
-import React, { useMemo } from 'react';
-import { useParams } from 'react-router';
-import useSWR from 'swr';
-import { httpGet } from '../utils/fetcher';
-import { View } from '../components/View';
-import { VoteCard } from '../features/competitions/VoteCard';
-import type { ICompetition, IEntryListResponse } from '../features/competitions/competition';
-import styled from 'styled-components';
+import React, { useMemo } from "react";
+import { useParams } from "react-router";
+import useSWR from "swr";
+import { httpGet } from "../utils/fetcher";
+import { View } from "../components/View";
+import { VoteCard } from "../features/competitions/VoteCard";
+import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";
+import styled from "styled-components";
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
 `;
 
 const CompetitionVote = () => {
-    const { cid } = useParams<{ cid: string }>();
+    const { id: cid } = useParams<{ id: string }>();
     const { data: competition } = useSWR<ICompetition>(`competitions/competitions/${cid}`, httpGet);
     const { data: entries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${cid}&status=4&limit=1000`,
