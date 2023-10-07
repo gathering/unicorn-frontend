@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import React, { useEffect, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 
 interface Props {
     onChange: (vote: number) => void;
@@ -7,7 +7,7 @@ interface Props {
     score: number;
 }
 
-const starDescription = ['Not my taste', "It's ok", 'Cool!', 'I like it!', 'Amazing!'];
+const starDescription = ["Not my taste", "It's ok", "Cool!", "I like it!", "Amazing!"];
 
 export const RateStars = ({ onChange, score, isFetching }: Props) => {
     const [hoverStar, setHoverStar] = useState<number>();
@@ -21,7 +21,7 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
 
     return (
         <>
-            <div className="flex items-center justify-center mb-2" style={{ minHeight: '3rem' }}>
+            <div className="flex items-center justify-center mb-2" style={{ minHeight: "3rem" }}>
                 {isFetching ? (
                     <svg
                         className="w-8 h-8 text-black animate-spin"
@@ -47,16 +47,16 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
                     stars.map((active, i) => {
                         const bgColor =
                             hoverStar !== undefined && hoverStar >= i
-                                ? 'text-yellow-600'
+                                ? "text-yellow-600"
                                 : active
-                                ? 'text-yellow-400'
-                                : 'text-gray-500';
+                                ? "text-yellow-400"
+                                : "text-gray-500";
 
                         return (
                             <button
-                                title={`${starDescription[i]}${starDescription[i].endsWith('!') ? '' : '.'} Vote ${
+                                title={`${starDescription[i]}${starDescription[i].endsWith("!") ? "" : "."} Vote ${
                                     i + 1
-                                } star${i + 1 === 1 ? '' : 's'}`}
+                                } star${i + 1 === 1 ? "" : "s"}`}
                                 className={`text-4xl px-2 ${bgColor}`}
                                 onFocus={() => setHoverStar(i)}
                                 onMouseEnter={() => setHoverStar(i)}
@@ -69,7 +69,7 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
                     })
                 )}
             </div>
-            <p style={{ minHeight: '2.5rem' }} className="text-gray-700">
+            <p style={{ minHeight: "2.5rem" }} className="text-gray-700">
                 {hoverStar !== undefined ? starDescription[hoverStar] : score !== 0 ? starDescription[score - 1] : null}
             </p>
         </>

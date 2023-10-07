@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 
 interface Props {
     src: string;
@@ -16,7 +16,7 @@ export const MusicPlayer = ({ src }: Props) => {
     useEffect(() => {
         if (isPlaying) {
             player.play().catch((e) => {
-                setPlayerError('Could not play this file');
+                setPlayerError("Could not play this file");
             });
         } else {
             player.pause();
@@ -32,17 +32,17 @@ export const MusicPlayer = ({ src }: Props) => {
     }, [playerTime]);
 
     useEffect(() => {
-        player.addEventListener('canplay', () => setCanPlay(true));
+        player.addEventListener("canplay", () => setCanPlay(true));
     }, [player]);
 
     useEffect(() => {
-        player.addEventListener('ended', () => setIsPlaying(false));
-        player.addEventListener('timeupdate', (e) => {
+        player.addEventListener("ended", () => setIsPlaying(false));
+        player.addEventListener("timeupdate", (e) => {
             console.log(e.target.currentTime);
             setPlayerTime(e.target?.currentTime);
         });
         return () => {
-            player.removeEventListener('ended', () => setIsPlaying(false));
+            player.removeEventListener("ended", () => setIsPlaying(false));
         };
     }, [canPlay]);
 
@@ -52,7 +52,7 @@ export const MusicPlayer = ({ src }: Props) => {
 
     return (
         <>
-            <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? 'pause' : 'play'}</button>
+            <button onClick={() => setIsPlaying(!isPlaying)}>{isPlaying ? "pause" : "play"}</button>
             <input
                 type="range"
                 ref={seekerRef}

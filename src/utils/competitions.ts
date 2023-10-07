@@ -1,8 +1,8 @@
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
-import groupBy from 'lodash/groupBy';
-import draftJs from 'draft-js';
-import type { ICompetition, IEntry, State } from '../features/competitions/competition';
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+import groupBy from "lodash/groupBy";
+import draftJs from "draft-js";
+import type { ICompetition, IEntry, State } from "../features/competitions/competition";
 
 export const CLOSED = 1;
 export const REGISTRATION_OPEN = 2;
@@ -33,7 +33,7 @@ export const amIParticipantInCompetition = (c: ICompetition) =>
     (c.entries?.length && c.entries.find((e) => e.is_contributor)) || false;
 export const amIParticipantInEntryList = (e: IEntry[]) => e.find((ee) => ee.is_contributor) || false;
 
-export const groupCompetitionsByKey = (competitions: ICompetition[], key = 'run_time_start') => {
+export const groupCompetitionsByKey = (competitions: ICompetition[], key = "run_time_start") => {
     dayjs.extend(relativeTime);
 
     const today = dayjs();
@@ -42,17 +42,17 @@ export const groupCompetitionsByKey = (competitions: ICompetition[], key = 'run_
         const startTime = dayjs(competition[key]);
 
         // Is the competition within the next 24hr?
-        if (startTime.isBefore(today.add(24, 'hour')) && startTime.isAfter(today)) {
+        if (startTime.isBefore(today.add(24, "hour")) && startTime.isAfter(today)) {
             // Is the competition within the next 6hr?
             // Format it a bit special
-            if (startTime.isBefore(today.add(6, 'hour'))) {
+            if (startTime.isBefore(today.add(6, "hour"))) {
                 return `In ${today.to(startTime, true)}`;
             } else {
-                return 'Later today';
+                return "Later today";
             }
         }
 
-        return startTime.format('dddd, MMMM D');
+        return startTime.format("dddd, MMMM D");
     });
 };
 
@@ -64,9 +64,9 @@ export const sortByRunTimeStart = (a: ICompetition, b: ICompetition) =>
  * @param {string} rawData Rules in a stringified rawState or HTML format
  */
 export const convertRawToContentState = (rawData: string) => {
-    let raw = draftJs.ContentState.createFromText('');
+    let raw = draftJs.ContentState.createFromText("");
 
-    if (typeof rawData === 'string') {
+    if (typeof rawData === "string") {
         try {
             raw = draftJs.convertFromRaw(JSON.parse(rawData));
         } catch (_) {
@@ -74,7 +74,7 @@ export const convertRawToContentState = (rawData: string) => {
                 const blocksFromHTML = draftJs.convertFromHTML(rawData);
                 raw = draftJs.ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
             } catch (_) {
-                raw = draftJs.ContentState.createFromText('');
+                raw = draftJs.ContentState.createFromText("");
             }
         }
     }
@@ -83,12 +83,12 @@ export const convertRawToContentState = (rawData: string) => {
 };
 
 export const competitionPhases = (competition: ICompetition): [string, string, string][] => {
-    const phases = ['registration_time', 'run_time', 'vote_time', 'show_time'];
+    const phases = ["registration_time", "run_time", "vote_time", "show_time"];
 
     return phases.map((phase) => [
         phase,
-        competition ? competition[phase + '_start'] : undefined,
-        competition ? competition[phase + '_end'] : undefined,
+        competition ? competition[phase + "_start"] : undefined,
+        competition ? competition[phase + "_end"] : undefined,
     ]);
 };
 
@@ -99,55 +99,55 @@ export const findRegisterAction = (competition: ICompetition, ownEntry: IEntry |
     switch (competition.state.value) {
         case 2: // Register
             if (isExternalCompetition) {
-                return 'external';
+                return "external";
             }
 
             if (!isAuthenticated) {
-                return 'login';
+                return "login";
             }
 
             if (ownEntry) {
-                return 'my_registration';
+                return "my_registration";
             } else {
-                return 'register';
+                return "register";
             }
 
         case 4: // Show registration
             if (isExternalCompetition) {
-                return 'external';
+                return "external";
             }
 
             if (ownEntry && isAuthenticated) {
-                return 'my_competition';
+                return "my_competition";
             }
             break;
 
         case 8: // Register or hand in
             if (isExternalCompetition) {
-                return 'external';
+                return "external";
             }
 
             if (isAuthenticated) {
                 if (ownEntry && !!Object.keys(ownEntry).length) {
-                    return 'my_registration';
+                    return "my_registration";
                 } else {
                     if (hasPreRegistration(competition)) {
                         return null;
                     }
 
-                    return 'register';
+                    return "register";
                 }
             } else {
-                return 'login';
+                return "login";
             }
 
         case 16: // Show information
             if (isExternalCompetition) {
-                return 'external';
+                return "external";
             }
 
             if (ownEntry && isAuthenticated) {
-                return 'my_registration';
+                return "my_registration";
             }
             break;
 
@@ -156,7 +156,7 @@ export const findRegisterAction = (competition: ICompetition, ownEntry: IEntry |
                 return null;
             }
 
-            return 'result';
+            return "result";
 
         default:
             return null;

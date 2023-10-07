@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from 'react';
-import { toast } from 'react-toastify';
-import { httpPatch, httpPost } from '../../../utils/fetcher';
-import { parseError } from '../../../utils/error';
-import type { IEntry, IUploadFile } from '../competition';
-import { RateStars } from './RateStars';
-import { MusicPlayer } from '../../../components/MusicPlayer';
+import React, { useMemo, useState } from "react";
+import { toast } from "react-toastify";
+import { httpPatch, httpPost } from "../../../utils/fetcher";
+import { parseError } from "../../../utils/error";
+import type { IEntry, IUploadFile } from "../competition";
+import { RateStars } from "./RateStars";
+import { MusicPlayer } from "../../../components/MusicPlayer";
 
 interface Props {
     entry: IEntry;
@@ -14,20 +14,20 @@ interface Props {
 }
 
 export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
-    const activeMainFile = useMemo(() => entry.files.find((f) => f.active && f.type === 'main'), [entry]);
-    const activeMainFileType = useMemo(() => uploadForm.find((fu) => fu.type === 'main')?.file, [uploadForm]);
+    const activeMainFile = useMemo(() => entry.files.find((f) => f.active && f.type === "main"), [entry]);
+    const activeMainFileType = useMemo(() => uploadForm.find((fu) => fu.type === "main")?.file, [uploadForm]);
     const [isFetching, setIsFetching] = useState(false);
 
     const createVote = (score: number) => {
         setIsFetching(true);
 
-        httpPost('competitions/votes', JSON.stringify({ entry: entry.id, score }))
+        httpPost("competitions/votes", JSON.stringify({ entry: entry.id, score }))
             .then((d) => {
                 onVote(d);
                 setIsFetching(false);
             })
             .catch((err) => {
-                toast.error('Error creating competition');
+                toast.error("Error creating competition");
                 parseError(err).forEach((e: any) => toast.error(e));
             });
     };
@@ -44,7 +44,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                 setIsFetching(false);
             })
             .catch((err) => {
-                toast.error('Error creating competition');
+                toast.error("Error creating competition");
                 parseError(err).forEach((e: any) => toast.error(e));
             });
     };
@@ -63,7 +63,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
 
     return (
         <article className="flex flex-col items-center bg-white rounded-md sm:rounded-none">
-            {activeMainFileType === 'picture' ? (
+            {activeMainFileType === "picture" ? (
                 <>
                     <a href={activeMainFile.url} target="_blank" rel="noopener noreferrer" className="w-full">
                         <img src={activeMainFile.url} className="rounded-t-md sm:rounded-none" />
@@ -72,21 +72,21 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                     {entry.is_contributor ? (
                         <p className="px-5 pb-6 text-center">
                             {entry.is_owner
-                                ? 'You cannot vote for your own entry'
-                                : 'You cannot vote for an entry where you are a registered participant'}
+                                ? "You cannot vote for your own entry"
+                                : "You cannot vote for an entry where you are a registered participant"}
                         </p>
                     ) : (
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />
                     )}
                 </>
-            ) : activeMainFileType === 'music' ? (
+            ) : activeMainFileType === "music" ? (
                 <>
                     <h2 className="my-3 text-2xl text-gray-700">{entry.title}</h2>
                     {entry.is_contributor ? (
                         <p className="px-5 pb-6 text-center">
                             {entry.is_owner
-                                ? 'You cannot vote for your own entry'
-                                : 'You cannot vote for an entry where you are a registered participant'}
+                                ? "You cannot vote for your own entry"
+                                : "You cannot vote for an entry where you are a registered participant"}
                         </p>
                     ) : (
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />
@@ -118,8 +118,8 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                     {entry.is_contributor ? (
                         <p className="px-5 pb-6 text-center">
                             {entry.is_owner
-                                ? 'You cannot vote for your own entry'
-                                : 'You cannot vote for an entry where you are a registered participant'}
+                                ? "You cannot vote for your own entry"
+                                : "You cannot vote for an entry where you are a registered participant"}
                         </p>
                     ) : (
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />

@@ -1,39 +1,39 @@
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import { useId } from '@reach/auto-id';
-import * as tus from 'tus-js-client';
-import { toast } from 'react-toastify';
-import type { IEntry, IFile, IUploadFile } from '../competition';
-import { getToken } from '../../../utils/fetcher';
-import { parseError } from '../../../utils/error';
+import React, { ChangeEvent, useEffect, useState } from "react";
+import { useId } from "@reach/auto-id";
+import * as tus from "tus-js-client";
+import { toast } from "react-toastify";
+import type { IEntry, IFile, IUploadFile } from "../competition";
+import { getToken } from "../../../utils/fetcher";
+import { parseError } from "../../../utils/error";
 
 const FILE_PICTURE = {
-    types: ['png', 'jpg'],
+    types: ["png", "jpg"],
 };
 
 const FILE_ARCHIVE = {
-    types: ['zip', 'rar'],
+    types: ["zip", "rar"],
 };
 
 const FILE_MUSIC = {
-    types: ['mp3', 'wav'],
+    types: ["mp3", "wav"],
 };
 
 const FILE_VIDEO = {
-    types: ['mp4 h264'],
+    types: ["mp4 h264"],
 };
 
 const getFileConstant = (file: string) => {
     switch (file) {
-        case 'picture':
+        case "picture":
             return FILE_PICTURE;
 
-        case 'archive':
+        case "archive":
             return FILE_ARCHIVE;
 
-        case 'music':
+        case "music":
             return FILE_MUSIC;
 
-        case 'video':
+        case "video":
             return FILE_VIDEO;
 
         default:
@@ -50,7 +50,7 @@ interface Props {
 
 export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) => {
     let inputId = `unicorn-upload-input--${useId()}`;
-    const [progress, setProgress] = useState('0');
+    const [progress, setProgress] = useState("0");
     const [stage, setStage] = useState(1);
 
     useEffect(() => {
@@ -69,19 +69,19 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
         }
 
         const upload = new tus.Upload(file, {
-            endpoint: import.meta.env.VITE_APP_API + '/upload/',
+            endpoint: import.meta.env.VITE_APP_API + "/upload/",
             metadata: {
                 filename: file.name,
                 filetype: file.type,
             },
             chunkSize: 15 * 1024 * 1024,
             headers: {
-                'X-Unicorn-Entry-Id': entry.id.toString(),
-                'X-Unicorn-File-Type': formDefinition.type,
-                Authorization: 'Bearer ' + token,
+                "X-Unicorn-Entry-Id": entry.id.toString(),
+                "X-Unicorn-File-Type": formDefinition.type,
+                Authorization: "Bearer " + token,
             },
             onError: (e) => {
-                console.log('Upload failed: ' + e);
+                console.log("Upload failed: " + e);
             },
             onProgress: (bytesUploaded, bytesTotal) => {
                 const p = ((bytesUploaded / bytesTotal) * 100).toFixed(0);
@@ -117,7 +117,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                             </svg>
                             <p className="text-gray-700 dark:text-gray-300">No file uploaded yet</p>
                             <h3 className="text-xl">
-                                {formDefinition.input} ({getFileConstant(formDefinition.file).types.join(', ')})
+                                {formDefinition.input} ({getFileConstant(formDefinition.file).types.join(", ")})
                             </h3>
                         </>
                     ) : stage === 2 ? (

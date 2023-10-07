@@ -1,16 +1,16 @@
-import { motion } from 'framer-motion';
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import useSWR from 'swr';
-import { View } from '../components/View';
-import { useUserState } from '../context/Auth';
-import type { ICompetitionListResponse } from '../features/competitions/competition';
-import { httpGet } from '../utils/fetcher';
+import { motion } from "framer-motion";
+import React, { useMemo } from "react";
+import { Link } from "react-router-dom";
+import useSWR from "swr";
+import { View } from "../components/View";
+import { useUserState } from "../context/Auth";
+import type { ICompetitionListResponse } from "../features/competitions/competition";
+import { httpGet } from "../utils/fetcher";
 
 const CompetitionVoteOverview = () => {
     const { user } = useUserState();
     const { data: competitionResult, isValidating } = useSWR<ICompetitionListResponse>(
-        'competitions/competitions',
+        "competitions/competitions",
         httpGet
     );
 
@@ -61,7 +61,7 @@ const CompetitionVoteOverview = () => {
                             className="w-full mb-6 duration-200 hover:shadow-xl"
                             key={competition.id}
                         >
-                            <Link to={'/competitions/' + competition.id + '/vote'} className="flex h-32">
+                            <Link to={"/competitions/" + competition.id + "/vote"} className="flex h-32">
                                 <img
                                     className="flex-none object-cover w-64 overflow-hidden text-center bg-gray-400 bg-cover rounded-l sm:rounded-none"
                                     src={competition.header_image}
@@ -95,7 +95,7 @@ const CompetitionVoteOverview = () => {
             {!filteredCompetitions.length && !isValidating && (
                 <article className="flex flex-col items-center w-full mt-12 mb-10 mr-10 sm:mt-4">
                     <h1 className="mt-32 text-4xl text-gray-800">
-                        {competitionResult ? 'No competitions found' : 'Loading...'}
+                        {competitionResult ? "No competitions found" : "Loading..."}
                     </h1>
                     {competitionResult && <p className="text-2xl text-gray-600">#isiteasteryet</p>}
                 </article>

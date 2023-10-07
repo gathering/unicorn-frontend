@@ -1,3 +1,3 @@
-import CompetitionPhases from './CompetitionPhases';
+import CompetitionPhases from "./CompetitionPhases";
 
 export default CompetitionPhases;

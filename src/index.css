@@ -3,14 +3,13 @@
 @tailwind utilities;
 
 html {
-    font-family: 'Inter', sans-serif;
+    font-family: "Inter", sans-serif;
 }
 @supports (font-variation-settings: normal) {
     html {
-        font-family: 'Inter var', sans-serif;
+        font-family: "Inter var", sans-serif;
     }
 }
-
 
 [data-reach-tab] {
     @apply py-2 bg-white dark:bg-gray-800 text-xl font-light !important;

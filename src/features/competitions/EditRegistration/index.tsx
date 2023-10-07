@@ -1,1 +1,1 @@
-export { EditRegistration } from './EditRegistration';
+export { EditRegistration } from "./EditRegistration";

@@ -1,1 +1,1 @@
-export { CompetitionLinksEdit } from './CompetitionLinksEdit';
+export { CompetitionLinksEdit } from "./CompetitionLinksEdit";

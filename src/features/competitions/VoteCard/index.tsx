@@ -1,1 +1,1 @@
-export { VoteCard } from './VoteCard';
+export { VoteCard } from "./VoteCard";

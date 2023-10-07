@@ -1,1 +1,1 @@
-export { ContributorEditor } from './ContributorEditor';
+export { ContributorEditor } from "./ContributorEditor";

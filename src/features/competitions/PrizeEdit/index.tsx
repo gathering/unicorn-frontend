@@ -1,1 +1,1 @@
-export { PrizeEdit } from './PrizeEdit';
+export { PrizeEdit } from "./PrizeEdit";

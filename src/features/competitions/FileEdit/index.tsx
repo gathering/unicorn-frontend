@@ -1,1 +1,1 @@
-export { FileEdit } from './FileEdit';
+export { FileEdit } from "./FileEdit";

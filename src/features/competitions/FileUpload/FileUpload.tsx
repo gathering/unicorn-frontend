@@ -1,8 +1,8 @@
-import React from 'react';
-import useSWR from 'swr';
-import { httpGet } from '../../../utils/fetcher';
-import type { ICompetition, IEntry } from '../competition';
-import { UploadForm } from './UploadForm';
+import React from "react";
+import useSWR from "swr";
+import { httpGet } from "../../../utils/fetcher";
+import type { ICompetition, IEntry } from "../competition";
+import { UploadForm } from "./UploadForm";
 
 interface Props {
     competition: ICompetition;

@@ -1,9 +1,9 @@
-import React, { useMemo } from 'react';
-import { useUserState } from '../../context/Auth';
-import { hasPermission as objectHasPermission, Permission } from '../../utils/permissions';
+import React, { useMemo } from "react";
+import { useUserState } from "../../context/Auth";
+import { hasPermission as objectHasPermission, Permission } from "../../utils/permissions";
 
 interface Props {
-    requiredRole?: 'crew' | 'particpant' | 'jury' | 'anon' | 'other';
+    requiredRole?: "crew" | "particpant" | "jury" | "anon" | "other";
     requiredPermission?: Permission | Permission[];
 }
 

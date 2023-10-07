@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Input } from '../../../components/Input';
-import { Select } from '../../../components/Select';
+import React, { useEffect, useState } from "react";
+import { Input } from "../../../components/Input";
+import { Select } from "../../../components/Select";
 
-type FileType = 'archive' | 'music' | 'picture' | 'video';
-type InputType = 'main' | 'screenshot' | 'progress1' | 'progress2' | 'progress3' | 'other';
+type FileType = "archive" | "music" | "picture" | "video";
+type InputType = "main" | "screenshot" | "progress1" | "progress2" | "progress3" | "other";
 
 interface IUploadFile {
     input: string;
@@ -22,9 +22,9 @@ interface IProps {
 }
 
 const defaultValue = (forceMain: boolean): IUploadFile => ({
-    file: 'archive',
-    input: '',
-    type: forceMain ? 'main' : 'screenshot',
+    file: "archive",
+    input: "",
+    type: forceMain ? "main" : "screenshot",
 });
 
 export const File = ({
@@ -81,10 +81,10 @@ export const File = ({
                 value={value.file}
                 label="File type"
                 options={[
-                    { label: 'Music (wav, mp3, flac)', value: 'music' },
-                    { label: 'Archive (zip, rar)', value: 'archive' },
-                    { label: 'Picture (png, jpg)', value: 'picture' },
-                    { label: 'Video (mov, mp4)', value: 'video' },
+                    { label: "Music (wav, mp3, flac)", value: "music" },
+                    { label: "Archive (zip, rar)", value: "archive" },
+                    { label: "Picture (png, jpg)", value: "picture" },
+                    { label: "Video (mov, mp4)", value: "video" },
                 ]}
             />
             <div>
@@ -98,30 +98,30 @@ export const File = ({
                     forceMain
                         ? [
                               {
-                                  label: 'Main entry',
-                                  value: 'main',
+                                  label: "Main entry",
+                                  value: "main",
                               },
                           ]
                         : [
                               {
-                                  label: 'Screenshot',
-                                  value: 'screenshot',
+                                  label: "Screenshot",
+                                  value: "screenshot",
                               },
                               {
-                                  label: 'Progress #1',
-                                  value: 'progress1',
+                                  label: "Progress #1",
+                                  value: "progress1",
                               },
                               {
-                                  label: 'Progress #2',
-                                  value: 'progress2',
+                                  label: "Progress #2",
+                                  value: "progress2",
                               },
                               {
-                                  label: 'Progress #3',
-                                  value: 'progress3',
+                                  label: "Progress #3",
+                                  value: "progress3",
                               },
                               {
-                                  label: 'Other',
-                                  value: 'other',
+                                  label: "Other",
+                                  value: "other",
                               },
                           ]
                 }

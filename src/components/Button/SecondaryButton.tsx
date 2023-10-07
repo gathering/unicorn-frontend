@@ -1,4 +1,4 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from 'react';
+import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
 
 interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
     loading?: string;
@@ -8,7 +8,7 @@ export const SecondaryButton: React.FC<Props> = ({ loading, children, className,
     return (
         <button
             className={`py-2 px-7 hover:scale-105 hover:font-semibold rounded-lg flex justify-center items-center text-tg-brand-orange-500 transition-all duration-150 border-2 border-tg-brand-orange-500 hover:border-tg-brand-orange-600 ${
-                className ?? ''
+                className ?? ""
             }`}
             {...props}
         >

@@ -1,5 +1,5 @@
-import React, { ErrorInfo } from 'react';
-import * as Sentry from '@sentry/browser';
+import React, { ErrorInfo } from "react";
+import * as Sentry from "@sentry/browser";
 
 class ErrorBoundary extends React.Component {
     state = {

@@ -1,10 +1,10 @@
-import React from 'react';
-import { PrimaryButton, SecondaryButton } from '../../../components/Button';
-import { Input } from '../../../components/Input';
-import { Select } from '../../../components/Select';
-import { Link } from './Link';
+import React from "react";
+import { PrimaryButton, SecondaryButton } from "../../../components/Button";
+import { Input } from "../../../components/Input";
+import { Select } from "../../../components/Select";
+import { Link } from "./Link";
 
-type Destinations = 'twitch' | 'discord' | 'facebook' | 'gathering.org';
+type Destinations = "twitch" | "discord" | "facebook" | "gathering.org";
 
 interface ILink {
     href: string;
@@ -21,7 +21,7 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
     const handleChangeDestination = (index: number, e: Destinations) => {
         const newLinkList = [...value];
         newLinkList[index] = {
-            ...(newLinkList[index] ?? { href: '' }),
+            ...(newLinkList[index] ?? { href: "" }),
             destination: e,
         };
         onChange(newLinkList);
@@ -35,22 +35,22 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
         onChange(value.filter((_, i) => i !== index));
     };
     const handleAdd = () => {
-        onChange([...value, ({ destination: '', href: '' } as unknown) as ILink]);
+        onChange([...value, { destination: "", href: "" } as unknown as ILink]);
     };
 
     return (
         <fieldset>
-            <legend className="mb-2">{label ?? 'Links'}</legend>
+            <legend className="mb-2">{label ?? "Links"}</legend>
             {value.length && (
                 <ul>
                     {value.map((val, i) => (
                         <li key={i} className="flex items-end mb-2">
                             <Select
                                 options={[
-                                    { label: 'Twitch', value: 'twitch' },
-                                    { label: 'Discord channel', value: 'discord' },
-                                    { label: 'Facebook', value: 'facebook' },
-                                    { label: 'Gathering.org', value: 'gathering.org' },
+                                    { label: "Twitch", value: "twitch" },
+                                    { label: "Discord channel", value: "discord" },
+                                    { label: "Facebook", value: "facebook" },
+                                    { label: "Gathering.org", value: "gathering.org" },
                                 ]}
                                 onChange={(e) => handleChangeDestination(i, e)}
                                 value={val.destination}

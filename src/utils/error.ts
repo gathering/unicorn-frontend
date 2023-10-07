@@ -4,12 +4,12 @@ export const parseError = (error: any) => {
     if (Array.isArray(body)) {
         // TODO Do something useful with error
         return error;
-    } else if (typeof body === 'object') {
+    } else if (typeof body === "object") {
         return Object.entries(body).map(([key, err]) => {
-            const description = key === 'detail' ? '' : key + ': ';
+            const description = key === "detail" ? "" : key + ": ";
 
             if (Array.isArray(err)) {
-                return description + err.join('. ');
+                return description + err.join(". ");
             }
 
             return description + err;
