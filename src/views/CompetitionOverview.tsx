@@ -50,7 +50,7 @@ const CompetitionsOverview: React.FC = () => {
     const genreOptions = [{ label: "All genres", value: "__all__" }, ...options];
     const [genre, setGenre] = useState(genreOptions[0].value);
 
-    const featuredCompetitions = useMemo(() => competitions.filter((c) => c.featured), [competitions]);
+    // const featuredCompetitions = useMemo(() => competitions.filter((c) => c.featured), [competitions]);
 
     const filteredCompetitions = useMemo(
         () =>

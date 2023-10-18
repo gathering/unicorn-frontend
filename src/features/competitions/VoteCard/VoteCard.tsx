@@ -4,7 +4,6 @@ import { httpPatch, httpPost } from "../../../utils/fetcher";
 import { parseError } from "../../../utils/error";
 import type { IEntry, IUploadFile } from "../competition";
 import { RateStars } from "./RateStars";
-import { MusicPlayer } from "../../../components/MusicPlayer";
 
 interface Props {
     entry: IEntry;
@@ -66,7 +65,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
             {activeMainFileType === "picture" ? (
                 <>
                     <a href={activeMainFile.url} target="_blank" rel="noopener noreferrer" className="w-full">
-                        <img src={activeMainFile.url} className="rounded-t-md sm:rounded-none" />
+                        <img src={activeMainFile.url} className="rounded-t-md sm:rounded-none" alt="" />
                     </a>
                     <h2 className="my-3 text-2xl text-gray-700">{entry.title}</h2>
                     {entry.is_contributor ? (

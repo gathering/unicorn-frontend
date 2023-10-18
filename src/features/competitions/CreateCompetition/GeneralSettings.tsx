@@ -18,7 +18,7 @@ const initialDate = addHours(new Date(), 1);
 initialDate.setMinutes(0, 0, 0);
 
 export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
-    const { register, formState, handleSubmit, control, watch } = useFormContext();
+    const { register, formState, handleSubmit, control } = useFormContext();
 
     const onSubmit = () => {
         onForward();
@@ -65,7 +65,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="runtime-start" className="dark:text-gray-100">
+                                <label id="runtime-start" className="dark:text-gray-100" htmlFor="run_time_start">
                                     Competition start time
                                 </label>
                                 {formState.errors.run_time_start && (
@@ -108,7 +108,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="runtime-end" className="mt-6 dark:text-gray-100">
+                                <label id="runtime-end" className="mt-6 dark:text-gray-100" htmlFor="run_time_end">
                                     Competition end time
                                 </label>
                                 {formState.errors.run_time_end && (

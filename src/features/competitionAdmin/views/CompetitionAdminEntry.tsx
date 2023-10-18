@@ -27,10 +27,7 @@ interface IFormData {
 const CompetitionAdminEntry = () => {
     const { id, eid } = useParams<{ id: string; eid: string }>();
     const [showDisqualify, setShowDisqualify] = useState(false);
-    const { data: competition, isValidating: isValidatingCompetition } = useSWR<ICompetition>(
-        "competitions/competitions/" + id,
-        httpGet
-    );
+    const { data: competition } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet);
     const { data: entry, mutate } = useSWR<IEntry>("competitions/entries/" + eid, httpGet);
     const {
         register,
@@ -72,13 +69,13 @@ const CompetitionAdminEntry = () => {
     };
     const handleDisqualify = (formData: IFormData) => {
         if (formData.preselect === true) {
-            httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 16 })).then((d) => {
+            httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 16 })).then(() => {
                 setShowDisqualify(false);
                 mutate();
             });
         } else {
             httpPatch(`competitions/entries/${eid}`, JSON.stringify({ status: 8, comment: formData.comment }))
-                .then((d) => {
+                .then(() => {
                     setShowDisqualify(false);
                     mutate();
                 })
@@ -168,7 +165,11 @@ const CompetitionAdminEntry = () => {
                         })}
                     </ul>
                     {activeMainFileType === "picture" && (
-                        <img className="col-start-2 row-span-2 row-start-1 rounded-r" src={activeMainFile?.url} />
+                        <img
+                            className="col-start-2 row-span-2 row-start-1 rounded-r"
+                            src={activeMainFile?.url}
+                            alt=""
+                        />
                     )}
                 </section>
             )}

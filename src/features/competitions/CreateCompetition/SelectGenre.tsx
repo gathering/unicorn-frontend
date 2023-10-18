@@ -11,7 +11,7 @@ interface IProps {
     activeCategory: Genre | null;
 }
 
-export const SelectGenre = ({ onForward, onPrevious }: IProps) => {
+export const SelectGenre = ({ onForward }: IProps) => {
     const { data: genres } = useSWR<IGenreResponse>("competitions/genres", httpGet);
     const { formState, handleSubmit, control } = useFormContext();
 

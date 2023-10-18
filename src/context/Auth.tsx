@@ -174,7 +174,7 @@ export const UserProvider = ({ children }: UserProviderProps) => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "resolved" });
                 dispatch({ type: "SET_ACCESS_TOKEN", token: d.access_token });
             })
-            .catch((e) => {
+            .catch(() => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "rejected" });
                 dispatch({ type: "SET_ACCESS_TOKEN" });
             });
@@ -232,7 +232,7 @@ export const useLogin = (code: string | null) => {
                 dispatch({ type: "SET_ACCESS_TOKEN", token: d.access_token });
                 navigate("/");
             })
-            .catch((e) => {
+            .catch(() => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "rejected" });
                 dispatch({ type: "SET_ACCESS_TOKEN" });
             });

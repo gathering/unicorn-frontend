@@ -2,7 +2,6 @@ import React from "react";
 import { PrimaryButton, SecondaryButton } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { Select } from "../../../components/Select";
-import { Link } from "./Link";
 
 type Destinations = "twitch" | "discord" | "facebook" | "gathering.org";
 
@@ -64,7 +63,7 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
                                     value={val.href}
                                 />
                             </div>
-                            <SecondaryButton type="button" className="mb-1 ml-6" onClick={(e) => handleRemove(i)}>
+                            <SecondaryButton type="button" className="mb-1 ml-6" onClick={() => handleRemove(i)}>
                                 Remove
                             </SecondaryButton>
                         </li>

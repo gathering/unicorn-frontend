@@ -51,7 +51,7 @@ export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
                     value={newPrizeState}
                     onChange={(e) => setNewPrizeState(e.target.value)}
                     label={value.length > 0 ? "" : "Add prize"}
-                    className={!!value.length ? "ml-10" : ""}
+                    className={value.length ? "ml-10" : ""}
                     labelClassName="w-full font-light"
                 />
                 <button

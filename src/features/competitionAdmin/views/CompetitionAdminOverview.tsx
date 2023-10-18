@@ -1,20 +1,12 @@
 import React from "react";
-import { toast } from "react-toastify";
 import useSWR from "swr";
 import { View } from "../../../components/View";
 import { Link } from "../../../components/Link";
-import type { ICompetition, ICompetitionListResponse } from "../../competitions/competition";
-import { httpGet, httpPatch } from "../../../utils/fetcher";
-import { parseError } from "../../../utils/error";
+import type { ICompetitionListResponse } from "../../competitions/competition";
+import { httpGet } from "../../../utils/fetcher";
 
 const CompetitionAdminOverview = () => {
-    const { data: competitions, mutate } = useSWR<ICompetitionListResponse>("competitions/competitions", httpGet);
-
-    const togglePublish = (c: ICompetition) => () => {
-        httpPatch(`competitions/competitions/${c.id}`, JSON.stringify({ published: !c.published }))
-            .then((d) => mutate())
-            .catch((err) => parseError(err).forEach((e: any) => toast.error(e)));
-    };
+    const { data: competitions } = useSWR<ICompetitionListResponse>("competitions/competitions", httpGet);
 
     if (!competitions) {
         return null;

@@ -1,21 +1,13 @@
 import React, { useEffect, useMemo } from "react";
-import { useForm, Controller } from "react-hook-form";
-import { useLocation, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
+import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useSWR from "swr";
-import { Input } from "../components/Input";
-import { amIParticipantInCompetition, amIParticipantInEntryList, hasFileupload, hasTeams } from "../utils/competitions";
-import type { ICompetition, IEntry, IEntryListResponse } from "../features/competitions/competition";
+import { amIParticipantInEntryList } from "../utils/competitions";
+import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";
 import { RegisterEntry } from "../features/competitions/RegisterEntry";
 import { EditRegistration } from "../features/competitions/EditRegistration";
-import { httpGet, httpPost, httpPut } from "../utils/fetcher";
-
-enum FormType {
-    UPLOAD_TEAM,
-    TEAM_ONLY,
-    UPLOAD_ONLY,
-}
+import { httpGet } from "../utils/fetcher";
 
 interface IFormData {
     title: string;
@@ -30,13 +22,7 @@ const HeadingWrapper = styled.h1`
 
 const CompetitionRegistration = () => {
     const { id } = useParams<{ id: string }>();
-    const {
-        register,
-        handleSubmit,
-        control,
-        formState: { errors },
-        reset,
-    } = useForm<IFormData>();
+    const { reset } = useForm<IFormData>();
     const {
         data,
         mutate: refetchCompetition,

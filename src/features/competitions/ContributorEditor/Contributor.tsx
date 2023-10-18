@@ -1,8 +1,8 @@
-import { FormEventHandler, useRef, useState } from "react";
+import { FormEventHandler, useState } from "react";
 import { toast } from "react-toastify";
 import { Input } from "../../../components/Input";
 import type { User } from "../../../context/Auth";
-import { httpDelete, httpPatch, httpPut } from "../../../utils/fetcher";
+import { httpDelete, httpPatch } from "../../../utils/fetcher";
 import type { Contributor as IContributor, IEntry } from "../competition";
 
 interface Props {
@@ -33,7 +33,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
             .then(() => {
                 toast.success("Contributor updated");
             })
-            .catch((err) => {
+            .catch(() => {
                 toast.error("Something went wrong updating the contributor");
             });
     };

@@ -22,7 +22,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
     const [searchInput, setSearchInput] = useState("");
     const [addContributorError, setAddContributorError] = useState<Array<string>>();
 
-    const { data, isLoading } = useSWR<{
+    const { data } = useSWR<{
         count: number;
         next: null | number;
         previous: null | number;
@@ -60,7 +60,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                 is_owner: false,
             })
         )
-            .then((res) => {
+            .then(() => {
                 setShowAddContributor(false);
                 revalidate();
             })

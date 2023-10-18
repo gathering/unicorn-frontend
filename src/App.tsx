@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { Link, Outlet } from "react-router-dom";
 import * as Sentry from "@sentry/react";
 import { ToastContainer } from "react-toastify";

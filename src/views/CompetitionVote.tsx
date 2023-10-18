@@ -19,11 +19,9 @@ const CompetitionVote = () => {
         httpGet,
         { revalidateOnFocus: false }
     );
-    const {
-        data: votes,
-        mutate: mutateVotes,
-        isValidating: isValidatingVotes,
-    } = useSWR(`competitions/votes?limit=1000`, httpGet, { revalidateOnFocus: false });
+    const { data: votes, mutate: mutateVotes } = useSWR(`competitions/votes?limit=1000`, httpGet, {
+        revalidateOnFocus: false,
+    });
 
     const votableEntries = useMemo(
         () =>

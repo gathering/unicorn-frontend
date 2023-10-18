@@ -15,7 +15,7 @@ export const MusicPlayer = ({ src }: Props) => {
 
     useEffect(() => {
         if (isPlaying) {
-            player.play().catch((e) => {
+            player.play().catch(() => {
                 setPlayerError("Could not play this file");
             });
         } else {

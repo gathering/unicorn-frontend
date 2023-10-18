@@ -21,7 +21,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
             return;
         }
         httpPatch<IEntry>(`competitions/entries/${entry.id}`, JSON.stringify(data))
-            .then((d) => {
+            .then(() => {
                 onRegistrationFinish();
                 toast.success("Updated entry");
             })

@@ -20,13 +20,8 @@ interface IProps {
     activeCategory: Genre | null;
 }
 
-export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
-    const {
-        register,
-        formState: { errors },
-        control,
-        handleSubmit,
-    } = useFormContext();
+export const Misc = ({ onPrevious, activeCategory }: IProps) => {
+    const { register, control, handleSubmit } = useFormContext();
     const navigate = useNavigate();
 
     const onSubmit = (formData: any) => {
@@ -82,7 +77,11 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                 const { value, ...props } = field;
                                 return (
                                     <>
-                                        <label id="votetime-start" className="block mt-6 mb-1">
+                                        <label
+                                            id="votetime-start"
+                                            className="block mt-6 mb-1"
+                                            htmlFor="vote_time_start"
+                                        >
                                             Vote start time (optional)
                                         </label>
                                         <div className="block">
@@ -107,7 +106,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                                 const { value, ...props } = field;
                                 return (
                                     <>
-                                        <label id="votetime-end" className="mb-1">
+                                        <label id="votetime-end" className="mb-1" htmlFor="vote_time_end">
                                             Vote end time (optional)
                                         </label>
                                         <div className="block">
@@ -177,7 +176,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="register-end" className="mb-1">
+                                <label id="register-end" className="mb-1" htmlFor="register_time_start">
                                     Registration start time (optional)
                                 </label>
                                 <div className="block">
@@ -203,7 +202,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="register-end" className="mb-1">
+                                <label id="register-end" className="mb-1" htmlFor="register_time_end">
                                     Registration end time (optional)
                                 </label>
                                 <div className="block">
@@ -229,7 +228,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-lock" className="block mb-1">
+                                <label id="showtime-lock" className="block mb-1" htmlFor="show_prestart_lock">
                                     Pre-show lockdown start (optional)
                                 </label>
                                 <div className="block">
@@ -255,7 +254,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-end" className="block mb-1">
+                                <label id="showtime-end" className="block mb-1" htmlFor="show_time_start">
                                     Competition show start time (optional)
                                 </label>
                                 <div className="block">
@@ -281,7 +280,7 @@ export const Misc = ({ onForward, onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-end" className="block mb-1">
+                                <label id="showtime-end" className="block mb-1" htmlFor="show_time_end">
                                     Competition show end time (optional)
                                 </label>
                                 <div className="block">

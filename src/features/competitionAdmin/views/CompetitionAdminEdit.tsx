@@ -117,10 +117,12 @@ const CompetitionAdminEdit = () => {
                             required: "You must give the competition a start time",
                         }}
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="runtime-start">Competition start time</label>
+                                    <label id="runtime-start" htmlFor="run_time_start">
+                                        Competition start time
+                                    </label>
                                     {errors.run_time_start && (
                                         <label role="alert" className="block text-red-600" id="description-error-label">
                                             {errors.run_time_start.message}
@@ -153,10 +155,12 @@ const CompetitionAdminEdit = () => {
                             required: "You must give the competition an end time",
                         }}
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="runtime-end">Competition end time</label>
+                                    <label id="runtime-end" htmlFor="run_time_end">
+                                        Competition end time
+                                    </label>
                                     {errors.run_time_end && (
                                         <label role="alert" className="block text-red-600" id="description-error-label">
                                             {errors.run_time_end.message}
@@ -237,10 +241,10 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="vote_time_start"
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="votetime-start" className="block mb-1">
+                                    <label id="votetime-start" className="block mb-1" htmlFor="vote_time_start">
                                         Vote start time (optional)
                                     </label>
                                     <div className="block">
@@ -262,10 +266,10 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="vote_time_end"
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="votetime-end" className="block mb-1">
+                                    <label id="votetime-end" className="block mb-1" htmlFor="vote_time_end">
                                         Vote end time (optional)
                                     </label>
                                     <div className="block">
@@ -367,10 +371,10 @@ const CompetitionAdminEdit = () => {
                     control={control}
                     name="show_prestart_lock"
                     render={({ field }) => {
-                        const { value, ref, ...props } = field;
+                        const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-lock" className="block mb-1">
+                                <label id="showtime-lock" className="block mb-1" htmlFor="show_prestart_lock">
                                     Pre-show lockdown start (optional)
                                 </label>
                                 <div className="block">
@@ -394,10 +398,10 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="show_time_start"
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="showtime-end" className="block mb-1">
+                                    <label id="showtime-end" className="block mb-1" htmlFor="show_time_start">
                                         Stage show start (optional)
                                     </label>
                                     <div className="block">
@@ -420,10 +424,10 @@ const CompetitionAdminEdit = () => {
                         control={control}
                         name="show_time_end"
                         render={({ field }) => {
-                            const { value, ref, ...props } = field;
+                            const { value, ...props } = field;
                             return (
                                 <div>
-                                    <label id="showtime-end" className="block mb-1">
+                                    <label id="showtime-end" className="block mb-1" htmlFor="show_time_end">
                                         Stage show end (optional)
                                     </label>
                                     <div className="block">

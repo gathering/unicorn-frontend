@@ -1,10 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from "react";
-import { useId } from "@reach/auto-id";
 import * as tus from "tus-js-client";
-import { toast } from "react-toastify";
 import type { IEntry, IFile, IUploadFile } from "../competition";
 import { getToken } from "../../../utils/fetcher";
-import { parseError } from "../../../utils/error";
 
 const FILE_PICTURE = {
     types: ["png", "jpg"],
@@ -49,7 +46,7 @@ interface Props {
 }
 
 export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) => {
-    let inputId = `unicorn-upload-input--${useId()}`;
+    // let inputId = `unicorn-upload-input--${useId()}`;
     const [progress, setProgress] = useState("0");
     const [stage, setStage] = useState(1);
 

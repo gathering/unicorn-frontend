@@ -6,7 +6,7 @@ import useSWR from "swr";
 import styled from "styled-components";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import CompetitionPhases from "../features/competitions/CompetitionPhases";
-import { amIParticipantInEntryList, findRegisterAction, hasPreRegistration, hasVote } from "../utils/competitions";
+import { amIParticipantInEntryList, findRegisterAction } from "../utils/competitions";
 import type { ICompetition, IEntry, IEntryListResponse } from "../features/competitions/competition";
 import { formatNumber } from "../utils/numbers";
 import { useUserState } from "../context/Auth";
@@ -102,13 +102,13 @@ const CompetitionDetails = () => {
     const { user } = useUserState();
     const { data } = useSWR<ICompetition>("competitions/competitions/" + id, httpGet);
 
-    const {
-        data: entries,
-        mutate: refetchEntries,
-        isValidating: isValidatingEntries,
-    } = useSWR<IEntryListResponse>(`competitions/entries/?competition_id=${id}&limit=1000`, httpGet, {
-        revalidateOnFocus: false,
-    });
+    const { data: entries } = useSWR<IEntryListResponse>(
+        `competitions/entries/?competition_id=${id}&limit=1000`,
+        httpGet,
+        {
+            revalidateOnFocus: false,
+        }
+    );
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);
     const hasMeta = useMemo(() => !!data?.prizes.length || !!data?.links.length || data?.sponsor_name, [data]);
@@ -138,7 +138,7 @@ const CompetitionDetails = () => {
                         >
                             <p>
                                 <strong>Voting is open! </strong>{" "}
-                                {!!user ? "Cast your votes now!" : "Please log in to cast your votes!"}
+                                {user ? "Cast your votes now!" : "Please log in to cast your votes!"}
                             </p>
                         </section>
                     )}
@@ -214,7 +214,7 @@ const CompetitionDetails = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {data.prizes.map((prize: String, i: number) => (
+                                            {data.prizes.map((prize: string, i: number) => (
                                                 <tr
                                                     key={prize + i.toString()}
                                                     className="pr-3 font-light text-gray-600 align-top dark:text-gray-200"
