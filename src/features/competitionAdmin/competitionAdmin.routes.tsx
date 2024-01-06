@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, RouteObject } from "react-router-dom";
+import { Outlet, type RouteObject } from "react-router-dom";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import CompetitionAdminCreate from "./views/CompetitionAdminCreate";
 import CompetitionAdminDetails from "./views/CompetitionAdminDetails";

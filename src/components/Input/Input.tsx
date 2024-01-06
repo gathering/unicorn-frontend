@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { useId } from "@reach/auto-id";
-import VisuallyHidden from "@reach/visually-hidden";
+import { VisuallyHidden } from "@reach/visually-hidden";
 import styled from "styled-components";
 
 interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
