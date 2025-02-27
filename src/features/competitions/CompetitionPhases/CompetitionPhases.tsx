@@ -110,7 +110,7 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                         ? "Today"
                         : dayjs(time).isTomorrow()
                         ? "Tomorrow"
-                        : dayjs(time).format("dddd Do")}
+                        : dayjs(time).format("dddd DD. MMMM")}
                 </span>
                 <span>{dayjs(time).format("HH:mm")}</span>
             </div>
