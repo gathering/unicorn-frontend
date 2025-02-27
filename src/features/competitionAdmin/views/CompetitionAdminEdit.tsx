@@ -194,7 +194,7 @@ const CompetitionAdminEdit = () => {
                     {...register("description")}
                 ></Textarea>
 
-                <Textarea className="w-full mb-6" rows={20} label="Competition rules" {...register("rules")}></Textarea>
+                <Textarea className="w-full mb-6 p-2" rows={20} label="Competition rules" {...register("rules")}></Textarea>
 
                 <Input
                     label="Poster image URL"
