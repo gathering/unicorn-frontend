@@ -189,7 +189,7 @@ const CompetitionAdminEdit = () => {
 
                 <Textarea
                     label="Competition description"
-                    className="w-full mb-6"
+                    className="w-full mb-6 p-2"
                     rows={10}
                     {...register("description")}
                 ></Textarea>
