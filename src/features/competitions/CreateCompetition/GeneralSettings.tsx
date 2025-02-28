@@ -142,7 +142,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
 
                 <Textarea
                     label="Competition description"
-                    className="w-full mb-6"
+                    className="w-full mb-6 p-2"
                     rows={10}
                     errorLabel={formState.errors.description?.message}
                     {...register("description", {
@@ -151,7 +151,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 ></Textarea>
 
                 <Textarea
-                    className="w-full mb-6"
+                    className="w-full mb-6 p-2"
                     rows={20}
                     label="Competition rules"
                     errorLabel={formState.errors.rules?.message}
