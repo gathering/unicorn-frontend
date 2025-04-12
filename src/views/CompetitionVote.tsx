@@ -17,7 +17,7 @@ const CompetitionVote = () => {
     const { data: entries, isValidating: isValidatingEntries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${cid}&status=4&limit=1000`,
         httpGet,
-        { revalidateOnFocus: false }
+        { revalidateOnFocus: false },
     );
     const { data: votes, mutate: mutateVotes } = useSWR(`competitions/votes?limit=1000`, httpGet, {
         revalidateOnFocus: false,
@@ -35,7 +35,7 @@ const CompetitionVote = () => {
 
                 return false;
             }) ?? [],
-        [entries]
+        [entries],
     );
 
     const onVote = (vote) => {

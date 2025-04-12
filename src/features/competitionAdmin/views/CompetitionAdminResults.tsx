@@ -12,7 +12,7 @@ const CompetitionAdminResults = () => {
     const { id } = useParams<{ id: string }>();
     const { data: entries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${id}&status=4&limit=1000`,
-        httpGet
+        httpGet,
     );
 
     if (!entries) {

@@ -87,11 +87,11 @@ const CompetitionAdminEntry = () => {
 
     const activeMainFile: IFile | undefined = useMemo(
         () => entry?.files.find((f) => f.active && f.type === "main"),
-        [entry]
+        [entry],
     );
     const activeMainFileType = useMemo(
         () => competition?.fileupload?.find((fu) => fu.type === "main")?.file,
-        [competition]
+        [competition],
     );
 
     if (!competition || !entry) {
@@ -248,10 +248,10 @@ const CompetitionAdminEntry = () => {
                         {entry.status.value === 4
                             ? "Qualified"
                             : entry.status.value === 8
-                            ? `Disqualified: ${entry.comment}`
-                            : entry.status.value === 16
-                            ? "Not preselected"
-                            : entry.status.label}
+                              ? `Disqualified: ${entry.comment}`
+                              : entry.status.value === 16
+                                ? "Not preselected"
+                                : entry.status.label}
                     </p>
 
                     <footer className="flex flex-wrap gap-4 mt-6">

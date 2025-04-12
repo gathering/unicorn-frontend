@@ -11,7 +11,7 @@ const CompetitionVoteOverview = () => {
     const { user } = useUserState();
     const { data: competitionResult, isValidating } = useSWR<ICompetitionListResponse>(
         "competitions/competitions",
-        httpGet
+        httpGet,
     );
 
     const filteredCompetitions = useMemo(() => {

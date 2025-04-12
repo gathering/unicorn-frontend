@@ -48,8 +48,8 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
                             hoverStar !== undefined && hoverStar >= i
                                 ? "text-yellow-600"
                                 : active
-                                ? "text-yellow-400"
-                                : "text-gray-500";
+                                  ? "text-yellow-400"
+                                  : "text-gray-500";
 
                         return (
                             <button

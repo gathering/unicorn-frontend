@@ -57,7 +57,7 @@ const CompetitionAdminDetails = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const { data: entries } = useSWR<IEntryListResponse>(
         `competitions/entries/?competition_id=${id}&limit=1000`,
-        httpGet
+        httpGet,
     );
 
     const updatePublished = (published?: boolean) => {
@@ -69,7 +69,7 @@ const CompetitionAdminDetails = () => {
 
         httpPatch<ICompetition>(
             `competitions/competitions/${data.id}`,
-            JSON.stringify({ published: published ?? !data.published })
+            JSON.stringify({ published: published ?? !data.published }),
         )
             .then((d) => {
                 mutate({ ...data, ...d });

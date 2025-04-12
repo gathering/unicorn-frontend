@@ -71,7 +71,7 @@ export const httpPost = <T>(
             "Content-Type": "application/json",
         },
         body,
-    }
+    },
 ) => {
     const _url = url.startsWith("http") ? url : API_URL + url + "/";
     return fetcher<T>(new Request(_url, args));
@@ -86,7 +86,7 @@ export const httpPut = <T>(
             "Content-Type": "application/json",
         },
         body,
-    }
+    },
 ) => {
     const _url = url.startsWith("http") ? url : API_URL + url + "/";
     return fetcher<T>(new Request(_url, args));
@@ -101,7 +101,7 @@ export const httpPatch = <T>(
             "Content-Type": "application/json",
         },
         body,
-    }
+    },
 ) => {
     const _url = url.startsWith("http") ? url : API_URL + url + "/";
     return fetcher<T>(new Request(_url, args));
@@ -116,7 +116,7 @@ export const httpDelete = <T>(
             "Content-Type": "application/json",
         },
         body,
-    }
+    },
 ) => {
     const _url = url.startsWith("http") ? url : API_URL + url + "/";
     return fetcher<T>(new Request(_url, args));

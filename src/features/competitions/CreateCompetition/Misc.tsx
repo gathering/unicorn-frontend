@@ -28,16 +28,19 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
         httpPost<ICompetition>(
             "competitions/competitions",
             JSON.stringify({
-                ...Object.entries(formData).reduce((competitionObject, [key, value]) => {
-                    if (value !== "") {
-                        competitionObject[key] = value;
-                    }
+                ...Object.entries(formData).reduce(
+                    (competitionObject, [key, value]) => {
+                        if (value !== "") {
+                            competitionObject[key] = value;
+                        }
 
-                    return competitionObject;
-                }, {} as { [key: string]: any }),
+                        return competitionObject;
+                    },
+                    {} as { [key: string]: any },
+                ),
                 rules: formData.rules,
                 description: formData.description,
-            })
+            }),
         )
             .then((d) => {
                 navigate(`/admin/competitions/${d.id}`);

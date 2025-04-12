@@ -36,7 +36,7 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
             fullWidth = false,
             ...inputProps
         },
-        ref
+        ref,
     ) => {
         const labelId = id || `unicorn-input--${useId()}`;
         const errorLabelId = id ? `${id}-errorlabel` : `unicorn-input-errorlabel--${useId()}`;
@@ -79,5 +79,5 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                 )}
             </>
         );
-    }
+    },
 );

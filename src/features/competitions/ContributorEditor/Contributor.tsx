@@ -28,7 +28,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
             `competitions/contributors/${contributor.id}`,
             JSON.stringify({
                 extra_info: inputValue,
-            })
+            }),
         )
             .then(() => {
                 toast.success("Contributor updated");

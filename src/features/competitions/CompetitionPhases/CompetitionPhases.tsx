@@ -98,7 +98,7 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                     },
                     {
                         "border-dashed": havePassed,
-                    }
+                    },
                 )}
             />
             <div className={`rounded-full bg-${color} w-6 h-6 border`} />
@@ -107,10 +107,10 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                     {dayjs(time).isYesterday()
                         ? "Yesterday"
                         : dayjs(time).isToday()
-                        ? "Today"
-                        : dayjs(time).isTomorrow()
-                        ? "Tomorrow"
-                        : dayjs(time).format("dddd DD. MMMM")}
+                          ? "Today"
+                          : dayjs(time).isTomorrow()
+                            ? "Tomorrow"
+                            : dayjs(time).format("dddd DD. MMMM")}
                 </span>
                 <span>{dayjs(time).format("HH:mm")}</span>
             </div>

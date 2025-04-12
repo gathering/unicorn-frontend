@@ -60,17 +60,20 @@ const CompetitionAdminEdit = () => {
         httpPut<ICompetition>(
             `competitions/competitions/${competition.id}`,
             JSON.stringify({
-                ...Object.entries(formData).reduce((competitionObject, [key, value]) => {
-                    if (value !== "") {
-                        competitionObject[key] = value;
-                    }
+                ...Object.entries(formData).reduce(
+                    (competitionObject, [key, value]) => {
+                        if (value !== "") {
+                            competitionObject[key] = value;
+                        }
 
-                    return competitionObject;
-                }, {} as { [key: string]: any }),
+                        return competitionObject;
+                    },
+                    {} as { [key: string]: any },
+                ),
                 genre: competition.genre.id,
                 rules: formData.rules,
                 description: formData.description,
-            })
+            }),
         )
             .then((d) => {
                 toast.success(`Updated competition ${d.name}`);
@@ -194,7 +197,12 @@ const CompetitionAdminEdit = () => {
                     {...register("description")}
                 ></Textarea>
 
-                <Textarea className="w-full mb-6 p-2" rows={20} label="Competition rules" {...register("rules")}></Textarea>
+                <Textarea
+                    className="w-full mb-6 p-2"
+                    rows={20}
+                    label="Competition rules"
+                    {...register("rules")}
+                ></Textarea>
 
                 <Input
                     label="Poster image URL"

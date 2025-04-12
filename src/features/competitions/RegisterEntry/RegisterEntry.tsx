@@ -66,7 +66,7 @@ export const RegisterEntry = ({
                 JSON.stringify({
                     competition: competition.id,
                     ...formData,
-                })
+                }),
             )
                 .then(() => {
                     toast.success("Successfully registered!");

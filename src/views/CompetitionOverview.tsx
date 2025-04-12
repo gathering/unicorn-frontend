@@ -28,7 +28,7 @@ const CompetitionsOverview: React.FC = () => {
 
     const { data: competitionResult, isLoading } = useSWR<ICompetitionListResponse>(
         "competitions/competitions",
-        httpGet
+        httpGet,
     );
     const { data: genreResult } = useSWR<IGenreResponse>("competitions/genres", httpGet, { revalidateOnFocus: false });
 
@@ -58,7 +58,7 @@ const CompetitionsOverview: React.FC = () => {
                 .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
                 .filter((c) => (!genre ? true : genre === "__all__" ? true : genre === c.genre.id.toString()))
                 .filter((c) => c.published),
-        [competitions, search, genre]
+        [competitions, search, genre],
     );
 
     return (
@@ -97,7 +97,7 @@ const CompetitionsOverview: React.FC = () => {
                             Permission.CompetitionsAddCompetition,
                             Permission.CompetitionsModifyAll,
                         ],
-                        permissions
+                        permissions,
                     ) && (
                         <Link
                             to="/admin/competitions"

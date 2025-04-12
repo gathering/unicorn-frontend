@@ -107,7 +107,7 @@ const CompetitionDetails = () => {
         httpGet,
         {
             revalidateOnFocus: false,
-        }
+        },
     );
 
     const hasEntry = useMemo(() => (entries ? amIParticipantInEntryList(entries.results) : false), [entries]);

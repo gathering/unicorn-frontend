@@ -43,5 +43,5 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
                 )}
             </>
         );
-    }
+    },
 );
