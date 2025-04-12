@@ -1,17 +1,10 @@
 import React, { useMemo } from "react";
 import { Link, Outlet } from "react-router-dom";
-import * as Sentry from "@sentry/react";
 import { ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
 import { useUserState } from "./context/Auth";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import "react-toastify/dist/ReactToastify.css";
-
-Sentry.init({
-    dsn: "https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132",
-    environment: import.meta.env.MODE,
-    integrations: [new Sentry.Integrations.Breadcrumbs({ console: false })],
-});
 
 const App = () => {
     const { user, accessToken } = useUserState();
@@ -25,7 +18,7 @@ const App = () => {
     }, []);
 
     return (
-        <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>
+        <ErrorBoundary>
             <div id="unicorn" className="flex flex-col min-h-screen bg-gray-200 dark:bg-gray-700 dark:text-gray-100">
                 <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white shadow-lg dark:bg-gray-800">
                     <Link to="/" className="pr-1 my-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -63,7 +56,7 @@ const App = () => {
                 <Outlet />
             </div>
             <ToastContainer />
-        </Sentry.ErrorBoundary>
+        </ErrorBoundary>
     );
 };
 
