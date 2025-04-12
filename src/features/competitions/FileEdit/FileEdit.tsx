@@ -1,4 +1,3 @@
-import React from "react";
 import { File } from "./File";
 
 type FileType = "archive" | "music" | "picture" | "video";
@@ -41,7 +40,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
             <ul>
                 {!!value.length &&
                     value.map((val, i) => (
-                        <li key={i} className="flex items-end mb-2">
+                        <li key={i} className="mb-2 flex items-end">
                             <File
                                 disableRemove={val.type === "main"}
                                 onRemove={() => removeFile(i)}
@@ -65,7 +64,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
                 <button
                     type="button"
                     onClick={onClear}
-                    className="flex items-center h-12 px-4 mt-4 text-base text-red-900 duration-150 bg-red-300 rounded justify-evenly hover:bg-red-700 hover:text-black hover:shadow"
+                    className="mt-4 flex h-12 items-center justify-evenly rounded bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow"
                 >
                     Disable file upload
                 </button>

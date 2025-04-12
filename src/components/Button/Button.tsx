@@ -1,13 +1,13 @@
-import React, { ButtonHTMLAttributes, DetailedHTMLProps } from "react";
+import React from "react";
 
-interface Props extends DetailedHTMLProps<ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement> {
+interface Props extends React.ComponentPropsWithRef<"button"> {
     loading?: string;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement, Props>(({ loading, children, className, ...props }, ref) => {
+const Button = React.forwardRef<HTMLButtonElement, Props>(({ loading, children, className, ...props }, ref) => {
     return (
         <button
-            className={`p-1 px-2 mx-4 flex items-center text-indigo-700 dark:text-indigo-300 underline transition-all duration-150 rounded-sm hover:text-indigo-900 dark:hover:text-indigo-100 hover:bg-indigo-200 dark:hover:bg-indigo-500 ${
+            className={`mx-4 flex items-center rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-500 dark:hover:text-indigo-100 ${
                 className ?? ""
             }`}
             ref={ref}
@@ -16,7 +16,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(({ loading, chi
             {loading ? (
                 <>
                     <svg
-                        className="w-5 h-5 mr-3 -ml-1 text-black animate-spin"
+                        className="-ml-1 mr-3 h-5 w-5 animate-spin text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -43,3 +43,7 @@ export const Button = React.forwardRef<HTMLButtonElement, Props>(({ loading, chi
         </button>
     );
 });
+
+Button.displayName = "Button";
+
+export { Button };

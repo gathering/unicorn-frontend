@@ -1,10 +1,9 @@
-import React from "react";
+import { Link } from "@components/Link";
+import { View } from "@components/View";
+import type { IEntry, IEntryListResponse } from "@features/competitions/competition";
+import { httpGet } from "@utils/fetcher";
 import { useParams } from "react-router";
 import useSWR from "swr";
-import type { IEntry, IEntryListResponse } from "@features/competitions/competition";
-import { View } from "@components/View";
-import { httpGet } from "@utils/fetcher";
-import { Link } from "@components/Link";
 
 const byScore = (a: IEntry, b: IEntry) => a.score - b.score;
 
@@ -21,43 +20,43 @@ const CompetitionAdminResults = () => {
 
     return (
         <View>
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-600 my-6">
-                <thead className="bg-gray-50 dark:bg-gray-900 text-gray-500 dark:text-gray-200">
+            <table className="my-6 min-w-full divide-y divide-gray-200 dark:divide-gray-600">
+                <thead className="bg-gray-50 text-gray-500 dark:bg-gray-900 dark:text-gray-200">
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Entry
                         </th>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Credit
                         </th>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Owner
                         </th>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Email
                         </th>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Phone
                         </th>
-                        <th scope="col" className="px-6 py-3 text-xs font-medium tracking-wider text-left uppercase">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
                             Score
                         </th>
                     </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
                     {entries.results.sort(byScore).map((e) => {
                         const owner = e.contributors.find((c) => c.is_owner);
                         return (
                             <tr key={e.id}>
-                                <td className="px-6 py-4 whitespace-nowrap">{e.title}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.display_name}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">
-                                    {owner.user.first_name} {owner.user.last_name}
+                                <td className="whitespace-nowrap px-6 py-4">{e.title}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.display_name}</td>
+                                <td className="whitespace-nowrap px-6 py-4">
+                                    {owner?.user.first_name} {owner?.user.last_name}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.email}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.phone_number}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.email}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.phone_number}</td>
 
-                                <td className="px-6 py-4 whitespace-nowrap">{e.score}</td>
+                                <td className="whitespace-nowrap px-6 py-4">{e.score}</td>
                             </tr>
                         );
                     })}

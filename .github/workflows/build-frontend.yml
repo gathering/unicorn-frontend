@@ -1,45 +1,80 @@
 name: Build-Frontend
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
 
 env:
-  IMAGE_NAME: unicorn-frontend
+    IMAGE_NAME: unicorn-frontend
 
 jobs:
-  push:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Check out repository
+              uses: actions/checkout@v4
 
-      - name: Build image
-        env:
-          CLIENT_ID: ${{ secrets.PROD_CLIENT_ID }}
-          CLIENT_SECRET: ${{ secrets.PROD_CLIENT_SECRET }}
-        run: docker build . -f Dockerfile --tag image --build-arg CLIENT_ID=$CLIENT_ID --build-arg CLIENT_SECRET=$CLIENT_SECRET
+            - name: Install pnpm
+              uses: pnpm/action-setup@v4
+              with:
+                  version: 10
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+            - name: Set up Node
+              uses: actions/setup-node@v3
+              with:
+                  node-version: 22
+                  cache: "pnpm"
 
-      - name: Push image
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
-          
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "main" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          
-          docker tag image $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+            - name: Install dependencies
+              run: pnpm install
+
+            - name: Run Typecheck
+              run: pnpm typecheck
+
+            - name: Run ESLint
+              run: pnpm lint
+
+            - name: Run Prettier
+              run: pnpm prettier
+
+    build:
+        needs: validate
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - name: Build image
+              env:
+                  API_URL: ${{ secrets.API_URL }}
+                  CLIENT_ID: ${{ secrets.PROD_CLIENT_ID }}
+                  CLIENT_SECRET: ${{ secrets.PROD_CLIENT_SECRET }}
+              run: docker build . -f Dockerfile --tag image --build-arg API_URL=$API_URL --build-arg CLIENT_ID=$CLIENT_ID --build-arg CLIENT_SECRET=$CLIENT_SECRET
+
+            - name: Log in to the Container registry
+              if: github.event_name != 'pull_request'
+              uses: docker/login-action@v3
+              with:
+                  registry: ghcr.io
+                  username: ${{ github.actor }}
+                  password: ${{ secrets.GITHUB_TOKEN }}
+
+            - name: Push image
+              if: github.event_name != 'pull_request'
+              run: |
+                  IMAGE_ID=ghcr.io/${{ github.repository }}/$IMAGE_NAME
+
+                  # Strip git ref prefix from version
+                  VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+
+                  # Strip "v" prefix from tag name
+                  [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
+
+                  # Use Docker `latest` tag convention
+                  [ "$VERSION" == "main" ] && VERSION=latest
+                  echo IMAGE_ID=$IMAGE_ID
+                  echo VERSION=$VERSION
+
+                  docker tag image $IMAGE_ID:$VERSION
+                  docker push $IMAGE_ID:$VERSION

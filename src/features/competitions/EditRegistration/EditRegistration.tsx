@@ -1,12 +1,11 @@
-import React from "react";
 import { toast } from "react-toastify";
-import { httpPatch } from "../../../utils/fetcher";
-import { parseError } from "../../../utils/error";
-import type { ICompetition, IEntry } from "../competition";
 import { hasFileupload } from "../../../utils/competitions";
-import { RegisterEntry } from "../RegisterEntry";
+import { parseError } from "../../../utils/error";
+import { httpPatch } from "../../../utils/fetcher";
+import type { ICompetition, IEntry } from "../competition";
 import { ContributorEditor } from "../ContributorEditor";
 import { FileUpload } from "../FileUpload";
+import { RegisterEntry } from "../RegisterEntry";
 
 interface IProps {
     competition: ICompetition;
@@ -41,7 +40,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
         <>
             {entry.status.value === 4 ? (
                 <section
-                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-green-700 bg-green-100 border-l-4 border-green-500"
+                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-green-500 bg-green-100 px-3 py-4 text-green-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Congratulations! 🥳</h2>
@@ -49,7 +48,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
                 </section>
             ) : entry.status.value === 8 ? (
                 <section
-                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500"
+                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Sorry, your entry is disqualified:</h2>
@@ -58,7 +57,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
                 </section>
             ) : entry.status.value === 16 ? (
                 <section
-                    className="container w-full col-span-2 px-3 py-4 mx-auto mt-4 text-yellow-700 bg-yellow-100 border-l-4 border-yellow-500"
+                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Your registration did not make it through the preselection</h2>

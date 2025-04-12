@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
     onChange: (vote: number) => void;
@@ -20,10 +20,10 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
 
     return (
         <>
-            <div className="flex items-center justify-center mb-2" style={{ minHeight: "3rem" }}>
+            <div className="mb-2 flex items-center justify-center" style={{ minHeight: "3rem" }}>
                 {isFetching ? (
                     <svg
-                        className="w-8 h-8 text-black animate-spin"
+                        className="h-8 w-8 animate-spin text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
@@ -48,15 +48,16 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
                             hoverStar !== undefined && hoverStar >= i
                                 ? "text-yellow-600"
                                 : active
-                                ? "text-yellow-400"
-                                : "text-gray-500";
+                                  ? "text-yellow-400"
+                                  : "text-gray-500";
 
                         return (
                             <button
+                                key={i}
                                 title={`${starDescription[i]}${starDescription[i].endsWith("!") ? "" : "."} Vote ${
                                     i + 1
                                 } star${i + 1 === 1 ? "" : "s"}`}
-                                className={`text-4xl px-2 ${bgColor}`}
+                                className={`px-2 text-4xl ${bgColor}`}
                                 onFocus={() => setHoverStar(i)}
                                 onMouseEnter={() => setHoverStar(i)}
                                 onMouseLeave={() => setHoverStar(undefined)}

@@ -1,12 +1,12 @@
 import React, { useEffect, useMemo } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import type { ICompetition, IEntry } from "../competition";
-import { httpPost } from "../../../utils/fetcher";
 import { Input } from "../../../components/Input";
-import { useForm, Controller } from "react-hook-form";
-import { hasFileupload, hasTeams } from "../../../utils/competitions";
-import { useUserState } from "../../../context/Auth";
 import { Link } from "../../../components/Link";
+import { useUserState } from "../../../context/Auth";
+import { hasFileupload, hasTeams } from "../../../utils/competitions";
+import { httpPost } from "../../../utils/fetcher";
+import type { ICompetition, IEntry } from "../competition";
 
 enum FormType {
     UPLOAD_TEAM,
@@ -48,7 +48,7 @@ export const RegisterEntry = ({
 
     useEffect(() => {
         reset(defaultValues);
-    }, [defaultValues]);
+    }, [defaultValues, reset]);
 
     const onUpdate = (formData: IFormData) => {
         if (!formData && !competition.rsvp) {
@@ -127,7 +127,7 @@ export const RegisterEntry = ({
                 <div className="flex justify-center">
                     <button
                         onClick={() => onUpdate(null as unknown as IFormData)}
-                        className="items-center w-1/4 h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded sm:w-full hover:bg-green-700 hover:text-black hover:shadow"
+                        className="m-4 mb-6 h-12 w-1/4 items-center rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow sm:w-full"
                     >
                         RSVP
                     </button>
@@ -185,12 +185,12 @@ export const RegisterEntry = ({
                             <div className="flex p-4">
                                 <h3 style={{ width: "360px" }}>Misc</h3>
                                 <fieldset className="flex-grow">
-                                    <label htmlFor="display_name_field" className="block w-full mb-1">
+                                    <label htmlFor="display_name_field" className="mb-1 block w-full">
                                         Display name
                                     </label>
                                     <span
                                         id="display_name_field"
-                                        className="flex items-center h-12 px-4 mb-2 leading-tight text-gray-700 bg-gray-300 border border-gray-300 rounded"
+                                        className="mb-2 flex h-12 items-center rounded border border-gray-300 bg-gray-300 px-4 leading-tight text-gray-700"
                                     >
                                         {user?.display_name}
                                     </span>
@@ -209,7 +209,7 @@ export const RegisterEntry = ({
 
                 <hr className="my-6 border-t border-gray-300" />
 
-                <button className="flex items-center float-right h-12 px-4 m-4 mb-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                <button className="float-right m-4 mb-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
                     {defaultValues ? "Update" : "Register"}
                 </button>
             </form>
@@ -247,9 +247,9 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
 
 const RegistrationContainer: React.FC<React.PropsWithChildren<{ header: string }>> = ({ children, header }) => (
     <div className="container mx-auto my-12 sm:my-0">
-        <section className="flex flex-col bg-white rounded dark:bg-gray-800 sm:rounded-none">
-            <h2 className="p-4 text-xl text-center">{header}</h2>
-            <hr className="pb-6 border-t border-gray-300 dark:borger-gray-700" />
+        <section className="flex flex-col rounded bg-white dark:bg-gray-800 sm:rounded-none">
+            <h2 className="p-4 text-center text-xl">{header}</h2>
+            <hr className="dark:borger-gray-700 border-t border-gray-300 pb-6" />
             {children}
         </section>
     </div>

@@ -1,17 +1,10 @@
-import React, { useMemo } from "react";
-import { Link, Outlet } from "react-router-dom";
-import * as Sentry from "@sentry/react";
-import { ToastContainer } from "react-toastify";
 import { motion } from "framer-motion";
-import { useUserState } from "./context/Auth";
-import { ErrorBoundary } from "./components/ErrorBoundary";
+import { useMemo } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-Sentry.init({
-    dsn: "https://d6acc50beb9d4de59400e6cf13e794c5@o131769.ingest.sentry.io/1252132",
-    environment: import.meta.env.MODE,
-    integrations: [new Sentry.Integrations.Breadcrumbs({ console: false })],
-});
+import { ErrorBoundary } from "./components/ErrorBoundary";
+import { useUserState } from "./context/Auth";
 
 const App = () => {
     const { user, accessToken } = useUserState();
@@ -25,18 +18,18 @@ const App = () => {
     }, []);
 
     return (
-        <Sentry.ErrorBoundary fallback={<ErrorBoundary />}>
-            <div id="unicorn" className="flex flex-col min-h-screen bg-gray-200 dark:bg-gray-700 dark:text-gray-100">
-                <nav className="flex flex-wrap items-center justify-between flex-shrink-0 px-4 bg-white shadow-lg dark:bg-gray-800">
-                    <Link to="/" className="pr-1 my-1 rounded-md hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <img src="/images/tg_logo_liten.png" className="inline w-16 ml-1" alt="Back to homepage" />
+        <ErrorBoundary>
+            <div id="unicorn" className="flex min-h-screen flex-col bg-gray-200 dark:bg-gray-700 dark:text-gray-100">
+                <nav className="flex flex-shrink-0 flex-wrap items-center justify-between bg-white px-4 shadow-lg dark:bg-gray-800">
+                    <Link to="/" className="my-1 rounded-md pr-1 hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <img src="/images/tg_logo_liten.png" className="ml-1 inline w-16" alt="Back to homepage" />
                     </Link>
 
                     {accessToken ? (
                         <motion.div className="flex" initial="rest" whileHover="hover" animate="rest">
                             <Link
                                 to="/preferences"
-                                className="flex items-center p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm dark:text-indigo-300 hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
+                                className="ml-6 flex items-center rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                             >
                                 {user?.display_name}
                             </Link>
@@ -44,14 +37,14 @@ const App = () => {
                                 href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
                                     window.location.origin
                                 }/logout`}
-                                className="p-1 px-2 ml-6 text-indigo-700 underline transition-all duration-150 rounded-sm dark:text-indigo-300 hover:text-indigo-900 hover:bg-indigo-200 dark:hover:text-indigo-100 dark:hover:bg-indigo-700"
+                                className="ml-6 rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                             >
                                 Logout
                             </a>
                         </motion.div>
                     ) : (
                         <a
-                            className="px-1 pt-1 mx-3 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out border-b-2 border-transparent dark:text-gray-300 hover:text-black dark:hover:text-white hover:border-orange-500"
+                            className="mx-3 border-b-2 border-transparent px-1 pt-1 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out hover:border-orange-500 hover:text-black dark:text-gray-300 dark:hover:text-white"
                             href={loginUrl}
                             rel="noreferrer noopener"
                         >
@@ -63,7 +56,7 @@ const App = () => {
                 <Outlet />
             </div>
             <ToastContainer />
-        </Sentry.ErrorBoundary>
+        </ErrorBoundary>
     );
 };
 

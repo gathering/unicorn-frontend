@@ -1,12 +1,12 @@
-import React, { useMemo } from "react";
+import clsx from "clsx";
 import dayjs from "dayjs";
-import isYesterday from "dayjs/plugin/isYesterday";
 import isToday from "dayjs/plugin/isToday";
 import isTomorrow from "dayjs/plugin/isTomorrow";
-import type { ICompetition } from "../competition";
+import isYesterday from "dayjs/plugin/isYesterday";
+import { useMemo } from "react";
 import { competitionPhases } from "../../../utils/competitions";
+import type { ICompetition } from "../competition";
 import "./competition-phases.scss";
-import clsx from "clsx";
 
 dayjs.extend(isYesterday);
 dayjs.extend(isToday);
@@ -53,7 +53,7 @@ const CompetitionPhases = ({ competition }: IProps) => {
     const phases = useMemo(() => competitionPhases(competition).filter((p) => !!p[1]), [competition]);
 
     return (
-        <div className="flex w-full pb-10 competition-phases">
+        <div className="competition-phases flex w-full pb-10">
             {phases.map((phase) => (
                 <Phase key={phase[0]} phase={phase} />
             ))}
@@ -86,12 +86,12 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
     const color = havePassed ? "green-700" : "gray-600";
 
     return (
-        <section className={`flex-grow flex flex-col items-center font-light`}>
+        <section className={`flex flex-grow flex-col items-center font-light`}>
             <h2 className={`mb-4 text-${color}`}>{heading}</h2>
             <hr
                 style={{ height: "2px" }}
                 className={clsx(
-                    "border-0 bg-gray-400 -mb-3 min-w-full",
+                    "-mb-3 min-w-full border-0 bg-gray-400",
                     {
                         "bg-green-700": havePassed,
                         "bg-gray-600": !havePassed,
@@ -101,16 +101,16 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
                     }
                 )}
             />
-            <div className={`rounded-full bg-${color} w-6 h-6 border`} />
+            <div className={`rounded-full bg-${color} h-6 w-6 border`} />
             <div className="flex flex-col items-center font-light">
                 <span title={dayjs(time).format("DD MMM YYYY HH:mm")}>
                     {dayjs(time).isYesterday()
                         ? "Yesterday"
                         : dayjs(time).isToday()
-                        ? "Today"
-                        : dayjs(time).isTomorrow()
-                        ? "Tomorrow"
-                        : dayjs(time).format("dddd DD. MMMM")}
+                          ? "Today"
+                          : dayjs(time).isTomorrow()
+                            ? "Tomorrow"
+                            : dayjs(time).format("dddd DD. MMMM")}
                 </span>
                 <span>{dayjs(time).format("HH:mm")}</span>
             </div>

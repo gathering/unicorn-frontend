@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import groupBy from "lodash/groupBy";
 import draftJs from "draft-js";
+import groupBy from "lodash/groupBy";
 import type { ICompetition, IEntry, State } from "../features/competitions/competition";
 
 export const CLOSED = 1;
@@ -20,7 +20,7 @@ export const hasPreRegistration = (competition: ICompetition) =>
     !!competition.register_time_start || !!competition.register_time_end;
 export const hasVote = (competition: ICompetition) => !!competition.vote_time_start || !!competition.vote_time_end;
 export const hasTeams = (competition: ICompetition) => !!competition.team_min || !!competition.team_max;
-export const hasFileupload = (competition: ICompetition) => !!competition.fileupload || !!competition.fileupload.length;
+export const hasFileupload = (competition: ICompetition) => competition.fileupload && competition.fileupload.length > 0;
 
 export const getFinishedCompetitions = (competitions: ICompetition[]) =>
     competitions.filter((c) => c.state.value === FINISHED);

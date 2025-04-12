@@ -1,15 +1,15 @@
-import React, { useState } from "react";
-import { useNavigate, useParams } from "react-router";
-import useSWR from "swr";
-import styled from "styled-components";
-import { toast } from "react-toastify";
-import type { ICompetition, IEntryListResponse } from "@features/competitions/competition";
-import { View } from "@components/View";
-import { Link } from "@components/Link";
+import { hasPermission, Permission } from "@/utils/permissions";
 import { Button } from "@components/Button";
+import { Link } from "@components/Link";
+import { View } from "@components/View";
+import type { ICompetition, IEntryListResponse } from "@features/competitions/competition";
 import { parseError } from "@utils/error";
 import { httpDelete, httpGet, httpPatch } from "@utils/fetcher";
-import { hasPermission, Permission } from "@/utils/permissions";
+import { useState } from "react";
+import { useNavigate, useParams } from "react-router";
+import { toast } from "react-toastify";
+import styled from "styled-components";
+import useSWR from "swr";
 
 const HeadingWrapper = styled.h1`
     background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
@@ -103,16 +103,16 @@ const CompetitionAdminDetails = () => {
     }
 
     return (
-        <View className="container grid grid-cols-3 gap-4 mx-auto my-12 sm:my-0">
-            <header className="relative w-full h-48 col-span-3 mb-6">
-                <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={data.header_image} alt="" />
-                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md sm:rounded-none text-gray-50">
+        <View className="container mx-auto my-12 grid grid-cols-3 gap-4 sm:my-0">
+            <header className="relative col-span-3 mb-6 h-48 w-full">
+                <img className="h-48 w-full rounded-md object-cover sm:rounded-none" src={data.header_image} alt="" />
+                <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
                     {data.name}
                 </HeadingWrapper>
             </header>
-            <section className="grid w-full grid-cols-3 col-span-2 gap-4 auto-rows-min">
+            <section className="col-span-2 grid w-full auto-rows-min grid-cols-3 gap-4">
                 {/* <Input placeholder="Search" aria-label="Search for participant" /> */}
-                <ul className="flex items-end justify-end col-span-3 gap-4 mr-4">
+                <ul className="col-span-3 mr-4 flex items-end justify-end gap-4">
                     <li className="flex items-center gap-1">
                         <svg
                             className="text-green-400 dark:text-green-600"
@@ -153,7 +153,7 @@ const CompetitionAdminDetails = () => {
                         Disqualified
                     </li>
                 </ul>
-                <div className="col-span-3 p-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
+                <div className="col-span-3 rounded bg-white p-4 shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="pb-4 text-xl">
                         Participants
                         <Link to={`/admin/competitions/${id}/results`} className="float-right text-base">
@@ -164,7 +164,7 @@ const CompetitionAdminDetails = () => {
                     {(entries?.results ?? []).length > 0 ? (
                         <ul className="pb-4">
                             {entries?.results.map((e, i) => (
-                                <li key={e.id} className="flex flex-wrap items-end my-3">
+                                <li key={e.id} className="my-3 flex flex-wrap items-end">
                                     <section className="flex-1">
                                         <h3 className="pb-4 font-medium">{e.title}</h3>
                                         <p className="font-light">{e.owner?.display_name}</p>
@@ -184,11 +184,11 @@ const CompetitionAdminDetails = () => {
                                         </svg>
                                     </span>
 
-                                    <Link to={`/admin/competitions/${id}/${e.id}`} className="ml-4 -mb-1">
+                                    <Link to={`/admin/competitions/${id}/${e.id}`} className="-mb-1 ml-4">
                                         More information
                                     </Link>
                                     {i < entries.results.length - 1 && (
-                                        <hr className="w-full my-6 border-t border-gray-300 dark:border-gray-600" />
+                                        <hr className="my-6 w-full border-t border-gray-300 dark:border-gray-600" />
                                     )}
                                 </li>
                             ))}
@@ -207,11 +207,11 @@ const CompetitionAdminDetails = () => {
                 </div>
             </section>
             <aside>
-                <section className="mb-4 bg-white rounded shadow dark:bg-gray-800 sm-rounded-none">
+                <section className="sm-rounded-none mb-4 rounded bg-white shadow dark:bg-gray-800">
                     <h2 className="px-4 py-6 text-xl">{data.entries_count} registered</h2>
                 </section>
-                <section className="p-4 mb-4 bg-white rounded shadow dark:bg-gray-800 sm:rounded-none">
-                    <h2 className="text-xl pb-7">Quick settings</h2>
+                <section className="mb-4 rounded bg-white p-4 shadow dark:bg-gray-800 sm:rounded-none">
+                    <h2 className="pb-7 text-xl">Quick settings</h2>
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) ? (
                         <>
                             <ul>
@@ -257,7 +257,7 @@ const CompetitionAdminDetails = () => {
                                 {isDeleting ? (
                                     <>
                                         <svg
-                                            className="w-full h-5 my-4 text-center text-red-800 dark:text-red-300 animate-bounce"
+                                            className="my-4 h-5 w-full animate-bounce text-center text-red-800 dark:text-red-300"
                                             xmlns="http://www.w3.org/2000/svg"
                                             fill="none"
                                             viewBox="0 0 24 24"
@@ -285,13 +285,13 @@ const CompetitionAdminDetails = () => {
                                     href={`${import.meta.env.VITE_APP_API}/api/competitions/download-entries/${
                                         data.id
                                     }/download`}
-                                    className="px-8 py-3 text-white transition-all duration-150 bg-blue-400 rounded-lg dark:bg-blue-600 hover:bg-blue-900"
+                                    className="rounded-lg bg-blue-400 px-8 py-3 text-white transition-all duration-150 hover:bg-blue-900 dark:bg-blue-600"
                                 >
                                     Download all qualified entries
                                 </a>
                                 <button
                                     onClick={() => setValidateDelete(true)}
-                                    className="px-8 py-3 text-white transition-all duration-150 bg-red-400 rounded-lg dark:bg-red-600 hover:bg-red-900"
+                                    className="rounded-lg bg-red-400 px-8 py-3 text-white transition-all duration-150 hover:bg-red-900 dark:bg-red-600"
                                 >
                                     Delete
                                 </button>

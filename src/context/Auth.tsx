@@ -1,8 +1,8 @@
-import React, { createContext, useContext, useEffect, useReducer } from "react";
-import cookie from "js-cookie";
 import dayjs from "dayjs";
-import useSWR from "swr";
+import cookie from "js-cookie";
+import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
+import useSWR from "swr";
 import { httpGet, loginWithCode, loginWithRefreshToken } from "../utils/fetcher";
 import type { Permission } from "../utils/permissions";
 
@@ -236,5 +236,5 @@ export const useLogin = (code: string | null) => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "rejected" });
                 dispatch({ type: "SET_ACCESS_TOKEN" });
             });
-    }, [code]);
+    }, [code, tokenFetchStatus, dispatch, navigate]);
 };

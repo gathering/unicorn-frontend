@@ -1,11 +1,11 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useLogin } from "../context/Auth";
 import { View } from "../components/View";
+import { useLogin } from "../context/Auth";
 
 const Auth = () => {
     const { search } = useLocation();
-    const s = new URLSearchParams(search);
+    const s = useMemo(() => new URLSearchParams(search), [search]);
     const navigate = useNavigate();
 
     const authorizationCode = useMemo(() => {

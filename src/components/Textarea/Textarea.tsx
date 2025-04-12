@@ -1,4 +1,4 @@
-import { ChangeEventHandler, forwardRef, TextareaHTMLAttributes, useId } from "react";
+import { type ChangeEventHandler, forwardRef, type TextareaHTMLAttributes, useId } from "react";
 import styled from "styled-components";
 
 interface Props extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
@@ -12,11 +12,17 @@ const Label = styled.label`
     display: block;
 `;
 
-export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
+const Textarea = forwardRef<HTMLTextAreaElement, Props>(
     ({ id, label, className, errorLabel, helpLabel, ...textareaProps }, ref) => {
-        const labelId = id || `unicorn-textarea--${useId()}`;
-        const errorLabelId = id ? `${id}-errorlabel` : `unicorn-textarea-errorlabel--${useId()}`;
-        const helpLabelId = id ? `${id}-helplabel` : `unicorn-textarea-helplabel--${useId()}`;
+        let labelId = `unicorn-textarea--${useId()}`;
+        let errorLabelId = `unicorn-textarea-errorlabel--${useId()}`;
+        let helpLabelId = `unicorn-textarea-helplabel--${useId()}`;
+
+        if (id) {
+            labelId = id;
+            errorLabelId = `${id}-errorlabel`;
+            helpLabelId = `${id}-helplabel`;
+        }
 
         return (
             <>
@@ -37,7 +43,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
                     ref={ref}
                 />
                 {helpLabel && (
-                    <span className="text-sm " id={helpLabelId}>
+                    <span className="text-sm" id={helpLabelId}>
                         {helpLabel}
                     </span>
                 )}
@@ -45,3 +51,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, Props>(
         );
     }
 );
+
+Textarea.displayName = "Textarea";
+
+export { Textarea };

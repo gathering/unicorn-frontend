@@ -1,8 +1,7 @@
-import React from "react";
 import { Controller, useFormContext } from "react-hook-form";
 import useSWR from "swr";
-import { httpGet } from "../../../utils/fetcher";
 import { Select } from "../../../components/Select";
+import { httpGet } from "../../../utils/fetcher";
 import type { Genre, IGenreResponse } from "../competition";
 
 interface IProps {
@@ -55,13 +54,13 @@ export const SelectGenre = ({ onForward }: IProps) => {
                                 value={field.value?.toString() ?? ""}
                             />
                             {formState.errors.genre?.message && (
-                                <label className="flex items-center mt-1 text-red-600 dark:text-red-400">
+                                <label className="mt-1 flex items-center text-red-600 dark:text-red-400">
                                     <>
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20"
                                             fill="currentColor"
-                                            className="w-4 h-4 mr-4"
+                                            className="mr-4 h-4 w-4"
                                         >
                                             <path
                                                 fillRule="evenodd"
@@ -77,7 +76,7 @@ export const SelectGenre = ({ onForward }: IProps) => {
                     )}
                 />
                 <footer className="mt-8">
-                    <button className="flex items-center h-12 px-4 text-base text-green-900 dark:text-green-200 duration-150 bg-green-300 dark:bg-green-800 rounded justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black hover:shadow">
+                    <button className="flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
                         Forward
                     </button>
                 </footer>

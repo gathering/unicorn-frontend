@@ -1,4 +1,3 @@
-import React from "react";
 import useSWR from "swr";
 import { httpGet } from "../../../utils/fetcher";
 import type { ICompetition, IEntry } from "../competition";
@@ -16,12 +15,12 @@ export const FileUpload = ({ competition, entry }: Props) => {
     });
 
     return (
-        <section className="container mx-auto mb-6 bg-white dark:bg-gray-800 rounded sm:rounded-none">
-            <h2 className="p-4 text-xl text-center">Upload files</h2>
-            <hr className="pb-6 border-t border-gray-300 dark:border-gray-700" />
+        <section className="container mx-auto mb-6 rounded bg-white dark:bg-gray-800 sm:rounded-none">
+            <h2 className="p-4 text-center text-xl">Upload files</h2>
+            <hr className="border-t border-gray-300 pb-6 dark:border-gray-700" />
 
             {competition.fileupload.length === 0 && (
-                <p className="text-center pb-6 text-red-700">
+                <p className="pb-6 text-center text-red-700">
                     Uploading files is enabled on this competition, but the organizer has not specified which files to
                     upload yet.
                 </p>

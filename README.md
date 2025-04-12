@@ -18,23 +18,24 @@ At this point of time, you will need a UNICORN backend running, and an authentic
 
 Add the necessary variables to your environment before continuing:
 
-| Name                    | Description                              |
-| ----------------------- | ---------------------------------------- |
-| VITE_APP_URL           | Backend service URL                      |
-| VITE_APP_CLIENT_SECRET | Authentication service client secret     |
-| VITE_APP_CLIENT_ID     | Authentication service client ID         |
+| Name                   | Description                          |
+| ---------------------- | ------------------------------------ |
+| VITE_APP_URL           | Backend service URL                  |
+| VITE_APP_CLIENT_SECRET | Authentication service client secret |
+| VITE_APP_CLIENT_ID     | Authentication service client ID     |
 
 ## Running
 
-Run `yarn` and `yarn dev` 🚀
+Run `pnpm install` and `pnpm dev` 🚀
 
 ## Building
 
-Run `yarn` and `yarn build`
+Run `pnpm install` and `pnpm build`
 
 ## Hosting
 
 Serve static files generated in the dist folder however you'd like:
+
 - Web server like Nginx
 - Newest CDN on the block
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
     src: string;
@@ -21,7 +21,7 @@ export const MusicPlayer = ({ src }: Props) => {
         } else {
             player.pause();
         }
-    }, [isPlaying]);
+    }, [isPlaying, player]);
 
     useEffect(() => {
         if (!seekerRef.current) {
@@ -38,13 +38,15 @@ export const MusicPlayer = ({ src }: Props) => {
     useEffect(() => {
         player.addEventListener("ended", () => setIsPlaying(false));
         player.addEventListener("timeupdate", (e) => {
-            console.log(e.target.currentTime);
+            // @ts-expect-error  TS2339: Property 'currentTime' does not exist on type 'EventTarget'
+            console.log(e.target?.currentTime);
+            // @ts-expect-error  TS2339: Property 'currentTime' does not exist on type 'EventTarget'
             setPlayerTime(e.target?.currentTime);
         });
         return () => {
             player.removeEventListener("ended", () => setIsPlaying(false));
         };
-    }, [canPlay]);
+    }, [canPlay, player]);
 
     if (playerError) {
         return <p>{playerError}</p>;
