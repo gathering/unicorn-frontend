@@ -1,5 +1,4 @@
-import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@reach/tabs";
-import "@reach/tabs/styles.css";
+import { Tab, TabGroup, TabList, TabPanel, TabPanels } from "@headlessui/react";
 import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { useMemo } from "react";
@@ -143,12 +142,16 @@ const CompetitionDetails = () => {
                         </section>
                     )}
                     <CompetitionPhases competition={data} />
-                    <Tabs className="rounded bg-white dark:bg-gray-800 sm:rounded-none">
+                    <TabGroup className="rounded bg-white dark:bg-gray-800 sm:rounded-none">
                         <TabList className="flex">
                             {data.description && (
-                                <Tab className="flex-grow border-b border-tg-brand-orange-500 py-3">Information</Tab>
+                                <Tab className="flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
+                                    Information
+                                </Tab>
                             )}
-                            <Tab className="flex-grow border-b py-3">Rules</Tab>
+                            <Tab className="flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
+                                Rules
+                            </Tab>
                         </TabList>
                         <TabPanels className="p-4">
                             {data.description && (
@@ -164,7 +167,7 @@ const CompetitionDetails = () => {
                                 </div>
                             </TabPanel>
                         </TabPanels>
-                    </Tabs>
+                    </TabGroup>
                 </div>
                 <aside style={{ minWidth: "20rem" }} className="ml-10 mt-4 sm:mx-2 sm:my-0">
                     {!!user && data.state.value === 32 && (

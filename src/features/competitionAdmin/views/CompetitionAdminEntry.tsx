@@ -3,8 +3,7 @@ import { Input } from "@components/Input";
 import { Link } from "@components/Link";
 import { View } from "@components/View";
 import type { ICompetition, IEntry, IFile } from "@features/competitions/competition";
-import { Dialog } from "@reach/dialog";
-import { VisuallyHidden } from "@reach/visually-hidden";
+import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { hasFileupload } from "@utils/competitions";
 import { parseError } from "@utils/error";
 import { httpGet, httpPatch } from "@utils/fetcher";
@@ -280,37 +279,39 @@ const CompetitionAdminEntry = () => {
                 <Link to={`/admin/competitions/${id}`}>Back to competition</Link>{" "}
             </footer>
             <Dialog
-                isOpen={showDisqualify}
-                onDismiss={() => setShowDisqualify(false)}
-                className="rounded-md dark:bg-gray-700 dark:text-gray-100"
+                open={showDisqualify}
+                onClose={() => setShowDisqualify(false)}
                 aria-label={`Disqualify ${entry.title}`}
             >
-                <VisuallyHidden>
-                    <button className="close-button" onClick={() => setShowDisqualify(false)}>
-                        Close
-                    </button>
-                </VisuallyHidden>
-                <h2 className="mb-3 text-xl">Disqualify {entry.title}</h2>
-                <p>A reason is required if this is not a result of not being preselected.</p>
-                <form onSubmit={handleSubmit(handleDisqualify)}>
-                    <label className="mt-6 block">
-                        <input {...register("preselect")} type="checkbox" className="mr-2" />
-                        Not preselected
-                    </label>
+                <DialogBackdrop className="fixed inset-0 bg-black/30" />
+                <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+                    <DialogPanel className="max-w-1/3 rounded-md bg-white p-6">
+                        <button className="close-button sr-only" onClick={() => setShowDisqualify(false)}>
+                            Close
+                        </button>
+                        <h2 className="mb-3 text-xl">Disqualify {entry.title}</h2>
+                        <p>A reason is required if this is not a result of not being preselected.</p>
+                        <form onSubmit={handleSubmit(handleDisqualify)}>
+                            <label className="mt-6 block">
+                                <input {...register("preselect")} type="checkbox" className="mr-2" />
+                                Not preselected
+                            </label>
 
-                    {preselect !== true && (
-                        <Input
-                            {...register("comment", { required: "You need to give the participant a reason" })}
-                            label="Disqualification reason"
-                            helpLabel="This will be displayed to the participant"
-                            labelClassName="mt-5"
-                            className="w-full"
-                            errorLabel={errors.comment?.message}
-                        />
-                    )}
+                            {preselect !== true && (
+                                <Input
+                                    {...register("comment", { required: "You need to give the participant a reason" })}
+                                    label="Disqualification reason"
+                                    helpLabel="This will be displayed to the participant"
+                                    labelClassName="mt-5"
+                                    className="w-full"
+                                    errorLabel={errors.comment?.message}
+                                />
+                            )}
 
-                    <PrimaryButton className="mt-4">Submit</PrimaryButton>
-                </form>
+                            <PrimaryButton className="mt-4">Submit</PrimaryButton>
+                        </form>
+                    </DialogPanel>
+                </div>
             </Dialog>
         </View>
     );

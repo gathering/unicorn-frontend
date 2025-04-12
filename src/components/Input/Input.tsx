@@ -1,4 +1,3 @@
-import { VisuallyHidden } from "@reach/visually-hidden";
 import React, { forwardRef, useId } from "react";
 import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import styled from "styled-components";
@@ -59,7 +58,9 @@ const Input = forwardRef<HTMLInputElement, IProps>(
                         {label}
                     </Label>
                 ) : (
-                    <VisuallyHidden id={labelId}>{placeholder}</VisuallyHidden>
+                    <span className="sr-only" id={labelId}>
+                        {placeholder}
+                    </span>
                 )}
                 {errorLabel && (
                     <span role="alert" className="text-red-600 dark:text-red-400" id={errorLabelId}>

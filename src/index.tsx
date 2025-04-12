@@ -1,5 +1,4 @@
 import setupLocatorUI from "@locator/runtime";
-import "@reach/dialog/styles.css";
 import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { UserProvider } from "./context/Auth";
