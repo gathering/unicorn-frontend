@@ -37,7 +37,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     {...register("name", { required: "You need to give the competition a title" })}
                     label="Competition title"
                     className="mb-6 w-full"
-                    errorLabel={String(formState.errors.name?.message)}
+                    errorLabel={formState.errors.name?.message}
                 />
 
                 <Input
@@ -50,7 +50,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     })}
                     label="Brief description"
                     className="mb-6 w-full"
-                    errorLabel={String(formState.errors.brief_description?.message)}
+                    errorLabel={formState.errors.brief_description?.message}
                 />
 
                 <Controller
@@ -143,7 +143,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     label="Competition description"
                     className="mb-6 w-full p-2"
                     rows={10}
-                    errorLabel={String(formState.errors.description?.message)}
+                    errorLabel={formState.errors.description?.message}
                     {...register("description", {
                         required: "You must write a description for the competition",
                     })}
@@ -153,7 +153,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     className="mb-6 w-full p-2"
                     rows={20}
                     label="Competition rules"
-                    errorLabel={String(formState.errors.rules?.message)}
+                    errorLabel={formState.errors.rules?.message}
                     {...register("rules", {
                         required: "You must write a ruleset for the competition",
                     })}
@@ -163,7 +163,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     label="Poster image URL"
                     type="url"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
-                    errorLabel={String(formState.errors.header_image?.message)}
+                    errorLabel={formState.errors.header_image?.message}
                     className="mb-6 w-full"
                 />
 
@@ -172,7 +172,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     {...register("header_credit", {
                         required: "You must credit the poster",
                     })}
-                    errorLabel={String(formState.errors.header_credit?.message)}
+                    errorLabel={formState.errors.header_credit?.message}
                     className="w-full"
                 />
 

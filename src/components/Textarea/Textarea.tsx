@@ -1,9 +1,10 @@
 import { type ChangeEventHandler, forwardRef, type TextareaHTMLAttributes, useId } from "react";
+import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import styled from "styled-components";
 
 interface Props extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
     onChange?: ChangeEventHandler<HTMLTextAreaElement>;
-    errorLabel?: string;
+    errorLabel?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | string;
     label?: string;
     helpLabel?: string;
 }
@@ -22,6 +23,10 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
             labelId = id;
             errorLabelId = `${id}-errorlabel`;
             helpLabelId = `${id}-helplabel`;
+        }
+
+        if (errorLabel && typeof errorLabel !== "string") {
+            errorLabel = String(errorLabel.message);
         }
 
         return (

@@ -209,7 +209,7 @@ const CompetitionAdminEdit = () => {
                     type="url"
                     className="mb-6 w-full"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
-                    errorLabel={String(errors.header_image?.message)}
+                    errorLabel={errors.header_image?.message}
                 />
 
                 <Input
@@ -218,7 +218,7 @@ const CompetitionAdminEdit = () => {
                     {...register("header_credit", {
                         required: "You must credit the poster",
                     })}
-                    errorLabel={String(errors.header_credit?.message)}
+                    errorLabel={errors.header_credit?.message}
                 />
 
                 <Controller

@@ -1,10 +1,11 @@
 import { VisuallyHidden } from "@reach/visually-hidden";
 import React, { forwardRef, useId } from "react";
+import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import styled from "styled-components";
 
 interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    errorLabel?: string;
+    errorLabel?: FieldError | Merge<FieldError, FieldErrorsImpl<any>> | string;
     label?: string;
     ariaLabelledBy?: string;
     fullWidth?: boolean;
@@ -45,6 +46,10 @@ const Input = forwardRef<HTMLInputElement, IProps>(
             labelId = id;
             errorLabelId = `${id}-errorlabel`;
             helpLabelId = `${id}-helplabel`;
+        }
+
+        if (errorLabel && typeof errorLabel !== "string") {
+            errorLabel = String(errorLabel.message);
         }
 
         return (
