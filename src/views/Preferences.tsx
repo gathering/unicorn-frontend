@@ -8,22 +8,28 @@ import { Select } from "../components/Select";
 import { View } from "../components/View";
 import { useUserState } from "../context/Auth";
 import { parseError } from "../utils/error";
-import { httpGet, httpPatch } from "../utils/fetcher";
+import { httpOptions, httpPatch } from "../utils/fetcher";
 
 interface FormData {
     display_name_format: string;
     username: string;
 }
 
-interface AccountChoicesResponse {
-    "user:display_name_format": {
-        value: string;
-        label: string;
-    }[];
+interface UserOptionsResponse {
+    actions: {
+        POST: {
+            display_name_format: {
+                choices: {
+                    value: string;
+                    display_name: string;
+                }[];
+            };
+        };
+    };
 }
 
 const Preferences = () => {
-    const { data: accountChoices } = useSWR<AccountChoicesResponse>("accounts/_choices", httpGet);
+    const { data: accountChoices } = useSWR<UserOptionsResponse>("accounts/users", httpOptions);
 
     const { user, revalidateUser } = useUserState();
 
@@ -48,17 +54,17 @@ const Preferences = () => {
     }, [user, reset]);
 
     const selectOptions = useMemo(() => {
-        const none = { label: "Select display name format", value: "__default_value__" };
+        const none = { display_name: "Select display name format", value: "__default_value__" };
 
         if (!accountChoices) {
             return [none];
         }
 
         if (!chosenFormat) {
-            return [none, ...(accountChoices?.["user:display_name_format"] ?? [])];
+            return [none, ...(accountChoices?.actions.POST.display_name_format.choices ?? [])];
         }
 
-        return accountChoices?.["user:display_name_format"] ?? [];
+        return accountChoices?.actions.POST.display_name_format.choices ?? [];
     }, [accountChoices, chosenFormat]);
 
     const onSubmit = (formData: FormData) => {
@@ -101,7 +107,10 @@ const Preferences = () => {
                             <>
                                 <Select
                                     label="Display format"
-                                    options={selectOptions}
+                                    options={selectOptions.map((opt) => ({
+                                        value: opt.value,
+                                        label: opt.display_name,
+                                    }))}
                                     value={field.value}
                                     onChange={field.onChange}
                                 />
