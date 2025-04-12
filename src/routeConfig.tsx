@@ -1,7 +1,7 @@
-import React from "react";
 import type { RouteObject } from "react-router-dom";
 import { App } from "./App";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import { competitionAdminRoutes } from "./features/competitionAdmin";
 import Auth from "./views/Auth";
 import CompetitionDetails from "./views/CompetitionDetails";
 import CompetitionsOverview from "./views/CompetitionOverview";
@@ -10,7 +10,6 @@ import CompetitionVote from "./views/CompetitionVote";
 import CompetitionVoteOverview from "./views/CompetitionVoteOverview";
 import { Logout } from "./views/Logout";
 import Preferences from "./views/Preferences";
-import { competitionAdminRoutes } from "./features/competitionAdmin";
 
 export const routeConfig: RouteObject[] = [
     {

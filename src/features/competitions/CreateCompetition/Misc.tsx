@@ -1,18 +1,17 @@
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
 import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { Controller, useFormContext } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-datepicker/dist/react-datepicker.css";
-import { Genre } from "../competition.d";
-import type { ICompetition } from "../competition";
 import { Input } from "../../../components/Input";
-import { httpPost } from "../../../utils/fetcher";
-import { parseError } from "../../../utils/error";
-import { PrizeEdit } from "../PrizeEdit";
-import { FileEdit } from "../FileEdit";
-import { CompetitionLinksEdit } from "../CompetitionLinksEdit/CompetitionLinksEdit";
 import { Select } from "../../../components/Select";
+import { parseError } from "../../../utils/error";
+import { httpPost } from "../../../utils/fetcher";
+import type { ICompetition } from "../competition";
+import { Genre } from "../competition.d";
+import { CompetitionLinksEdit } from "../CompetitionLinksEdit/CompetitionLinksEdit";
+import { FileEdit } from "../FileEdit";
+import { PrizeEdit } from "../PrizeEdit";
 
 interface IProps {
     onForward: () => void;
@@ -36,11 +35,11 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
 
                         return competitionObject;
                     },
-                    {} as { [key: string]: any },
+                    {} as { [key: string]: any }
                 ),
                 rules: formData.rules,
                 description: formData.description,
-            }),
+            })
         )
             .then((d) => {
                 navigate(`/admin/competitions/${d.id}`);
@@ -82,7 +81,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                     <>
                                         <label
                                             id="votetime-start"
-                                            className="block mt-6 mb-1"
+                                            className="mb-1 mt-6 block"
                                             htmlFor="vote_time_start"
                                         >
                                             Vote start time (optional)
@@ -94,7 +93,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                                 {...props}
                                                 timeInputLabel="Time:"
                                                 dateFormat="yyyy-MM-dd HH:mm"
-                                                className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                                className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                                 showTimeInput
                                             />
                                         </div>
@@ -119,7 +118,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                                 {...props}
                                                 timeInputLabel="Time:"
                                                 dateFormat="yyyy-MM-dd HH:mm"
-                                                className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                                className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                                 showTimeInput
                                             />
                                         </div>
@@ -165,7 +164,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                             className="mb-6"
                         />
 
-                        <label className="block mb-6">
+                        <label className="mb-6 block">
                             <input {...register("report_win_loss")} type="checkbox" className="mr-2" />
                             Users can report win/loss (optional)
                         </label>
@@ -189,7 +188,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -215,7 +214,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -231,7 +230,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-lock" className="block mb-1" htmlFor="show_prestart_lock">
+                                <label id="showtime-lock" className="mb-1 block" htmlFor="show_prestart_lock">
                                     Pre-show lockdown start (optional)
                                 </label>
                                 <div className="block">
@@ -241,7 +240,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -257,7 +256,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-end" className="block mb-1" htmlFor="show_time_start">
+                                <label id="showtime-end" className="mb-1 block" htmlFor="show_time_start">
                                     Competition show start time (optional)
                                 </label>
                                 <div className="block">
@@ -267,7 +266,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -283,7 +282,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                         const { value, ...props } = field;
                         return (
                             <>
-                                <label id="showtime-end" className="block mb-1" htmlFor="show_time_end">
+                                <label id="showtime-end" className="mb-1 block" htmlFor="show_time_end">
                                     Competition show end time (optional)
                                 </label>
                                 <div className="block">
@@ -293,7 +292,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500`}
+                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -369,14 +368,14 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                     render={({ field }) => <CompetitionLinksEdit {...field} />}
                 />
 
-                <footer className="flex flex-row-reverse justify-end mt-8">
-                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                <footer className="mt-8 flex flex-row-reverse justify-end">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
                         Save
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded justify-evenly hover:bg-yellow-700 hover:text-black hover:shadow"
+                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow"
                     >
                         Previous
                     </button>

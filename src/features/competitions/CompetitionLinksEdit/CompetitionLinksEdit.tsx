@@ -1,4 +1,3 @@
-import React from "react";
 import { PrimaryButton, SecondaryButton } from "../../../components/Button";
 import { Input } from "../../../components/Input";
 import { Select } from "../../../components/Select";
@@ -43,7 +42,7 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
             {value.length && (
                 <ul>
                     {value.map((val, i) => (
-                        <li key={i} className="flex items-end mb-2">
+                        <li key={i} className="mb-2 flex items-end">
                             <Select
                                 options={[
                                     { label: "Twitch", value: "twitch" },

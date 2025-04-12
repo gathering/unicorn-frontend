@@ -1,7 +1,7 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { toast } from "react-toastify";
-import { httpPatch, httpPost } from "../../../utils/fetcher";
 import { parseError } from "../../../utils/error";
+import { httpPatch, httpPost } from "../../../utils/fetcher";
 import type { IEntry, IUploadFile, IVote } from "../competition";
 import { RateStars } from "./RateStars";
 
@@ -61,7 +61,7 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
     }
 
     return (
-        <article className="flex flex-col items-center bg-white rounded-md sm:rounded-none">
+        <article className="flex flex-col items-center rounded-md bg-white sm:rounded-none">
             {activeMainFileType === "picture" ? (
                 <>
                     <a href={activeMainFile.url} target="_blank" rel="noopener noreferrer" className="w-full">
@@ -90,19 +90,19 @@ export const VoteCard = ({ entry, vote, onVote, uploadForm }: Props) => {
                     ) : (
                         <RateStars score={vote?.score ?? 0} onChange={handleVote} isFetching={isFetching} />
                     )}
-                    <audio className="box-border w-full px-4 mb-4" controls src={activeMainFile.url} />
+                    <audio className="mb-4 box-border w-full px-4" controls src={activeMainFile.url} />
                 </>
             ) : (
                 <>
                     <a href={activeMainFile.url} target="_blank" rel="noopener noreferrer" className="w-full">
-                        <p className="flex items-center justify-center w-full p-6 py-6 text-lg text-white transition-colors bg-gray-700 rounded-t-md hover:bg-gray-900">
+                        <p className="flex w-full items-center justify-center rounded-t-md bg-gray-700 p-6 py-6 text-lg text-white transition-colors hover:bg-gray-900">
                             Open file
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 stroke="currentColor"
-                                className="pl-4 h-7"
+                                className="h-7 pl-4"
                             >
                                 <path
                                     strokeLinecap="round"

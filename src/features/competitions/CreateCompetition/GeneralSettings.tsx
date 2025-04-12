@@ -1,12 +1,11 @@
-import React from "react";
-import { Controller, useFormContext } from "react-hook-form";
-import DatePicker from "react-datepicker";
 import { addHours, addWeeks } from "date-fns";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
+import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "../../../components/Input";
-import type { Genre } from "../competition";
 import { Textarea } from "../../../components/Textarea/Textarea";
+import type { Genre } from "../competition";
 
 interface IProps {
     onForward: () => void;
@@ -28,16 +27,16 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
         <>
             <h1 className="mb-8 text-3xl dark:text-gray-100">General settings</h1>
             <p className="mb-10 text-gray-700 dark:text-gray-300">
-                All of these inputs are mandatory. They are the base data for the competition. If you're not sure what
-                to put into the fields yet, you may put in some dummy data for now. After creating the competition you
-                may come back to edit the fields.
+                All of these inputs are mandatory. They are the base data for the competition. If you&apos;re not sure
+                what to put into the fields yet, you may put in some dummy data for now. After creating the competition
+                you may come back to edit the fields.
             </p>
 
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Input
                     {...register("name", { required: "You need to give the competition a title" })}
                     label="Competition title"
-                    className="w-full mb-6"
+                    className="mb-6 w-full"
                     errorLabel={String(formState.errors.name?.message)}
                 />
 
@@ -50,7 +49,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                         },
                     })}
                     label="Brief description"
-                    className="w-full mb-6"
+                    className="mb-6 w-full"
                     errorLabel={String(formState.errors.brief_description?.message)}
                 />
 
@@ -84,9 +83,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
+                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
                                             formState.errors.run_time_start
-                                                ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                                ? "text-red border border-red-600 focus:border-red-800 dark:border-red-400 dark:focus:border-red-600"
                                                 : ""
                                         }`}
                                         showTimeInput
@@ -127,9 +126,9 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`block px-4 h-12 mb-6 leading-tight text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 rounded shadow focus:outline-none focus:bg-white dark:focus:bg-gray-900 focus:border-gray-500 ${
+                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
                                             formState.errors.run_time_end
-                                                ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                                                ? "text-red border border-red-600 focus:border-red-800 dark:border-red-400 dark:focus:border-red-600"
                                                 : ""
                                         }`}
                                         showTimeInput
@@ -142,7 +141,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
 
                 <Textarea
                     label="Competition description"
-                    className="w-full mb-6 p-2"
+                    className="mb-6 w-full p-2"
                     rows={10}
                     errorLabel={String(formState.errors.description?.message)}
                     {...register("description", {
@@ -151,7 +150,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 ></Textarea>
 
                 <Textarea
-                    className="w-full mb-6 p-2"
+                    className="mb-6 w-full p-2"
                     rows={20}
                     label="Competition rules"
                     errorLabel={String(formState.errors.rules?.message)}
@@ -165,7 +164,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     type="url"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
                     errorLabel={String(formState.errors.header_image?.message)}
-                    className="w-full mb-6"
+                    className="mb-6 w-full"
                 />
 
                 <Input
@@ -177,14 +176,14 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                     className="w-full"
                 />
 
-                <footer className="flex flex-row-reverse justify-end mt-8">
-                    <button className="flex items-center h-12 px-4 ml-6 text-base text-green-800 duration-150 bg-green-300 rounded dark:text-green-200 dark:bg-green-800 justify-evenly hover:bg-green-700 dark:hover:bg-green-500 hover:text-black hover:shadow">
+                <footer className="mt-8 flex flex-row-reverse justify-end">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-800 duration-150 hover:bg-green-700 hover:text-black hover:shadow dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
                         Next
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex items-center h-12 px-4 text-base text-yellow-900 duration-150 bg-yellow-300 rounded dark:text-yellow-200 dark:bg-yellow-800 justify-evenly hover:bg-yellow-700 dark:hover:bg-yellow-500 hover:text-black hover:shadow"
+                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow dark:bg-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-500"
                     >
                         Previous
                     </button>

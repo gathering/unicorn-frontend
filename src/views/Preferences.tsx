@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
-import useSWR from "swr";
 import { toast } from "react-toastify";
-import { useUserState } from "../context/Auth";
-import { View } from "../components/View";
+import useSWR from "swr";
 import { Input } from "../components/Input";
-import { Select } from "../components/Select";
-import { httpGet, httpPatch } from "../utils/fetcher";
-import { parseError } from "../utils/error";
 import { Link } from "../components/Link";
+import { Select } from "../components/Select";
+import { View } from "../components/View";
+import { useUserState } from "../context/Auth";
+import { parseError } from "../utils/error";
+import { httpGet, httpPatch } from "../utils/fetcher";
 
 interface FormData {
     display_name_format: string;
@@ -59,7 +59,7 @@ const Preferences = () => {
         }
 
         return accountChoices?.["user:display_name_format"] ?? [];
-    }, [accountChoices]);
+    }, [accountChoices, chosenFormat]);
 
     const onSubmit = (formData: FormData) => {
         if (!user) {
@@ -80,7 +80,7 @@ const Preferences = () => {
         <View className="container mx-auto mt-10">
             <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="px-4 py-6 bg-white rounded-md shadow-md dark:bg-gray-800 max-w-prose"
+                className="max-w-prose rounded-md bg-white px-4 py-6 shadow-md dark:bg-gray-800"
             >
                 <fieldset>
                     <legend className="mb-4 text-xl">How do you want to be presented?</legend>
@@ -107,12 +107,12 @@ const Preferences = () => {
                                 />
 
                                 {errors.display_name_format?.message && (
-                                    <label className="flex items-center mt-1 text-red-600">
+                                    <label className="mt-1 flex items-center text-red-600">
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20"
                                             fill="currentColor"
-                                            className="w-4 h-4 mr-4"
+                                            className="mr-4 h-4 w-4"
                                         >
                                             <path
                                                 fillRule="evenodd"
@@ -127,8 +127,8 @@ const Preferences = () => {
                         )}
                     />
                 </fieldset>
-                <footer className="flex items-end justify-between max-w-prose">
-                    <button className="flex items-center h-12 px-4 mt-8 text-base text-green-900 duration-150 bg-green-300 rounded justify-evenly hover:bg-green-700 hover:text-black hover:shadow">
+                <footer className="flex max-w-prose items-end justify-between">
+                    <button className="mt-8 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
                         Save
                     </button>
                     <Link to="/">Back</Link>

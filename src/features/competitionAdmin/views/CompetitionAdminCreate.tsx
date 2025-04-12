@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import useSWR from "swr";
-import { SelectGenre, GeneralSettings, Misc } from "@features/competitions/CreateCompetition";
-import type { IGenreResponse, Genre } from "@features/competitions/competition";
 import { View } from "@components/View";
+import { GeneralSettings, Misc, SelectGenre } from "@features/competitions/CreateCompetition";
+import type { Genre, IGenreResponse } from "@features/competitions/competition";
 import { httpGet } from "@utils/fetcher";
+import { useMemo, useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import useSWR from "swr";
 
 const slides = [SelectGenre, GeneralSettings, Misc];
 

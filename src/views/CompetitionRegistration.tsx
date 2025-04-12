@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import useSWR from "swr";
-import { amIParticipantInEntryList } from "../utils/competitions";
 import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";
-import { RegisterEntry } from "../features/competitions/RegisterEntry";
 import { EditRegistration } from "../features/competitions/EditRegistration";
+import { RegisterEntry } from "../features/competitions/RegisterEntry";
+import { amIParticipantInEntryList } from "../utils/competitions";
 import { httpGet } from "../utils/fetcher";
 
 interface IFormData {
@@ -45,7 +45,7 @@ const CompetitionRegistration = () => {
                 crew_msg: hasEntry?.crew_msg,
             });
         }
-    }, [hasEntry]);
+    }, [hasEntry, reset]);
 
     const onRegistrationFinish = () => {
         refetchEntries();
@@ -54,13 +54,13 @@ const CompetitionRegistration = () => {
 
     if (!data || !entries || isValidatingCompetitions || isValidatingEntries) {
         return (
-            <div className="flex flex-col items-center justify-center h-full">
+            <div className="flex h-full flex-col items-center justify-center">
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
-                    className="w-24 h-24 mt-28 animate-bounce"
+                    className="mt-28 h-24 w-24 animate-bounce"
                 >
                     <path
                         strokeLinecap="round"
@@ -85,11 +85,11 @@ const CompetitionRegistration = () => {
             <>
                 <div className="container relative mx-auto mt-4 sm:mb-4">
                     <img
-                        className="object-cover w-full h-48 rounded-md sm:rounded-none"
+                        className="h-48 w-full rounded-md object-cover sm:rounded-none"
                         src={data.header_image}
                         alt=""
                     />
-                    <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
+                    <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
                         {data.name}
                     </HeadingWrapper>
                 </div>
@@ -101,8 +101,8 @@ const CompetitionRegistration = () => {
     return (
         <>
             <div className="container relative mx-auto mt-4 sm:mb-4">
-                <img className="object-cover w-full h-48 rounded-md sm:rounded-none" src={data.header_image} alt="" />
-                <HeadingWrapper className="absolute bottom-0 flex items-end w-full h-full px-4 pb-3 text-5xl rounded-md text-gray-50">
+                <img className="h-48 w-full rounded-md object-cover sm:rounded-none" src={data.header_image} alt="" />
+                <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
                     {data.name}
                 </HeadingWrapper>
             </div>

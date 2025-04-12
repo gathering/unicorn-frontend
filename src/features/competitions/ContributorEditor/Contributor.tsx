@@ -28,7 +28,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
             `competitions/contributors/${contributor.id}`,
             JSON.stringify({
                 extra_info: inputValue,
-            }),
+            })
         )
             .then(() => {
                 toast.success("Contributor updated");
@@ -75,7 +75,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
                         </>
                     )}
                 </div>
-                <div className="flex items-end justify-end flex-1 gap-4">
+                <div className="flex flex-1 items-end justify-end gap-4">
                     {contributorExtra && <button className="">Update</button>}
                     {iAmContributorOwner && !contributor.is_owner && (
                         <button onClick={removeContributor} type="button">

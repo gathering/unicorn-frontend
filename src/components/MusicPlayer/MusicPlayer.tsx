@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
     src: string;
@@ -21,7 +21,7 @@ export const MusicPlayer = ({ src }: Props) => {
         } else {
             player.pause();
         }
-    }, [isPlaying]);
+    }, [isPlaying, player]);
 
     useEffect(() => {
         if (!seekerRef.current) {
@@ -46,7 +46,7 @@ export const MusicPlayer = ({ src }: Props) => {
         return () => {
             player.removeEventListener("ended", () => setIsPlaying(false));
         };
-    }, [canPlay]);
+    }, [canPlay, player]);
 
     if (playerError) {
         return <p>{playerError}</p>;

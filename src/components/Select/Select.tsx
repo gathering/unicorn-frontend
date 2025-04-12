@@ -1,6 +1,6 @@
-import React from "react";
-import { Listbox, Label, ListboxButton, ListboxOptions, ListboxOption, Transition } from "@headlessui/react";
+import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from "@headlessui/react";
 import { CheckIcon, ChevronUpDownIcon } from "@heroicons/react/20/solid";
+import React from "react";
 
 interface IOptions {
     label: string;
@@ -24,7 +24,7 @@ export const Select = ({ options, placeholder, label, value, onChange }: IProps)
                 <div className="relative mt-1">
                     <Label>{label}</Label>
 
-                    <ListboxButton className="relative w-full dark:bg-gray-800 dark:text-gray-100 cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 h-11 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+                    <ListboxButton className="relative h-11 w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 dark:bg-gray-800 dark:text-gray-100 sm:text-sm">
                         <span className="block truncate">{currentValueLabel ?? placeholder}</span>
                         <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
                             <ChevronUpDownIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />

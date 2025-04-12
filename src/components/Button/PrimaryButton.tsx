@@ -7,7 +7,7 @@ interface Props extends React.ComponentPropsWithRef<"button"> {
 export const PrimaryButton: React.FC<Props> = ({ loading, children, className, ...props }) => {
     return (
         <button
-            className={`py-2 px-7 hover:scale-105 rounded-lg flex justify-center items-center text-white transition-all duration-150 bg-tg-brand-orange-500 hover:bg-tg-brand-orange-600 hover:font-semibold ${
+            className={`flex items-center justify-center rounded-lg bg-tg-brand-orange-500 px-7 py-2 text-white transition-all duration-150 hover:scale-105 hover:bg-tg-brand-orange-600 hover:font-semibold ${
                 className ?? ""
             }`}
             {...props}
@@ -15,7 +15,7 @@ export const PrimaryButton: React.FC<Props> = ({ loading, children, className, .
             {loading ? (
                 <>
                     <svg
-                        className="w-5 h-5 mx-2 text-black animate-spin"
+                        className="mx-2 h-5 w-5 animate-spin text-black"
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"

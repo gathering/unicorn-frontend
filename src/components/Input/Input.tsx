@@ -1,6 +1,5 @@
-import React, { forwardRef } from "react";
-import { useId } from "@reach/auto-id";
 import { VisuallyHidden } from "@reach/visually-hidden";
+import React, { forwardRef, useId } from "react";
 import styled from "styled-components";
 
 interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
@@ -21,7 +20,7 @@ const Wrapper = styled.input`
     min-width: 238px;
 `;
 
-export const Input = forwardRef<HTMLInputElement, IProps>(
+const Input = forwardRef<HTMLInputElement, IProps>(
     (
         {
             type = "text",
@@ -36,11 +35,17 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
             fullWidth = false,
             ...inputProps
         },
-        ref,
+        ref
     ) => {
-        const labelId = id || `unicorn-input--${useId()}`;
-        const errorLabelId = id ? `${id}-errorlabel` : `unicorn-input-errorlabel--${useId()}`;
-        const helpLabelId = id ? `${id}-helplabel` : `unicorn-input-helplabel--${useId()}`;
+        let labelId = `unicorn-input--${useId()}`;
+        let errorLabelId = `unicorn-input-errorlabel--${useId()}`;
+        let helpLabelId = `unicorn-input-helplabel--${useId()}`;
+
+        if (id) {
+            labelId = id;
+            errorLabelId = `${id}-errorlabel`;
+            helpLabelId = `${id}-helplabel`;
+        }
 
         return (
             <>
@@ -57,14 +62,13 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                     </span>
                 )}
                 <Wrapper
-                    className={`block px-4 h-12 leading-tight text-gray-700 dark:text-gray-100 bg-white dark:bg-gray-800 rounded focus:outline-none focus:bg-white dark:focus:bg-gray-900 border border-gray-300 dark:border-gray-600 focus:border-gray-500 ${
+                    className={`block h-12 rounded border border-gray-300 bg-white px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                         className ? className : ""
                     } ${
                         errorLabel
-                            ? "text-red border-red-600 dark:border-red-400 focus:border-red-800 dark:focus:border-red-600 border"
+                            ? "text-red border border-red-600 focus:border-red-800 dark:border-red-400 dark:focus:border-red-600"
                             : ""
-                    }
-                    ${fullWidth ? "w-full" : ""}`}
+                    } ${fullWidth ? "w-full" : ""}`}
                     aria-labelledby={`${labelId}-label ${ariaLabelledBy} ${helpLabel ? helpLabelId : ""}`}
                     type={type}
                     placeholder={placeholder}
@@ -79,5 +83,9 @@ export const Input = forwardRef<HTMLInputElement, IProps>(
                 )}
             </>
         );
-    },
+    }
 );
+
+Input.displayName = "Input";
+
+export { Input };

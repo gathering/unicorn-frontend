@@ -60,6 +60,7 @@ export interface ICompetition {
     team_min: number;
     team_max: number;
     team_required?: boolean;
+    links: { href: string; destination: string }[];
     [key: string]: any;
 }
 

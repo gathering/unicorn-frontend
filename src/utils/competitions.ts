@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import groupBy from "lodash/groupBy";
 import draftJs from "draft-js";
+import groupBy from "lodash/groupBy";
 import type { ICompetition, IEntry, State } from "../features/competitions/competition";
 
 export const CLOSED = 1;
