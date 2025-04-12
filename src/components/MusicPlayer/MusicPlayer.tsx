@@ -38,7 +38,9 @@ export const MusicPlayer = ({ src }: Props) => {
     useEffect(() => {
         player.addEventListener("ended", () => setIsPlaying(false));
         player.addEventListener("timeupdate", (e) => {
-            console.log(e.target.currentTime);
+            // @ts-expect-error  TS2339: Property 'currentTime' does not exist on type 'EventTarget'
+            console.log(e.target?.currentTime);
+            // @ts-expect-error  TS2339: Property 'currentTime' does not exist on type 'EventTarget'
             setPlayerTime(e.target?.currentTime);
         });
         return () => {

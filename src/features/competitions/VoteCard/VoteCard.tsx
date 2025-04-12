@@ -2,13 +2,13 @@ import React, { useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { httpPatch, httpPost } from "../../../utils/fetcher";
 import { parseError } from "../../../utils/error";
-import type { IEntry, IUploadFile } from "../competition";
+import type { IEntry, IUploadFile, IVote } from "../competition";
 import { RateStars } from "./RateStars";
 
 interface Props {
     entry: IEntry;
     onVote: (vote: any) => void;
-    vote: any | undefined;
+    vote: IVote | undefined;
     uploadForm: IUploadFile[];
 }
 

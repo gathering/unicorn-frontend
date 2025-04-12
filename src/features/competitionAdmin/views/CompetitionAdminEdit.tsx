@@ -128,7 +128,7 @@ const CompetitionAdminEdit = () => {
                                     </label>
                                     {errors.run_time_start && (
                                         <label role="alert" className="block text-red-600" id="description-error-label">
-                                            {errors.run_time_start.message}
+                                            {String(errors.run_time_start.message)}
                                         </label>
                                     )}
                                     <div className="block">
@@ -166,7 +166,7 @@ const CompetitionAdminEdit = () => {
                                     </label>
                                     {errors.run_time_end && (
                                         <label role="alert" className="block text-red-600" id="description-error-label">
-                                            {errors.run_time_end.message}
+                                            {String(errors.run_time_end.message)}
                                         </label>
                                     )}
                                     <div className="block">
@@ -209,7 +209,7 @@ const CompetitionAdminEdit = () => {
                     type="url"
                     className="w-full mb-6"
                     {...register("header_image", { required: "You must add a poster for the competition" })}
-                    errorLabel={errors.header_image?.message}
+                    errorLabel={String(errors.header_image?.message)}
                 />
 
                 <Input
@@ -218,7 +218,7 @@ const CompetitionAdminEdit = () => {
                     {...register("header_credit", {
                         required: "You must credit the poster",
                     })}
-                    errorLabel={errors.header_credit?.message}
+                    errorLabel={String(errors.header_credit?.message)}
                 />
 
                 <Controller

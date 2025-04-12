@@ -1,4 +1,4 @@
-import { FormEventHandler, useState } from "react";
+import { type FormEventHandler, useState } from "react";
 import { toast } from "react-toastify";
 import { Input } from "../../../components/Input";
 import type { User } from "../../../context/Auth";

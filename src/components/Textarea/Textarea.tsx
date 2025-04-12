@@ -1,4 +1,4 @@
-import { ChangeEventHandler, forwardRef, TextareaHTMLAttributes, useId } from "react";
+import { type ChangeEventHandler, forwardRef, type TextareaHTMLAttributes, useId } from "react";
 import styled from "styled-components";
 
 interface Props extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {

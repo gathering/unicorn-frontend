@@ -51,7 +51,7 @@ export const CompetitionLinksEdit = ({ label, onChange, value }: IProps) => {
                                     { label: "Facebook", value: "facebook" },
                                     { label: "Gathering.org", value: "gathering.org" },
                                 ]}
-                                onChange={(e) => handleChangeDestination(i, e)}
+                                onChange={(e) => handleChangeDestination(i, e as Destinations)}
                                 value={val.destination}
                                 label="Destination"
                             />

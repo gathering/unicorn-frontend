@@ -108,6 +108,9 @@ importers:
       '@locator/runtime':
         specifier: ^0.4.4
         version: 0.4.4
+      '@types/draft-js':
+        specifier: ^0.11.18
+        version: 0.11.18
       '@types/draftjs-to-html':
         specifier: ^0.8.4
         version: 0.8.4

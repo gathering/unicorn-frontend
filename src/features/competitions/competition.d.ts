@@ -1,5 +1,12 @@
 import type { Permission } from "../../utils/permissions";
 
+export interface IListResponse<T> {
+    count: number;
+    next: null | string;
+    previous: null | string;
+    results: T[];
+}
+
 export interface ICompetitionState {
     label: string;
     value: number;
@@ -121,22 +128,23 @@ type EntryStatus =
     | IEntryStatusNotPreSelected
     | IEntryStatusInvalid;
 
+export interface IUser {
+    uuid: string;
+    display_name: string;
+    first_name?: string;
+    last_name?: string;
+    email?: string;
+    phone_number?: string;
+    row?: string;
+    seat?: string;
+}
+
 export interface Contributor {
     extra_info?: null | string;
     id: number;
     is_owner: boolean;
     obj_type: "full" | "nested";
-    user: {
-        display_name: string;
-        email: string;
-        first_name: string;
-        last_name: string;
-        obj_type: "nested";
-        phone_number: string;
-        row: string;
-        seat: string;
-        uuid: string;
-    };
+    user: IUser;
 }
 
 export interface IEntry {
@@ -156,6 +164,7 @@ export interface IEntry {
     title: string;
     url: string;
     status: EntryStatus;
+    owner: IUser;
 }
 
 export interface IEntryListResponse {
@@ -179,4 +188,11 @@ export enum Genre {
     CREATIVE = 2,
     GAME = 4,
     COMMUNITY = 8,
+}
+
+export interface IVote {
+    id: number;
+    user: string;
+    entry: number;
+    score: number;
 }

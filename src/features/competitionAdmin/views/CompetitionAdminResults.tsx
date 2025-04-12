@@ -50,12 +50,12 @@ const CompetitionAdminResults = () => {
                         return (
                             <tr key={e.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">{e.title}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.display_name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.display_name}</td>
                                 <td className="px-6 py-4 whitespace-nowrap">
-                                    {owner.user.first_name} {owner.user.last_name}
+                                    {owner?.user.first_name} {owner?.user.last_name}
                                 </td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.email}</td>
-                                <td className="px-6 py-4 whitespace-nowrap">{owner.user.phone_number}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.phone_number}</td>
 
                                 <td className="px-6 py-4 whitespace-nowrap">{e.score}</td>
                             </tr>

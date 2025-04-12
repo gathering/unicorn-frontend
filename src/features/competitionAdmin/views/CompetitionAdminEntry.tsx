@@ -214,7 +214,7 @@ const CompetitionAdminEntry = () => {
                     </thead>
                     <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
                         {entry.contributors.map((c) => (
-                            <tr key={c.uuid}>
+                            <tr key={c.id}>
                                 <td className="px-6 py-4 whitespace-nowrap">
                                     {c.is_owner && (
                                         <span className="px-1 mr-4 font-light text-white rounded dark:text-tg-brand-orange-50 bg-tg-brand-orange-500 dark:bg-tg-brand-orange-600 ">

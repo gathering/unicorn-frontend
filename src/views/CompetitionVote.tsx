@@ -4,7 +4,7 @@ import useSWR from "swr";
 import { httpGet } from "../utils/fetcher";
 import { View } from "../components/View";
 import { VoteCard } from "../features/competitions/VoteCard";
-import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";
+import type { IVote, ICompetition, IEntryListResponse, IListResponse } from "../features/competitions/competition";
 import styled from "styled-components";
 
 const HeadingWrapper = styled.h1`
@@ -19,9 +19,13 @@ const CompetitionVote = () => {
         httpGet,
         { revalidateOnFocus: false },
     );
-    const { data: votes, mutate: mutateVotes } = useSWR(`competitions/votes?limit=1000`, httpGet, {
-        revalidateOnFocus: false,
-    });
+    const { data: votes, mutate: mutateVotes } = useSWR<IListResponse<IVote>>(
+        `competitions/votes?limit=1000`,
+        httpGet,
+        {
+            revalidateOnFocus: false,
+        },
+    );
 
     const votableEntries = useMemo(
         () =>
@@ -38,16 +42,14 @@ const CompetitionVote = () => {
         [entries],
     );
 
-    const onVote = (vote) => {
+    const onVote = (vote: IVote) => {
+        if (!votes) {
+            return;
+        }
+
         mutateVotes({
             ...votes,
-            result: votes.results.map((v) => {
-                if (v.id === vote.id) {
-                    return vote;
-                }
-
-                return v;
-            }),
+            results: votes.results.filter((v) => v.entry !== vote.entry),
         });
     };
 
