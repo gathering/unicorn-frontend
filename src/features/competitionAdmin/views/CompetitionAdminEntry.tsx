@@ -132,10 +132,10 @@ const CompetitionAdminEntry = () => {
                 <section className="col-span-2 grid grid-cols-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
                     <h2 className="col-span-1 col-start-1 p-4 text-xl">Files</h2>
                     <ul className="col-span-1 col-start-1 px-4 pb-4">
-                        {competition.fileupload.map((fu) => {
+                        {competition.fileupload.map((fu, idx) => {
                             const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
                             return (
-                                <li key={fu.type}>
+                                <li key={fu.type + idx}>
                                     <h3 className="mb-1 mt-4 text-xl font-light">{fu.input}</h3>
                                     {file ? (
                                         <>
