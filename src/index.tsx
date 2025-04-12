@@ -10,7 +10,9 @@ if (import.meta.env.MODE === "development") {
     setupLocatorUI();
 }
 
-const router = createBrowserRouter(routeConfig);
+const router = createBrowserRouter(routeConfig, {
+    future: { v7_relativeSplatPath: true, v7_fetcherPersist: true, v7_normalizeFormMethod: true },
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
