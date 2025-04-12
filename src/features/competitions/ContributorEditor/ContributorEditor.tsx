@@ -1,4 +1,4 @@
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from "@headlessui/react";
 import React, { Fragment, useRef, useState } from "react";
 import { toast } from "react-toastify";
 import useSWR from "swr";
@@ -40,7 +40,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
             return `${baseUrl}?${searchParams.toString()}`;
         },
         httpGet,
-        { revalidateOnFocus: false }
+        { revalidateOnFocus: false },
     );
 
     const handleUserSearch = () => {
@@ -58,7 +58,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                 user: uuid,
                 extra_info: null,
                 is_owner: false,
-            })
+            }),
         )
             .then(() => {
                 setShowAddContributor(false);
@@ -130,7 +130,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
 
             <Transition appear show={showAddContributor} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={() => setShowAddContributor(false)}>
-                    <Transition.Child
+                    <TransitionChild
                         as={Fragment}
                         enter="ease-out duration-300"
                         enterFrom="opacity-0"
@@ -140,11 +140,11 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                         leaveTo="opacity-0"
                     >
                         <div className="fixed inset-0 bg-black bg-opacity-25" />
-                    </Transition.Child>
+                    </TransitionChild>
 
                     <div className="fixed inset-0 overflow-y-auto">
                         <div className="flex items-center justify-center min-h-full p-4 text-center">
-                            <Transition.Child
+                            <TransitionChild
                                 as={Fragment}
                                 enter="ease-out duration-300"
                                 enterFrom="opacity-0 scale-95"
@@ -153,10 +153,10 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
-                                    <Dialog.Title as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                                <DialogPanel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                                    <DialogTitle as="h3" className="text-lg font-medium leading-6 text-gray-900">
                                         Add contributor
-                                    </Dialog.Title>
+                                    </DialogTitle>
                                     <p className="mt-4 mb-6 text-orange-600">
                                         All contributors must have been logged into competitions.gathering.org before
                                         you can add them.
@@ -222,8 +222,8 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                                     >
                                         Cancel
                                     </button>
-                                </Dialog.Panel>
-                            </Transition.Child>
+                                </DialogPanel>
+                            </TransitionChild>
                         </div>
                     </div>
                 </Dialog>
