@@ -143,13 +143,13 @@ const CompetitionDetails = () => {
                     )}
                     <CompetitionPhases competition={data} />
                     <TabGroup className="rounded bg-white dark:bg-gray-800 sm:rounded-none">
-                        <TabList className="flex">
+                        <TabList className="flex text-lg font-light">
                             {data.description && (
-                                <Tab className="flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
+                                <Tab className="data-[selected]:borger-b-2 flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
                                     Information
                                 </Tab>
                             )}
-                            <Tab className="flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
+                            <Tab className="data-[selected]:borger-b-2 flex-grow border-b py-3 data-[selected]:border-tg-brand-orange-500">
                                 Rules
                             </Tab>
                         </TabList>

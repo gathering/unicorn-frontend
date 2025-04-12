@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import draftJs from "draft-js";
 import groupBy from "lodash/groupBy";
 import type { ICompetition, IEntry, State } from "../features/competitions/competition";
 
@@ -58,29 +57,6 @@ export const groupCompetitionsByKey = (competitions: ICompetition[], key = "run_
 
 export const sortByRunTimeStart = (a: ICompetition, b: ICompetition) =>
     dayjs(a.run_time_start).unix() - dayjs(b.run_time_start).unix();
-
-/**
- * Convert draft-js raw output or HTML to ContentState
- * @param {string} rawData Rules in a stringified rawState or HTML format
- */
-export const convertRawToContentState = (rawData: string) => {
-    let raw = draftJs.ContentState.createFromText("");
-
-    if (typeof rawData === "string") {
-        try {
-            raw = draftJs.convertFromRaw(JSON.parse(rawData));
-        } catch (_) {
-            try {
-                const blocksFromHTML = draftJs.convertFromHTML(rawData);
-                raw = draftJs.ContentState.createFromBlockArray(blocksFromHTML.contentBlocks, blocksFromHTML.entityMap);
-            } catch (_) {
-                raw = draftJs.ContentState.createFromText("");
-            }
-        }
-    }
-
-    return raw;
-};
 
 export const competitionPhases = (competition: ICompetition): [string, string, string][] => {
     const phases = ["registration_time", "run_time", "vote_time", "show_time"];

@@ -1,10 +1,14 @@
 import type { Config } from "tailwindcss";
+import defaultTheme from "tailwindcss/defaultTheme";
 
 export default {
     darkMode: "class",
     content: ["./public/**/*.html", "./src/**/*.{js,jsx,ts,tsx,vue}", "./index.html"],
     theme: {
         extend: {
+            fontFamily: {
+                sans: ["Inter var", "Inter", ...defaultTheme.fontFamily.sans],
+            },
             colors: {
                 "tg-brand-orange": {
                     50: "#faf5e9",

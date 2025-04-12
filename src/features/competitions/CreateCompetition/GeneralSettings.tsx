@@ -1,7 +1,6 @@
 import { addHours, addWeeks } from "date-fns";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import { Controller, useFormContext } from "react-hook-form";
 import { Input } from "../../../components/Input";
 import { Textarea } from "../../../components/Textarea/Textarea";
