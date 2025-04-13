@@ -40,9 +40,9 @@ export const Select = ({ options, placeholder, label, value, onChange }: IProps)
                             {options.map((option) => (
                                 <ListboxOption
                                     key={option.value}
-                                    className={({ active }) =>
+                                    className={({ focus }) =>
                                         `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                                            active ? "bg-amber-100 text-amber-900" : "text-gray-900"
+                                            focus ? "bg-amber-100 text-amber-900" : "text-gray-900"
                                         }`
                                     }
                                     value={option.value}

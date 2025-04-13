@@ -7,6 +7,8 @@ module.exports = {
         ecmaFeatures: {
             jsx: true,
         },
+        projectService: true,
+        tsconfigRoot: __dirname,
     },
     env: {
         browser: true,
@@ -53,6 +55,7 @@ module.exports = {
                 "react/prop-types": "off",
                 "@typescript-eslint/no-explicit-any": "off",
                 "@typescript-eslint/ban-ts-comment": "off",
+                "@typescript-eslint/no-deprecated": "error",
             },
             parser: "@typescript-eslint/parser",
             settings: {

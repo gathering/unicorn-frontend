@@ -41,7 +41,7 @@ const fetcher = async <T>(request: Request): Promise<T> => {
                     ok: false,
                     body,
                 });
-            } catch (e) {
+            } catch {
                 return Promise.reject({
                     status: res.status,
                     ok: false,
