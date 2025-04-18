@@ -64,7 +64,7 @@ const CompetitionVoteOverview = () => {
                             <Link to={"/competitions/" + competition.id + "/vote"} className="flex h-32">
                                 <img
                                     className="w-64 flex-none overflow-hidden rounded-l bg-gray-400 bg-cover object-cover text-center sm:rounded-none"
-                                    src={competition.header_image}
+                                    src={competition.header_image_file ?? competition.header_image}
                                     alt={`Competition poster ${competition.name}`}
                                 />
                                 <div className="flex w-full flex-col justify-between bg-white p-4 leading-normal">

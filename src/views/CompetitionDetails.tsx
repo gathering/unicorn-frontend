@@ -120,7 +120,11 @@ const CompetitionDetails = () => {
     return (
         <div className="container mx-auto my-12 sm:my-0">
             <div className="relative mb-10 sm:mb-6">
-                <img className="h-48 w-full rounded-md object-cover sm:rounded-none" src={data.header_image} alt="" />
+                <img
+                    className="h-48 w-full rounded-md object-cover sm:rounded-none"
+                    src={data.header_image_file ?? data.header_image}
+                    alt=""
+                />
                 <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
                     {data.name}
                 </HeadingWrapper>

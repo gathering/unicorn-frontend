@@ -73,7 +73,7 @@ const CompetitionVote = () => {
                 <div className="relative mb-10 sm:mb-6">
                     <img
                         className="h-48 w-full rounded-md object-cover sm:rounded-none"
-                        src={competition.header_image}
+                        src={competition.header_image_file ?? competition.header_image}
                         alt=""
                     />
                     <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">

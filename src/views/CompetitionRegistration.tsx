@@ -86,7 +86,7 @@ const CompetitionRegistration = () => {
                 <div className="container relative mx-auto mt-4 sm:mb-4">
                     <img
                         className="h-48 w-full rounded-md object-cover sm:rounded-none"
-                        src={data.header_image}
+                        src={data.header_image_file ?? data.header_image}
                         alt=""
                     />
                     <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
@@ -101,7 +101,11 @@ const CompetitionRegistration = () => {
     return (
         <>
             <div className="container relative mx-auto mt-4 sm:mb-4">
-                <img className="h-48 w-full rounded-md object-cover sm:rounded-none" src={data.header_image} alt="" />
+                <img
+                    className="h-48 w-full rounded-md object-cover sm:rounded-none"
+                    src={data.header_image_file ?? data.header_image}
+                    alt=""
+                />
                 <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
                     {data.name}
                 </HeadingWrapper>

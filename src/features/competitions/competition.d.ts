@@ -34,6 +34,7 @@ export interface ICompetition {
     description?: string;
     featured: boolean;
     genre: IGenre;
+    header_image_file: string | null;
     header_image: string;
     header_credit: string;
     sponsor_name: string;

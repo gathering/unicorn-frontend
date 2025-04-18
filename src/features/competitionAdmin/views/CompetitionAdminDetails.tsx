@@ -105,7 +105,11 @@ const CompetitionAdminDetails = () => {
     return (
         <View className="container mx-auto my-12 grid grid-cols-3 gap-4 sm:my-0">
             <header className="relative col-span-3 mb-6 h-48 w-full">
-                <img className="h-48 w-full rounded-md object-cover sm:rounded-none" src={data.header_image} alt="" />
+                <img
+                    className="h-48 w-full rounded-md object-cover sm:rounded-none"
+                    src={data.header_image_file ?? data.header_image}
+                    alt=""
+                />
                 <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
                     {data.name}
                 </HeadingWrapper>
