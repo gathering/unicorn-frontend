@@ -35,6 +35,7 @@ const CompetitionAdminEntry = () => {
         watch,
     } = useForm<IFormData>();
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const preselect = watch("preselect");
 
     const nextEntry = useMemo(() => {

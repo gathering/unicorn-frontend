@@ -48,6 +48,7 @@ const CompetitionAdminEdit = () => {
                 register_time_end: competition.register_time_end ? new Date(competition.register_time_end) : null,
             });
 
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setShowForm(true);
         }
     }, [competition, reset]);
@@ -104,10 +105,7 @@ const CompetitionAdminEdit = () => {
                     label="Brief description"
                     {...register("brief_description", {
                         required: "You need to give the competition a short and teasing description",
-                        maxLength: {
-                            message: "The description should just be a short teaser",
-                            value: 40,
-                        },
+                        maxLength: { message: "The description should just be a short teaser", value: 40 },
                     })}
                     className="mb-6 w-full"
                 />
@@ -116,9 +114,7 @@ const CompetitionAdminEdit = () => {
                     <Controller
                         control={control}
                         name="run_time_start"
-                        rules={{
-                            required: "You must give the competition a start time",
-                        }}
+                        rules={{ required: "You must give the competition a start time" }}
                         render={({ field }) => {
                             const { value, ...props } = field;
                             return (
@@ -154,9 +150,7 @@ const CompetitionAdminEdit = () => {
                     <Controller
                         control={control}
                         name="run_time_end"
-                        rules={{
-                            required: "You must give the competition an end time",
-                        }}
+                        rules={{ required: "You must give the competition an end time" }}
                         render={({ field }) => {
                             const { value, ...props } = field;
                             return (
@@ -215,9 +209,7 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Poster image credit"
                     className="mb-6 w-full"
-                    {...register("header_credit", {
-                        required: "You must credit the poster",
-                    })}
+                    {...register("header_credit", { required: "You must credit the poster" })}
                     errorLabel={errors.header_credit?.message}
                 />
 
@@ -488,18 +480,9 @@ const CompetitionAdminEdit = () => {
                         <Select
                             label="Visibility"
                             options={[
-                                {
-                                    label: "Public",
-                                    value: "public",
-                                },
-                                {
-                                    label: "Crew",
-                                    value: "crew",
-                                },
-                                {
-                                    label: "Hidden",
-                                    value: "hidden",
-                                },
+                                { label: "Public", value: "public" },
+                                { label: "Crew", value: "crew" },
+                                { label: "Hidden", value: "hidden" },
                             ]}
                             onChange={field.onChange}
                             value={field.value}

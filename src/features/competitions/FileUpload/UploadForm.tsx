@@ -52,6 +52,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
 
     useEffect(() => {
         if (file) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setStage(3);
         }
     }, [file]);

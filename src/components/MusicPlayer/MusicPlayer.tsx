@@ -61,6 +61,7 @@ export const MusicPlayer = ({ src }: Props) => {
                 max={player.duration}
                 className="w-full"
                 onClick={(e) => {
+                    // eslint-disable-next-line react-hooks/immutability
                     player.currentTime = Number(e.currentTarget.value);
                 }}
             />

@@ -42,6 +42,7 @@ const Preferences = () => {
         watch,
     } = useForm<FormData>();
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const chosenFormat = watch("display_name_format");
 
     useEffect(() => {
