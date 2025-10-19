@@ -3,7 +3,7 @@ import dayjs from "dayjs";
 import advancedFormat from "dayjs/plugin/advancedFormat";
 import { useMemo } from "react";
 import { Remark } from "react-remark";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import styled from "styled-components";
 import useSWR from "swr";
 import { useUserState } from "../context/Auth";

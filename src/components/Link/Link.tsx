@@ -1,5 +1,5 @@
-import type { LinkProps } from "react-router-dom";
-import { Link as RRDLink } from "react-router-dom";
+import type { LinkProps } from "react-router";
+import { Link as RRDLink } from "react-router";
 
 interface Props extends LinkProps {
     className?: string;

@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { useUserState } from "./context/Auth";

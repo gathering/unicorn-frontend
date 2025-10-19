@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import React, { useMemo, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import useSWR from "swr";
 import type { ICompetitionListResponse, IGenreResponse } from "../features/competitions/competition";
 // import FeaturedCompetitions from '../features/competitions/FeaturedCompetitions';

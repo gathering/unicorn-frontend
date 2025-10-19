@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import styled from "styled-components";
 import useSWR from "swr";
 import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";

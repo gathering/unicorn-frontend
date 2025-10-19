@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { Textarea } from "../../../components/Textarea/Textarea";
