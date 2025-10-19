@@ -10,7 +10,13 @@ if (import.meta.env.MODE === "development") {
 }
 
 const router = createBrowserRouter(routeConfig, {
-    future: { v7_relativeSplatPath: true, v7_fetcherPersist: true, v7_normalizeFormMethod: true },
+    future: {
+        v7_relativeSplatPath: true,
+        v7_fetcherPersist: true,
+        v7_normalizeFormMethod: true,
+        v7_partialHydration: true,
+        v7_skipActionErrorRevalidation: true,
+    },
 });
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
