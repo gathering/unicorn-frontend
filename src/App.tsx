@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { useUserState } from "./context/Auth";
 
