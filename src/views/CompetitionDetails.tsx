@@ -13,7 +13,6 @@ import { amIParticipantInEntryList, findRegisterAction } from "../utils/competit
 import { httpGet } from "../utils/fetcher";
 import { formatNumber } from "../utils/numbers";
 import { hasPermission, Permission } from "../utils/permissions";
-import "./CompetitionDetails.scss";
 
 dayjs.extend(advancedFormat);
 

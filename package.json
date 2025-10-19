@@ -38,7 +38,6 @@
         "prettier": "^3.6.2",
         "prettier-plugin-organize-imports": "^4.3.0",
         "prettier-plugin-tailwindcss": "^0.7.1",
-        "sass": "^1.93.2",
         "typescript": "^5.9.3",
         "vite": "^7.1.10",
         "vite-tsconfig-paths": "^5.1.4"
