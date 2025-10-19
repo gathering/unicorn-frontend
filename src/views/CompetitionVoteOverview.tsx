@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { useMemo } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import useSWR from "swr";
 import { View } from "../components/View";
 import { useUserState } from "../context/Auth";
@@ -46,7 +46,7 @@ const CompetitionVoteOverview = () => {
                             },
                         },
                     }}
-                    className="mb-10 mr-10 mt-12 flex w-full flex-col items-center sm:mt-4"
+                    className="mt-12 mr-10 mb-10 flex w-full flex-col items-center sm:mt-4"
                 >
                     {filteredCompetitions.map((competition) => (
                         <motion.li
@@ -93,7 +93,7 @@ const CompetitionVoteOverview = () => {
                 </motion.ul>
             )}
             {!filteredCompetitions.length && !isValidating && (
-                <article className="mb-10 mr-10 mt-12 flex w-full flex-col items-center sm:mt-4">
+                <article className="mt-12 mr-10 mb-10 flex w-full flex-col items-center sm:mt-4">
                     <h1 className="mt-32 text-4xl text-gray-800">
                         {competitionResult ? "No competitions found" : "Loading..."}
                     </h1>

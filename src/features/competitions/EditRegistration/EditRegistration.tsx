@@ -40,7 +40,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
         <>
             {entry.status.value === 4 ? (
                 <section
-                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-green-500 bg-green-100 px-3 py-4 text-green-700"
+                    className="col-span-2 container mx-auto mt-4 w-full border-l-4 border-green-500 bg-green-100 px-3 py-4 text-green-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Congratulations! 🥳</h2>
@@ -48,7 +48,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
                 </section>
             ) : entry.status.value === 8 ? (
                 <section
-                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
+                    className="col-span-2 container mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Sorry, your entry is disqualified:</h2>
@@ -57,7 +57,7 @@ export const EditRegistration = ({ competition, entry, onRegistrationFinish, rev
                 </section>
             ) : entry.status.value === 16 ? (
                 <section
-                    className="container col-span-2 mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
+                    className="col-span-2 container mx-auto mt-4 w-full border-l-4 border-yellow-500 bg-yellow-100 px-3 py-4 text-yellow-700"
                     role="alert"
                 >
                     <h2 className="pb-2 font-bold">Your registration did not make it through the preselection</h2>

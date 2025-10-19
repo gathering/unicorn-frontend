@@ -14,6 +14,7 @@ export const RateStars = ({ onChange, score, isFetching }: Props) => {
 
     useEffect(() => {
         if (isFetching === true && hoverStar !== undefined) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setHoverStar(undefined);
         }
     }, [isFetching, hoverStar]);

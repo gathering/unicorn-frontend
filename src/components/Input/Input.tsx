@@ -68,7 +68,7 @@ const Input = forwardRef<HTMLInputElement, IProps>(
                     </span>
                 )}
                 <Wrapper
-                    className={`block h-12 rounded border border-gray-300 bg-white px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                    className={`block h-12 rounded border border-gray-300 bg-white px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-hidden dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                         className ? className : ""
                     } ${
                         errorLabel

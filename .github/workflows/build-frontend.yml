@@ -37,7 +37,7 @@ jobs:
               run: pnpm lint
 
             - name: Run Prettier
-              run: pnpm prettier
+              run: pnpm prettier:check
 
     build:
         needs: validate

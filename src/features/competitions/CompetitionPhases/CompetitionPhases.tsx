@@ -6,7 +6,6 @@ import isYesterday from "dayjs/plugin/isYesterday";
 import { useMemo } from "react";
 import { competitionPhases } from "../../../utils/competitions";
 import type { ICompetition } from "../competition";
-import "./competition-phases.scss";
 
 dayjs.extend(isYesterday);
 dayjs.extend(isToday);
@@ -53,7 +52,7 @@ const CompetitionPhases = ({ competition }: IProps) => {
     const phases = useMemo(() => competitionPhases(competition).filter((p) => !!p[1]), [competition]);
 
     return (
-        <div className="competition-phases flex w-full pb-10">
+        <div className="flex w-full pb-10">
             {phases.map((phase) => (
                 <Phase key={phase[0]} phase={phase} />
             ))}
@@ -86,7 +85,7 @@ const SubPhase = ({ heading, time, havePassed }: { heading: string; time: string
     const color = havePassed ? "green-700" : "gray-600";
 
     return (
-        <section className={`flex flex-grow flex-col items-center font-light`}>
+        <section className={`flex grow flex-col items-center font-light`}>
             <h2 className={`mb-4 text-${color}`}>{heading}</h2>
             <hr
                 style={{ height: "2px" }}

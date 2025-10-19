@@ -81,9 +81,9 @@ const CompetitionVote = () => {
                     </HeadingWrapper>
                 </div>
             </div>
-            <main className="container mx-auto grid grid-cols-3 gap-4 sm:grid-cols-1 md:grid-cols-2">
-                <h2 className="col-span-3 mt-6 text-3xl sm:col-span-1 md:col-span-2">Vote for the awesome entries!</h2>
-                <p className="col-span-3 mb-8 sm:col-span-1 md:col-span-2">
+            <main className="container mx-auto grid grid-cols-3 gap-4 md:grid-cols-2 sm:grid-cols-1">
+                <h2 className="col-span-3 mt-6 text-3xl md:col-span-2 sm:col-span-1">Vote for the awesome entries!</h2>
+                <p className="col-span-3 mb-8 md:col-span-2 sm:col-span-1">
                     Every vote counts, so please vote for all entries
                 </p>
                 {votableEntries.map((e) => (

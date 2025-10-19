@@ -127,7 +127,7 @@ export const RegisterEntry = ({
                 <div className="flex justify-center">
                     <button
                         onClick={() => onUpdate(null as unknown as IFormData)}
-                        className="m-4 mb-6 h-12 w-1/4 items-center rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow sm:w-full"
+                        className="m-4 mb-6 h-12 w-1/4 items-center rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm sm:w-full"
                     >
                         RSVP
                     </button>
@@ -141,7 +141,7 @@ export const RegisterEntry = ({
             <form onSubmit={handleSubmit(onUpdate)}>
                 <div className="flex p-4">
                     <h3 style={{ width: "360px" }}>Registration</h3>
-                    <fieldset className="flex-grow">
+                    <fieldset className="grow">
                         {registrationType === FormType.TEAM_ONLY ? (
                             <Input
                                 fullWidth
@@ -184,13 +184,13 @@ export const RegisterEntry = ({
 
                             <div className="flex p-4">
                                 <h3 style={{ width: "360px" }}>Misc</h3>
-                                <fieldset className="flex-grow">
+                                <fieldset className="grow">
                                     <label htmlFor="display_name_field" className="mb-1 block w-full">
                                         Display name
                                     </label>
                                     <span
                                         id="display_name_field"
-                                        className="mb-2 flex h-12 items-center rounded border border-gray-300 bg-gray-300 px-4 leading-tight text-gray-700"
+                                        className="mb-2 flex h-12 items-center rounded-sm border border-gray-300 bg-gray-300 px-4 leading-tight text-gray-700"
                                     >
                                         {user?.display_name}
                                     </span>
@@ -209,7 +209,7 @@ export const RegisterEntry = ({
 
                 <hr className="my-6 border-t border-gray-300" />
 
-                <button className="float-right m-4 mb-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
+                <button className="float-right m-4 mb-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
                     {defaultValues ? "Update" : "Register"}
                 </button>
             </form>
@@ -247,7 +247,7 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
 
 const RegistrationContainer: React.FC<React.PropsWithChildren<{ header: string }>> = ({ children, header }) => (
     <div className="container mx-auto my-12 sm:my-0">
-        <section className="flex flex-col rounded bg-white dark:bg-gray-800 sm:rounded-none">
+        <section className="flex flex-col rounded-sm bg-white sm:rounded-none dark:bg-gray-800">
             <h2 className="p-4 text-center text-xl">{header}</h2>
             <hr className="dark:borger-gray-700 border-t border-gray-300 pb-6" />
             {children}

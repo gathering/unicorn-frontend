@@ -33,6 +33,7 @@ const CompetitionAdminCreate = () => {
         setSlideIndex(slideIndex - 1);
     };
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const selectedGenre = methods.watch("genre");
 
     const activeCategory: Genre | null = useMemo(() => {

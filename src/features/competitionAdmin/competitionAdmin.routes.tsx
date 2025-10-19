@@ -1,4 +1,4 @@
-import { Outlet, type RouteObject } from "react-router-dom";
+import { Outlet, type RouteObject } from "react-router";
 import { ProtectedRoute } from "../../components/ProtectedRoute";
 import CompetitionAdminCreate from "./views/CompetitionAdminCreate";
 import CompetitionAdminDetails from "./views/CompetitionAdminDetails";

@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import cookie from "js-cookie";
 import React, { createContext, useContext, useEffect, useReducer } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import useSWR from "swr";
 import { httpGet, loginWithCode, loginWithRefreshToken } from "../utils/fetcher";
 import type { Permission } from "../utils/permissions";

@@ -42,6 +42,7 @@ const Preferences = () => {
         watch,
     } = useForm<FormData>();
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const chosenFormat = watch("display_name_format");
 
     useEffect(() => {
@@ -137,7 +138,7 @@ const Preferences = () => {
                     />
                 </fieldset>
                 <footer className="flex max-w-prose items-end justify-between">
-                    <button className="mt-8 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="mt-8 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
                         Save
                     </button>
                     <Link to="/">Back</Link>

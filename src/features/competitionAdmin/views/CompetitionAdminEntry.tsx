@@ -35,6 +35,7 @@ const CompetitionAdminEntry = () => {
         watch,
     } = useForm<IFormData>();
 
+    // eslint-disable-next-line react-hooks/incompatible-library
     const preselect = watch("preselect");
 
     const nextEntry = useMemo(() => {
@@ -111,7 +112,7 @@ const CompetitionAdminEntry = () => {
                     {competition.name}
                 </HeadingWrapper>
             </header>
-            <section className="col-span-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+            <section className="col-span-2 rounded-sm bg-white shadow-sm sm:rounded-none dark:bg-gray-800">
                 <h2 className="p-4 text-xl">
                     {entry.title}
                     <br />
@@ -128,14 +129,14 @@ const CompetitionAdminEntry = () => {
                 )}
             </section>
             {hasUpload && (
-                <section className="col-span-2 grid grid-cols-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+                <section className="col-span-2 grid grid-cols-2 rounded-sm bg-white shadow-sm sm:rounded-none dark:bg-gray-800">
                     <h2 className="col-span-1 col-start-1 p-4 text-xl">Files</h2>
                     <ul className="col-span-1 col-start-1 px-4 pb-4">
                         {competition.fileupload.map((fu, idx) => {
                             const file: IFile | undefined = entry.files.find((f) => f.active && f.type === fu.type);
                             return (
                                 <li key={fu.type + idx}>
-                                    <h3 className="mb-1 mt-4 text-xl font-light">{fu.input}</h3>
+                                    <h3 className="mt-4 mb-1 text-xl font-light">{fu.input}</h3>
                                     {file ? (
                                         <>
                                             {file.type === "screenshot" ? (
@@ -145,7 +146,7 @@ const CompetitionAdminEntry = () => {
                                             ) : (
                                                 <a
                                                     href={file.url}
-                                                    className="-ml-2 rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-500 dark:hover:text-indigo-100"
+                                                    className="-ml-2 rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-500 dark:hover:text-indigo-100"
                                                 >
                                                     {file.name}
                                                 </a>
@@ -172,39 +173,39 @@ const CompetitionAdminEntry = () => {
                     )}
                 </section>
             )}
-            <section className="col-span-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+            <section className="col-span-2 rounded-sm bg-white shadow-sm sm:rounded-none dark:bg-gray-800">
                 <h2 className="p-4 text-xl">Contributors</h2>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50 text-gray-500 dark:bg-gray-900 dark:text-gray-100">
                         <tr>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
                             >
                                 Display Name
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
                             >
                                 Email
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
                             >
                                 Phone number
                             </th>
                             <th
                                 scope="col"
-                                className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                                className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
                             >
                                 Row/Seat
                             </th>
                             {competition.contributor_extra && (
                                 <th
                                     scope="col"
-                                    className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider"
+                                    className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
                                 >
                                     {competition.contributor_extra}
                                 </th>
@@ -214,9 +215,9 @@ const CompetitionAdminEntry = () => {
                     <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
                         {entry.contributors.map((c) => (
                             <tr key={c.id}>
-                                <td className="whitespace-nowrap px-6 py-4">
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {c.is_owner && (
-                                        <span className="mr-4 rounded bg-tg-brand-orange-500 px-1 font-light text-white dark:bg-tg-brand-orange-600 dark:text-tg-brand-orange-50">
+                                        <span className="mr-4 rounded-sm bg-tg-brand-orange-500 px-1 font-light text-white dark:bg-tg-brand-orange-600 dark:text-tg-brand-orange-50">
                                             Owner
                                         </span>
                                     )}{" "}
@@ -226,13 +227,13 @@ const CompetitionAdminEntry = () => {
                                         {c.user.display_name}
                                     </span>
                                 </td>
-                                <td className="whitespace-nowrap px-6 py-4">{c.user.email}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{c.user.phone_number}</td>
-                                <td className="whitespace-nowrap px-6 py-4">
+                                <td className="px-6 py-4 whitespace-nowrap">{c.user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{c.user.phone_number}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {c.user.row}/{c.user.seat}
                                 </td>
                                 {competition.contributor_extra && (
-                                    <td className="whitespace-nowrap px-6 py-4">{c.extra_info}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{c.extra_info}</td>
                                 )}
                             </tr>
                         ))}
@@ -240,7 +241,7 @@ const CompetitionAdminEntry = () => {
                 </table>
             </section>
             <aside className="col-start-3 row-span-3 row-start-2">
-                <section className="flex flex-col flex-wrap rounded bg-white p-4 shadow dark:bg-gray-800 sm:rounded-none">
+                <section className="flex flex-col flex-wrap rounded-sm bg-white p-4 shadow-sm sm:rounded-none dark:bg-gray-800">
                     <h2 className="text-xl">Status</h2>
 
                     <p>

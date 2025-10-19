@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm } from "react-hook-form";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { toast } from "react-toastify";
 import useSWR from "swr";
 import { Textarea } from "../../../components/Textarea/Textarea";
@@ -48,6 +48,7 @@ const CompetitionAdminEdit = () => {
                 register_time_end: competition.register_time_end ? new Date(competition.register_time_end) : null,
             });
 
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setShowForm(true);
         }
     }, [competition, reset]);
@@ -104,10 +105,7 @@ const CompetitionAdminEdit = () => {
                     label="Brief description"
                     {...register("brief_description", {
                         required: "You need to give the competition a short and teasing description",
-                        maxLength: {
-                            message: "The description should just be a short teaser",
-                            value: 40,
-                        },
+                        maxLength: { message: "The description should just be a short teaser", value: 40 },
                     })}
                     className="mb-6 w-full"
                 />
@@ -116,9 +114,7 @@ const CompetitionAdminEdit = () => {
                     <Controller
                         control={control}
                         name="run_time_start"
-                        rules={{
-                            required: "You must give the competition a start time",
-                        }}
+                        rules={{ required: "You must give the competition a start time" }}
                         render={({ field }) => {
                             const { value, ...props } = field;
                             return (
@@ -138,7 +134,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                                                 errors.run_time_start
                                                     ? "text-red border border-red-600 focus:border-red-800"
                                                     : ""
@@ -154,9 +150,7 @@ const CompetitionAdminEdit = () => {
                     <Controller
                         control={control}
                         name="run_time_end"
-                        rules={{
-                            required: "You must give the competition an end time",
-                        }}
+                        rules={{ required: "You must give the competition an end time" }}
                         render={({ field }) => {
                             const { value, ...props } = field;
                             return (
@@ -176,7 +170,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                                                 errors.run_time_end
                                                     ? "text-red border border-red-600 focus:border-red-800"
                                                     : ""
@@ -215,9 +209,7 @@ const CompetitionAdminEdit = () => {
                 <Input
                     label="Poster image credit"
                     className="mb-6 w-full"
-                    {...register("header_credit", {
-                        required: "You must credit the poster",
-                    })}
+                    {...register("header_credit", { required: "You must credit the poster" })}
                     errorLabel={errors.header_credit?.message}
                 />
 
@@ -262,7 +254,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -287,7 +279,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -344,7 +336,7 @@ const CompetitionAdminEdit = () => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded-sm shadow-sm focus:outline-hidden focus:bg-white focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -367,7 +359,7 @@ const CompetitionAdminEdit = () => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded-sm shadow-sm focus:outline-hidden focus:bg-white focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -392,7 +384,7 @@ const CompetitionAdminEdit = () => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -419,7 +411,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -445,7 +437,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -488,18 +480,9 @@ const CompetitionAdminEdit = () => {
                         <Select
                             label="Visibility"
                             options={[
-                                {
-                                    label: "Public",
-                                    value: "public",
-                                },
-                                {
-                                    label: "Crew",
-                                    value: "crew",
-                                },
-                                {
-                                    label: "Hidden",
-                                    value: "hidden",
-                                },
+                                { label: "Public", value: "public" },
+                                { label: "Crew", value: "crew" },
+                                { label: "Hidden", value: "hidden" },
                             ]}
                             onChange={field.onChange}
                             value={field.value}
@@ -515,12 +498,12 @@ const CompetitionAdminEdit = () => {
                 />
 
                 <footer className="mt-8 flex flex-row-reverse justify-end">
-                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
                         Save
                     </button>
                     <Link
                         to="/admin/competitions"
-                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow"
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
                     >
                         Cancel
                     </Link>

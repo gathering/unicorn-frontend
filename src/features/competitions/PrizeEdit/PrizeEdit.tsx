@@ -40,7 +40,7 @@ export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
                     <button
                         type="button"
                         onClick={() => removePrize(i)}
-                        className="ml-6 flex h-12 w-32 items-center justify-evenly rounded bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow"
+                        className="ml-6 flex h-12 w-32 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
                     >
                         Remove
                     </button>
@@ -57,7 +57,7 @@ export const PrizeEdit = ({ value, onChange, label, className }: IProps) => {
                 <button
                     type="button"
                     onClick={addPrize}
-                    className="ml-6 flex h-12 w-32 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow"
+                    className="ml-6 flex h-12 w-32 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm"
                 >
                     Add
                 </button>

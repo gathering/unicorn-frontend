@@ -1,7 +1,7 @@
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useFormContext } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { Input } from "../../../components/Input";
 import { Select } from "../../../components/Select";
@@ -81,7 +81,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                     <>
                                         <label
                                             id="votetime-start"
-                                            className="mb-1 mt-6 block"
+                                            className="mt-6 mb-1 block"
                                             htmlFor="vote_time_start"
                                         >
                                             Vote start time (optional)
@@ -93,7 +93,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                                 {...props}
                                                 timeInputLabel="Time:"
                                                 dateFormat="yyyy-MM-dd HH:mm"
-                                                className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                                className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                                 showTimeInput
                                             />
                                         </div>
@@ -118,7 +118,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                                 {...props}
                                                 timeInputLabel="Time:"
                                                 dateFormat="yyyy-MM-dd HH:mm"
-                                                className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                                className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                                 showTimeInput
                                             />
                                         </div>
@@ -188,7 +188,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -214,7 +214,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -240,7 +240,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -266,7 +266,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -292,7 +292,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -369,13 +369,13 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                 />
 
                 <footer className="mt-8 flex flex-row-reverse justify-end">
-                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
                         Save
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow"
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
                     >
                         Previous
                     </button>
