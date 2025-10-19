@@ -247,7 +247,7 @@ const UploadTeam = ({ value, onChange }: { value: string; onChange: (value: stri
 
 const RegistrationContainer: React.FC<React.PropsWithChildren<{ header: string }>> = ({ children, header }) => (
     <div className="container mx-auto my-12 sm:my-0">
-        <section className="flex flex-col rounded-sm bg-white dark:bg-gray-800 sm:rounded-none">
+        <section className="flex flex-col rounded-sm bg-white sm:rounded-none dark:bg-gray-800">
             <h2 className="p-4 text-center text-xl">{header}</h2>
             <hr className="dark:borger-gray-700 border-t border-gray-300 pb-6" />
             {children}

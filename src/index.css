@@ -1,10 +1,10 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* 
   Our custom breakpoint configuration is not supported in css-config yet,
   as it is setting breakpoints based on max-width instead of min-width.
 */
-@config '../tailwind.config.ts';
+@config "../tailwind.config.ts";
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,

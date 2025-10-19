@@ -127,7 +127,7 @@ const CompetitionDetails = () => {
                 <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
                     {data.name}
                 </HeadingWrapper>
-                <p className="absolute bottom-0 right-0 px-4 py-2 text-sm text-gray-200 sm:top-0">
+                <p className="absolute right-0 bottom-0 px-4 py-2 text-sm text-gray-200 sm:top-0">
                     Image by: {data.header_credit}
                 </p>
             </div>
@@ -135,7 +135,7 @@ const CompetitionDetails = () => {
                 <div className="grow">
                     {data.state.value === 32 && (
                         <section
-                            className="container col-span-2 mx-auto mb-6 mt-4 w-full border-l-4 border-green-500 bg-green-100 px-3 py-5 text-green-700"
+                            className="col-span-2 container mx-auto mt-4 mb-6 w-full border-l-4 border-green-500 bg-green-100 px-3 py-5 text-green-700"
                             role="alert"
                         >
                             <p>
@@ -145,7 +145,7 @@ const CompetitionDetails = () => {
                         </section>
                     )}
                     <CompetitionPhases competition={data} />
-                    <TabGroup className="rounded-sm bg-white dark:bg-gray-800 sm:rounded-none">
+                    <TabGroup className="rounded-sm bg-white sm:rounded-none dark:bg-gray-800">
                         <TabList className="flex text-lg font-light">
                             {data.description && (
                                 <Tab className="data-[selected]:borger-b-2 grow border-b py-3 data-selected:border-tg-brand-orange-500">
@@ -172,7 +172,7 @@ const CompetitionDetails = () => {
                         </TabPanels>
                     </TabGroup>
                 </div>
-                <aside style={{ minWidth: "20rem" }} className="ml-10 mt-4 sm:mx-2 sm:my-0">
+                <aside style={{ minWidth: "20rem" }} className="mt-4 ml-10 sm:mx-2 sm:my-0">
                     {!!user && data.state.value === 32 && (
                         <Link
                             to={`/competitions/${id}/vote`}
@@ -194,13 +194,13 @@ const CompetitionDetails = () => {
                         <>
                             <Link
                                 to={`/admin/competitions/${id}/edit`}
-                                className="mb-10 mt-10 flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base font-semibold text-yellow-800 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm sm:mb-6 sm:mt-6"
+                                className="mt-10 mb-10 flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base font-semibold text-yellow-800 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm sm:mt-6 sm:mb-6"
                             >
                                 Edit
                             </Link>
                             <Link
                                 to={`/admin/competitions/${id}`}
-                                className="mb-10 mt-10 flex h-12 items-center justify-evenly rounded-sm bg-blue-300 px-4 text-base font-semibold text-blue-800 duration-150 hover:bg-blue-700 hover:text-black hover:shadow-sm sm:mb-6 sm:mt-6"
+                                className="mt-10 mb-10 flex h-12 items-center justify-evenly rounded-sm bg-blue-300 px-4 text-base font-semibold text-blue-800 duration-150 hover:bg-blue-700 hover:text-black hover:shadow-sm sm:mt-6 sm:mb-6"
                             >
                                 Entries
                             </Link>
@@ -208,7 +208,7 @@ const CompetitionDetails = () => {
                     )}
 
                     {hasMeta && (
-                        <section className="rounded-sm bg-white p-4 dark:bg-gray-800 sm:rounded-none">
+                        <section className="rounded-sm bg-white p-4 sm:rounded-none dark:bg-gray-800">
                             {!!data.prizes.length && (
                                 <>
                                     <h2 className="pb-2 text-lg">Prizes</h2>
@@ -254,7 +254,7 @@ const CompetitionDetails = () => {
                                                 <a
                                                     href={link.href}
                                                     target="_blank"
-                                                    className="rounded-xs px-1 py-1 capitalize text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:px-2 hover:text-indigo-900"
+                                                    className="rounded-xs px-1 py-1 text-indigo-700 capitalize underline transition-all duration-150 hover:bg-indigo-200 hover:px-2 hover:text-indigo-900"
                                                     rel="noreferrer noopener"
                                                 >
                                                     {link.destination}

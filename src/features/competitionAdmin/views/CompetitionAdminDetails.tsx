@@ -157,7 +157,7 @@ const CompetitionAdminDetails = () => {
                         Disqualified
                     </li>
                 </ul>
-                <div className="col-span-3 rounded-sm bg-white p-4 shadow-sm dark:bg-gray-800 sm:rounded-none">
+                <div className="col-span-3 rounded-sm bg-white p-4 shadow-sm sm:rounded-none dark:bg-gray-800">
                     <h2 className="pb-4 text-xl">
                         Participants
                         <Link to={`/admin/competitions/${id}/results`} className="float-right text-base">
@@ -177,7 +177,7 @@ const CompetitionAdminDetails = () => {
                                         <svg
                                             className={`${
                                                 entryStateColors.find((c) => c.value === e.status.value)?.bg
-                                            } mb-1 mr-4`}
+                                            } mr-4 mb-1`}
                                             width="14"
                                             height="14"
                                             viewBox="0 0 14 14"
@@ -214,7 +214,7 @@ const CompetitionAdminDetails = () => {
                 <section className="sm-rounded-none mb-4 rounded-sm bg-white shadow-sm dark:bg-gray-800">
                     <h2 className="px-4 py-6 text-xl">{data.entries_count} registered</h2>
                 </section>
-                <section className="mb-4 rounded-sm bg-white p-4 shadow-sm dark:bg-gray-800 sm:rounded-none">
+                <section className="mb-4 rounded-sm bg-white p-4 shadow-sm sm:rounded-none dark:bg-gray-800">
                     <h2 className="pb-7 text-xl">Quick settings</h2>
                     {hasPermission(Permission.CompetitionsChangeCompetition, data.permissions) ? (
                         <>

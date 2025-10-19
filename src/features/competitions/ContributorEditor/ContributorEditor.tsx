@@ -139,7 +139,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="bg-opacity-25 fixed inset-0 bg-black" />
                     </TransitionChild>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -154,10 +154,10 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <DialogPanel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
-                                    <DialogTitle as="h3" className="text-lg font-medium leading-6 text-gray-900">
+                                    <DialogTitle as="h3" className="text-lg leading-6 font-medium text-gray-900">
                                         Add contributor
                                     </DialogTitle>
-                                    <p className="mb-6 mt-4 text-orange-600">
+                                    <p className="mt-4 mb-6 text-orange-600">
                                         All contributors must have been logged into competitions.gathering.org before
                                         you can add them.
                                     </p>

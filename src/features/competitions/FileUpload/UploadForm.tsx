@@ -121,7 +121,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                     ) : stage === 2 ? (
                         <>
                             <svg
-                                className="-ml-1 mb-8 mr-3 h-7 w-7 animate-spin text-black dark:text-gray-100"
+                                className="mr-3 mb-8 -ml-1 h-7 w-7 animate-spin text-black dark:text-gray-100"
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
@@ -157,7 +157,7 @@ export const UploadForm = ({ formDefinition, entry, file, onRefresh }: Props) =>
                                 />
                             </svg>
                             <h3>{formDefinition.input}</h3>
-                            <p className="break-all font-light">Current file: {file?.name}</p>
+                            <p className="font-light break-all">Current file: {file?.name}</p>
                             <p className="text-gray-700 dark:text-gray-400">Upload new version</p>
                         </>
                     ) : null}

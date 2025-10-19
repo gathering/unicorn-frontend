@@ -23,22 +23,22 @@ const CompetitionAdminResults = () => {
             <table className="my-6 min-w-full divide-y divide-gray-200 dark:divide-gray-600">
                 <thead className="bg-gray-50 text-gray-500 dark:bg-gray-900 dark:text-gray-200">
                     <tr>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Entry
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Credit
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Owner
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Email
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Phone
                         </th>
-                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider">
+                        <th scope="col" className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase">
                             Score
                         </th>
                     </tr>
@@ -48,15 +48,15 @@ const CompetitionAdminResults = () => {
                         const owner = e.contributors.find((c) => c.is_owner);
                         return (
                             <tr key={e.id}>
-                                <td className="whitespace-nowrap px-6 py-4">{e.title}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.display_name}</td>
-                                <td className="whitespace-nowrap px-6 py-4">
+                                <td className="px-6 py-4 whitespace-nowrap">{e.title}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.display_name}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">
                                     {owner?.user.first_name} {owner?.user.last_name}
                                 </td>
-                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.email}</td>
-                                <td className="whitespace-nowrap px-6 py-4">{owner?.user.phone_number}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.email}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{owner?.user.phone_number}</td>
 
-                                <td className="whitespace-nowrap px-6 py-4">{e.score}</td>
+                                <td className="px-6 py-4 whitespace-nowrap">{e.score}</td>
                             </tr>
                         );
                     })}

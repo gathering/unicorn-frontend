@@ -7,8 +7,9 @@
         "serve": "vite preview",
         "typecheck": "tsc",
         "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint src/**",
-        "prettier": "prettier --check src/**",
-        "check": "pnpm lint && pnpm prettier && pnpm typecheck"
+        "prettier:check": "prettier --check src/**",
+        "prettier:write": "prettier --write src/**",
+        "check": "pnpm lint && pnpm prettier:check && pnpm typecheck"
     },
     "devDependencies": {
         "@locator/babel-jsx": "^0.4.4",
@@ -75,6 +76,7 @@
             "prettier-plugin-organize-imports",
             "prettier-plugin-tailwindcss"
         ],
+        "tailwindStylesheet": "src/index.css",
         "tailwindFunctions": [
             "clsx"
         ]

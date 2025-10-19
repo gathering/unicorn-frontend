@@ -83,7 +83,7 @@ const CompetitionRegistration = () => {
     if (!hasEntry) {
         return (
             <>
-                <div className="container relative mx-auto mt-4 sm:mb-4">
+                <div className="relative container mx-auto mt-4 sm:mb-4">
                     <img
                         className="h-48 w-full rounded-md object-cover sm:rounded-none"
                         src={data.header_image_file ?? data.header_image}
@@ -100,7 +100,7 @@ const CompetitionRegistration = () => {
 
     return (
         <>
-            <div className="container relative mx-auto mt-4 sm:mb-4">
+            <div className="relative container mx-auto mt-4 sm:mb-4">
                 <img
                     className="h-48 w-full rounded-md object-cover sm:rounded-none"
                     src={data.header_image_file ?? data.header_image}

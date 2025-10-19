@@ -81,7 +81,7 @@ export const Misc = ({ onPrevious, activeCategory }: IProps) => {
                                     <>
                                         <label
                                             id="votetime-start"
-                                            className="mb-1 mt-6 block"
+                                            className="mt-6 mb-1 block"
                                             htmlFor="vote_time_start"
                                         >
                                             Vote start time (optional)
