@@ -1,6 +1,6 @@
+import { clsx } from "clsx";
 import React, { forwardRef, useId } from "react";
 import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-import styled from "styled-components";
 
 interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -11,14 +11,6 @@ interface IProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onCh
     labelClassName?: string;
     helpLabel?: string;
 }
-
-const Label = styled.label`
-    display: block;
-`;
-
-const Wrapper = styled.input`
-    min-width: 238px;
-`;
 
 const Input = forwardRef<HTMLInputElement, IProps>(
     (
@@ -54,9 +46,12 @@ const Input = forwardRef<HTMLInputElement, IProps>(
         return (
             <>
                 {label ? (
-                    <Label id={labelId + "-label"} className={labelClassName ?? "mb-1 dark:text-gray-100"}>
+                    <label
+                        id={labelId + "-label"}
+                        className={clsx("block", labelClassName ?? "mb-1 dark:text-gray-100")}
+                    >
                         {label}
-                    </Label>
+                    </label>
                 ) : (
                     <span className="sr-only" id={labelId}>
                         {placeholder}
@@ -67,8 +62,8 @@ const Input = forwardRef<HTMLInputElement, IProps>(
                         {errorLabel}
                     </span>
                 )}
-                <Wrapper
-                    className={`block h-12 rounded border border-gray-300 bg-white px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-hidden dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                <input
+                    className={`block h-12 min-w-59 rounded border border-gray-300 bg-white px-4 leading-tight text-gray-700 focus:border-gray-500 focus:bg-white focus:outline-hidden dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                         className ? className : ""
                     } ${
                         errorLabel

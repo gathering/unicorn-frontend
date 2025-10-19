@@ -1,7 +1,6 @@
 import { clsx } from "clsx";
 import { type ChangeEventHandler, forwardRef, type TextareaHTMLAttributes, useId } from "react";
 import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
-import styled from "styled-components";
 
 interface Props extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onChange"> {
     onChange?: ChangeEventHandler<HTMLTextAreaElement>;
@@ -9,10 +8,6 @@ interface Props extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, "onCha
     label?: string;
     helpLabel?: string;
 }
-
-const Label = styled.label`
-    display: block;
-`;
 
 const Textarea = forwardRef<HTMLTextAreaElement, Props>(
     ({ id, label, className, errorLabel, helpLabel, ...textareaProps }, ref) => {
@@ -33,9 +28,9 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
         return (
             <>
                 {label ? (
-                    <Label id={labelId + "-label"} className="mb-1 dark:text-gray-100">
+                    <label id={labelId + "-label"} className="mb-1 block dark:text-gray-100">
                         {label}
-                    </Label>
+                    </label>
                 ) : null}
                 {errorLabel && (
                     <span role="alert" className="text-red-600 dark:text-red-400" id={errorLabelId}>

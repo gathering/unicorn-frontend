@@ -1,15 +1,11 @@
+import { HeadingWrapper } from "@features/competitions";
 import { useMemo } from "react";
 import { useParams } from "react-router";
-import styled from "styled-components";
 import useSWR from "swr";
 import { View } from "../components/View";
 import { VoteCard } from "../features/competitions/VoteCard";
 import type { ICompetition, IEntryListResponse, IListResponse, IVote } from "../features/competitions/competition";
 import { httpGet } from "../utils/fetcher";
-
-const HeadingWrapper = styled.h1`
-    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
-`;
 
 const CompetitionVote = () => {
     const { id: cid } = useParams<{ id: string }>();
@@ -76,9 +72,7 @@ const CompetitionVote = () => {
                         src={competition.header_image_file ?? competition.header_image}
                         alt=""
                     />
-                    <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
-                        {competition.name}
-                    </HeadingWrapper>
+                    <HeadingWrapper className="sm:rounded-none">{competition.name}</HeadingWrapper>
                 </div>
             </div>
             <main className="container mx-auto grid grid-cols-3 gap-4 md:grid-cols-2 sm:grid-cols-1">

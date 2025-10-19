@@ -2,6 +2,7 @@ import { PrimaryButton, SecondaryButton } from "@components/Button";
 import { Input } from "@components/Input";
 import { Link } from "@components/Link";
 import { View } from "@components/View";
+import { HeadingWrapper } from "@features/competitions";
 import type { ICompetition, IEntry, IFile } from "@features/competitions/competition";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { hasFileupload } from "@utils/competitions";
@@ -11,12 +12,7 @@ import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
 import { toast } from "react-toastify";
-import styled from "styled-components";
 import useSWR from "swr";
-
-const HeadingWrapper = styled.h1`
-    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
-`;
 
 interface IFormData {
     preselect?: boolean;
@@ -108,9 +104,7 @@ const CompetitionAdminEntry = () => {
                     src={competition.header_image_file ?? competition.header_image}
                     alt=""
                 />
-                <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
-                    {competition.name}
-                </HeadingWrapper>
+                <HeadingWrapper className="sm:rounded-none">{competition.name}</HeadingWrapper>
             </header>
             <section className="col-span-2 rounded-sm bg-white shadow-sm sm:rounded-none dark:bg-gray-800">
                 <h2 className="p-4 text-xl">

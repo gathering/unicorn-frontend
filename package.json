@@ -60,7 +60,6 @@
         "react-remark": "^2.1.0",
         "react-router": "^7.9.4",
         "react-toastify": "^11.0.5",
-        "styled-components": "^6.1.19",
         "swr": "^2.3.6",
         "tailwindcss": "^4.1.14",
         "tus-js-client": "^4.3.1"

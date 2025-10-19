@@ -1,7 +1,7 @@
+import { HeadingWrapper } from "@features/competitions";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
-import styled from "styled-components";
 import useSWR from "swr";
 import type { ICompetition, IEntryListResponse } from "../features/competitions/competition";
 import { EditRegistration } from "../features/competitions/EditRegistration";
@@ -13,10 +13,6 @@ interface IFormData {
     title: string;
     crew_msg?: string;
 }
-
-const HeadingWrapper = styled.h1`
-    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
-`;
 
 // TODO Resign
 
@@ -89,9 +85,7 @@ const CompetitionRegistration = () => {
                         src={data.header_image_file ?? data.header_image}
                         alt=""
                     />
-                    <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
-                        {data.name}
-                    </HeadingWrapper>
+                    <HeadingWrapper>{data.name}</HeadingWrapper>
                 </div>
                 <RegisterEntry competition={data} onRegistrationFinish={onRegistrationFinish} />
             </>
@@ -106,9 +100,7 @@ const CompetitionRegistration = () => {
                     src={data.header_image_file ?? data.header_image}
                     alt=""
                 />
-                <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50">
-                    {data.name}
-                </HeadingWrapper>
+                <HeadingWrapper>{data.name}</HeadingWrapper>
             </div>
             <EditRegistration
                 competition={data}

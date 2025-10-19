@@ -2,18 +2,14 @@ import { hasPermission, Permission } from "@/utils/permissions";
 import { Button } from "@components/Button";
 import { Link } from "@components/Link";
 import { View } from "@components/View";
+import { HeadingWrapper } from "@features/competitions";
 import type { ICompetition, IEntryListResponse } from "@features/competitions/competition";
 import { parseError } from "@utils/error";
 import { httpDelete, httpGet, httpPatch } from "@utils/fetcher";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import styled from "styled-components";
 import useSWR from "swr";
-
-const HeadingWrapper = styled.h1`
-    background: linear-gradient(5deg, #00000088 30%, #ffffff22 100%);
-`;
 
 const entryStateColors = [
     {
@@ -110,9 +106,7 @@ const CompetitionAdminDetails = () => {
                     src={data.header_image_file ?? data.header_image}
                     alt=""
                 />
-                <HeadingWrapper className="absolute bottom-0 flex h-full w-full items-end rounded-md px-4 pb-3 text-5xl text-gray-50 sm:rounded-none">
-                    {data.name}
-                </HeadingWrapper>
+                <HeadingWrapper className="sm:rounded-none">{data.name}</HeadingWrapper>
             </header>
             <section className="col-span-2 grid w-full auto-rows-min grid-cols-3 gap-4">
                 {/* <Input placeholder="Search" aria-label="Search for participant" /> */}
