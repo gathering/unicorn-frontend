@@ -19,7 +19,7 @@ const App = () => {
     return (
         <ErrorBoundary>
             <div id="unicorn" className="flex min-h-screen flex-col bg-gray-200 dark:bg-gray-700 dark:text-gray-100">
-                <nav className="flex flex-shrink-0 flex-wrap items-center justify-between bg-white px-4 shadow-lg dark:bg-gray-800">
+                <nav className="flex shrink-0 flex-wrap items-center justify-between bg-white px-4 shadow-lg dark:bg-gray-800">
                     <Link to="/" className="my-1 rounded-md pr-1 hover:bg-gray-100 dark:hover:bg-gray-700">
                         <img src="/images/tg_logo_liten.png" className="ml-1 inline w-16" alt="Back to homepage" />
                     </Link>
@@ -28,7 +28,7 @@ const App = () => {
                         <motion.div className="flex" initial="rest" whileHover="hover" animate="rest">
                             <Link
                                 to="/preferences"
-                                className="ml-6 flex items-center rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                className="ml-6 flex items-center rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                             >
                                 {user?.display_name}
                             </Link>
@@ -36,7 +36,7 @@ const App = () => {
                                 href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
                                     window.location.origin
                                 }/logout`}
-                                className="ml-6 rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                className="ml-6 rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                             >
                                 Logout
                             </a>

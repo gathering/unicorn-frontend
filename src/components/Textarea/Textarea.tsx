@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { type ChangeEventHandler, forwardRef, type TextareaHTMLAttributes, useId } from "react";
 import type { FieldError, FieldErrorsImpl, Merge } from "react-hook-form";
 import styled from "styled-components";
@@ -43,7 +44,7 @@ const Textarea = forwardRef<HTMLTextAreaElement, Props>(
                 )}
                 <textarea
                     aria-labelledby={`${labelId}-label ${helpLabel ? helpLabelId : ""}`}
-                    className={className}
+                    className={clsx(className, "bg-white")}
                     {...textareaProps}
                     ref={ref}
                 />

@@ -64,7 +64,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
                 <button
                     type="button"
                     onClick={onClear}
-                    className="mt-4 flex h-12 items-center justify-evenly rounded bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow"
+                    className="mt-4 flex h-12 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
                 >
                     Disable file upload
                 </button>

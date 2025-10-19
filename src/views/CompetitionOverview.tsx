@@ -101,7 +101,7 @@ const CompetitionsOverview: React.FC = () => {
                     ) && (
                         <Link
                             to="/admin/competitions"
-                            className="mt-10 flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base font-semibold text-yellow-800 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow dark:bg-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-500"
+                            className="mt-10 flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base font-semibold text-yellow-800 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm dark:bg-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-500"
                         >
                             Admin
                         </Link>
@@ -109,7 +109,7 @@ const CompetitionsOverview: React.FC = () => {
                     {hasPermission(Permission.CompetitionsAddCompetition, permissions) && (
                         <Link
                             to="/admin/competitions/new"
-                            className="mt-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base font-semibold text-green-800 duration-150 hover:bg-green-700 hover:text-black hover:shadow dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500"
+                            className="mt-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base font-semibold text-green-800 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500"
                         >
                             New competition
                         </Link>

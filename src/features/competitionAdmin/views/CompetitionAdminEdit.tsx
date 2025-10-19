@@ -134,7 +134,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                                                 errors.run_time_start
                                                     ? "text-red border border-red-600 focus:border-red-800"
                                                     : ""
@@ -170,7 +170,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
+                                            className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900 ${
                                                 errors.run_time_end
                                                     ? "text-red border border-red-600 focus:border-red-800"
                                                     : ""
@@ -254,7 +254,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -279,7 +279,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -336,7 +336,7 @@ const CompetitionAdminEdit = () => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded-sm shadow-sm focus:outline-hidden focus:bg-white focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -359,7 +359,7 @@ const CompetitionAdminEdit = () => {
                                     {...props}
                                     timeInputLabel="Time:"
                                     dateFormat="yyyy-MM-dd HH:mm"
-                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded shadow focus:outline-none focus:bg-white focus:border-gray-500`}
+                                    className={`unicorn-input block px-4 h-12 mb-6 leading-tight text-gray-700 bg-white rounded-sm shadow-sm focus:outline-hidden focus:bg-white focus:border-gray-500`}
                                     showTimeInput
                                 />
                             </div>
@@ -384,7 +384,7 @@ const CompetitionAdminEdit = () => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                        className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                         showTimeInput
                                     />
                                 </div>
@@ -411,7 +411,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -437,7 +437,7 @@ const CompetitionAdminEdit = () => {
                                             {...props}
                                             timeInputLabel="Time:"
                                             dateFormat="yyyy-MM-dd HH:mm"
-                                            className={`unicorn-input mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
+                                            className={`unicorn-input mb-6 block h-12 rounded-sm bg-white px-4 leading-tight text-gray-700 shadow-sm focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-100 dark:focus:bg-gray-900`}
                                             showTimeInput
                                         />
                                     </div>
@@ -498,12 +498,12 @@ const CompetitionAdminEdit = () => {
                 />
 
                 <footer className="mt-8 flex flex-row-reverse justify-end">
-                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
                         Save
                     </button>
                     <Link
                         to="/admin/competitions"
-                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow"
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
                     >
                         Cancel
                     </Link>

@@ -85,7 +85,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
 
     return (
         <div className="container mx-auto my-12 sm:my-0">
-            <section className="flex flex-col rounded bg-white sm:rounded-none">
+            <section className="flex flex-col rounded-sm bg-white sm:rounded-none">
                 <h2 className="p-4 text-center text-xl">Edit contributors</h2>
                 <hr className="border-t border-gray-300 pb-6" />
                 <fieldset className="mx-4">
@@ -118,7 +118,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                 <div className="flex justify-between">
                     {competition.team_max > 0 && entry.contributors.length < competition.team_max && (
                         <button
-                            className="m-4 mb-6 flex h-12 items-center justify-evenly rounded bg-blue-300 px-4 text-base text-blue-900 duration-150 hover:bg-blue-700 hover:text-black hover:shadow"
+                            className="m-4 mb-6 flex h-12 items-center justify-evenly rounded-sm bg-blue-300 px-4 text-base text-blue-900 duration-150 hover:bg-blue-700 hover:text-black hover:shadow-sm"
                             onClick={() => setShowAddContributor(true)}
                             type="button"
                         >
@@ -170,7 +170,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                                         className="mb-6"
                                     >
                                         <Input label="Name, nickname or email" className="mb-4" ref={searchRef} />
-                                        <button className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
+                                        <button className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2">
                                             Search
                                         </button>
                                     </form>
@@ -197,7 +197,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
                                                         {(data?.results ?? []).map((result, idx) => (
                                                             <li key={idx}>
                                                                 <button
-                                                                    className="rounded-sm px-2 py-1 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                                                    className="rounded-xs px-2 py-1 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                                                                     onClick={() => handleAddContributor(result.uuid)}
                                                                 >
                                                                     {result.display_name}
@@ -217,7 +217,7 @@ export const ContributorEditor = ({ contributorExtra, entry, competition, revali
 
                                     <button
                                         type="button"
-                                        className="float-right inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                        className="float-right inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
                                         onClick={() => setShowAddContributor(false)}
                                     >
                                         Cancel

@@ -15,7 +15,7 @@ export const FileUpload = ({ competition, entry }: Props) => {
     });
 
     return (
-        <section className="container mx-auto mb-6 rounded bg-white dark:bg-gray-800 sm:rounded-none">
+        <section className="container mx-auto mb-6 rounded-sm bg-white dark:bg-gray-800 sm:rounded-none">
             <h2 className="p-4 text-center text-xl">Upload files</h2>
             <hr className="border-t border-gray-300 pb-6 dark:border-gray-700" />
 

@@ -76,7 +76,7 @@ export const SelectGenre = ({ onForward }: IProps) => {
                     )}
                 />
                 <footer className="mt-8">
-                    <button className="flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
+                    <button className="flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
                         Forward
                     </button>
                 </footer>

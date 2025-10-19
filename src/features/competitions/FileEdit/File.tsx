@@ -131,7 +131,7 @@ export const File = ({
                 <button
                     type="button"
                     onClick={onSubmit}
-                    className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow"
+                    className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
                 >
                     Update
                 </button>
@@ -140,7 +140,7 @@ export const File = ({
                 <button
                     type="button"
                     onClick={() => onRemove?.()}
-                    className="flex h-12 items-center justify-evenly rounded bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow"
+                    className="flex h-12 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

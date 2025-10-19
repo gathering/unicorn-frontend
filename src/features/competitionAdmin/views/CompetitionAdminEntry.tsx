@@ -112,7 +112,7 @@ const CompetitionAdminEntry = () => {
                     {competition.name}
                 </HeadingWrapper>
             </header>
-            <section className="col-span-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+            <section className="col-span-2 rounded-sm bg-white shadow-sm dark:bg-gray-800 sm:rounded-none">
                 <h2 className="p-4 text-xl">
                     {entry.title}
                     <br />
@@ -129,7 +129,7 @@ const CompetitionAdminEntry = () => {
                 )}
             </section>
             {hasUpload && (
-                <section className="col-span-2 grid grid-cols-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+                <section className="col-span-2 grid grid-cols-2 rounded-sm bg-white shadow-sm dark:bg-gray-800 sm:rounded-none">
                     <h2 className="col-span-1 col-start-1 p-4 text-xl">Files</h2>
                     <ul className="col-span-1 col-start-1 px-4 pb-4">
                         {competition.fileupload.map((fu, idx) => {
@@ -146,7 +146,7 @@ const CompetitionAdminEntry = () => {
                                             ) : (
                                                 <a
                                                     href={file.url}
-                                                    className="-ml-2 rounded-sm p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-500 dark:hover:text-indigo-100"
+                                                    className="-ml-2 rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-500 dark:hover:text-indigo-100"
                                                 >
                                                     {file.name}
                                                 </a>
@@ -173,7 +173,7 @@ const CompetitionAdminEntry = () => {
                     )}
                 </section>
             )}
-            <section className="col-span-2 rounded bg-white shadow dark:bg-gray-800 sm:rounded-none">
+            <section className="col-span-2 rounded-sm bg-white shadow-sm dark:bg-gray-800 sm:rounded-none">
                 <h2 className="p-4 text-xl">Contributors</h2>
                 <table className="min-w-full divide-y divide-gray-200">
                     <thead className="bg-gray-50 text-gray-500 dark:bg-gray-900 dark:text-gray-100">
@@ -217,7 +217,7 @@ const CompetitionAdminEntry = () => {
                             <tr key={c.id}>
                                 <td className="whitespace-nowrap px-6 py-4">
                                     {c.is_owner && (
-                                        <span className="mr-4 rounded bg-tg-brand-orange-500 px-1 font-light text-white dark:bg-tg-brand-orange-600 dark:text-tg-brand-orange-50">
+                                        <span className="mr-4 rounded-sm bg-tg-brand-orange-500 px-1 font-light text-white dark:bg-tg-brand-orange-600 dark:text-tg-brand-orange-50">
                                             Owner
                                         </span>
                                     )}{" "}
@@ -241,7 +241,7 @@ const CompetitionAdminEntry = () => {
                 </table>
             </section>
             <aside className="col-start-3 row-span-3 row-start-2">
-                <section className="flex flex-col flex-wrap rounded bg-white p-4 shadow dark:bg-gray-800 sm:rounded-none">
+                <section className="flex flex-col flex-wrap rounded-sm bg-white p-4 shadow-sm dark:bg-gray-800 sm:rounded-none">
                     <h2 className="text-xl">Status</h2>
 
                     <p>

@@ -82,7 +82,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
+                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
                                             formState.errors.run_time_start
                                                 ? "text-red border border-red-600 focus:border-red-800 dark:border-red-400 dark:focus:border-red-600"
                                                 : ""
@@ -125,7 +125,7 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                                         {...props}
                                         timeInputLabel="Time:"
                                         dateFormat="yyyy-MM-dd HH:mm"
-                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-none dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
+                                        className={`mb-6 block h-12 rounded bg-white px-4 leading-tight text-gray-700 shadow focus:border-gray-500 focus:bg-white focus:outline-hidden dark:bg-gray-800 dark:text-gray-200 dark:focus:bg-gray-900 ${
                                             formState.errors.run_time_end
                                                 ? "text-red border border-red-600 focus:border-red-800 dark:border-red-400 dark:focus:border-red-600"
                                                 : ""
@@ -176,13 +176,13 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 />
 
                 <footer className="mt-8 flex flex-row-reverse justify-end">
-                    <button className="ml-6 flex h-12 items-center justify-evenly rounded bg-green-300 px-4 text-base text-green-800 duration-150 hover:bg-green-700 hover:text-black hover:shadow dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
+                    <button className="ml-6 flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-800 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm dark:bg-green-800 dark:text-green-200 dark:hover:bg-green-500">
                         Next
                     </button>
                     <button
                         type="button"
                         onClick={onPrevious}
-                        className="flex h-12 items-center justify-evenly rounded bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow dark:bg-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-500"
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm dark:bg-yellow-800 dark:text-yellow-200 dark:hover:bg-yellow-500"
                     >
                         Previous
                     </button>
