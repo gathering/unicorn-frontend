@@ -121,9 +121,11 @@ const CompetitionDetails = () => {
                     alt=""
                 />
                 <HeadingWrapper className="sm:rounded-none">{data.name}</HeadingWrapper>
-                <p className="absolute right-0 bottom-0 px-4 py-2 text-sm text-gray-200 sm:top-0">
-                    Image by: {data.header_credit}
-                </p>
+                {data.header_credit.length > 0 && (
+                    <p className="absolute right-0 bottom-0 px-4 py-2 text-sm text-gray-200 sm:top-0">
+                        Image by: {data.header_credit}
+                    </p>
+                )}
             </div>
             <div className="flex-horizontal flex sm:flex-col-reverse">
                 <div className="grow">

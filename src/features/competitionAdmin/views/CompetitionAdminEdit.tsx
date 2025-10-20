@@ -1,3 +1,4 @@
+import { ImageUpload } from "@components/ImageUpload";
 import { Input } from "@components/Input";
 import { Select } from "@components/Select";
 import { View } from "@components/View";
@@ -7,7 +8,7 @@ import { FileEdit } from "@features/competitions/FileEdit";
 import { PrizeEdit } from "@features/competitions/PrizeEdit";
 import { parseError } from "@utils/error";
 import { httpGet, httpPut } from "@utils/fetcher";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Controller, useForm } from "react-hook-form";
@@ -27,9 +28,11 @@ const CompetitionAdminEdit = () => {
         formState: { errors },
         control,
         reset,
+        watch,
     } = useForm();
 
-    const [showForm, setShowForm] = useState(false);
+    // eslint-disable-next-line react-hooks/incompatible-library
+    const currentHeaderImageUrl = watch("header_image");
 
     useEffect(() => {
         if (competition) {
@@ -47,9 +50,6 @@ const CompetitionAdminEdit = () => {
                 register_time_start: competition.register_time_start ? new Date(competition.register_time_start) : null,
                 register_time_end: competition.register_time_end ? new Date(competition.register_time_end) : null,
             });
-
-            // eslint-disable-next-line react-hooks/set-state-in-effect
-            setShowForm(true);
         }
     }, [competition, reset]);
 
@@ -86,7 +86,7 @@ const CompetitionAdminEdit = () => {
             });
     };
 
-    if (!showForm) {
+    if (!competition) {
         return null;
     }
 
@@ -199,17 +199,32 @@ const CompetitionAdminEdit = () => {
                 ></Textarea>
 
                 <Input
-                    label="Poster image URL"
+                    label="Poster image URL (optional)"
                     type="url"
                     className="mb-6 w-full"
-                    {...register("header_image", { required: "You must add a poster for the competition" })}
+                    {...register("header_image")}
                     errorLabel={errors.header_image?.message}
                 />
 
+                {competition?.id && (
+                    <ImageUpload
+                        label="Upload poster image file (optional)"
+                        className="mb-6"
+                        currentImageUrl={
+                            competition?.header_image_file || currentHeaderImageUrl || competition?.header_image
+                        }
+                        competitionId={competition.id}
+                        onUploadSuccess={() => {
+                            // Refetch competition data to get the latest header_image_file value
+                            mutate();
+                        }}
+                    />
+                )}
+
                 <Input
-                    label="Poster image credit"
+                    label="Poster image credit (required when an image is set)"
                     className="mb-6 w-full"
-                    {...register("header_credit", { required: "You must credit the poster" })}
+                    {...register("header_credit")}
                     errorLabel={errors.header_credit?.message}
                 />
 

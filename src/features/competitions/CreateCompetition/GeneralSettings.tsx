@@ -159,18 +159,16 @@ export const GeneralSettings = ({ onForward, onPrevious }: IProps) => {
                 ></Textarea>
 
                 <Input
-                    label="Poster image URL"
+                    label="Poster image URL (optional)"
                     type="url"
-                    {...register("header_image", { required: "You must add a poster for the competition" })}
+                    {...register("header_image")}
                     errorLabel={formState.errors.header_image?.message}
                     className="mb-6 w-full"
                 />
 
                 <Input
-                    label="Poster image credits"
-                    {...register("header_credit", {
-                        required: "You must credit the poster",
-                    })}
+                    label="Poster image credits (optional)"
+                    {...register("header_credit")}
                     errorLabel={formState.errors.header_credit?.message}
                     className="w-full"
                 />

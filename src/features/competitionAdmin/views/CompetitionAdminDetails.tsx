@@ -107,6 +107,11 @@ const CompetitionAdminDetails = () => {
                     alt=""
                 />
                 <HeadingWrapper className="sm:rounded-none">{data.name}</HeadingWrapper>
+                {data.header_credit.length > 0 && (
+                    <p className="absolute right-0 bottom-0 px-4 py-2 text-sm text-gray-200 sm:top-0">
+                        Image by: {data.header_credit}
+                    </p>
+                )}
             </header>
             <section className="col-span-2 grid w-full auto-rows-min grid-cols-3 gap-4">
                 {/* <Input placeholder="Search" aria-label="Search for participant" /> */}
