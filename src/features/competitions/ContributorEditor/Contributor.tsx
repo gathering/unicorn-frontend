@@ -1,4 +1,4 @@
-import { type FormEventHandler, useState } from "react";
+import { type SubmitEventHandler, useState } from "react";
 import { toast } from "react-toastify";
 import { Input } from "../../../components/Input";
 import type { User } from "../../../context/Auth";
@@ -17,7 +17,7 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
     const iAmContributorOwner = entry.contributors.some((e) => e.is_owner && e.user.uuid === user?.uuid);
     const [inputValue, setInputValue] = useState(contributor.extra_info ?? "");
 
-    const updateContributorExtra: FormEventHandler<HTMLFormElement> = (e) => {
+    const updateContributorExtra: SubmitEventHandler<HTMLFormElement> = (e) => {
         e.preventDefault();
 
         if (!inputValue) {
