@@ -36,7 +36,7 @@ export interface ICompetition {
     genre: IGenre;
     header_image_file: string | null;
     header_image: string;
-    header_credit: string;
+    header_credit: string | null;
     sponsor_name: string;
     sponsor_logo: string;
     entries_count: number;
