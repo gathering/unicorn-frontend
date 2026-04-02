@@ -78,8 +78,8 @@ const CompetitionAdminEdit = () => {
                 mutate();
             })
             .catch((err) => {
-                toast.error("Error updating competition");
-                parseError(err).forEach((e: any) => toast.error(e));
+                toast.error("Error updating competition", { autoClose: 10_000 });
+                parseError(err).forEach((e: any) => toast.error(e, { autoClose: 10_000 }));
             });
     };
 

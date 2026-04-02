@@ -72,7 +72,7 @@ const CompetitionAdminDetails = () => {
                 setIsUpdatingPublished(undefined);
             })
             .catch((err) => {
-                parseError(err).forEach((e: any) => toast.error(e));
+                parseError(err).forEach((e: any) => toast.error(e, { autoClose: 10_000 }));
                 setIsUpdatingPublished(undefined);
             });
     };
@@ -89,7 +89,7 @@ const CompetitionAdminDetails = () => {
                 navigate("/admin/competitions");
             })
             .catch((err) => {
-                parseError(err).forEach((e: any) => toast.error(e));
+                parseError(err).forEach((e: any) => toast.error(e, { autoClose: 10_000 }));
                 setIsDeleting(false);
             });
     };

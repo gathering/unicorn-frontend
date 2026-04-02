@@ -36,7 +36,7 @@ const EditableExtraInfo = ({
                 toast.success("Contributor updated");
                 mutate();
             })
-            .catch(() => toast.error("Failed to update contributor"))
+            .catch(() => toast.error("Failed to update contributor", { autoClose: 10_000 }))
             .finally(() => setSaving(false));
     };
 
@@ -117,7 +117,7 @@ const CompetitionAdminEntry = () => {
                     mutate();
                 })
                 .catch((err) => {
-                    parseError(err).forEach((e: any) => toast.error(e));
+                    parseError(err).forEach((e: any) => toast.error(e, { autoClose: 10_000 }));
                 });
         }
     };
@@ -292,7 +292,9 @@ const CompetitionAdminEntry = () => {
                                                             toast.success("Owner updated");
                                                             mutate();
                                                         })
-                                                        .catch(() => toast.error("Failed to update owner"));
+                                                        .catch(() =>
+                                                            toast.error("Failed to update owner", { autoClose: 10_000 })
+                                                        );
                                                 }}
                                                 className="rounded bg-blue-500 px-2 py-1 text-xs text-white hover:bg-blue-600"
                                             >
@@ -308,7 +310,11 @@ const CompetitionAdminEntry = () => {
                                                             toast.success("Contributor removed");
                                                             mutate();
                                                         })
-                                                        .catch(() => toast.error("Failed to remove contributor"));
+                                                        .catch(() =>
+                                                            toast.error("Failed to remove contributor", {
+                                                                autoClose: 10_000,
+                                                            })
+                                                        );
                                                 }}
                                                 className="rounded bg-red-500 px-2 py-1 text-xs text-white hover:bg-red-600"
                                             >
