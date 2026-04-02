@@ -5,7 +5,7 @@ import { API_URL, getToken } from "../../utils/fetcher";
 
 interface Props {
     onUploadSuccess: () => void;
-    currentImageUrl?: string;
+    currentImageUrl?: string | null;
     label?: string;
     className?: string;
     competitionId: string | number;

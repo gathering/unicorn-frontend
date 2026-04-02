@@ -28,11 +28,7 @@ const CompetitionAdminEdit = () => {
         formState: { errors },
         control,
         reset,
-        watch,
     } = useForm();
-
-    // eslint-disable-next-line react-hooks/incompatible-library
-    const currentHeaderImageUrl = watch("header_image");
 
     useEffect(() => {
         if (competition) {
@@ -63,9 +59,10 @@ const CompetitionAdminEdit = () => {
             JSON.stringify({
                 ...Object.entries(formData).reduce(
                     (competitionObject, [key, value]) => {
-                        if (value !== "") {
-                            competitionObject[key] = value;
+                        if (key === "header_image_file") {
+                            return competitionObject;
                         }
+                        competitionObject[key] = value === "" ? null : value;
 
                         return competitionObject;
                     },
@@ -210,9 +207,7 @@ const CompetitionAdminEdit = () => {
                     <ImageUpload
                         label="Upload poster image file (optional)"
                         className="mb-6"
-                        currentImageUrl={
-                            competition?.header_image_file || currentHeaderImageUrl || competition?.header_image
-                        }
+                        currentImageUrl={competition?.header_image_file}
                         competitionId={competition.id}
                         onUploadSuccess={() => {
                             // Refetch competition data to get the latest header_image_file value
