@@ -55,12 +55,21 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
                     {contributorExtra && (
                         <>
                             {iAmContributorOwner || contributor.user.uuid === user?.uuid ? (
-                                <Input
-                                    required
-                                    label={contributorExtra}
-                                    value={inputValue}
-                                    onChange={(e) => setInputValue(e.target.value)}
-                                />
+                                <div>
+                                    <Input
+                                        required
+                                        label={contributorExtra}
+                                        value={inputValue}
+                                        maxLength={64}
+                                        size={64}
+                                        onChange={(e) => setInputValue(e.target.value)}
+                                    />
+                                    <p
+                                        className={`mt-1 text-sm ${inputValue.length >= 64 ? "text-red-500" : "text-gray-500"}`}
+                                    >
+                                        {inputValue.length}/64 characters
+                                    </p>
+                                </div>
                             ) : (
                                 <>
                                     {contributor.extra_info ? (

@@ -41,13 +41,19 @@ const EditableExtraInfo = ({
     };
 
     return (
-        <div className="flex items-center gap-2">
-            <input
-                type="text"
-                className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-            />
+        <div className="flex items-baseline gap-2">
+            <div>
+                <input
+                    type="text"
+                    className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700"
+                    value={value}
+                    maxLength={64}
+                    onChange={(e) => setValue(e.target.value)}
+                />
+                <p className={`mt-1 text-sm ${value.length >= 64 ? "text-red-500" : "text-gray-500"}`}>
+                    {value.length}/64 characters
+                </p>
+            </div>
             <button
                 type="button"
                 disabled={saving || value === (contributor.extra_info ?? "")}
