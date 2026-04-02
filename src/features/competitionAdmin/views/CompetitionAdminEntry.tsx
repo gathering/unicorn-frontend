@@ -7,7 +7,7 @@ import type { ICompetition, IEntry, IFile } from "@features/competitions/competi
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { hasFileupload } from "@utils/competitions";
 import { parseError } from "@utils/error";
-import { httpGet, httpPatch } from "@utils/fetcher";
+import { httpDelete, httpGet, httpPatch } from "@utils/fetcher";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router";
@@ -18,6 +18,47 @@ interface IFormData {
     preselect?: boolean;
     comment?: boolean;
 }
+
+const EditableExtraInfo = ({
+    contributor,
+    mutate,
+}: {
+    contributor: IEntry["contributors"][number];
+    mutate: () => void;
+}) => {
+    const [value, setValue] = useState(contributor.extra_info ?? "");
+    const [saving, setSaving] = useState(false);
+
+    const save = () => {
+        setSaving(true);
+        httpPatch(`competitions/contributors/${contributor.id}`, JSON.stringify({ extra_info: value }))
+            .then(() => {
+                toast.success("Contributor updated");
+                mutate();
+            })
+            .catch(() => toast.error("Failed to update contributor"))
+            .finally(() => setSaving(false));
+    };
+
+    return (
+        <div className="flex items-center gap-2">
+            <input
+                type="text"
+                className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+            />
+            <button
+                type="button"
+                disabled={saving || value === (contributor.extra_info ?? "")}
+                onClick={save}
+                className="rounded bg-green-500 px-2 py-1 text-xs text-white hover:bg-green-600 disabled:opacity-50"
+            >
+                Save
+            </button>
+        </div>
+    );
+};
 
 const CompetitionAdminEntry = () => {
     const { id, eid } = useParams<{ id: string; eid: string }>();
@@ -204,6 +245,12 @@ const CompetitionAdminEntry = () => {
                                     {competition.contributor_extra}
                                 </th>
                             )}
+                            <th
+                                scope="col"
+                                className="px-6 py-3 text-left text-xs font-medium tracking-wider uppercase"
+                            >
+                                Actions
+                            </th>
                         </tr>
                     </thead>
                     <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800">
@@ -227,8 +274,49 @@ const CompetitionAdminEntry = () => {
                                     {c.user.row}/{c.user.seat}
                                 </td>
                                 {competition.contributor_extra && (
-                                    <td className="px-6 py-4 whitespace-nowrap">{c.extra_info}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">
+                                        <EditableExtraInfo contributor={c} mutate={mutate} />
+                                    </td>
                                 )}
+                                <td className="px-6 py-4 whitespace-nowrap">
+                                    <div className="flex gap-2">
+                                        {!c.is_owner && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    httpPatch(
+                                                        `competitions/contributors/${c.id}`,
+                                                        JSON.stringify({ is_owner: true })
+                                                    )
+                                                        .then(() => {
+                                                            toast.success("Owner updated");
+                                                            mutate();
+                                                        })
+                                                        .catch(() => toast.error("Failed to update owner"));
+                                                }}
+                                                className="rounded bg-blue-500 px-2 py-1 text-xs text-white hover:bg-blue-600"
+                                            >
+                                                Make owner
+                                            </button>
+                                        )}
+                                        {!c.is_owner && (
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    httpDelete(`competitions/contributors/${c.id}`)
+                                                        .then(() => {
+                                                            toast.success("Contributor removed");
+                                                            mutate();
+                                                        })
+                                                        .catch(() => toast.error("Failed to remove contributor"));
+                                                }}
+                                                className="rounded bg-red-500 px-2 py-1 text-xs text-white hover:bg-red-600"
+                                            >
+                                                Remove
+                                            </button>
+                                        )}
+                                    </div>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
