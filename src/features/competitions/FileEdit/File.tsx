@@ -160,7 +160,7 @@ export const File = ({
                     </button>
                 )}
             </div>
-            {value.file === "archive" && value.type === "main" && (
+            {(!addNew || isDirty) && value.file === "archive" && value.type === "main" && (
                 <p className="mt-1 text-sm text-yellow-700 dark:text-yellow-300">
                     ⚠ Archive as main entry means a zip file will be used for voting and exports. Are you sure?
                 </p>
