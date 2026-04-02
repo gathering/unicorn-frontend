@@ -76,9 +76,17 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
                     )}
                 </div>
                 <div className="flex flex-1 items-end justify-end gap-4">
-                    {contributorExtra && <button className="">Update</button>}
+                    {contributorExtra && (
+                        <button className="flex h-12 items-center justify-evenly rounded-sm bg-green-300 px-4 text-base text-green-900 duration-150 hover:bg-green-700 hover:text-black hover:shadow-sm">
+                            Update
+                        </button>
+                    )}
                     {iAmContributorOwner && !contributor.is_owner && (
-                        <button onClick={removeContributor} type="button">
+                        <button
+                            onClick={removeContributor}
+                            type="button"
+                            className="flex h-12 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
+                        >
                             Remove
                         </button>
                     )}
