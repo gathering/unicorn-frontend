@@ -75,84 +75,96 @@ export const File = ({
     };
 
     return (
-        <>
-            <Select
-                onChange={(e) => updateFile(e as FileType)}
-                value={value.file}
-                label="File type"
-                options={[
-                    { label: "Music (wav, mp3, flac)", value: "music" },
-                    { label: "Archive (zip, rar)", value: "archive" },
-                    { label: "Picture (png, jpg)", value: "picture" },
-                    { label: "Video (mov, mp4)", value: "video" },
-                ]}
-            />
-            <div>
-                <Input label="Input name" value={value.input} onChange={updateInput} />
-            </div>
-            <Select
-                onChange={(e) => updateType(e as InputType)}
-                label="Input type"
-                value={value.type}
-                options={
-                    forceMain
-                        ? [
-                              {
-                                  label: "Main entry",
-                                  value: "main",
-                              },
-                          ]
-                        : [
-                              {
-                                  label: "Screenshot",
-                                  value: "screenshot",
-                              },
-                              {
-                                  label: "Progress #1",
-                                  value: "progress1",
-                              },
-                              {
-                                  label: "Progress #2",
-                                  value: "progress2",
-                              },
-                              {
-                                  label: "Progress #3",
-                                  value: "progress3",
-                              },
-                              {
-                                  label: "Other",
-                                  value: "other",
-                              },
-                          ]
-                }
-            />
+        <div>
+            <div className="flex items-end">
+                <Select
+                    onChange={(e) => updateFile(e as FileType)}
+                    value={value.file}
+                    label="File type"
+                    options={[
+                        { label: "Music (wav, mp3, flac)", value: "music" },
+                        { label: "Archive (zip, rar)", value: "archive" },
+                        { label: "Picture (png, jpg)", value: "picture" },
+                        { label: "Video (mov, mp4)", value: "video" },
+                    ]}
+                />
+                <div>
+                    <Input label="Input name" value={value.input} onChange={updateInput} />
+                </div>
+                <Select
+                    onChange={(e) => updateType(e as InputType)}
+                    label="Input type"
+                    value={value.type}
+                    options={
+                        forceMain
+                            ? [
+                                  {
+                                      label: "Main entry",
+                                      value: "main",
+                                  },
+                              ]
+                            : [
+                                  {
+                                      label: "Screenshot",
+                                      value: "screenshot",
+                                  },
+                                  {
+                                      label: "Progress #1",
+                                      value: "progress1",
+                                  },
+                                  {
+                                      label: "Progress #2",
+                                      value: "progress2",
+                                  },
+                                  {
+                                      label: "Progress #3",
+                                      value: "progress3",
+                                  },
+                                  {
+                                      label: "Other",
+                                      value: "other",
+                                  },
+                              ]
+                    }
+                />
 
-            {(isDirty || showSave) && (
-                <button
-                    type="button"
-                    onClick={onSubmit}
-                    className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
-                >
-                    Update
-                </button>
-            )}
-            {!addNew && !disableRemove && (
-                <button
-                    type="button"
-                    onClick={() => onRemove?.()}
-                    className="flex h-12 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-6 w-6"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
+                {(isDirty || showSave) && (
+                    <button
+                        type="button"
+                        onClick={onSubmit}
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-yellow-300 px-4 text-base text-yellow-900 duration-150 hover:bg-yellow-700 hover:text-black hover:shadow-sm"
                     >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
+                        Update
+                    </button>
+                )}
+                {!addNew && !disableRemove && (
+                    <button
+                        type="button"
+                        onClick={() => onRemove?.()}
+                        className="flex h-12 items-center justify-evenly rounded-sm bg-red-300 px-4 text-base text-red-900 duration-150 hover:bg-red-700 hover:text-black hover:shadow-sm"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-6 w-6"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={2}
+                                d="M6 18L18 6M6 6l12 12"
+                            />
+                        </svg>
+                    </button>
+                )}
+            </div>
+            {value.file === "archive" && value.type === "main" && (
+                <p className="mt-1 text-sm text-yellow-700 dark:text-yellow-300">
+                    ⚠ Archive as main entry means a zip file will be used for voting and exports. Are you sure?
+                </p>
             )}
-        </>
+        </div>
     );
 };

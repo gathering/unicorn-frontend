@@ -37,10 +37,14 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
         <fieldset className="mb-6">
             <legend className="mb-2">{label ?? "Upload Files"}</legend>
             <span>Remember to save the form after updating a field</span>
+            <div className="my-3 rounded-sm border border-yellow-500 bg-yellow-100 p-3 text-sm text-yellow-800 dark:border-yellow-600 dark:bg-yellow-900/30 dark:text-yellow-200">
+                <strong>Note:</strong> The file with type &quot;Main entry&quot; is used for voting and entry exports to
+                ftp.gathering.org. It should most often not be a zip file.
+            </div>
             <ul>
                 {!!value.length &&
                     value.map((val, i) => (
-                        <li key={i} className="mb-2 flex items-end">
+                        <li key={i} className="mb-2">
                             <File
                                 disableRemove={val.type === "main"}
                                 onRemove={() => removeFile(i)}
@@ -50,7 +54,7 @@ export const FileEdit = ({ label, onChange, value }: IProps) => {
                             />
                         </li>
                     ))}
-                <li className="flex items-end">
+                <li>
                     <File
                         forceMain={!value.length}
                         addNew
