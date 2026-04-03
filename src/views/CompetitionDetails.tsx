@@ -144,11 +144,11 @@ const CompetitionDetails = () => {
                     <TabGroup className="rounded-sm bg-white sm:rounded-none dark:bg-gray-800">
                         <TabList className="flex text-lg font-light">
                             {data.description && (
-                                <Tab className="data-[selected]:borger-b-2 grow border-b py-3 data-selected:border-tg-brand-orange-500">
+                                <Tab className="grow cursor-pointer border-b py-3 transition-colors duration-150 hover:bg-gray-100 data-selected:border-b-2 data-selected:border-tg-brand-orange-500 dark:hover:bg-gray-700">
                                     Information
                                 </Tab>
                             )}
-                            <Tab className="data-[selected]:borger-b-2 grow border-b py-3 data-selected:border-tg-brand-orange-500">
+                            <Tab className="grow cursor-pointer border-b py-3 transition-colors duration-150 hover:bg-gray-100 data-selected:border-b-2 data-selected:border-tg-brand-orange-500 dark:hover:bg-gray-700">
                                 Rules
                             </Tab>
                         </TabList>
