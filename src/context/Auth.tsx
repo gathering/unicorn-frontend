@@ -133,6 +133,7 @@ const userReducer = (state: State, action: Action) => {
 export const UserProvider = ({ children }: UserProviderProps) => {
     const [state, dispatch] = useReducer(userReducer, defaultState);
     const refreshTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
+    const hasInitialToken = useRef(false);
 
     const { data: user, mutate } = useSWR<User>(state.accessToken ? "accounts/users/@me" : null, httpGet);
     const { data: permissions } = useSWR<Permission[]>(state.accessToken ? "accounts/mypermissions" : null, httpGet);
@@ -149,11 +150,17 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }
     }, [permissions]);
 
-    // When the access token changes, revalidate all SWR caches.
-    // This fixes a race condition where competition data (and other API data)
-    // is fetched before auth completes, caching unauthenticated responses.
+    // On the first token acquisition, revalidate all SWR caches.
+    // This fixes a race condition where API data (e.g. competitions) is fetched
+    // before auth completes, caching unauthenticated responses.
+    // Subsequent token refreshes only update the cookie — no need to revalidate,
+    // as that would reset forms the user may be editing.
     useEffect(() => {
         if (state.accessToken) {
+            if (hasInitialToken.current) {
+                return;
+            }
+            hasInitialToken.current = true;
             globalMutate(() => true);
         }
     }, [state.accessToken]);
