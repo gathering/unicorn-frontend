@@ -9,6 +9,7 @@ import { Link as ULink } from "../components/Link";
 import { Select } from "../components/Select";
 import { View } from "../components/View";
 import { useUserState } from "../context/Auth";
+import { hasPreRegistration } from "../utils/competitions";
 import { httpGet } from "../utils/fetcher";
 import { hasPermission, Permission } from "../utils/permissions";
 
@@ -50,6 +51,13 @@ const CompetitionsOverview: React.FC = () => {
     const genreOptions = [{ label: "All genres", value: "__all__" }, ...options];
     const [genre, setGenre] = useState(genreOptions[0].value);
 
+    const statusOptions = [
+        { label: "All statuses", value: "__all__" },
+        { label: "Open for registration", value: "registration" },
+        { label: "Open for voting", value: "voting" },
+    ];
+    const [status, setStatus] = useState(statusOptions[0].value);
+
     // const featuredCompetitions = useMemo(() => competitions.filter((c) => c.featured), [competitions]);
 
     const filteredCompetitions = useMemo(
@@ -57,8 +65,15 @@ const CompetitionsOverview: React.FC = () => {
             competitions
                 .filter((c) => c.name.toLowerCase().includes(search.toLowerCase()))
                 .filter((c) => (!genre ? true : genre === "__all__" ? true : genre === c.genre.id.toString()))
+                .filter((c) => {
+                    if (!status || status === "__all__") return true;
+                    if (status === "registration")
+                        return c.state.value === 2 || (c.state.value === 8 && !hasPreRegistration(c));
+                    if (status === "voting") return c.state.value === 32;
+                    return true;
+                })
                 .filter((c) => c.published),
-        [competitions, search, genre]
+        [competitions, search, genre, status]
     );
 
     return (
@@ -90,6 +105,9 @@ const CompetitionsOverview: React.FC = () => {
                     />
 
                     <Select options={genreOptions} label="Select genre" value={genre} onChange={setGenre} />
+                    <div className="mt-6">
+                        <Select options={statusOptions} label="Select status" value={status} onChange={setStatus} />
+                    </div>
                     {hasPermission(
                         [
                             Permission.CompetitionsChangeCompetition,
