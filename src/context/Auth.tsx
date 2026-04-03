@@ -1,8 +1,8 @@
 import dayjs from "dayjs";
 import cookie from "js-cookie";
-import React, { createContext, useContext, useEffect, useReducer } from "react";
+import React, { createContext, useContext, useEffect, useReducer, useRef } from "react";
 import { useNavigate } from "react-router";
-import useSWR from "swr";
+import useSWR, { mutate as globalMutate } from "swr";
 import { httpGet, loginWithCode, loginWithRefreshToken } from "../utils/fetcher";
 import type { Permission } from "../utils/permissions";
 
@@ -132,6 +132,7 @@ const userReducer = (state: State, action: Action) => {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
     const [state, dispatch] = useReducer(userReducer, defaultState);
+    const refreshTimerRef = useRef<ReturnType<typeof setTimeout>>(undefined);
 
     const { data: user, mutate } = useSWR<User>(state.accessToken ? "accounts/users/@me" : null, httpGet);
     const { data: permissions } = useSWR<Permission[]>(state.accessToken ? "accounts/mypermissions" : null, httpGet);
@@ -148,6 +149,15 @@ export const UserProvider = ({ children }: UserProviderProps) => {
         }
     }, [permissions]);
 
+    // When the access token changes, revalidate all SWR caches.
+    // This fixes a race condition where competition data (and other API data)
+    // is fetched before auth completes, caching unauthenticated responses.
+    useEffect(() => {
+        if (state.accessToken) {
+            globalMutate(() => true);
+        }
+    }, [state.accessToken]);
+
     useEffect(() => {
         if (window.location.pathname.startsWith("/login") || window.location.pathname.startsWith("/logout")) {
             return;
@@ -158,6 +168,32 @@ export const UserProvider = ({ children }: UserProviderProps) => {
             cookie.remove(REFRESH_TOKEN);
             cookie.remove(ACCESS_TOKEN);
             return;
+        }
+
+        function scheduleRefresh(expiresIn: number) {
+            if (refreshTimerRef.current) {
+                clearTimeout(refreshTimerRef.current);
+            }
+
+            // Refresh 60 seconds before expiry, with a minimum of 10 seconds
+            const refreshIn = Math.max((expiresIn - 60) * 1000, 10_000);
+            refreshTimerRef.current = setTimeout(() => {
+                const rt = cookie.get(REFRESH_TOKEN);
+                if (!rt) return;
+
+                loginWithRefreshToken(rt)
+                    .then((d) => {
+                        cookie.set(REFRESH_TOKEN, d.refresh_token, { expires: 5 });
+                        cookie.set(ACCESS_TOKEN, d.access_token, {
+                            expires: dayjs(new Date()).add(d.expires_in, "seconds").toDate(),
+                        });
+                        dispatch({ type: "SET_ACCESS_TOKEN", token: d.access_token });
+                        scheduleRefresh(d.expires_in);
+                    })
+                    .catch(() => {
+                        dispatch({ type: "LOGOUT" });
+                    });
+            }, refreshIn);
         }
 
         dispatch({ type: "SET_FETCH_STATUS", status: "pending" });
@@ -173,11 +209,18 @@ export const UserProvider = ({ children }: UserProviderProps) => {
 
                 dispatch({ type: "SET_FETCH_STATUS", status: "resolved" });
                 dispatch({ type: "SET_ACCESS_TOKEN", token: d.access_token });
+                scheduleRefresh(d.expires_in);
             })
             .catch(() => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "rejected" });
                 dispatch({ type: "SET_ACCESS_TOKEN" });
             });
+
+        return () => {
+            if (refreshTimerRef.current) {
+                clearTimeout(refreshTimerRef.current);
+            }
+        };
     }, []);
 
     return (
