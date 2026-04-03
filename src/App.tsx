@@ -1,11 +1,15 @@
+import { ArrowPathIcon } from "@heroicons/react/20/solid";
 import { motion } from "framer-motion";
 import { useMemo } from "react";
 import { Link, Outlet } from "react-router";
 import { ToastContainer } from "react-toastify";
 import { ErrorBoundary } from "./components/ErrorBoundary";
 import { useUserState } from "./context/Auth";
+import { useNewVersionCheck } from "./hooks/useNewVersionCheck";
 
 const App = () => {
+    const hasNewVersion = useNewVersionCheck();
+
     const { user, accessToken } = useUserState();
     const loginUrl = useMemo(() => {
         const url = new URL(import.meta.env.VITE_APP_API + "/oauth/authorize/");
@@ -24,32 +28,44 @@ const App = () => {
                         <img src="/images/tg_logo_liten.png" className="ml-1 inline w-16" alt="Back to homepage" />
                     </Link>
 
-                    {accessToken ? (
-                        <motion.div className="flex" initial="rest" whileHover="hover" animate="rest">
-                            <Link
-                                to="/preferences"
-                                className="ml-6 flex items-center rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                    <div className="flex items-center">
+                        {hasNewVersion && (
+                            <button
+                                onClick={() => window.location.reload()}
+                                title="A new version is available — click to refresh"
+                                className="ml-4 rounded-md p-1.5 text-amber-600 transition-colors hover:bg-amber-100 dark:text-amber-400 dark:hover:bg-amber-900"
                             >
-                                {user?.display_name}
-                            </Link>
+                                <ArrowPathIcon className="h-5 w-5" />
+                            </button>
+                        )}
+
+                        {accessToken ? (
+                            <motion.div className="flex" initial="rest" whileHover="hover" animate="rest">
+                                <Link
+                                    to="/preferences"
+                                    className="ml-6 flex items-center rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                >
+                                    {user?.display_name}
+                                </Link>
+                                <a
+                                    href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
+                                        window.location.origin
+                                    }/logout`}
+                                    className="ml-6 rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                >
+                                    Logout
+                                </a>
+                            </motion.div>
+                        ) : (
                             <a
-                                href={`${import.meta.env.VITE_APP_API}/accounts/logout/?next=${
-                                    window.location.origin
-                                }/logout`}
-                                className="ml-6 rounded-xs p-1 px-2 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
+                                className="mx-3 border-b-2 border-transparent px-1 pt-1 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out hover:border-orange-500 hover:text-black dark:text-gray-300 dark:hover:text-white"
+                                href={loginUrl}
+                                rel="noreferrer noopener"
                             >
-                                Logout
+                                Log in
                             </a>
-                        </motion.div>
-                    ) : (
-                        <a
-                            className="mx-3 border-b-2 border-transparent px-1 pt-1 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out hover:border-orange-500 hover:text-black dark:text-gray-300 dark:hover:text-white"
-                            href={loginUrl}
-                            rel="noreferrer noopener"
-                        >
-                            Log in
-                        </a>
-                    )}
+                        )}
+                    </div>
                 </nav>
 
                 <Outlet />
