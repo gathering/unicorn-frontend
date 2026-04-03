@@ -172,7 +172,44 @@ const CompetitionAdminDetails = () => {
                                         <h3 className="pb-4 font-medium">{e.title}</h3>
                                         <p className="font-light">{e.owner?.display_name}</p>
                                     </section>
-                                    <span title={entryStateColors.find((c) => c.value === e.status.value)?.label}>
+                                    {data.fileupload.length > 0 &&
+                                        (() => {
+                                            const activeCount = e.files.filter((f: any) => f.active).length;
+                                            const expected = data.fileupload.length;
+                                            const colorClass =
+                                                activeCount === 0
+                                                    ? "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300"
+                                                    : activeCount >= expected
+                                                      ? "bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300"
+                                                      : "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/40 dark:text-yellow-300";
+                                            return (
+                                                <span
+                                                    className={`mr-auto flex items-center gap-1 rounded-md px-2 py-0.5 text-sm ${colorClass}`}
+                                                    title={`${activeCount} of ${expected} files uploaded`}
+                                                >
+                                                    <svg
+                                                        className="h-4 w-4"
+                                                        xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none"
+                                                        viewBox="0 0 24 24"
+                                                        stroke="currentColor"
+                                                        strokeWidth={2}
+                                                    >
+                                                        <path
+                                                            strokeLinecap="round"
+                                                            strokeLinejoin="round"
+                                                            d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                                                        />
+                                                    </svg>
+                                                    {activeCount}/{expected}
+                                                </span>
+                                            );
+                                        })()}
+
+                                    <span
+                                        className="ml-8"
+                                        title={entryStateColors.find((c) => c.value === e.status.value)?.label}
+                                    >
                                         <svg
                                             className={`${
                                                 entryStateColors.find((c) => c.value === e.status.value)?.bg
