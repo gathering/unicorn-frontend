@@ -47,11 +47,11 @@ const EditableExtraInfo = ({
                     type="text"
                     className="rounded border border-gray-300 px-2 py-1 text-sm dark:border-gray-600 dark:bg-gray-700"
                     value={value}
-                    maxLength={64}
+                    maxLength={128}
                     onChange={(e) => setValue(e.target.value)}
                 />
-                <p className={`mt-1 text-sm ${value.length >= 64 ? "text-red-500" : "text-gray-500"}`}>
-                    {value.length}/64 characters
+                <p className={`mt-1 text-sm ${value.length >= 128 ? "text-red-500" : "text-gray-500"}`}>
+                    {value.length}/128 characters
                 </p>
             </div>
             <button

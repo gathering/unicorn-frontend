@@ -60,14 +60,14 @@ export const Contributor = ({ contributor, contributorExtra, user, entry, revali
                                         required
                                         label={contributorExtra}
                                         value={inputValue}
-                                        maxLength={64}
+                                        maxLength={128}
                                         size={64}
                                         onChange={(e) => setInputValue(e.target.value)}
                                     />
                                     <p
-                                        className={`mt-1 text-sm ${inputValue.length >= 64 ? "text-red-500" : "text-gray-500"}`}
+                                        className={`mt-1 text-sm ${inputValue.length >= 128 ? "text-red-500" : "text-gray-500"}`}
                                     >
-                                        {inputValue.length}/64 characters
+                                        {inputValue.length}/128 characters
                                     </p>
                                 </div>
                             ) : (
