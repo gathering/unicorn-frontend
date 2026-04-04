@@ -43,6 +43,12 @@ const Content = ({
                 <div className="mb-6 text-right">
                     <a
                         href={loginUrl}
+                        onClick={() =>
+                            sessionStorage.setItem(
+                                "unicorn_login_redirect",
+                                window.location.pathname + window.location.search
+                            )
+                        }
                         className="rounded-xs p-2 px-1 text-indigo-700 underline transition-all duration-150 hover:bg-indigo-200 hover:text-indigo-900 dark:text-indigo-300 dark:hover:bg-indigo-700 dark:hover:text-indigo-100"
                     >
                         Log in to register

@@ -280,7 +280,9 @@ export const useLogin = (code: string | null) => {
 
                 dispatch({ type: "SET_FETCH_STATUS", status: "resolved" });
                 dispatch({ type: "SET_ACCESS_TOKEN", token: d.access_token });
-                navigate("/");
+                const redirectPath = sessionStorage.getItem("unicorn_login_redirect");
+                sessionStorage.removeItem("unicorn_login_redirect");
+                navigate(redirectPath && redirectPath.startsWith("/") ? redirectPath : "/");
             })
             .catch(() => {
                 dispatch({ type: "SET_FETCH_STATUS", status: "rejected" });

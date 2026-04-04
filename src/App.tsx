@@ -60,6 +60,12 @@ const App = () => {
                             <a
                                 className="mx-3 border-b-2 border-transparent px-1 pt-1 text-xl leading-8 text-gray-800 transition duration-200 ease-in-out hover:border-orange-500 hover:text-black dark:text-gray-300 dark:hover:text-white"
                                 href={loginUrl}
+                                onClick={() =>
+                                    sessionStorage.setItem(
+                                        "unicorn_login_redirect",
+                                        window.location.pathname + window.location.search
+                                    )
+                                }
                                 rel="noreferrer noopener"
                             >
                                 Log in

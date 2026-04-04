@@ -5,6 +5,7 @@ export const Logout = () => {
     const dispatch = useUserDispatch();
 
     dispatch({ type: "LOGOUT" });
+    sessionStorage.removeItem("unicorn_login_redirect");
 
     return (
         <p className="m-4">

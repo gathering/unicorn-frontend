@@ -61,6 +61,12 @@ export const ProtectedRoute: React.FC<React.PropsWithChildren<Props>> = ({
                 <p className="text-xl text-gray-600 dark:text-gray-300">Log in to continue</p>
                 <a
                     href={loginUrl}
+                    onClick={() =>
+                        sessionStorage.setItem(
+                            "unicorn_login_redirect",
+                            window.location.pathname + window.location.search
+                        )
+                    }
                     className="mt-4 text-lg text-indigo-600 underline hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-200"
                 >
                     Log in
